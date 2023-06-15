@@ -264,15 +264,28 @@ Demographic$AdoptionFlag = factor(as.numeric(Demographic$AdoptionFlag),
                                   labels = c('No',
                                              'Yes'),
                                      ordered = F)
+Demographic$Education_5L = factor(Demographic$EducationR,ordered = F)
 
 # 4. Re-name and re-order variables ----------------------------------------------------
 select(Demographic,-c(ParentMaritalC,ParentMarital,ParentsEdu)) %>%
-  rename()
-
+  rename(ParentsMarita_X_Employ = ParentsMaritalEmploy,
+         SiteID = site_id_l,
+         Education_R = EducationR,
+         Education_11L = EducationC) %>% 
+  select(c(subjectkey,interview_age,eventname,interview_date,
+           SessionType,sex,Education_5L,
+           Race_6L,Ethnicity_PrntRep,Handedness,BMI_calc,
+           ParentsMarital_2L,ParentsHighEdu_2L,ParentsMarita_X_Employ,
+           Relationship_3L,HouseholdStructure,HouseholdSize,FamilyIncome,
+           Religon_2L,BirthCountry,AdoptionFlag,GenderIdentity_PrntRep,SexAssigned,
+           FamilyID,SiteID,ACS_weight,
+           everything())) -> Demographic
+Demographic$Education_R <- as.numeric(Demographic$Education_R)
 
 sapply(Demographic, typeof) # print data type
 sapply(Demographic, class)
-
-# saveRDS(Demographic,'I:\\ABCDStudyNDA\\ABCD_DataAnalysis_4.0\\DataPreprocessing\\ABCD4.0_Demographic_factor.rds')
+saveRDS(Demographic,fullfile(ProjectDirectory,'Res_3_IntermediateData','ABCD4.0_Demographics_Recode.rds'))
+write.csv(Demographic,fullfile(ProjectDirectory,'Res_3_IntermediateData','ABCD4.0_Demographics_Recode.csv'),
+          fileEncoding = 'UTF-8')
 
 
