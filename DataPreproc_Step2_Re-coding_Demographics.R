@@ -30,38 +30,40 @@ ProjectDirectory = '../DataAnalysis/SMA_Trajectory'
 Prefix = 'ABCD5.0'
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_2.txt'
 # ==============================MAIN CODES=====================================#
+AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
+sink(file = AutoLogFilePath)
 # 2. Read RDS-file and print all columns data type ----------------------------
 Demographic = readRDS(fullfile(ProjectDirectory,
                                'Res_3_IntermediateData',
-                               'ABCD4.0_Demographics_Raw.rds'))
+                               str_c(Prefix,'_Demographics_Raw.rds')))
 sapply(Demographic, typeof)
 # 3. Re-coding Individual Key Demographics -----------------------------------
-Demographic$sex = factor(Demographic$sex,
-                         levels = c('F','M'),
-                         labels = c('Female','Male'))
+Demographic$SexAssigned = factor(Demographic$SexAssigned,
+                         levels = c('Female','Male','Intersex-Male'))
+Demographic$SexAssigned = droplevels(fct_collapse(Demographic$SexAssigned,
+                                       Male = c('Male','Intersex-Male')))
+print(table(Demographic$SexAssigned))
 Demographic$EducationR = RECODE(Demographic$EducationC,
                                 "c('KINDERGARTEN','1ST GRADE','2ND GRADE')='2ND GRADE or less';
-                                c('6TH GRADE','7TH GRADE','10TH GRADE','12TH GRADE')='6TH GRADE or more'")
+                                c('10TH GRADE','11TH GRADE','12TH GRADE')='10TH GRADE or more'")
 Demographic$EducationR = factor(Demographic$EducationR,
                                 levels = c('2ND GRADE or less',
                                            '3RD GRADE','4TH GRADE','5TH GRADE',
-                                           '6TH GRADE or more'),
+                                           '6TH GRADE','7TH GRADE','8TH GRADE',
+                                           '9TH GRADE',
+                                           '10TH GRADE or more'),
                                 ordered = T)
+print(table(Demographic$EducationR))
 Demographic$EducationC = factor(Demographic$EducationC,
                                 levels = c('KINDERGARTEN','1ST GRADE',
                                            '2ND GRADE','3RD GRADE',
                                            '4TH GRADE','5TH GRADE',
                                            '6TH GRADE','7TH GRADE',
+                                           '8TH GRADE','9TH GRADE',
                                            '10TH GRADE','11TH GRADE',
                                            '12TH GRADE'),
                                 ordered = F)
-Demographic$SexAssigned = droplevels(
-                            factor(Demographic$SexAssigned,
-                                 levels = c('Female',
-                                            'Male',
-                                            'Intersex-Male',
-                                            'Intersex-Female'),
-                                 ordered = F))
+print(table(Demographic$EducationC))
 Demographic$GenderIdentity_PrntRep = factor(Demographic$GenderIdentity_PrntRep,
                                             levels = c('Female',
                                                        'Male',
@@ -70,6 +72,16 @@ Demographic$GenderIdentity_PrntRep = factor(Demographic$GenderIdentity_PrntRep,
                                                        'Gender queer',
                                                        'Different'),
                                             ordered = F)
+print(table(Demographic$GenderIdentity_PrntRep))
+Demographic$GenderIdentity_PrntSelf = factor(Demographic$GenderIdentity_PrntSelf,
+                                            levels = c('Female',
+                                                       'Male',
+                                                       'Trans female',
+                                                       'Trans male',
+                                                       'Gender queer',
+                                                       'Different'),
+                                            ordered = F)
+print(table(Demographic$GenderIdentity_PrntSelf))
 Demographic$Race_PrntRep = factor(Demographic$Race_PrntRep,
                                   levels = c('White',
                                              'Black',
@@ -79,24 +91,39 @@ Demographic$Race_PrntRep = factor(Demographic$Race_PrntRep,
                                              'Mixed',
                                              'Other'),
                                   ordered = F)
+print(table(Demographic$Race_PrntRep))
 Demographic$Race_4L = fct_collapse(Demographic$Race_PrntRep,
                                    `Mixed/Other` = c('AIAN',
                                                      'NHPI',
                                                      'Mixed',
                                                      'Other'))
+print(table(Demographic$Race_4L))
 Demographic$Race_6L = fct_collapse(Demographic$Race_PrntRep,
                                    `Mixed/Other` = c('Other',
                                                      'Mixed'))
+print(table(Demographic$Race_6L))
+Demographic$Race_PrntSelf = factor(Demographic$Race_PrntSelf,
+                                   levels = c('White',
+                                              'Black',
+                                              'Asian',
+                                              'AIAN',
+                                              'NHPI',
+                                              'Mixed',
+                                              'Other'),
+                                   ordered = F)
+print(table(Demographic$Race_PrntSelf))
 Demographic$Ethnicity_PrntRep = factor(Demographic$Ethnicity_PrntRep,
                                        levels = c('No',
                                                   'Hispanic/Latino/Latina'),
                                        labels = c('Non-hispanic',
                                                   'Hispanic'),
                                        ordered = F)
+print(table(Demographic$Ethnicity_PrntRep))
 Demographic$BirthCountry = factor(Demographic$BirthCountry,
                                   levels = c('Other',
                                              'USA'),
                                   ordered = F)
+print(table(Demographic$BirthCountry))
 Demographic$Religon_PrntRep = factor(Demographic$Religon_PrntRep,
                                 levels = c('Nothing in Particular',
                                            'Atheist',
@@ -116,6 +143,7 @@ Demographic$Religon_PrntRep = factor(Demographic$Religon_PrntRep,
                                            'Unitarian',
                                            'Something else'),
                                 ordered = F)
+print(table(Demographic$Religon_PrntRep))
 Demographic$Religon_8L = fct_collapse(Demographic$Religon_PrntRep,
                                       `Eastern Asian` = c('Buddhist','Hindu'),
                                       Christianity = c('Evangelical Protestant',
@@ -127,6 +155,7 @@ Demographic$Religon_8L = fct_collapse(Demographic$Religon_PrntRep,
                                                        'Roman Catholic',
                                                        'Unitarian',
                                                        'Other Christian'))
+print(table(Demographic$Religon_8L))
 Demographic$Religon_2L = fct_collapse(Demographic$Religon_8L,
                                      Yes = c('Eastern Asian',
                                              'Christianity',
@@ -136,7 +165,8 @@ Demographic$Religon_2L = fct_collapse(Demographic$Religon_8L,
                                      No = c('Nothing in Particular',
                                             'Atheist',
                                             'Agnostic'))
-Demographic$ParentsMarital_6L = factor(Demographic$ParentMaritalC,
+print(table(Demographic$Religon_2L))
+Demographic$ParentsMarital_6L = factor(Demographic$ParentsMarital,
                                     levels = c('Married',
                                                'Living with partner',
                                                'Divorced',
@@ -144,13 +174,12 @@ Demographic$ParentsMarital_6L = factor(Demographic$ParentMaritalC,
                                                'Widowed',
                                                'Never married'),
                                     ordered = F)
-Demographic$ParentsMarital_2L = fct_collapse(Demographic$ParentsMarital_6L,
-                                             `Married or living with partner` = c('Married',
-                                                                                  'Living with partner'),
-                                             Other = c('Divorced',
-                                                       'Separated',
-                                                       'Widowed',
-                                                       'Never married'))
+print(table(Demographic$ParentsMarital))
+Demographic$ParentsMarital_2L = factor(Demographic$ParentsMarital_2L,
+                                       levels = c('Married or living with partner',
+                                                  'Single'),
+                                       ordered = F)
+print(table(Demographic$ParentsMarital_2L))
 Demographic$ParentsHighEdu_5L = factor(Demographic$ParentsEdu,
                                     levels = c('< HS Diploma',
                                                'HS Diploma/GED',
@@ -158,6 +187,7 @@ Demographic$ParentsHighEdu_5L = factor(Demographic$ParentsEdu,
                                                'Bachelor',
                                                'Post Graduate Degree'),
                                 ordered = F)
+print(table(Demographic$ParentsHighEdu_5L))
 Demographic$ParentsHighEdu_2L = fct_collapse(Demographic$ParentsHighEdu_5L,
                                              `High school or less` = c('< HS Diploma',
                                                                          'HS Diploma/GED'),
@@ -165,13 +195,15 @@ Demographic$ParentsHighEdu_2L = fct_collapse(Demographic$ParentsHighEdu_5L,
                                                                      'Bachelor',
                                                                      'Post Graduate Degree'),
                                              )
-Demographic$ParentsMaritalEmploy = factor(Demographic$ParentsMaritalEmploy,
+print(table(Demographic$ParentsHighEdu_2L))
+Demographic$ParentsMaritalXEmploy = factor(Demographic$ParentsMaritalXEmploy,
                                           levels = c('Married, 2 in LF',
                                                      'Married, 1 in LF',
                                                      'Married, 0 in LF',
                                                      'Single, in LF',
                                                      'Single, Not in LF'),
                                           ordered = F)
+print(table(Demographic$ParentsMaritalXEmploy))
 Demographic$FamilyIncome = factor(Demographic$FamilyIncome,
                                   levels = c('<$25k',
                                              '$25k-$49k',
@@ -180,17 +212,20 @@ Demographic$FamilyIncome = factor(Demographic$FamilyIncome,
                                              '$100k-$199k',
                                              '$200k+'),
                                   ordered = T)
+print(table(Demographic$FamilyIncome))
 Demographic$HouseholdSize = factor(Demographic$HouseholdSize,
-                                   levels = c('2 to 3',
+                                   levels = c('3 and below',
                                               '4',
                                               '5',
                                               '6',
-                                              '7+'),
+                                              '7 and more'),
                                    ordered = T)
+print(table(Demographic$HouseholdSize))
 Demographic$HouseholdStructure = factor(Demographic$HouseholdStructure,
                                         levels = c('Single household',
-                                                   'Another household'),
+                                                   'Non-single household'),
                                         ordered = F)
+print(table(Demographic$HouseholdStructure))
 Demographic$RaceEthnicity = factor(Demographic$RaceEthnicity,
                                    levels = c('White',
                                               'Black',
@@ -198,100 +233,131 @@ Demographic$RaceEthnicity = factor(Demographic$RaceEthnicity,
                                               'Hispanic',
                                               'Other'),
                                    ordered = F)
+print(table(Demographic$RaceEthnicity))
 Demographic$Relationship = factor(Demographic$Relationship,
-                                  levels = c('single',
-                                             'sibling',
-                                             'twin',
-                                             'triplet'),
+                                  levels = c('Single',
+                                             'Sibling',
+                                             'Twin',
+                                             'Triplet'),
                                   ordered = F)
+print(table(Demographic$Relationship))
 Demographic$Relationship_3L = fct_collapse(Demographic$Relationship,
-                                           `twin or triplet` = c('twin',
-                                                                 'triplet'))
+                                           `Twin/Triplet` = c('Twin',
+                                                              'Triplet'))
+print(table(Demographic$Relationship_3L))
 Demographic$Handedness = factor(Demographic$Handedness,
                                 levels = c('Right',
                                            'Left',
                                            'Mixed'),
                                 ordered = F)
-Demographic$SessionType = factor(Demographic$SessionType,
-                                levels = c('In-person',
-                                           'Remote',
-                                           'Hybrid',
-                                           'Uncertain'),
+print(table(Demographic$Handedness))
+Demographic$VisitType = factor(Demographic$VisitType,
+                                levels = c('on-site',
+                                           'remote',
+                                           'hybrid'),
+                               labels = c('On-site','Remote','Hybrid'),
                                 ordered = F)
+print(table(Demographic$VisitType))
 Demographic$ParentEmploy = factor(Demographic$ParentEmploy,
                                   levels = c('Working',
                                              'Non-working'),
                                   ordered = F)
+print(table(Demographic$ParentEmploy))
 Demographic$PartnerEmploy = factor(Demographic$PartnerEmploy,
                                   levels = c('Working',
                                              'Non-working'),
                                   ordered = F)
+print(table(Demographic$PartnerEmploy))
 Demographic$ParentHighEdu = factor(Demographic$ParentHighEdu,
-                                  levels = c('high school or less',
-                                             'Colleage'),
-                                  labels = c('High school or less',
-                                             'College education'),
+                                   levels = c('< HS Diploma',
+                                              'HS Diploma/GED',
+                                              'Some College',
+                                              'Bachelor',
+                                              'Post Graduate Degree'),
                                   ordered = F)
+print(table(Demographic$ParentHighEdu))
 Demographic$PartnerHighEdu = factor(Demographic$PartnerHighEdu,
-                                   levels = c('high school or less',
-                                              'Colleage or more'),
-                                   labels = c('High school or less',
-                                              'College Education'),
+                                    levels = c('< HS Diploma',
+                                               'HS Diploma/GED',
+                                               'Some College',
+                                               'Bachelor',
+                                               'Post Graduate Degree'),
                                    ordered = F)
-Demographic$GeneInfo_Zygosity_SubID_1 = factor(Demographic$GeneInfo_Zygosity_SubID_1,
+print(table(Demographic$PartnerHighEdu))
+Demographic$GI_Zygosity_Sub_1 = factor(Demographic$GI_Zygosity_Sub_1,
                                    levels = c('Monozygotic',
                                               'Dizygotic',
                                               'Sibling'),
                                    ordered = F)
-Demographic$GeneInfo_Zygosity_SubID_2 = factor(Demographic$GeneInfo_Zygosity_SubID_2,
+print(table(Demographic$GI_Zygosity_Sub_1))
+Demographic$GI_Zygosity_Sub_2 = factor(Demographic$GI_Zygosity_Sub_2,
                                                levels = c('Monozygotic',
                                                           'Dizygotic',
                                                           'Sibling'),
                                                ordered = F)
-Demographic$GeneInfo_Zygosity_SubID_3 = factor(Demographic$GeneInfo_Zygosity_SubID_3,
+print(table(Demographic$GI_Zygosity_Sub_2))
+Demographic$GI_Zygosity_Sub_3 = factor(Demographic$GI_Zygosity_Sub_3,
                                                levels = c('Monozygotic',
                                                           'Dizygotic',
                                                           'Sibling'),
                                                ordered = F)
-Demographic$GeneInfo_Zygosity_SubID_4 = factor(Demographic$GeneInfo_Zygosity_SubID_4,
+print(table(Demographic$GI_Zygosity_Sub_3))
+Demographic$GI_Zygosity_Sub_4 = factor(Demographic$GI_Zygosity_Sub_4,
                                                levels = c('Monozygotic',
                                                           'Dizygotic',
                                                           'Sibling'),
                                                ordered = F)
-Demographic$SameSexTwinFlag = factor(Demographic$SameSexTwinFlag,
+print(table(Demographic$GI_Zygosity_Sub_4))
+Demographic$SameSexTwin = factor(Demographic$SameSexTwin,
                                                levels = c('No',
                                                           'Yes'),
                                                ordered = F)
-Demographic$AdoptionFlag = factor(as.numeric(Demographic$AdoptionFlag),
+print(table(Demographic$SameSexTwin))
+Demographic$AdoptionFlag = factor(Demographic$AdoptionFlag,
                                      levels = c(0,
                                                 1),
                                   labels = c('No',
                                              'Yes'),
                                      ordered = F)
-Demographic$Education_5L = factor(Demographic$EducationR,ordered = F)
-
+print(table(Demographic$AdoptionFlag))
+Demographic$YouthNativeLang = factor(Demographic$YouthNativeLang,
+                                  levels = c('English',
+                                             'Other'),
+                                  ordered = F)
+print(table(Demographic$YouthNativeLang))
 # 4. Re-name and re-order variables -----------------------------------------
-select(Demographic,-c(ParentMaritalC,ParentMarital,ParentsEdu)) %>%
-  rename(ParentsMarita_X_Employ = ParentsMaritalEmploy,
-         SiteID = site_id_l,
+select(Demographic,-c(ParentsEdu,ParentsMarital)) %>%
+  rename(ParentsMarital_X_Employ = ParentsMaritalXEmploy,
+         BMI = BMI_calc,
          Education_R = EducationR,
-         Education_11L = EducationC) %>% 
-  select(c(subjectkey,interview_age,eventname,interview_date,
-           SessionType,sex,Education_5L,
-           Race_6L,Ethnicity_PrntRep,Handedness,BMI_calc,
-           ParentsMarital_2L,ParentsHighEdu_2L,ParentsMarita_X_Employ,
+         Education_13L = EducationC,
+         FamilyNumInLF = NumInLF,
+         AdoptionChild = AdoptionFlag,
+         ) %>% 
+  select(c(src_subject_id,interview_age,eventname,interview_date,SexAssigned,
+           VisitType,Education_13L,
+           SiteID,FamilyID,GroupID,SchoolID,DistrictID,ACS_weight,
+           Race_6L,Ethnicity_PrntRep,Handedness,BMI,
+           ParentsMarital_2L,ParentsHighEdu_2L,ParentsMarital_X_Employ,
            Relationship_3L,HouseholdStructure,HouseholdSize,FamilyIncome,
-           Religon_2L,BirthCountry,AdoptionFlag,GenderIdentity_PrntRep,SexAssigned,
-           FamilyID,SiteID,ACS_weight,
+           Religon_2L,BirthCountry,AdoptionChild,GenderIdentity_PrntRep,
            everything())) -> Demographic
-Demographic$Education_R <- as.numeric(Demographic$Education_R)
-
-sapply(Demographic, typeof) # print data type
-sapply(Demographic, class)
+print(sapply(Demographic, typeof)) # print data type
+print(sapply(Demographic, class))
 
 # 5. Save Results ----------------------------------------------------
-saveRDS(Demographic,fullfile(ProjectDirectory,'Res_3_IntermediateData','ABCD4.0_Demographics_Recode.rds'))
-write.csv(Demographic,fullfile(ProjectDirectory,'Res_3_IntermediateData','ABCD4.0_Demographics_Recode.csv'),
+OutputFileDir = fullfile(ProjectDirectory,'Res_3_IntermediateData',
+                         paste(Prefix,'Demographics_Recode.rds',sep = '_'))
+cat(sprintf('Recoded Demographics Data will be saved into: %s\n',OutputFileDir))
+saveRDS(Demographic,OutputFileDir)
+cat(sprintf('Saving Data into RDS File: %s......\nFinished!\n',OutputFileDir))
+OutputFileDir = fullfile(ProjectDirectory,'Res_3_IntermediateData',
+                         paste(Prefix,'Demographics_Recode.csv',sep = '_'))
+write.csv(Demographic,OutputFileDir,
           fileEncoding = 'UTF-8')
+cat(sprintf('Saving Data into CSV File: %s......\nFinished!\n',OutputFileDir))
 
+# End of script -----------------------------------------------------------
+cat("SDPP-ABCD-TabDat Step 2 finished!\n")
+sink()
 

@@ -686,7 +686,7 @@ BOCF.Variables(Demographic,'baseline_year_1_arm_1','AdoptionFlag') %>%
   BOCF.Variables('baseline_year_1_arm_1','FamilyID') %>%
   BOCF.Variables('baseline_year_1_arm_1','BirthID') %>%
   BOCF.Variables('baseline_year_1_arm_1','Handedness') %>%
-  BOCF.Variables('baseline_year_1_arm_1','YouthNativeLang') -> Demographic
+  BOCF.Variables('1_year_follow_up_y_arm_1','YouthNativeLang') -> Demographic
 
 # 10. Set Columns Data Type and Re-order Columns ---------------------------
 sapply(Demographic, typeof)
