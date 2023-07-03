@@ -6,12 +6,16 @@
 # Informatics Resource Center (ABCD-DAIRC at UCSD).
 # 2. Reference Link (Github Repository from ABCD-DAIRC):
 # https://github.com/ABCD-STUDY/analysis-nda
-# 3. Target File: pdem02.txt; acspsw03.txt; abcd_ehis01.txt; abcd_ant01.txt.
+# 3. Target File
+# ABCD 4.0: pdem02.txt; acspsw03.txt; abcd_ehis01.txt; abcd_ant01.txt.
+# ABCD 5.0: ce_p_acc.csv; abcd_p_demo.csv;
 # Refernce Link (Data Dictionary):
 # https://nda.nih.gov/data_structure.html?short_name=pdem02
 # https://nda.nih.gov/data_structure.html?short_name=acspsw03
 # https://nda.nih.gov/data_structure.html?short_name=abcd_lt01
+# https://data-dict.abcdstudy.org/
 # Update Date: 2023.06.15 By Kunru Song
+# Update Date: 2023.07.03 By Kunru Song
 # =============================================================================#
 # 1.1 Library Packages and Prepare Environment --------------------------------
 library(bruceR)
@@ -19,12 +23,12 @@ library(forcats)
 set.wd()
 source('SDPP_subfunctions.R')
 # 1.2 SDPP Parameter Settings -------------------------------------------------
-TabulatedDataDirectory = '../../Download_ABCDV4.0_skr220403/Package_1199282'
+TabulatedDataDirectory = '../../ABCD_V5.0/core/'
 # Please replace the above string for your own downloaded data directory.
 # Relative Path is required! (relative to the path of the current R script file)
 ProjectDirectory = '../DataAnalysis/SMA_Trajectory'
-Prefix = 'ABCD4.0'
-AutoLogFileName = ''
+Prefix = 'ABCD5.0'
+AutoLogFileName = 'Log_SDPP-ABCD-TabDat_2.txt'
 # ==============================MAIN CODES=====================================#
 # 2. Read RDS-file and print all columns data type ----------------------------
 Demographic = readRDS(fullfile(ProjectDirectory,

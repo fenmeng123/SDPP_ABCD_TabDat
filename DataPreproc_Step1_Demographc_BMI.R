@@ -420,6 +420,15 @@ demo_base_recode$HouseholdStructure = RECODE(demo_base$demo_child_time_v2,
                                              0='Single household';
                                              else=NA")
 
+# 2.19 Youth's Native Language ------------------------------------------------
+# demo_nat_lang_l: What is your child's native language? In other words, what
+# was the first language predominantly spoken to your child by their parent or
+# guardian after birth? [you can only pick one]
+# 58 = English; 1:57 = Other
+demo_base_recode$YouthNativeLang = RECODE(demo_base$demo_nat_lang_l,
+                                             "58='English';
+                                             1:57='Other';
+                                             else=NA")
 
 # 3. Load Propensity-based Weight Scores ---------------------------------------
 # Ref: https://nda.nih.gov/data_structure.html?short_name=acspsw03
@@ -614,14 +623,14 @@ BMI = select(BMI,
              c(src_subject_id,eventname,BMI_calc))
 # 8. Merge Data -----------------------------------------------------------
 # 8.0 Clear redundant variables in R environment
-rm(CombPrntsHighEdu,CorrectiveTable,demo_base,demo_y_lt,FamliyEmploy,Race_PrntRep,Race_PrntSelf)
+rm(CombPrntsHighEdu,CorrectiveTable,demo_base,FamliyEmploy,Race_PrntRep,Race_PrntSelf)
 # 8.1 Generate Demographic: Merge acspsw+pdem with EHIS (handedness)
 EHIS = subset(EHIS,eventname == "baseline_year_1_arm_1") #remove 4-year FU EHIS
 Demographic = merge(demo_base_recode,EHIS,
                     by = intersect(colnames(demo_base_recode),colnames(EHIS)),
                     all = T)
 # 8.2 Generate Demographic: Merge acspsw+pdem+ehis with genetic information
-Demographic = merge(demo_base_recode,gen_recode,
+Demographic = merge(Demographic,gen_recode,
                     by = intersect(colnames(Demographic),colnames(gen_recode)),
                     all = T)
 # 8.3 Generate Demographic: Merge acspsw+pdem+ehis+gen with BMI
@@ -635,65 +644,64 @@ Demographic = merge(Demographic,lt_recode,
 # 9. Baseline Observation Carry Forward (BOCF)  ---------------------------
 # BOCF for ACS-PSW and EHIS variables
 BOCF.Variables(Demographic,'baseline_year_1_arm_1','AdoptionFlag') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','AdoptionAge') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','Race_PrntRep') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','Ethnicity_PrntRep') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','BirthCountry') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','USALiveYears') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','Religon_PrntRep') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GenderIdentity_PrntSelf') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','Race_PrntSelf') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','SexAssigned') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GenderIdentity_PrntRep') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','ParentsMarital') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','ParentHighEdu') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','PartnerHighEdu') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','ParentsEdu') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','ParentEmploy') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','PartnerEmploy') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','NumInLF') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','ParentsMarital_2L') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','ParentsMaritalXEmploy') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','FamilyIncome') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','HouseholdSize') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','HouseholdStructure') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','RaceEthnicity') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GroupID') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','Relationship') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','SameSexTwin') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairedSubID_Sub_1') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairProb_Sub_1') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_Zygosity_Sub_1') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairedSubID_Sub_2') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairProb_Sub_2') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_Zygosity_Sub_2') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairedSubID_Sub_3') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairProb_Sub_3') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_Zygosity_Sub_3') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairedSubID_Sub_4') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairProb_Sub_4') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_Zygosity_Sub_4') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','SiteID') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','FamilyID') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','BirthID') %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','SchoolID',autocheck = T) %>%
-  BOCF.Variables(Demographic,'baseline_year_1_arm_1','DistrictID',autocheck = T) %>%
-  BOCF.Variables('baseline_year_1_arm_1','Handedness') -> Demographic
+  BOCF.Variables('baseline_year_1_arm_1','AdoptionAge') %>%
+  BOCF.Variables('baseline_year_1_arm_1','Race_PrntRep') %>%
+  BOCF.Variables('baseline_year_1_arm_1','Ethnicity_PrntRep') %>%
+  BOCF.Variables('baseline_year_1_arm_1','BirthCountry') %>%
+  BOCF.Variables('baseline_year_1_arm_1','USALiveYears') %>%
+  BOCF.Variables('baseline_year_1_arm_1','Religon_PrntRep') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GenderIdentity_PrntSelf') %>%
+  BOCF.Variables('baseline_year_1_arm_1','Race_PrntSelf') %>%
+  BOCF.Variables('baseline_year_1_arm_1','SexAssigned') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GenderIdentity_PrntRep') %>%
+  BOCF.Variables('baseline_year_1_arm_1','ParentsMarital') %>%
+  BOCF.Variables('baseline_year_1_arm_1','ParentHighEdu') %>%
+  BOCF.Variables('baseline_year_1_arm_1','PartnerHighEdu') %>%
+  BOCF.Variables('baseline_year_1_arm_1','ParentsEdu') %>%
+  BOCF.Variables('baseline_year_1_arm_1','ParentEmploy') %>%
+  BOCF.Variables('baseline_year_1_arm_1','PartnerEmploy') %>%
+  BOCF.Variables('baseline_year_1_arm_1','NumInLF') %>%
+  BOCF.Variables('baseline_year_1_arm_1','ParentsMarital_2L') %>%
+  BOCF.Variables('baseline_year_1_arm_1','ParentsMaritalXEmploy') %>%
+  BOCF.Variables('baseline_year_1_arm_1','FamilyIncome') %>%
+  BOCF.Variables('baseline_year_1_arm_1','HouseholdSize') %>%
+  BOCF.Variables('baseline_year_1_arm_1','HouseholdStructure') %>%
+  BOCF.Variables('baseline_year_1_arm_1','RaceEthnicity') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GroupID') %>%
+  BOCF.Variables('baseline_year_1_arm_1','Relationship') %>%
+  BOCF.Variables('baseline_year_1_arm_1','SameSexTwin') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GI_PairedSubID_Sub_1') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GI_PairProb_Sub_1') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GI_Zygosity_Sub_1') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GI_PairedSubID_Sub_2') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GI_PairProb_Sub_2') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GI_Zygosity_Sub_2') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GI_PairedSubID_Sub_3') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GI_PairProb_Sub_3') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GI_Zygosity_Sub_3') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GI_PairedSubID_Sub_4') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GI_PairProb_Sub_4') %>%
+  BOCF.Variables('baseline_year_1_arm_1','GI_Zygosity_Sub_4') %>%
+  BOCF.Variables('baseline_year_1_arm_1','SiteID') %>%
+  BOCF.Variables('baseline_year_1_arm_1','FamilyID') %>%
+  BOCF.Variables('baseline_year_1_arm_1','BirthID') %>%
+  BOCF.Variables('baseline_year_1_arm_1','Handedness') %>%
+  BOCF.Variables('baseline_year_1_arm_1','YouthNativeLang') -> Demographic
 
 # 10. Set Columns Data Type and Re-order Columns ---------------------------
 sapply(Demographic, typeof)
 Demographic$AdoptionFlag <- as.numeric(Demographic$AdoptionFlag)
-Demographic = select(Demographic,-FamliyEmploy)
 Demographic = select(Demographic,
-                     c(subjectkey,eventname,interview_age,SessionType,
-                       sex,Race_PrntRep,Ethnicity_PrntRep,RaceEthnicity,
+                     c(src_subject_id,eventname,interview_age,interview_date,
+                       SexAssigned,YouthNativeLang,
+                       Race_PrntRep,Ethnicity_PrntRep,RaceEthnicity,
                        Handedness,BMI_calc,
-                       ParentMaritalC,ParentMarital,ParentsEdu,
-                       ParentEmploy,PartnerEmploy,
-                       FamilyIncome,Relationship,SameSexTwinFlag,
+                       ParentsMarital_2L,ParentsMaritalXEmploy,
+                       ParentsEdu,
+                       FamilyIncome,Relationship,
                        HouseholdSize,HouseholdStructure,
-                       BirthCountry,Religon_PrntRep,ParentsMaritalEmploy,NumInLF,
-                       site_id_l,FamilyID,ACS_weight,
+                       BirthCountry,Religon_PrntRep,
+                       SiteID,FamilyID,GroupID,ACS_weight,
                        everything())) 
 
 # 11. Save Double- and Character-type Demographic Data ---------------------
