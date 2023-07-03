@@ -11,6 +11,7 @@
 # ABCD 5.0: ce_p_acc.csv; abcd_p_demo.csv;
 # Update Date: 2023.06.03 By Kunru Song
 # Update Date: 2023.06.29 By Kunru Song
+# Update Date: 2023.07.03 By Kunru Song
 # =============================================================================#
 # 1.11 Library Packages and Prepare Environment --------------------------------
 library(bruceR)
@@ -23,10 +24,12 @@ TabulatedDataDirectory = '../../ABCD_V5.0/core/'
 # Relative Path is required! (relative to the path of the current R script file)
 ProjectDirectory = '../DataAnalysis/SMA_Trajectory'
 Prefix = 'ABCD5.0'
-AutoLogFileName = ''
+AutoLogFileName = 'Log_SDPP-ABCD-TabDat_1.txt'
 # ==============================MAIN CODES=====================================#
 # Create Project Folders and get the log-file directory
 AutoLogFolder = SDPP.ABCD.TabDat.PrepareProject(ProjectDirectory)
+AutoLogFilePath = fullfile(AutoLogFolder,AutoLogFileName)
+sink(file = AutoLogFilePath)
 # 2. Load abcd_p_demo.csv and perform re-coding --------------------------------
 pdem_FileDir = fullfile(TabulatedDataDirectory,'/abcd-general/abcd_p_demo.csv')
 demo_base = readABCDdata(pdem_FileDir)
@@ -46,7 +49,9 @@ demo_base_recode$YouthAge_Prnt = as.numeric(
 # 0 = KINDERGARTEN ; 1 = 1ST GRADE  ; 2 = 2ND GRADE ; 3 = 3RD GRADE ; 4 = 4TH GRADE ; 5 = 5TH GRADE;
 # 6 = 6TH GRADE ; 7 = 7TH GRADE ; 8 = 8TH GRADE; 9 = 9TH GRADE; 10 = 10TH GRADE ; 11 = 11TH GRADE;
 # 12 = 12TH GRADE
-demo_base_recode$EducationC = RECODE(demo_base$demo_ed_v2,
+EducationC = as.numeric(str_remove_all(paste(demo_base$demo_ed_v2,demo_base$demo_ed_v2_l,sep = ''),'NA'))
+
+demo_base_recode$EducationC = RECODE(EducationC,
                                      "0='KINDERGARTEN';1='1ST GRADE'; 2='2ND GRADE';
                                      3='3RD GRADE'; 4='4TH GRADE'; 5='5TH GRADE';
                                      6='6TH GRADE'; 7='7TH GRADE'; 8='8TH GRADE';
@@ -181,13 +186,10 @@ demo_base_recode$Religon_PrntRep = RECODE(demo_base$demo_relig_v2,
 # 2.8 Parent Self-reported Age --------------------------------------------
 # demo_prnt_age_v2, How old are you? Provide your age in years. If you reuse to 
 # answer please choose "refuse to answer" in what follows below.
-# demo_prnt_age_v2_bl_refuse: 777 = Refuse to answer; 999 = Dont know
-demo_base_recode$ParentAge = replace_na(demo_base$demo_prnt_age_v2,0) + 
-  replace_na(demo_base$demo_prnt_age_v2_bl_refuse,0)
-demo_base_recode$ParentAge = RECODE(demo_base_recode$ParentAge,
-                                    "0=NA;
-                                    777=NA;
-                                    999=NA;")
+demo_base_recode$ParentAge = RECODE(replace_na(demo_base$demo_prnt_age_v2_l,0) + 
+                              replace_na(demo_base$demo_prnt_age_v2_refuse_l,0),
+                            "0=NA;777=NA;999=NA;lo:17=NA;100:hi=NA;")
+
 
 # 2.9 Parent Self-reported Current Gender Identity ------------------------
 demo_base_recode$GenderIdentity_PrntSelf = RECODE(demo_base$demo_prnt_gender_id_v2,
@@ -611,72 +613,74 @@ BMI$BMI_calc[which(BMI$BMI_calc>36 | BMI$BMI_calc< 11)]=NA #reset unrealistic va
 BMI = select(BMI,
              c(src_subject_id,eventname,BMI_calc))
 # 8. Merge Data -----------------------------------------------------------
-# Clear redundant variables in R environment
+# 8.0 Clear redundant variables in R environment
 rm(CombPrntsHighEdu,CorrectiveTable,demo_base,demo_y_lt,FamliyEmploy,Race_PrntRep,Race_PrntSelf)
-# Baseline Observation Carry Forward (BOCF)
-demo_base_recode$eventname = 'baseline_year_1_arm_1'
-demo_base_recode_y1 = select(demo_base_recode,-c(interview_date,interview_age))
-demo_base_recode_y1$eventname = '1_year_follow_up_y_arm_1'
-demo_base_recode_y2 = select(demo_base_recode,-c(interview_date,interview_age))
-demo_base_recode_y2$eventname = '2_year_follow_up_y_arm_1'
-demo_base_recode_y3 = select(demo_base_recode,-c(interview_date,interview_age))
-demo_base_recode_y3$eventname = '3_year_follow_up_y_arm_1'
-demo_base_recode_y0 = merge(demo_base_recode,
-                            subset(demo_anchor,eventname=='baseline_year_1_arm_1'),
-                            by=c('subjectkey','interview_date','interview_age','sex','eventname'),
-                            all.y = T)
-demo_base_recode_y1 = merge(demo_base_recode_y1,
-                            subset(demo_anchor,eventname=='1_year_follow_up_y_arm_1'),
-                            by=c('subjectkey','sex','eventname'),
-                            all.y = T)
-demo_base_recode_y2 = merge(demo_base_recode_y2,
-                            subset(demo_anchor,eventname=='2_year_follow_up_y_arm_1'),
-                            by=c('subjectkey','sex','eventname'),
-                            all.y = T)
-demo_base_recode_y3 = merge(demo_base_recode_y3,
-                            subset(demo_anchor,eventname=='3_year_follow_up_y_arm_1'),
-                            by=c('subjectkey','sex','eventname'),
-                            all.y = T)
-demo_base = rbind(demo_base_recode_y0,demo_base_recode_y1,
-                  demo_base_recode_y2,demo_base_recode_y3)
-# Generate Demographic: Merge ACS Propensity-based Weights with pdem
-Demographic = merge(demo_base,
-                    acs_base_recode,
-                    by = intersect(colnames(demo_base_recode),
-                                   colnames(acs_base_recode)),
+# 8.1 Generate Demographic: Merge acspsw+pdem with EHIS (handedness)
+EHIS = subset(EHIS,eventname == "baseline_year_1_arm_1") #remove 4-year FU EHIS
+Demographic = merge(demo_base_recode,EHIS,
+                    by = intersect(colnames(demo_base_recode),colnames(EHIS)),
                     all = T)
-# Generate Demographic: Merge acspsw+pdem with EHIS (handedness)
-Demographic = merge(Demographic,EHIS,
-                    by = intersect(colnames(Demographic),colnames(EHIS)),
+# 8.2 Generate Demographic: Merge acspsw+pdem+ehis with genetic information
+Demographic = merge(demo_base_recode,gen_recode,
+                    by = intersect(colnames(Demographic),colnames(gen_recode)),
                     all = T)
-# Generate Demographic: Merge acspsw+pdem+ehis with BMI
+# 8.3 Generate Demographic: Merge acspsw+pdem+ehis+gen with BMI
 Demographic = merge(Demographic,BMI,
                     by = intersect(colnames(Demographic),colnames(BMI)),
                     all = T)
+# 8.4 Generate Demographic: Merge all with longitudinal tract index
+Demographic = merge(Demographic,lt_recode,
+                    by = intersect(colnames(Demographic),colnames(lt_recode)),
+                    all = F)
+# 9. Baseline Observation Carry Forward (BOCF)  ---------------------------
 # BOCF for ACS-PSW and EHIS variables
-BOCF.Variables(Demographic,'baseline_year_1_arm_1','FamilyID') %>%
-  BOCF.Variables('baseline_year_1_arm_1','Relationship') %>%
-  BOCF.Variables('baseline_year_1_arm_1','RaceEthnicity') %>%
-  BOCF.Variables('baseline_year_1_arm_1','SameSexTwinFlag') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_AncProp_African') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_AncProp_European') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_AncProp_EastAsian') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_AncProp_American') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_Paired_SubID_1') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_Paired_SubID_2') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_Paired_SubID_3') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_Paired_SubID_4') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_IdentityProb_SubID_1') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_IdentityProb_SubID_2') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_IdentityProb_SubID_3') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_IdentityProb_SubID_4') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_Zygosity_SubID_1') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_Zygosity_SubID_2') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_Zygosity_SubID_3') %>%
-  BOCF.Variables('baseline_year_1_arm_1','GeneInfo_Zygosity_SubID_4') %>%
+BOCF.Variables(Demographic,'baseline_year_1_arm_1','AdoptionFlag') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','AdoptionAge') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','Race_PrntRep') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','Ethnicity_PrntRep') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','BirthCountry') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','USALiveYears') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','Religon_PrntRep') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GenderIdentity_PrntSelf') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','Race_PrntSelf') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','SexAssigned') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GenderIdentity_PrntRep') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','ParentsMarital') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','ParentHighEdu') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','PartnerHighEdu') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','ParentsEdu') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','ParentEmploy') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','PartnerEmploy') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','NumInLF') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','ParentsMarital_2L') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','ParentsMaritalXEmploy') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','FamilyIncome') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','HouseholdSize') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','HouseholdStructure') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','RaceEthnicity') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GroupID') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','Relationship') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','SameSexTwin') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairedSubID_Sub_1') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairProb_Sub_1') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_Zygosity_Sub_1') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairedSubID_Sub_2') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairProb_Sub_2') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_Zygosity_Sub_2') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairedSubID_Sub_3') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairProb_Sub_3') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_Zygosity_Sub_3') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairedSubID_Sub_4') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_PairProb_Sub_4') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','GI_Zygosity_Sub_4') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','SiteID') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','FamilyID') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','BirthID') %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','SchoolID',autocheck = T) %>%
+  BOCF.Variables(Demographic,'baseline_year_1_arm_1','DistrictID',autocheck = T) %>%
   BOCF.Variables('baseline_year_1_arm_1','Handedness') -> Demographic
 
-# 8. Set Columns Data Type and Re-order Columns ---------------------------
+# 10. Set Columns Data Type and Re-order Columns ---------------------------
 sapply(Demographic, typeof)
 Demographic$AdoptionFlag <- as.numeric(Demographic$AdoptionFlag)
 Demographic = select(Demographic,-FamliyEmploy)
@@ -690,9 +694,9 @@ Demographic = select(Demographic,
                        HouseholdSize,HouseholdStructure,
                        BirthCountry,Religon_PrntRep,ParentsMaritalEmploy,NumInLF,
                        site_id_l,FamilyID,ACS_weight,
-                       everything()))
+                       everything())) 
 
-# 9. Save Double- and Character-type Demographic Data ---------------------
+# 11. Save Double- and Character-type Demographic Data ---------------------
 OutputFileName = paste(Prefix,'Demographics','Raw.rds',sep = '_')
 OutputFileDir = fullfile(ProjectDirectory,'Res_3_IntermediateData',OutputFileName)
 cat(sprintf('Raw Demographics Data (Double and Character) will be saved into: %s\n',OutputFileDir))
@@ -702,3 +706,7 @@ OutputFileName = paste(Prefix,'Demographics','Raw.csv',sep = '_')
 OutputFileDir = fullfile(ProjectDirectory,'Res_3_IntermediateData',OutputFileName)
 cat(sprintf('Raw Demographics Data (Double and Character) will be saved into: %s\n',OutputFileDir))
 write.csv(Demographic,OutputFileDir,fileEncoding = 'UTF-8')
+
+# 12. End of script -------------------------------------------------------
+cat("SDPP-ABCD-TabDat Step 1 finished!\n")
+sink()

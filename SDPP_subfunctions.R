@@ -55,12 +55,18 @@ fullfile <- function(...){
   return(PathStr)
 }
 
-BOCF.Variables <- function(data,anchor_wave,variable_name){
-  cat(sprintf('Carry Forward variable:%s from baseline to 1-year, 2-year and 3-year FU\n',variable_name))
+BOCF.Variables <- function(data,anchor_wave,variable_name,autocheck=F){
+  cat(sprintf('Carry Forward variable:%s from baseline to Follow-up Wave\n',variable_name))
   data_anchor = subset(data,eventname == anchor_wave)
   data_BOFC = subset(data,eventname != anchor_wave)
-  for (i in data_anchor$subjectkey){
-    data_BOFC[data_BOFC$subjectkey == i,variable_name] <- data_anchor[data_anchor$subjectkey == i,variable_name]
+  for (i in data_anchor$src_subject_id){
+    if (autocheck){
+      if (is.na(data_BOFC[data_BOFC$src_subject_id == i,variable_name])){
+        data_BOFC[data_BOFC$src_subject_id == i,variable_name] <- data_anchor[data_anchor$src_subject_id == i,variable_name]
+      }
+    }else{
+      data_BOFC[data_BOFC$src_subject_id == i,variable_name] <- data_anchor[data_anchor$src_subject_id == i,variable_name]
+    }
   }
   data = rbind(data_anchor,data_BOFC)
   cat(sprintf('Variable:%s BOCF finished!\n',variable_name))
