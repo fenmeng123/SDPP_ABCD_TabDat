@@ -11,7 +11,7 @@
 # https://nda.nih.gov/data_structure.html?short_name=pdem02
 # https://nda.nih.gov/data_structure.html?short_name=acspsw03
 # https://nda.nih.gov/data_structure.html?short_name=abcd_lt01
-# Update Date: 2023.06.05 By Kunru Song
+# Update Date: 2023.06.15 By Kunru Song
 # =============================================================================#
 # 1.1 Library Packages and Prepare Environment --------------------------------
 library(bruceR)
@@ -266,7 +266,7 @@ Demographic$AdoptionFlag = factor(as.numeric(Demographic$AdoptionFlag),
                                      ordered = F)
 Demographic$Education_5L = factor(Demographic$EducationR,ordered = F)
 
-# 4. Re-name and re-order variables ----------------------------------------------------
+# 4. Re-name and re-order variables -----------------------------------------
 select(Demographic,-c(ParentMaritalC,ParentMarital,ParentsEdu)) %>%
   rename(ParentsMarita_X_Employ = ParentsMaritalEmploy,
          SiteID = site_id_l,
@@ -284,6 +284,8 @@ Demographic$Education_R <- as.numeric(Demographic$Education_R)
 
 sapply(Demographic, typeof) # print data type
 sapply(Demographic, class)
+
+# 5. Save Results ----------------------------------------------------
 saveRDS(Demographic,fullfile(ProjectDirectory,'Res_3_IntermediateData','ABCD4.0_Demographics_Recode.rds'))
 write.csv(Demographic,fullfile(ProjectDirectory,'Res_3_IntermediateData','ABCD4.0_Demographics_Recode.csv'),
           fileEncoding = 'UTF-8')

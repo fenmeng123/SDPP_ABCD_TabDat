@@ -1,5 +1,4 @@
-readABCDdata<-function(filename){
-  cat(sprintf("Reading tabulated data from: %s\n",filename))
+read4.0 <- function(filename){
   data = read.table(filename,header = TRUE,sep = '\t')
   # remove some specific columns which are same across all .txt files
   data <- subset(data, select = -c(collection_id, dataset_id,collection_title))
@@ -11,6 +10,24 @@ readABCDdata<-function(filename){
   # for (i in 1:length(var.descrip)){
   #   comment(data[,i])<-var.descrip[1,i]
   # }
+  return(data)
+}
+read5.0 <- function(filename){
+  data <- read.csv(filename)
+  return(data)
+}
+
+
+
+
+readABCDdata<-function(filename,version="5.0"){
+  cat(sprintf("Reading tabulated data from: %s\n",filename))
+  data <- switch (version,
+    `5.0` = read5.0(filename),
+    `4.0` = read4.0(filename)
+  )
+  cat("Subjects Counts (stratified by eventname):\n")
+  print(table(data$eventname))
   return(data)
 }
 

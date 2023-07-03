@@ -1,22 +1,39 @@
-# The imputation about the core demographics was referred to Github/ABCD-STUDY
-# Ref Link: https://github.com/ABCD-STUDY/analysis-nda/blob/861cb4063dba93794dc8dd18feb2673c306675ea/notebooks/general/impute_demographics.md
-
+# =============================================================================#
+# SDPP Step 3: Imputing Demographics with Chained Equation Models.
+# R Packages Dependency: bruceR, mice, forcats, naniar
+# Step File Notes: 
+# 1. The imputation about the core demographics was referred to ABCD-DAIRC
+# 2. Ref Link:
+# https://github.com/ABCD-STUDY/analysis-nda/blob/861cb4063dba93794dc8dd18feb2673c306675ea/notebooks/general/impute_demographics.md
+# 3. Target File (Intermediate Data File): ABCD4.0_Demographics_Recode.rds
+# Update Date: 2023.06.16 By Kunru Song
+# =============================================================================#
+# 1.1 Library Packages and Prepare Environment --------------------------------
+library(bruceR)
 library(mice)
+library(forcats)
+set.wd()
+source('SDPP_subfunctions.R')
 
-Demographic = readRDS('I:\\ABCDStudyNDA\\ABCD_DataAnalysis_4.0\\DataPreprocessing\\ABCD4.0_Demographic_factor.rds')
+# 1.2 SDPP Parameter Settings -------------------------------------------------
+TabulatedDataDirectory = '../../Download_ABCDV4.0_skr220403/Package_1199282'
+# Please replace the above string for your own downloaded data directory.
+# Relative Path is required! (relative to the path of the current R script file)
+ProjectDirectory = '../DataAnalysis/SMA_Trajectory'
+ResultsOutputDir = fullfile(ProjectDirectory,'Res_2_Results','Res_Preproc')
+Prefix = 'ABCD4.0'
+AutoLogFileName = ''
+if (!dir.exists(ResultsOutputDir)){
+  dir.create(ResultsOutputDir)
+}
+# ==============================MAIN CODES=====================================#
+# 2. Load and prepare re-coded demographic data --------------------------
+Demographic = readRDS(fullfile(ProjectDirectory,'Res_3_IntermediateData','ABCD4.0_Demographics_Recode.rds'))
 baseline_demo = subset(Demographic,eventname=='baseline_year_1_arm_1')
 naniar::miss_var_summary(baseline_demo) %>% 
-  print_table(file = "I:\\ABCDStudyNDA\\ABCD_DataAnalysis_4.0\\DataPreprocessing\\MissVarRep_Baseline_Demographics.doc")
+  print_table(file = fullfile(ResultsOutputDir,'MissVarRep_Demographic_baseline.doc'))
 sapply(baseline_demo, typeof)
 baseline_demo = as.data.table(baseline_demo)
-baseline_demo[, table(interview_age,useNA = 'if')]
-baseline_demo[, table(sex,useNA = 'if')]
-baseline_demo[, table(Race_PrntRep,useNA = 'if')]
-baseline_demo[, table(RaceEthnicity,useNA = 'if')]
-baseline_demo[, table(Ethnicity_PrntRep,useNA = 'if')]
-baseline_demo[, table(FamilyIncome,useNA = 'if')]
-baseline_demo[, table(ParentsEdu,useNA = 'if')]
-baseline_demo[, table(ParentMarital,useNA = 'if')]
 
 # convergently check Race (Parent-report), Ethnicity (Parent-report) and Race_ethnicity (from acspsw03.txt)
 baseline_demo$Race_PrntRep = tidyr::replace_na(as.character(baseline_demo$Race_PrntRep),"")
