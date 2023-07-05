@@ -13,23 +13,12 @@
 # Update Date: 2023.06.29 By Kunru Song
 # Update Date: 2023.07.03 By Kunru Song
 # =============================================================================#
-# 1.11 Library Packages and Prepare Environment --------------------------------
-library(bruceR)
-library(readxl)
-set.wd()
-source('SDPP_subfunctions.R')
-# 1.2 SDPP Parameter Settings -------------------------------------------------
-TabulatedDataDirectory = '../../ABCD_V5.0/core/'
-# Please replace the above string for your own downloaded data directory.
-# Relative Path is required! (relative to the path of the current R script file)
-ProjectDirectory = '../DataAnalysis/SMA_Trajectory'
-Prefix = 'ABCD5.0'
+# 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_1.txt'
-# ==============================MAIN CODES=====================================#
-# Create Project Folders and get the log-file directory
-AutoLogFolder = SDPP.ABCD.TabDat.PrepareProject(ProjectDirectory)
-AutoLogFilePath = fullfile(AutoLogFolder,AutoLogFileName)
+AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
 sink(file = AutoLogFilePath)
+library(readxl)
+# ==============================MAIN CODES=====================================#
 # 2. Load abcd_p_demo.csv and perform re-coding --------------------------------
 pdem_FileDir = fullfile(TabulatedDataDirectory,'/abcd-general/abcd_p_demo.csv')
 demo_base = readABCDdata(pdem_FileDir)

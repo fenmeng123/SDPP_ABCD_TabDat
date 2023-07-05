@@ -20,8 +20,14 @@ output: rmarkdown::github_document
 
 2.  **SDPP-ABCD-TabDat** now is only available for Dr. Jin-tao Zhang's Team, which is not allowed to be shared.
 
+3. Any bugs found in this pipeline should be reported in Issues. 
+
 
 **Update Logs:**
+
+ - 2023.07.05
+   - Modifed Step 3 for ABCD V5.0.
+   - Created a new script _'SDPP_ParaSet.R'_, which is the _all in one_ parameters setting script for SDPP-ABCD-TabDat. _'SDPP_ParaSet.R'_ should be executed before any steps of SDPP-ABCD-TabDat to source all common parameters and libary all common packages. Log for _'SDPP_ParaSet.R'_ will be save into Log_SDPP-ABCD-TabDat_0.txt
 
  - 2023.07.03
  

@@ -17,21 +17,12 @@
 # Update Date: 2023.06.15 By Kunru Song
 # Update Date: 2023.07.03 By Kunru Song
 # =============================================================================#
-# 1.1 Library Packages and Prepare Environment --------------------------------
-library(bruceR)
-library(forcats)
-set.wd()
-source('SDPP_subfunctions.R')
-# 1.2 SDPP Parameter Settings -------------------------------------------------
-TabulatedDataDirectory = '../../ABCD_V5.0/core/'
-# Please replace the above string for your own downloaded data directory.
-# Relative Path is required! (relative to the path of the current R script file)
-ProjectDirectory = '../DataAnalysis/SMA_Trajectory'
-Prefix = 'ABCD5.0'
+# 1 Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_2.txt'
-# ==============================MAIN CODES=====================================#
 AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
 sink(file = AutoLogFilePath)
+library(forcats)
+# ==============================MAIN CODES=====================================#
 # 2. Read RDS-file and print all columns data type ----------------------------
 Demographic = readRDS(fullfile(ProjectDirectory,
                                'Res_3_IntermediateData',

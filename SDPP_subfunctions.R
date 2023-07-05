@@ -72,3 +72,45 @@ BOCF.Variables <- function(data,anchor_wave,variable_name,autocheck=F){
   cat(sprintf('Variable:%s BOCF finished!\n',variable_name))
   return(data)
 }
+
+fprintf <- function(StringVar,...){
+  cat(sprintf(StringVar,...))
+}
+
+addprefix <- function(prefix,filename,postfix=NA){
+  filename = paste(prefix,filename,sep = '_')
+  if (is.na(postfix)){
+    return(filename)
+  }else{
+    filename = paste(filename,postfix,sep = '.')
+    return(filename)
+  }
+}
+
+dt.print.mva.counts <- function(dt_name,var_name){
+  print(eval(parse(text = sprintf("%s[,table(%s,useNA = 'if')]",dt_name,var_name))))
+}
+SDPP.save.file <- function(Data,FileName,Prefix,ProjectDirectory,FileFormat=NA,DataLabel=NA){
+  if (is.na(FileFormat)){
+    OutputFileName = addprefix(Prefix,FileName)
+    FileFormat = unlist(lapply(strsplit(FileName,split = ".",fixed = T),tail,1))
+  }else{
+    OutputFileName = addprefix(Prefix,FileName,postfix = FileFormat)
+  }
+  OutputFileDir = fullfile(ProjectDirectory,'Res_3_IntermediateData',OutputFileName)
+  if (is.na(DataLabel)){
+    fprintf('Variable: %s will be saved into: %s\n',deparse(substitute(Data)),OutputFileDir)
+  }else{
+    fprintf('%s will be saved into: %s\n',DataLabel,OutputFileDir)
+  }
+  if (FileFormat == 'rds'){
+    saveRDS(Data,OutputFileDir)
+    cat(sprintf('Saving Data into %s File: %s......\nFinished!\n',toupper(FileFormat),OutputFileDir))
+  } else if (FileFormat == 'csv'){
+    write.csv(Demographic,OutputFileDir,fileEncoding = 'UTF-8')
+    cat(sprintf('Saving Data into %s File: %s......\nFinished!\n',toupper(FileFormat),OutputFileDir))
+  } else {
+    warnings("Did not find appropraite file postfix! Please Check your code!")
+    fprintf("SDPP.save file will be skipped! Save data failed!")
+  }
+}

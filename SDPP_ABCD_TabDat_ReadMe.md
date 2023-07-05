@@ -26,6 +26,8 @@ of print. PMID: 36963562.*
 2.  **SDPP-ABCD-TabDat** now is only available for Dr. Jin-tao Zhang’s
     Team, which is not allowed to be shared.
 
+3.  Any bugs found in this pipeline should be reported in Issues.
+
 **Update Logs:**
 
 - 2023.07.03
