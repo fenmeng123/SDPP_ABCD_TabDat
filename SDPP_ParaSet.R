@@ -22,16 +22,16 @@ fprintf('R package: bruceR is a common-used package in this pipeline, which woul
 basic.info = sessionInfo()
 other.info = Sys.info()
 fprintf("===============================SDPP-ABCD-TabDat Settings===============================\n")
-fprintf("Scripts Executing Date: %s\n",Sys.time())
-fprintf("Running under OS: %s\n",basic.info$running)
-fprintf("Platform: %s\n",basic.info$platform)
-fprintf("R Version: %s\n",basic.info$R.version$version.string)
-fprintf("Running on Computer Name: %s\n",other.info['nodename'])
-fprintf("Working Directory: %s\n",getwd())
-fprintf("Project Directory: %s\n",fullfile(ProjectDirectory))
-fprintf("Downloaded NDA Data Directory: %s\n",fullfile(TabulatedDataDirectory))
-fprintf("Output Intermediate Data File Prefix: %s\n",Prefix)
-fprintf("Output Intermediate Data Directory: %s\n",IntermediateDataDir)
+fprintf("Scripts Executing Date: \t\t %s\n",Sys.time())
+fprintf("Running under OS: \t\t %s\n",basic.info$running)
+fprintf("Platform: \t\t\t %s\n",basic.info$platform)
+fprintf("R Version: \t\t\t %s\n",basic.info$R.version$version.string)
+fprintf("Running on Computer Name: \t %s\n",other.info['nodename'])
+fprintf("Working Directory: \t\t %s\n",getwd())
+fprintf("Project Directory: \t\t\t %s\n",fullfile(ProjectDirectory))
+fprintf("Downloaded NDA Data Directory: \t %s\n",fullfile(TabulatedDataDirectory))
+fprintf("Output Intermediate Data File Prefix: \t %s\n",Prefix)
+fprintf("Output Intermediate Data Directory: \t %s\n",IntermediateDataDir)
 fprintf("=======================================================================================\n")
 # 1. Step 1-specification -------------------------------------------------
 fprintf("=================================Step 1 Specifications=================================\n")
@@ -47,8 +47,8 @@ if (!dir.exists(ResultsOutputDir)){
   dir.create(ResultsOutputDir)
 }
 # Number of multiple imputed datasets & maximum number of iterations 
-n.imp = 5
-n.iter = 50
+n.imp = 20
+n.iter = 10
 fprintf("Step 3 Results Output Directory: %s\n",ResultsOutputDir)
 fprintf('Number of Multiple Imputation Replicates: %d\n',n.imp)
 fprintf('Number of Maximum Iterations in Multiple Imputation: %d',n.iter)

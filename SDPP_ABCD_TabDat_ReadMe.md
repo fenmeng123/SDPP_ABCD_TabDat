@@ -26,9 +26,28 @@ of print. PMID: 36963562.*
 2.  **SDPP-ABCD-TabDat** now is only available for Dr. Jin-tao Zhang’s
     Team, which is not allowed to be shared.
 
-3.  Any bugs found in this pipeline should be reported in Issues.
+3.  Any bugs found in this pipeline should be reported in Github Issues.
+
+4.  Abbreviation Table
+
+| Abbr. | Meaning              |
+|:------|:---------------------|
+| T0    | Baseline Wave Data   |
+| T1    | one-year follow-up   |
+| T2    | two-year follow-up   |
+| T3    | three-year follow-up |
+| T4    | four-year follow-up  |
 
 **Update Logs:**
+
+- 2023.07.05
+
+  - Modifed Step 3 for ABCD V5.0.
+  - Created a new script *‘SDPP_ParaSet.R’*, which is the *all in one*
+    parameters setting script for SDPP-ABCD-TabDat. *‘SDPP_ParaSet.R’*
+    should be executed before any steps of SDPP-ABCD-TabDat to source
+    all common parameters and libary all common packages. Log for
+    *‘SDPP_ParaSet.R’* will be save into Log_SDPP-ABCD-TabDat_0.txt
 
 - 2023.07.03
 
