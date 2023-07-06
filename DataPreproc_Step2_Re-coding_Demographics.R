@@ -9,6 +9,8 @@
 # 3. Target File
 # ABCD 4.0: pdem02.txt; acspsw03.txt; abcd_ehis01.txt; abcd_ant01.txt.
 # ABCD 5.0: ce_p_acc.csv; abcd_p_demo.csv;
+# Intermediate Data File: ABCD5.0_Demographics_Recode.rds,
+#                         ABCD5.0_Demographics_Recode.csv
 # Refernce Link (Data Dictionary):
 # https://nda.nih.gov/data_structure.html?short_name=pdem02
 # https://nda.nih.gov/data_structure.html?short_name=acspsw03

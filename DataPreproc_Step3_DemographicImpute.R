@@ -6,7 +6,12 @@
 # 2. Ref Link:
 # https://github.com/ABCD-STUDY/analysis-nda/blob/861cb4063dba93794dc8dd18feb2673c306675ea/notebooks/general/impute_demographics.md
 # https://zhuanlan.zhihu.com/p/584937019
-# 3. Target File (Intermediate Data File): ABCD4.0_Demographics_Recode.rds
+# 3. Target File (Intermediate Data File): 
+#     ABCD5.0_Demographics_MICE.rds
+#     ABCD5.0_Demographics_Non-impute.rds
+#     ABCD5.0_Demographics_Non-impute.csv
+#     ABCD5.0_Demographics_Imputed.rds
+#     ABCD5.0_Demographics_Imputed.csv
 # Update Date: 2023.06.16 By Kunru Song
 # Update Date: 2023.07.05 By Kunru Song
 # =============================================================================#

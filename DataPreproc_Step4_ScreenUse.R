@@ -1,3 +1,15 @@
+# =============================================================================#
+# SDPP Step 3: Read and re-coding Screen Use-related data
+# R Packages Dependency: bruceR, forcats, naniar
+# Step File Notes: 
+# 1. The imputation about the core demographics was referred to ABCD-DAIRC
+# 2. Ref Link:
+# https://github.com/fenmeng123/2022_JAACAP_ABCD_SMA_pattern
+# 3. Target File: ABCD4.0_Demographics_Recode.rds
+# Update Date: 2023.06.16 By Kunru Song
+# Update Date: 2023.07.06 By Kunru Song
+# =============================================================================#
+
 library(bruceR)
 library(naniar)
 
