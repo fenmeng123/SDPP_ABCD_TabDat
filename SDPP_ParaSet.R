@@ -33,6 +33,7 @@ fprintf("Downloaded NDA Data Directory: \t %s\n",fullfile(TabulatedDataDirectory
 fprintf("Output Intermediate Data File Prefix: \t %s\n",Prefix)
 fprintf("Output Intermediate Data Directory: \t %s\n",IntermediateDataDir)
 fprintf("=======================================================================================\n")
+rm(basic.info,other.info)
 # 1. Step 1-specification -------------------------------------------------
 fprintf("=================================Step 1 Specifications=================================\n")
 fprintf('Nothing\n')
@@ -47,12 +48,13 @@ if (!dir.exists(ResultsOutputDir)){
   dir.create(ResultsOutputDir)
 }
 # Number of multiple imputed datasets & maximum number of iterations 
-n.imp = 20
-n.iter = 10
+n.imp = 50
+n.iter = 25
 fprintf("Step 3 Results Output Directory: %s\n",ResultsOutputDir)
 fprintf('Number of Multiple Imputation Replicates: %d\n',n.imp)
-fprintf('Number of Maximum Iterations in Multiple Imputation: %d',n.iter)
+fprintf('Number of Maximum Iterations in Multiple Imputation: %d\n',n.iter)
 
 
 # End of Script -----------------------------------------------------------
+fprintf("SDPP-ParaSet finished! Finish Time:%s\n",Sys.time())
 sink()

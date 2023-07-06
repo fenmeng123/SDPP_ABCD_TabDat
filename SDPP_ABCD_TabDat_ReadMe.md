@@ -30,13 +30,15 @@ of print. PMID: 36963562.*
 
 4.  Abbreviation Table
 
-| Abbr. | Meaning              |
-|:------|:---------------------|
-| T0    | Baseline Wave Data   |
-| T1    | one-year follow-up   |
-| T2    | two-year follow-up   |
-| T3    | three-year follow-up |
-| T4    | four-year follow-up  |
+| Abbr. | Meaning                |
+|:------|:-----------------------|
+| T0    | Baseline Wave Data     |
+| T1    | One-year follow-up     |
+| T2    | Two-year follow-up     |
+| T3    | Three-year follow-up   |
+| T4    | Four-year follow-up    |
+| MVA   | Missing Value Analysis |
+| MI    | Multiple Imputation    |
 
 **Update Logs:**
 

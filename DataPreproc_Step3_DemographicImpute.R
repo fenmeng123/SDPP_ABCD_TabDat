@@ -1,135 +1,258 @@
 # =============================================================================#
 # SDPP Step 3: Imputing Demographics with Chained Equation Models.
-# R Packages Dependency: bruceR, mice, forcats, naniar
+# R Packages Dependency: bruceR, mice, forcats, naniar, comparegroups
 # Step File Notes: 
 # 1. The imputation about the core demographics was referred to ABCD-DAIRC
 # 2. Ref Link:
 # https://github.com/ABCD-STUDY/analysis-nda/blob/861cb4063dba93794dc8dd18feb2673c306675ea/notebooks/general/impute_demographics.md
+# https://zhuanlan.zhihu.com/p/584937019
 # 3. Target File (Intermediate Data File): ABCD4.0_Demographics_Recode.rds
 # Update Date: 2023.06.16 By Kunru Song
+# Update Date: 2023.07.05 By Kunru Song
 # =============================================================================#
-# 1.1 Library Packages and Prepare Environment --------------------------------
-library(bruceR)
+# 1. Library Packages and Prepare Environment --------------------------------
+AutoLogFileName = 'Log_SDPP-ABCD-TabDat_3.txt'
+AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
+sink(file = AutoLogFilePath)
 library(mice)
 library(forcats)
-set.wd()
-source('SDPP_subfunctions.R')
-
-# 1.2 SDPP Parameter Settings -------------------------------------------------
-TabulatedDataDirectory = '../../Download_ABCDV4.0_skr220403/Package_1199282'
-# Please replace the above string for your own downloaded data directory.
-# Relative Path is required! (relative to the path of the current R script file)
-ProjectDirectory = '../DataAnalysis/SMA_Trajectory'
-ResultsOutputDir = fullfile(ProjectDirectory,'Res_2_Results','Res_Preproc')
-Prefix = 'ABCD4.0'
-AutoLogFileName = ''
-if (!dir.exists(ResultsOutputDir)){
-  dir.create(ResultsOutputDir)
-}
+library(naniar)
 # ==============================MAIN CODES=====================================#
 # 2. Load and prepare re-coded demographic data --------------------------
-Demographic = readRDS(fullfile(ProjectDirectory,'Res_3_IntermediateData','ABCD4.0_Demographics_Recode.rds'))
+Demographic = readRDS(fullfile(IntermediateDataDir,
+                               addprefix(Prefix,'Demographics_Recode.rds')))
+Demographic$FamilyID = as.character(Demographic$FamilyID)
 baseline_demo = subset(Demographic,eventname=='baseline_year_1_arm_1')
-naniar::miss_var_summary(baseline_demo) %>% 
-  print_table(file = fullfile(ResultsOutputDir,'MissVarRep_Demographic_baseline.doc'))
-sapply(baseline_demo, typeof)
+miss_var_summary(baseline_demo) %>% 
+  print_table(file = fullfile(ResultsOutputDir,'MVA_Report_T0_RecodedDemo.doc'))
+print(sapply(baseline_demo, typeof))
 baseline_demo = as.data.table(baseline_demo)
+fprintf("----------------------------------------------------------------------------\n")
 
-# convergently check Race (Parent-report), Ethnicity (Parent-report) and Race_ethnicity (from acspsw03.txt)
+# 3. Consistence Auto-check and auto-impute for Youth's Race and E --------
+# Check the consistence among Race (Parent-report), Ethnicity (Parent-report) and Race_ethnicity (from acspsw03.txt)
 baseline_demo$Race_PrntRep = tidyr::replace_na(as.character(baseline_demo$Race_PrntRep),"")
 baseline_demo$RaceEthnicity = tidyr::replace_na(as.character(baseline_demo$RaceEthnicity),"")
 baseline_demo$Ethnicity_PrntRep = tidyr::replace_na(as.character(baseline_demo$Ethnicity_PrntRep),"")
-
+fprintf("Missing Value Counts before Consistence Check:\n")
+dt.print.mva.counts('baseline_demo','Race_PrntRep')
+dt.print.mva.counts('baseline_demo','Ethnicity_PrntRep')
+dt.print.mva.counts('baseline_demo','RaceEthnicity')
+fprintf("----------------------------------------------------------------------------\n")
+fprintf("Beginning Race and Ethnithicity Consistence Auto-check and Auto-impute:\n")
 tmp = baseline_demo[,c('Race_PrntRep','Ethnicity_PrntRep','RaceEthnicity')]
 race_miss = tmp[(tmp$Race_PrntRep==""),]
 ethn_miss = tmp[(tmp$Ethnicity_PrntRep==""),]
 race_miss$Race_PrntRep[race_miss$RaceEthnicity!='Hispanic'] = race_miss$RaceEthnicity[race_miss$RaceEthnicity!='Hispanic']
-ethn_miss$Ethnicity_PrntRep[ethn_miss$RaceEthnicity=='Hispanic'] = "Hispanic/Latino/Latina"
-ethn_miss$Ethnicity_PrntRep[ethn_miss$RaceEthnicity!='Hispanic'] = "No"
-
+ethn_miss$Ethnicity_PrntRep[ethn_miss$RaceEthnicity=='Hispanic'] = "Hispanic"
+ethn_miss$Ethnicity_PrntRep[ethn_miss$RaceEthnicity!='Hispanic'] = "Non-hispanic"
 baseline_demo$Race_PrntRep[baseline_demo$Race_PrntRep==""] = race_miss$Race_PrntRep
 baseline_demo$Ethnicity_PrntRep[baseline_demo$Ethnicity_PrntRep==""] = ethn_miss$Ethnicity_PrntRep
-
-baseline_demo[, table(Race_PrntRep,useNA = 'if')]
-baseline_demo[, table(Ethnicity_PrntRep,useNA = 'if')]
-
-baseline_demo$Race_PrntRep = factor(baseline_demo$Race_PrntRep,levels = c('White',
-                                                                      'Black',
-                                                                      'Asian',
-                                                                      'Mixed',
-                                                                      'Other'),
+fprintf("----------------------------------------------------------------------------\n")
+fprintf("Consistence Auto-check and Auto-impute have been finished!\n")
+dt.print.mva.counts('baseline_demo','Race_PrntRep')
+dt.print.mva.counts('baseline_demo','Ethnicity_PrntRep')
+fprintf("Re-coding Race and Ethniticy variables......\n")
+baseline_demo$Race_PrntRep = factor(baseline_demo$Race_PrntRep,
+                                  levels = c('White',
+                                             'Black',
+                                             'Asian',
+                                             'AIAN',
+                                             'NHPI',
+                                             'Mixed',
+                                             'Other'),
                                   ordered = F)
-baseline_demo$Ethnicity_PrntRep = factor(baseline_demo$Ethnicity_PrntRep,levels = c('No',
-                                                                                'Hispanic/Latino/Latina'),
+dt.print.mva.counts('baseline_demo','Race_PrntRep')
+baseline_demo$Race_4L = fct_collapse(baseline_demo$Race_PrntRep,
+                                   `Mixed/Other` = c('AIAN',
+                                                     'NHPI',
+                                                     'Mixed',
+                                                     'Other'))
+dt.print.mva.counts('baseline_demo','Race_4L')
+baseline_demo$Race_6L = fct_collapse(baseline_demo$Race_PrntRep,
+                                   `Mixed/Other` = c('Other',
+                                                     'Mixed'))
+dt.print.mva.counts('baseline_demo','Race_6L')
+baseline_demo$Ethnicity_PrntRep = factor(baseline_demo$Ethnicity_PrntRep,
+                                         levels = c('Non-hispanic',
+                                                    'Hispanic'),
                                        ordered = F)
+dt.print.mva.counts('baseline_demo','Ethnicity_PrntRep')
 baseline_demo$RaceEthnicity = factor(baseline_demo$RaceEthnicity,levels = c('White',
                                                                         'Black',
                                                                         'Asian',
                                                                         'Hispanic',
                                                                         'Other'),
                                    ordered = F)
-Demographics_before_impute = rbind(baseline_demo,as.data.table(subset(Demographic,eventname!='baseline_year_1_arm_1')))
-saveRDS(Demographics_before_impute,"I:\\ABCDStudyNDA\\ABCD_DataAnalysis_4.0\\DataPreprocessing\\ABCD4.0_Demographic_no_impute.rds")
-# 
-# Number of multiple imputed datasets & maximum number of iterations 
-n.imp = 5
-n.iter = 5
+dt.print.mva.counts('baseline_demo','RaceEthnicity')
+Demographics_before_impute = rbind(baseline_demo,
+                                   as.data.table(subset(Demographic,eventname!='baseline_year_1_arm_1')))
 
-var.ls <- c("src_subject_id", "interview_age", "sex", "Race_PrntRep", "FamilyIncome", "ParentsEdu","ParentMarital")
-dat0 <- baseline_demo[, var.ls, with = FALSE ]
+# 4. Consistence Check for Youth's interview_age --------------------------
+fprintf("No. %d rows were found in non-imputed data.table .",nrow(Demographics_before_impute))
+Flag = which(is.na(Demographics_before_impute$interview_age))
+fprintf("%d data points were found with missing interview_age, show as following:\n",length(Flag))
+print(Demographics_before_impute[Flag,c("src_subject_id",'eventname','interview_age','YouthAge_Prnt')])
+fprintf("Where the script found %d data points have non-empty YouthAge_Prnt.\n",
+        sum(!is.na(Demographics_before_impute$YouthAge_Prnt[Flag])))
+fprintf("These data points will be replace NA with YouthAge_Prnt*12.\n")
+Demographics_before_impute$interview_age[Flag] = Demographics_before_impute$YouthAge_Prnt[Flag] * 12
 
+# 5. Save Non-imputed Demographic Data ------------------------------------
+SDPP.save.file(Demographics_before_impute,
+              FileName = "Demographics_Non-impute.rds",
+              Prefix = Prefix,
+              ProjectDirectory = ProjectDirectory)
+SDPP.save.file(Demographics_before_impute,
+               FileName = "Demographics_Non-impute.csv",
+               Prefix = Prefix,
+               ProjectDirectory = ProjectDirectory)
+Demographics_before_impute_baseline = subset(Demographics_before_impute,
+                                             eventname == "baseline_year_1_arm_1")
 
+miss_var_summary(Demographics_before_impute_baseline) %>% 
+  print_table(file = fullfile(ResultsOutputDir,'MVA_Report_T0_ConsistDemo.doc'))
+
+# 6. Multiple Imputation for all key demographic variables--------------
+var.ls <- c("src_subject_id", "interview_age",
+            "SexAssigned","BMI",
+            "BirthCountry", "YouthNativeLang",
+            "Religon_2L",
+            "Race_PrntRep", "Ethnicity_PrntRep",
+            "ParentsHighEdu_5L","ParentsMarital_6L","ParentEmploy",
+            "FamilyIncome", "HouseholdStructure","HouseholdSize",
+            "Relationship_3L")
+dat0 <- Demographics_before_impute_baseline[, var.ls, with = FALSE ]
+# Draw a flux plot for original data (non-imputed data)
+png(filename = fullfile(ResultsOutputDir,'MVA_MI_Fluxplot.png'),
+    width = 1200,
+    height = 800,
+    units = "px")
+fluxplot(dat0,eqscplot = T, font = 6)
+dev.off()
+
+fprintf("The following variables were included in Multilple Imputation:\n")
+print(colnames(dat0)[2:ncol(dat0)])
+fprintf("Missing Value Analysis (MVA):\n")
+for (i in colnames(dat0)[2:ncol(dat0)]){
+  dt.print.mva.counts('Demographics_before_impute_baseline',i)
+}
+print(miss_var_summary(dat0))
+var.ls.imp = miss_var_summary(dat0)$variable[miss_var_summary(dat0)$n_miss != 0]
+
+sapply(dat0, typeof)
+miss_var_summary(dat0) %>% 
+  print_table(file = fullfile(ResultsOutputDir,'MVA_Report_T0_KeyDemo.doc'))
+# Perform Little's MCAR Testing
+fprintf("========================Little's MCAR Testing========================")
+print(mcar_test(dat0[,-1]))
+# Perform Multiple-imputation by mice package
 ini <- mice( dat0, m = 1, maxit = 0 )
 meth = ini$meth
-
-meth["sex"]     <- "logreg"
-meth["ParentMarital"] <- "logreg"
-meth["Race_PrntRep"]   <- "polyreg"
-meth["FamilyIncome"]      <- "polyreg"
-meth["ParentsEdu"]  <- "polyreg"
-
 pred = ini$pred
 
-# Excluding variables from the imputation models
+# Check the Imputation Method for each variable
+fprintf('Imputation Methods:\n')
+print(meth)
+
+# Excluding Subject ID variables from the imputation models
 pred[, c("src_subject_id") ] <- 0
-pred
+pred[c("src_subject_id"), ] <- 0
+
+
+fprintf("Predictors Matrix for Multiple Imputation Model:\n")
+print(pred)
 
 # Specifying parameters for the imputation
 post <- mice( dat0, meth = meth, pred = pred, seed = 111,
               m = 1, maxit = 0)$post
-
+# Perform Multiple Imputation for ABCD baseline wave key demographic data
+fprintf("Performing Mutilple Imputation......\n")
 dat.imp <- mice( dat0, meth = meth, pred = pred, post = post,
                  seed = 1111,
                  m = n.imp, maxit = n.iter)
 rm(dat0)
+fprintf("Mulitple Imputation Finished!\n")
+SDPP.save.file(dat.imp,
+               FileName = "Demographics_MICE.rds",
+               Prefix = Prefix,
+               ProjectDirectory = ProjectDirectory)
 
-# get one imputed dataset out
-completedData <- complete(dat.imp,1)
-baseline_demo[, var.ls] = completedData
-
-baseline_demo[, table(interview_age,useNA = 'if')]
-baseline_demo[, table(sex,useNA = 'if')]
-baseline_demo[, table(Race_PrntRep,useNA = 'if')]
-baseline_demo[, table(RaceEthnicity,useNA = 'if')]
-baseline_demo[, table(Ethnicity_PrntRep,useNA = 'if')]
-baseline_demo[, table(FamilyIncome,useNA = 'if')]
-baseline_demo[, table(ParentsEdu,useNA = 'if')]
-baseline_demo[, table(ParentMarital,useNA = 'if')]
-
-Demographics_after_impute = rbind(baseline_demo,as.data.table(subset(Demographic,eventname!='baseline_year_1_arm_1')))
-saveRDS(Demographics_after_impute,"I:\\ABCDStudyNDA\\ABCD_DataAnalysis_4.0\\DataPreprocessing\\ABCD4.0_Demographic_imputed.rds")
-
-after = subset(Demographics_after_impute,eventname=='baseline_year_1_arm_1',select = var.ls)
-before = subset(Demographics_before_impute,eventname=='baseline_year_1_arm_1',select = var.ls)
-after$Label = "AfterImpute"
-before$Label = "BeforeImpute"
-comp_baseline_demo = rbind(after,before)
-
-compareGroups::compareGroups(Label~interview_age+sex+
-                               Race_PrntRep+FamilyIncome+ParentsEdu+
-                               ParentMarital,data = comp_baseline_demo) %>%
+# 7. Post-processing for Multiple Imputation ------------------------------
+if (!exists('dat.imp')){
+  dat.imp = SDPP.read.intdat('ABCD5.0_Demographics_MICE.rds',ProjectDirectory)
+}
+# get imputed dataset out
+Imputed_Data = Comb.MICE(dat.imp,var.ls.imp)
+Demographics_after_impute_baseline = Demographics_before_impute_baseline
+Demographics_after_impute_baseline = select(Demographics_after_impute_baseline,
+                                            -matches(var.ls.imp))
+Demographics_after_impute_baseline = merge(Demographics_after_impute_baseline,
+                                           Imputed_Data,
+                                           by = 'src_subject_id')
+Demograhics_Imputed = rbind(Demographics_after_impute_baseline,
+                            subset(Demographic,
+                             eventname != "baseline_year_1_arm_1"))
+# BOCF for imputed data
+Demograhics_Imputed = as.data.frame(Demograhics_Imputed)
+for (i in var.ls.imp){
+  Demograhics_Imputed = BOCF.Variables(Demograhics_Imputed,'baseline_year_1_arm_1',i) 
+}
+# Comapre imputed and non-imputed data
+Demographics_before_impute_baseline$Label = "Before MI"
+Demographics_after_impute_baseline$Label ="After MI"
+comp_baseline_demo = rbind(Demographics_after_impute_baseline,
+                           Demographics_before_impute_baseline)
+comp_baseline_demo$Label = factor(comp_baseline_demo$Label,
+                                  levels = c('Before MI',
+                                             'After MI'))
+CompareFormula = str_c("Label ~ ",
+                       paste(var.ls[! var.ls %in% c('src_subject_id','SiteID','FamilyID')],
+                             collapse = "+"))
+compareGroups::compareGroups(formula = as.formula(CompareFormula),
+                             data = comp_baseline_demo) %>%
   compareGroups::createTable(show.n = T,show.ci = F,show.ratio = T) -> groupdiffTab
 
 print(groupdiffTab)
 
-compareGroups::export2xls(groupdiffTab,file = 'I:\\ABCDStudyNDA\\ABCD_DataAnalysis_4.0\\DataPreprocessing\\Comp_Demo_Impute.xlsx')
+compareGroups::export2xls(groupdiffTab,
+                          file = fullfile(ResultsOutputDir,'MVA_MI_CompareTable.xlsx'))
+# Recoding some varibales based on the imputed data
+fprintf('Re-coding the imputed data......\n')
+Demograhics_Imputed
+Demograhics_Imputed$Race_4L = fct_collapse(Demograhics_Imputed$Race_PrntRep,
+                                   `Mixed/Other` = c('AIAN',
+                                                     'NHPI',
+                                                     'Mixed',
+                                                     'Other'))
+print(table(Demographic$Race_4L))
+Demograhics_Imputed$Race_6L = fct_collapse(Demograhics_Imputed$Race_PrntRep,
+                                   `Mixed/Other` = c('Other',
+                                                     'Mixed'))
+print(table(Demographic$Race_6L))
+Demograhics_Imputed$ParentsHighEdu_2L = fct_collapse(Demograhics_Imputed$ParentsHighEdu_5L,
+                                             `High school or less` = c('< HS Diploma',
+                                                                       'HS Diploma/GED'),
+                                             `College education` = c('Some College',
+                                                                     'Bachelor',
+                                                                     'Post Graduate Degree'),
+)
+print(table(Demographic$ParentsHighEdu_2L))
+Demographic$ParentsMarital_2L = factor(Demographic$ParentsMarital_2L,
+                                       levels = c('Married or living with partner',
+                                                  'Single'),
+                                       ordered = F)
+print(table(Demographic$ParentsMarital_2L))
+# Save Imputed Demographics Data
+SDPP.save.file(Demograhics_Imputed,
+               FileName = "Demographics_Imputed.rds",
+               Prefix = Prefix,
+               ProjectDirectory = ProjectDirectory)
+SDPP.save.file(Demograhics_Imputed,
+               FileName = "Demographics_Imputed.csv",
+               Prefix = Prefix,
+               ProjectDirectory = ProjectDirectory)
+# End of Script -----------------------------------------------------------
+fprintf("SDPP-ABCD-TabDat Step 3 finished! Finish Time:%s\n",Sys.time())
+sink()
+

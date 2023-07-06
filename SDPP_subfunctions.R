@@ -4,7 +4,9 @@
 # Author: Kunru Song
 # 1. Basic File I/O Functions ---------------------------------------------
 addprefix <- function(prefix,filename,postfix=NA){
-  filename = paste(prefix,filename,sep = '_')
+  if (!is.na(prefix)){
+    filename = paste(prefix,filename,sep = '_')
+  }
   if (is.na(postfix)){
     return(filename)
   }else{
@@ -15,6 +17,9 @@ addprefix <- function(prefix,filename,postfix=NA){
 fullfile <- function(...){
   PathStr = normalizePath(paste(...,sep = '/'),winslash = '/',mustWork = F)
   return(PathStr)
+}
+fprintf <- function(StringVar,...){
+  cat(sprintf(StringVar,...))
 }
 read4.0 <- function(filename){
   data = read.table(filename,header = TRUE,sep = '\t')
@@ -43,9 +48,6 @@ readABCDdata<-function(filename,version="5.0"){
   cat("Subjects Counts (stratified by eventname):\n")
   print(table(data$eventname))
   return(data)
-}
-fprintf <- function(StringVar,...){
-  cat(sprintf(StringVar,...))
 }
 SDPP.save.file <- function(Data,FileName,Prefix,ProjectDirectory,FileFormat=NA,DataLabel=NA){
   if (is.na(FileFormat)){
@@ -84,6 +86,7 @@ SDPP.read.intdat <- function(FileName,ProjectDirectory){
     fprintf("Did not find appropraite file postfix! Please Check your code!")
     fprintf("SDPP.read file will be skipped! Read data failed!")
   }
+  return(data)
 }
 # 2. SDPP Project Managing Functions --------------------------------------
 SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory){
@@ -105,6 +108,19 @@ SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory){
   return(AutoLogFolderPath)
 }
 # 3. Data Processing Functions --------------------------------------------
+dt.print.mva.counts <- function(dt_name,var_name){
+  print(eval(parse(text = sprintf("%s[,table(%s,useNA = 'if')]",dt_name,var_name))))
+}
+MODE.Row <- function(df){
+  uniqv <- unique(df)
+  uniqv[which.max(tabulate(match(df, uniqv)))]
+}
+Check.Numeric <- function(Class_String){
+  Flag = ("numeric" %in% Class_String) | 
+    ("double" %in% Class_String) | 
+    ("integer" %in% Class_String)
+  return(Flag)
+}
 BOCF.Variables <- function(data,anchor_wave,variable_name,autocheck=F){
   cat(sprintf('Carry Forward variable:%s from baseline to Follow-up Waves\n',variable_name))
   data_anchor = subset(data,eventname == anchor_wave)
@@ -122,7 +138,38 @@ BOCF.Variables <- function(data,anchor_wave,variable_name,autocheck=F){
   cat(sprintf('Variable:%s BOCF finished!\n',variable_name))
   return(data)
 }
-dt.print.mva.counts <- function(dt_name,var_name){
-  print(eval(parse(text = sprintf("%s[,table(%s,useNA = 'if')]",dt_name,var_name))))
+Comb.MICE <- function(dat.imp,var.ls.imp){
+  original.dat <- complete(dat.imp,0)
+  completed.dat <- complete(dat.imp,"long")
+  imputed.dat <- select(original.dat,src_subject_id)
+  for (i in var.ls.imp){
+    fprintf("Combining Variable: %s among all imputed datasets.\n",i)
+    subset(completed.dat,select = -.id) %>%
+      pivot_wider(id_cols = src_subject_id,
+                  names_from = .imp,
+                  values_from = matches(i)) %>%
+      as.data.frame() -> single.var.dat
+    tmp.dat <- select(single.var.dat,src_subject_id)
+    if ("factor" %in% class(original.dat[[i]])){
+      tmp.dat[i] <- apply(single.var.dat[,-1],MARGIN = 1, MODE.Row)
+      if ("character" %in% class(tmp.dat[[i]])){
+        tmp.dat[i] = factor(tmp.dat[[i]],
+                            levels = levels(original.dat[[i]]),
+                            ordered = "ordered" %in% class(original.dat[[i]]),
+        )
+      }
+      
+    }else if ( Check.Numeric(class(original.dat[[i]])) ){
+      tmp.dat[i] <- apply(single.var.dat[,-1],MARGIN = 1, median)
+    }
+    imputed.dat = merge(imputed.dat,tmp.dat,by = "src_subject_id", all = F)
+    fprintf('Compare variable values before and after multiple imputation:\n')
+    fprintf('Before MI:')
+    print(table(original.dat[i],useNA = 'if'))
+    fprintf('After MI:')
+    print(table(imputed.dat[i],useNA = 'if'))
+  }
+  return(imputed.dat)
 }
+
 

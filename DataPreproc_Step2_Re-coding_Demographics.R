@@ -349,6 +349,6 @@ write.csv(Demographic,OutputFileDir,
 cat(sprintf('Saving Data into CSV File: %s......\nFinished!\n',OutputFileDir))
 
 # End of script -----------------------------------------------------------
-cat("SDPP-ABCD-TabDat Step 2 finished!\n")
+fprintf("SDPP-ABCD-TabDat Step 2 finished! Finish Time:%s\n",Sys.time())
 sink()
 

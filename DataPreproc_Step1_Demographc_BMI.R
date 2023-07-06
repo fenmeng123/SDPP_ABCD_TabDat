@@ -704,6 +704,6 @@ OutputFileDir = fullfile(ProjectDirectory,'Res_3_IntermediateData',OutputFileNam
 cat(sprintf('Raw Demographics Data (Double and Character) will be saved into: %s\n',OutputFileDir))
 write.csv(Demographic,OutputFileDir,fileEncoding = 'UTF-8')
 
-# 12. End of script -------------------------------------------------------
-cat("SDPP-ABCD-TabDat Step 1 finished!\n")
+# End of script -------------------------------------------------------
+fprintf("SDPP-ABCD-TabDat Step 1 finished! Finish Time:%s\n",Sys.time())
 sink()

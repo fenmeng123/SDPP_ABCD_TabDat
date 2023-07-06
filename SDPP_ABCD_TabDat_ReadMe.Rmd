@@ -26,12 +26,12 @@ output: rmarkdown::github_document
 
 ```{r, echo = FALSE}
 library(knitr)
-`Abbr.` <- c('T0','T1','T2','T3','T4')
-Meaning <- c('Baseline Wave Data',
-             'one-year follow-up',
-             'two-year follow-up',
-             'three-year follow-up',
-             'four-year follow-up')
+`Abbr.` <- c('T0','T1','T2','T3','T4',
+             'MVA',
+             'MI')
+Meaning <- c('Baseline Wave Data','One-year follow-up','Two-year follow-up','Three-year follow-up','Four-year follow-up',
+             'Missing Value Analysis',
+             'Multiple Imputation')
 AbbrTable <- data.frame(`Abbr.`,Meaning)
 kable(AbbrTable)
 ```
