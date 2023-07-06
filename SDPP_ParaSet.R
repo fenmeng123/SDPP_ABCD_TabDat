@@ -32,15 +32,14 @@ fprintf("Project Directory: \t\t\t %s\n",fullfile(ProjectDirectory))
 fprintf("Downloaded NDA Data Directory: \t %s\n",fullfile(TabulatedDataDirectory))
 fprintf("Output Intermediate Data File Prefix: \t %s\n",Prefix)
 fprintf("Output Intermediate Data Directory: \t %s\n",IntermediateDataDir)
-fprintf("=======================================================================================\n")
 rm(basic.info,other.info)
-# 1. Step 1-specification -------------------------------------------------
+
 fprintf("=================================Step 1 Specifications=================================\n")
 fprintf('Nothing\n')
-# 2. Step 2-Specification -------------------------------------------------
+
 fprintf("=================================Step 2 Specifications=================================\n")
 fprintf('Nothing\n')
-# 3. Step 3-specification -------------------------------------------------
+
 fprintf("=================================Step 3 Specifications=================================\n")
 S3_ResultsOutputDir = SDPP.set.output(fullfile(ProjectDirectory,'Res_2_Results','Res_Preproc'))
 # Number of multiple imputed datasets & maximum number of iterations 
@@ -50,6 +49,9 @@ fprintf("Step 3 Results Output Directory: %s\n",S3_ResultsOutputDir)
 fprintf('Number of Multiple Imputation Replicates: %d\n',n.imp)
 fprintf('Number of Maximum Iterations in Multiple Imputation: %d\n',n.iter)
 
+fprintf("=================================Step 4 Specifications=================================\n")
+S4_ResultsOutputDir = SDPP.set.output(fullfile(ProjectDirectory,'Res_2_Results','Res_Preproc'))
+fprintf("Step 4 Results Output Directory: %s\n",S4_ResultsOutputDir)
 
 # End of Script -----------------------------------------------------------
 fprintf("SDPP-ParaSet finished! Finish Time:%s\n",Sys.time())

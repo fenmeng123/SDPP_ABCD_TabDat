@@ -5,6 +5,7 @@
 # 1. The imputation about the core demographics was referred to ABCD-DAIRC
 # 2. Ref Link:
 # https://github.com/fenmeng123/2022_JAACAP_ABCD_SMA_pattern
+# https://wiki.abcdstudy.org/release-notes/non-imaging/novel-technologies.html#screen-time-questionnaire
 # 3. Target File: ABCD4.0_Demographics_Recode.rds
 # Update Date: 2023.06.16 By Kunru Song
 # Update Date: 2023.07.06 By Kunru Song
@@ -13,18 +14,22 @@
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_4.txt'
 AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
 sink(file = AutoLogFilePath)
+ResultsOutputDir = S4_ResultsOutputDir
 library(bruceR)
 library(naniar)
 # ==============================MAIN CODES=====================================#
 # 2. Load abcd_p_demo.csv and perform re-coding --------------------------------
 stq_FileDir = fullfile(TabulatedDataDirectory,'/novel-technologies/nt_y_st.csv')
 stq = readABCDdata(stq_FileDir)
-fprintf("Variable Data type:\n")
+fprintf("Youth Screen Time Questionnaire Raw Data-Variable Data type:\n")
 sapply(stq,typeof)
-
-# 3. Re-coding Youth's Screen Use Time -----------------------------------------
-
+stq %>% MVA.Report.By.Wave() %>% 
+  print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_SMA_RawData.doc'),
+              row.names = F,
+              nsmalls = 1)
+# 3. Re-coding Youth's Screen Use Time (Screen Time Questionnaire) -------------
 #------------------- Screen Time Survey (baseline and 1-year FU) --------------#
+# Re-code and rename to a 7-level ordinal variable as numeric data type
 # 0 = None; .25 = < 30 minutes; 0.5 = 30 minutes; 1 = 1 hour; 2 = 2 hours; 3 = 3 hours; 4 = 4+ hours 
 # //Example: 1½ hours would be coded as 1 hour, rather than 2 hours.
 # screen1_wkdy_y	weekday Watch TV shows or movies 
@@ -40,42 +45,44 @@ sapply(stq,typeof)
 # screen10_wknd_y weekend Text on a cell phone, tablet, or computer (GChat, Whatsapp, etc.)
 # screen11_wknd_y weekend Visit social networking sites like Facebook, Twitter, Instagram, etc.
 # screen12_wknd_y weekend Video chat (Skype, Facetime, etc.)
-stq_old_12item = subset(stq,
-                        select = c(screen1_wkdy_y,screen2_wkdy_y,screen3_wkdy_y,
-                                   screen4_wkdy_y,screen5_wkdy_y,screen_wkdy_y,
-                                   screen7_wknd_y,screen8_wknd_y,screen9_wknd_y,
-                                   screen10_wknd_y,screen11_wknd_y,screen12_wknd_y))
-colnames(stq_old_12item) = c('weekday_TV','weekday_Video','weekday_Game','weekday_Text','weekday_SocialNet','weekday_VideoChat',
-                             'weekend_TV','weekend_Video','weekend_Game','weekend_Text','weekend_SocialNet','weekend_VideoChat')
-
-# (Mature-rated games and movies items were kept from baseline to 3-year FU)
+stq = rename(stq,
+             weekday_TV = screen1_wkdy_y,
+             weekday_Video = screen2_wkdy_y,
+             weekday_Game = screen3_wkdy_y,
+             weekday_Text = screen4_wkdy_y,
+             weekday_SocialNet = screen5_wkdy_y,
+             weekday_VideoChat = screen_wkdy_y,
+             weekend_TV = screen7_wknd_y,
+             weekend_Video = screen8_wknd_y,
+             weekend_Game = screen9_wknd_y,
+             weekend_Text = screen10_wknd_y,
+             weekend_SocialNet = screen11_wknd_y,
+             weekend_VideoChat = screen12_wknd_y)
+TPD_STQ_OLD = select(stq,
+                     c(weekday_TV, weekday_Video,weekday_Game,
+                       weekday_Text,weekday_SocialNet,weekday_VideoChat,
+                       weekend_TV,weekend_Video,weekend_Game,
+                       weekend_Text,weekend_SocialNet,weekend_VideoChat))
+# (Mature-rated games and movies items were kept from baseline to 4-year FU)
 # 0 = Never; 1 = Once in a while; 2 = Regularly; 3 = All the time
 # screen13_y How often do you play mature-rated video games (e.g., Call of Duty, Grand Theft Auto, Assassin's Creed, etc.)?
 # screen14_y How often do you watch R-rated movies?
-
+stq = rename(stq,
+             R_rated_Games = screen13_y,
+             R_rated_Movies = screen14_y)
 #------------------- Screen Time Survey (2-year FU) ---------------------------#
+# please see ReadMe Usage Note 4
 # hr: hours 0::23 
 # min: minutes 0,15,30,45
-# |---------Notes from Bagot et al. (2022) Dev Cog Neuroscience:----------------|#
-# |Note 1|
-# |Beginning in Year 2, the activities listed were changed slightly to reflect
-# |the increase in video streaming: watching TV shows or movies changed to 
-# |“watching or streaming TV shows or movies”; watching videos (such as YouTube)
-# |changed to “watching or streaming videos or live streaming (such as YouTube, Twitch)"
-# |Note 2|
-# |2.1 time spent playing videogames was broken down into 
-# |“time spent on single player”and “multiplayer gaming”; 
-# |2.2 editing photos or videos to post on social media was added;
-# |“searching or browsing the internet that is not "for school” was added;
-# |2.3 total time spent on all non-school related screen usage activities was added.
-# |2.4 Importantly, the response format in Year 2 was changed from categories to 
-# |open format, where individuals input the hours and minutes, they estimated 
-# |spending on each screen usage activity.
+# 
 # weekday screen use time
 # screentime_1_wkdy_hr weekday Watch or stream TV shows or movies? (such as Hulu, Netflix or Amazon, not including videos on YouTube)
 # screentime_1_wkdy_min
 # screentime_2_wkdy_hr weekday Watch or stream videos or live stream (such as YouTube, Twitch)
 # screentime_2_wkdy_min
+# For 3-year and 4-year follow-up:
+# Includes variables: screentime_1_wkdy2_hr, screentime_1_wkdy2_min, screentime_7_8_wknd_hr, screentime_7_8_wknd_min.
+# 
 # screentime_3_wkdy_hr weekday Play single-player video games on a computer, console, phone or other device (Xbox, Play Station, iPad, AppleTV)
 # screentime_3_wkdy_min
 # screentime_4_wkdy_hr weekday Play multiplayer video games on a computer, console, phone, or other device (Xbox, Play Station, iPad, AppleTV) where you can interact with others in the game?
@@ -84,17 +91,23 @@ colnames(stq_old_12item) = c('weekday_TV','weekday_Video','weekday_Game','weekda
 # screentime_5_wkdy_min
 # screentime_6_wkdy_hr weekday Visit social media apps (e.g., Snapchat, Facebook, Twitter, Instagram, TikTok, etc.? (Do not include time spent editing photos or videos to post on social media.)
 # screentime_6_wkdy_min
+# 
 # screentime_7_wkdy_hr weekday Edit photos or videos to post on social media.
 # screentime_7_wkdy_min
+# 
 # screentime_8_wkdy_hr weekday Video chat (Skype, FaceTime, VRchat, etc.)
 # screentime_8_wkdy_min
 # screentime_9_wkdy_hr weekday Searching or browsing the internet (e.g., using Google) that is NOT for school
 # screentime_9_wkdy_min
+# 
 # weekend day screen use time
+# 
 # screentime_7_wknd_hr  weekend Watch or stream TV shows or movies? (such as Hulu, Netflix or Amazon, not including videos on YouTube)
 # screentime_7_wknd_min
+# 
 # screentime_8_wknd_hr  weekend Watch or stream videos or live stream (such as YouTube, Twitch)
 # screentime_8_wknd_min
+# 
 # screentime_9_wknd_hr  weekend Play single-player video games on a computer, console, phone or other device (Xbox, Play Station, iPad, AppleTV)
 # screentime_9_wknd_min
 # screentime_10_wknd_hr weekend Play multiplayer video games on a computer, console, phone, or other device (Xbox, Play Station, iPad, AppleTV) where you can interact with others in the game
@@ -103,25 +116,41 @@ colnames(stq_old_12item) = c('weekday_TV','weekday_Video','weekday_Game','weekda
 # screentime_11_wknd_min
 # screentime_12_wknd_hr weekend Visit social media apps (e.g., Snapchat, Facebook, Twitter, Instagram, TikTok, etc.? (Do not include time spent editing photos or videos to post on social media.)
 # screentime_12_wknd_min
+# 
 # screentime_13_wknd_hr weekend Edit photos or videos to post on social media.
 # screentime_13_wknd_min
+# 
 # screentime_14_wknd_hr weekend Video chat (Skype, FaceTime, VRchat, etc.)
 # screentime_14_wknd_min
 # screentime_15_wknd_hr weekend Searching or browsing the internet (e.g., using Google) that is NOT for school
 # screentime_15_wknd_min
-stq_new_18item = subset(stq,select = c(screentime_1_wkdy_hr,screentime_1_wkdy_min,screentime_2_wkdy_hr,screentime_2_wkdy_min,
-                                       screentime_3_wkdy_hr,screentime_3_wkdy_min,screentime_4_wkdy_hr,screentime_4_wkdy_min,
-                                       screentime_5_wkdy_hr,screentime_5_wkdy_min,screentime_6_wkdy_hr,screentime_6_wkdy_min,
-                                       screentime_7_wkdy_hr,screentime_7_wkdy_min,screentime_8_wkdy_hr,screentime_8_wkdy_min,
+stq_new_18item = subset(stq,select = c(screentime_1_wkdy_hr,screentime_1_wkdy_min,
+                                       screentime_2_wkdy_hr,screentime_2_wkdy_min,
+                                       screentime_3_wkdy_hr,screentime_3_wkdy_min,
+                                       screentime_4_wkdy_hr,screentime_4_wkdy_min,
+                                       screentime_5_wkdy_hr,screentime_5_wkdy_min,
+                                       screentime_6_wkdy_hr,screentime_6_wkdy_min,
+                                       screentime_7_wkdy_hr,screentime_7_wkdy_min,
+                                       screentime_8_wkdy_hr,screentime_8_wkdy_min,
                                        screentime_9_wkdy_hr,screentime_9_wkdy_min,
-                                       screentime_7_wknd_hr,screentime_7_wknd_min,screentime_8_wknd_hr,screentime_8_wknd_min,
-                                       screentime_9_wknd_hr,screentime_9_wknd_min,screentime_10_wknd_hr,screentime_10_wknd_min,
-                                       screentime_11_wknd_hr,screentime_11_wknd_min,screentime_12_wknd_hr,screentime_12_wknd_min,
-                                       screentime_13_wknd_hr,screentime_13_wknd_min,screentime_14_wknd_hr,screentime_14_wknd_min,
-                                       screentime_15_wknd_hr,screentime_15_wknd_min))
-# Recode to a 5-level ordinal categorical variable
+                                       screentime_7_wknd_hr,screentime_7_wknd_min,
+                                       screentime_8_wknd_hr,screentime_8_wknd_min,
+                                       screentime_9_wknd_hr,screentime_9_wknd_min,
+                                       screentime_10_wknd_hr,screentime_10_wknd_min,
+                                       screentime_11_wknd_hr,screentime_11_wknd_min,
+                                       screentime_12_wknd_hr,screentime_12_wknd_min,
+                                       screentime_13_wknd_hr,screentime_13_wknd_min,
+                                       screentime_14_wknd_hr,screentime_14_wknd_min,
+                                       screentime_15_wknd_hr,screentime_15_wknd_min,
+                                       screentime_1_wkdy2_hr, screentime_1_wkdy2_min,
+                                       screentime_7_8_wknd_hr, screentime_7_8_wknd_min))
+# Recode to a 7-level ordinal variable
 # 2-year open-answered STQ
-stq_new_18item$open_weekday_TV  = stq_new_18item$screentime_1_wkdy_hr + stq_new_18item$screentime_1_wkdy_min/60
+open_weekday_TV_T2 = stq_new_18item$screentime_1_wkdy_hr + stq_new_18item$screentime_1_wkdy_min/60
+open_weekend_TV_T2 = stq_new_18item$screentime_7_wknd_hr + stq_new_18item$screentime_7_wknd_min/60
+open_weekday_TV_T3_T4 = stq_new_18item$screentime_1_wkdy2_hr + stq_new_18item$screentime_1_wkdy2_min/60
+open_weekend_TV_T3_T4 = stq_new_18item$screentime_7_8_wknd_hr + stq_new_18item$screentime_7_8_wknd_min/60
+stq_new_18item$open_weekday_TV  = Merge.Value.NA(open_weekday_TV_T2,open_weekday_TV_T3_T4)
 stq_new_18item$open_weekday_Video  = stq_new_18item$screentime_2_wkdy_hr + stq_new_18item$screentime_2_wkdy_min/60
 stq_new_18item$open_weekday_SingleGame  = stq_new_18item$screentime_3_wkdy_hr + stq_new_18item$screentime_3_wkdy_min/60
 stq_new_18item$open_weekday_MultiGame  = stq_new_18item$screentime_4_wkdy_hr + stq_new_18item$screentime_4_wkdy_min/60
@@ -130,7 +159,7 @@ stq_new_18item$open_weekday_SocialApps  = stq_new_18item$screentime_6_wkdy_hr + 
 stq_new_18item$open_weekday_EditPhoto  = stq_new_18item$screentime_7_wkdy_hr + stq_new_18item$screentime_7_wkdy_min/60
 stq_new_18item$open_weekday_VideoChat  = stq_new_18item$screentime_8_wkdy_hr + stq_new_18item$screentime_8_wkdy_min/60
 stq_new_18item$open_weekday_Surf  = stq_new_18item$screentime_9_wkdy_hr + stq_new_18item$screentime_9_wkdy_min/60
-stq_new_18item$open_weekend_TV  = stq_new_18item$screentime_7_wknd_hr + stq_new_18item$screentime_7_wknd_min/60
+stq_new_18item$open_weekend_TV  = Merge.Value.NA(open_weekend_TV_T2,open_weekend_TV_T3_T4)
 stq_new_18item$open_weekend_Video  = stq_new_18item$screentime_8_wknd_hr + stq_new_18item$screentime_8_wknd_min/60
 stq_new_18item$open_weekend_SingleGame  = stq_new_18item$screentime_9_wknd_hr + stq_new_18item$screentime_9_wknd_min/60
 stq_new_18item$open_weekend_MultiGame  = stq_new_18item$screentime_10_wknd_hr + stq_new_18item$screentime_10_wknd_min/60
@@ -139,121 +168,102 @@ stq_new_18item$open_weekend_SocialApps  = stq_new_18item$screentime_12_wknd_hr +
 stq_new_18item$open_weekend_EditPhoto  = stq_new_18item$screentime_13_wknd_hr + stq_new_18item$screentime_13_wknd_min/60
 stq_new_18item$open_weekend_VideoChat  = stq_new_18item$screentime_14_wknd_hr + stq_new_18item$screentime_14_wknd_min/60
 stq_new_18item$open_weekend_Surf  = stq_new_18item$screentime_15_wknd_hr + stq_new_18item$screentime_15_wknd_min/60
-# Bagot et al.:
-# "To harmonize screen usage data across Baseline, Year 1, and Year 2
-# for analyses here, it was necessary to transform Year 2 open responses to
-# categories consistent with Baseline and Year 1. This was done by summing
-# hours and minutes for each activity in Year 2 and recoding it to the
-# categories (with anything above 4 h recoded as ‘4 + hours’), according
-# to a 6-point scale: 0 h, < 1 h, 1–2 h, 2–3 h, 3–4 h, and > 4 h. For analyses,
-# these were coded as 0–5, respectively"
+# Combing the single-player game time and multiple-player game time
+stq_new_18item$open_weekday_Game = SUM(stq_new_18item,
+                                       vars = c('open_weekday_SingleGame',
+                                                'open_weekday_MultiGame'),
+                                       na.rm = F)
+stq_new_18item$open_weekend_Game = SUM(stq_new_18item,
+                                       vars = c('open_weekend_SingleGame',
+                                                'open_weekend_MultiGame'),
+                                       na.rm = F)
 for (i in grep('^open.*',colnames(stq_new_18item),value = T) ){
-  stq_new_18item[ str_replace(i,'open_','') ] = RECODE(stq_new_18item[[i]],
-                                                       "0=0;
-                                                       0.25:0.75=1;
-                                                       1:1.75=2;
-                                                       2:2.75=3;
-                                                       3:3.75=4;
-                                                       4:hi=5;else=NA")
+  stq_new_18item[ str_replace(i,'open_','') ] = Recode.STQ(stq_new_18item[[i]],
+                                                           Scheme = '7 Levels')
 }
-# Baseline, year-1, close-answered STQ
-for (i in colnames(stq_old_12item) ){
-  stq_old_12item[[i]] = RECODE(stq_old_12item[[i]],
-                              "0=0;
-                               0.25:0.75=1;
-                               1=2;
-                               2=3;
-                               3=4;
-                               4=5;else=NA")
+stq_new_18item %>%
+  select(starts_with(c('weekday','weekend'))) %>%
+  rename(weekday_SocialNet = weekday_SocialApps,
+         weekend_SocialNet = weekend_SocialApps) -> TPD_STQ_NEW
+# Concatenate 12 Items in STQ
+TPD_STQ = select(stq,c(src_subject_id,eventname))
+TPD_STQ = cbind(TPD_STQ,
+                TPD_STQ_NEW[,!colnames(TPD_STQ_NEW) %in% colnames(TPD_STQ_OLD)])
+for (i in colnames(TPD_STQ_OLD)){
+  TPD_STQ[[i]] <- Merge.Value.NA(TPD_STQ_OLD[[i]],TPD_STQ_NEW[[i]])
 }
-
-# The following are empty variables or mis-description variables (would be removed)
-# screen_wknd_school_hr_y
-# screen_14_wknd_hr_y
-# screen_14_wknd_min_y
-# screen_7_8_wknd_hr_y
-# screen_8_wkdy_hr_y
-# screen_10_wknd_error_y
-# screen_wknd_typical_hr_y
-# screen_9_wknd_hr_y
-# screen_4_wkdy_min_y
-# screen_3_wkdy_hr_y
-# screen_wkdy_school_min_y
-# screen_9_wkdy_min_y
-# screen_4_wkdy_hr_y
-# screen_5_wkdy_error_y
-# screen_3_wkdy_min_y
-# screen_wknd_school_min_y
-# screen_10_wknd_hr_y
-# screen_14_wknd_hr_y
-# screen_wknd_typical_hr_y
-# screen_9_wknd_hr_y
-# screen_4_wkdy_min_y
-# screen_3_wkdy_hr_y
-# screen_wkdy_school_min_y
-# screen_9_wkdy_min_y
-# screen_4_wkdy_hr_y
-# screen_5_wkdy_error_y
-# screen_3_wkdy_min_y
-# screen_wknd_school_min_y
-# screen_10_wknd_hr_y
-# ......
-
-# Other self-reported screen time -----------------------------------------
-
-# screentime_wkdy_typical_hr weekday Use Time per day
+TPD_STQ = cbind(TPD_STQ,
+                select(stq_new_18item,starts_with('open_')))
+TPD_STQ %>% MVA.Report.By.Wave() %>% 
+  print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_SMA_Recode_TPD_STQ.doc'),
+              row.names = F,
+              nsmalls = 1)
+# Variables measured the TOTAL time in ABCD STQ
+# 
+# screentime_wkdy_typical_hr
 # screentime_wkdy_typical_min
-# Item:
+# 
 # On a typical WEEKDAY (during the school year), how much TIME per day do you spend 
 # in TOTAL on a computer, phone, tablet, iPod, or other device or video game? 
 # Please do NOT include time spent on school related work, but do include 
 # watching TV, shows or videos, texting or chatting, playing games, 
 # or visiting social networking sites (Facebook, Twitter, Instagram)
+# 
 # screentime_wknd_typical_hr weekend Use Time Per day
 # screentime_wknd_t_min
+# 
 # On a typical WEEKEND DAY (or non-school day, like during summer or holiday breaks), 
 # how much TIME per day do you spend in TOTAL on a computer......
-stq_TimePerDay = subset(stq,select = c(screentime_wkdy_typical_hr,screentime_wkdy_typical_min,screentime_wknd_typical_hr,screentime_wknd_t_min))
-stq_TimePerDay$weekday_TPD = stq_TimePerDay$screentime_wkdy_typical_hr + (stq_TimePerDay$screentime_wkdy_typical_min)/60
-stq_TimePerDay$weekend_TPD = stq_TimePerDay$screentime_wknd_typical_hr + (stq_TimePerDay$screentime_wknd_t_min)/60
-
-# Mobile Phone related measurements ---------------------------------------
-
-# Q1: screentime_phone_yn Do you have your own mobile phone, smart watch or ipod? 
+TPD_STQ$open_weekday_TOTAL = stq$screentime_wkdy_typical_hr + (stq$screentime_wkdy_typical_min)/60
+TPD_STQ$open_weekend_TOTAL = stq$screentime_wknd_typical_hr + (stq$screentime_wknd_t_min)/60
+TPD_STQ$weekday_TOTAL = Recode.STQ(TPD_STQ$open_weekday_TOTAL,
+                                   Scheme = '7 Levels')
+TPD_STQ$weekend_TOTAL = Recode.STQ(TPD_STQ$open_weekend_TOTAL,
+                                    Scheme = '7 Levels')
+# Variables measured the time spent on school-related work in ABCD STQ
+# 
+# screentime_wkdy_school_hr
+# screentime_wkdy_school_min
+# 
+# Spend in TOTAL on school-related work on a phone, tablet, computer, or other
+# computerized device? Please do not include time during school.
+# 
+# screentime_wknd_school_hr
+# screentime_wknd_school_min
+# 
+TPD_STQ$open_weekday_School = stq$screentime_wkdy_school_hr + (stq$screentime_wkdy_school_min)/60
+TPD_STQ$open_weekend_School = stq$screentime_wknd_school_hr + (stq$screentime_wknd_school_min)/60
+TPD_STQ$weekday_School = Recode.STQ(TPD_STQ$open_weekday_School,
+                                   Scheme = '7 Levels')
+TPD_STQ$weekend_School = Recode.STQ(TPD_STQ$open_weekend_School,
+                                   Scheme = '7 Levels')
+# 4. Mobile Phone related measurements ---------------------------------------
+# MPIQ 8 Items
+stq %>% select(c(src_subject_id,eventname,
+                 screentime_phone1,screentime_phone2,screentime_phone3,
+                 screentime_phone4,screentime_phone5,screentime_phone6,
+                 screentime_phone7,screentime_phone8)) %>%
+  rename(MPIQ_1 = screentime_phone1,
+         MPIQ_2 = screentime_phone2,
+         MPIQ_3 = screentime_phone3,
+         MPIQ_4 = screentime_phone4,
+         MPIQ_5 = screentime_phone5,
+         MPIQ_6 = screentime_phone6,
+         MPIQ_7 = screentime_phone7,
+         MPIQ_8 = screentime_phone8) -> MPIQ
+for (i in grep("^MPIQ_.*", colnames(MPIQ),value = T)){
+  MPIQ[[i]] <- Recode.ABCD.NA(MPIQ[[i]])
+}
+# screentime_phone_yn: Do you have your own mobile phone, smart watch or ipod? 
 # 0=No; 1=Yes; 777=Refuse to Answer
-# |Mobile phone involvement questionnaire (MPIQ)|
-# |How much do you agree with the following statements in relation to your cell phone use?|
-# |1=Strongly Disagree; 2=Disagree; 3=Somewhat Disagree; 4=Neither Agree nor Disagree;
-# |5=Somewhat Agree; 6=Agree; 7=Strongly Agree; 777=Refuse to Answe
-# |Notes: This questionnaire is the Mobile Phone Involvement Questionnaire (MPIQ)
-# |This is an 8-item questionnaire designed to assess problematic mobile phone 
-# |usage, beginning in Year 2. Ref: "Needing to connect: The effect of self and 
-# |others on young people's involvement with their mobile phones (2010)".
-# |Items (Q1-Q8): 
-# |screentime_phone1: I interrupt whatever else I am doing when I am contacted on my phone
-# |screentime_phone2: I often use my phone for no particular reason
-# |screentime_phone3: I feel connected to others when I am using my phone
-# |screentime_phone4: Arguments have arisen with others because of my phone use
-# |screentime_phone5: I lose track of how much I am using my phone.
-# |screentime_phone6: I often think about my phone when I am not using it
-# |screentime_phone7: I have been unable to reduce my phone use
-# |screentime_phone8: The thought of being without my phone makes me feel distressed
+
 # Mobile PHone Attachment (MPHA)
 # Single Item measures the degree of phone attachment
 # screentime_phone_scale: On a scale of 1-10 
 # (with 1=barely check it/can go days without it, 
 # and 10=check at least hourly when awake), how attached are you to your phone?
 # 1=1; 2=2; 3=3; 4=4; 5=5; 6=6; 7=7; 8=8; 9=9; 10=10; 777=Refuse to Answer
-stq_MobilePhone = subset(stq,select = c(screentime_phone_yn,screentime_phone1,screentime_phone2,screentime_phone3,
-                                        screentime_phone4,screentime_phone5,screentime_phone6,screentime_phone7,
-                                        screentime_phone8,screentime_phone_scale))
-colnames(stq_MobilePhone) = c('Ownership_MobilePhone','MPIQ_1','MPIQ_2','MPIQ_3',
-                              'MPIQ_4','MPIQ_5','MPIQ_6','MPIQ_7',
-                              'MPIQ_8','Attachment_MobilePhone')
-stq_MobilePhone$Ownership_MobilePhone = factor(
-  RECODE(stq_MobilePhone$Ownership_MobilePhone,"0='No';1='Yes';else=NA"),
-  levels = c('No','Yes'))
-stq_MobilePhone$Attachment_MobilePhone = RECODE(stq_MobilePhone$Attachment_MobilePhone,"777=NA")
+
 
 
 # social media related measurements ---------------------------------------

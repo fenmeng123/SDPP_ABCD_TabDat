@@ -180,5 +180,96 @@ Comb.MICE <- function(dat.imp,var.ls.imp){
   }
   return(imputed.dat)
 }
-
+Recode.Eventname <- function(df){
+  if ('eventname' %in% colnames(df)){
+    if("baseline_year_1_arm_1" %in% unique(df$eventname)){
+      df$eventname = RECODE(df$eventname,
+                            "'baseline_year_1_arm_1'='T0';")
+      fprintf("Re-code 'baseline_year_1_arm_1' to 'T0'.\n")
+    }
+    if("1_year_follow_up_y_arm_1" %in% unique(df$eventname)){
+      df$eventname = RECODE(df$eventname,
+                            "'1_year_follow_up_y_arm_1'='T1';")
+      fprintf("Re-code '1_year_follow_up_y_arm_1' to 'T1'.\n")
+    }
+    if("2_year_follow_up_y_arm_1" %in% unique(df$eventname)){
+      df$eventname = RECODE(df$eventname,
+                            "'2_year_follow_up_y_arm_1'='T2';")
+      fprintf("Re-code '2_year_follow_up_y_arm_1' to 'T2'.\n")
+    }
+    if("3_year_follow_up_y_arm_1" %in% unique(df$eventname)){
+      df$eventname = RECODE(df$eventname,
+                            "'3_year_follow_up_y_arm_1'='T3';")
+      fprintf("Re-code '3_year_follow_up_y_arm_1' to 'T3'.\n")
+    }
+    if("4_year_follow_up_y_arm_1" %in% unique(df$eventname)){
+      df$eventname = RECODE(df$eventname,
+                            "'4_year_follow_up_y_arm_1'='T4';")
+      fprintf("Re-code '4_year_follow_up_y_arm_1' to 'T4'.\n")
+    }
+    if("5_year_follow_up_y_arm_1" %in% unique(df$eventname)){
+      df$eventname = RECODE(df$eventname,
+                            "'5_year_follow_up_y_arm_1'='T5';")
+      fprintf("Re-code '5_year_follow_up_y_arm_1' to 'T5'.\n")
+    }
+    return(df)
+  }else{
+    stop("Can not re-code eventname from data frame! Column 'eventname' not found!")
+  }
+}
+Recode.STQ <- function(var,Scheme = '7 Levels'){
+  if (Scheme == '7 Levels'){
+    V_NEW = RECODE(var,
+                   "0=0;
+                   0.25=0.25;
+                   0.5=0.5;
+                   c(0.75,1,1.25,1.5)=1;
+                   c(1.75,2,2.25,2.5)=2;
+                   c(2.75,3,3.25,3.5)=3;
+                   3.75:hi=4;
+                   else=NA")
+  }
+  return(V_NEW)
+}
+Recode.ABCD.NA <- function(var){
+  if (Check.Numeric(class(var))){
+    fprintf("%d '777', %d '999' were found in %s\n",sum(var==777,na.rm = T),sum(var==999,na.rm = T),deparse(substitute(var)))
+    fprintf("Re-coding these values to NA......\t")
+    V_NEW = RECODE(var,"777=NA;999=NA")
+    fprintf(" Finished! \n")
+    return(V_NEW)
+  }else {
+    stop("Input vector is not a numeric variable!Please Check your code!")
+  }
+}
+MVA.Report.By.Wave <- function(df){
+  if ('eventname' %in% colnames(df)){
+    df %>% Recode.Eventname() %>% 
+      group_by(eventname) %>% miss_var_summary() %>% 
+      pivot_wider(id_cols = variable,
+                  values_from = c(n_miss,pct_miss),
+                  names_from = eventname,
+                  names_sort = T,
+                  names_vary = "slowest") %>%
+      as.data.frame() %>% arrange(variable) -> MVA_Report
+      
+  }else{
+    fprintf("Column 'eventname' not found! group_by function was ignored!")
+    df %>% miss_var_summary() %>% 
+      as.data.frame() %>% arrange(pct_miss) -> MVA_Report
+  }
+  return(MVA_Report)
+}
+Merge.Value.NA <- function(V1,V2){
+  fprintf("Merging Two Variables: %s and %s ......\n",deparse(substitute(V1)),deparse(substitute(V2)))
+  paste(
+    as.character(V1),
+    as.character(V2),
+    sep = "") %>%
+    str_remove_all('NA') %>%
+    as.numeric() -> V_NEW
+  fprintf("New Variable Value Counts After Merging:\n")
+  print(table(V_NEW,useNA = 'if'))
+  return(V_NEW)
+}
 
