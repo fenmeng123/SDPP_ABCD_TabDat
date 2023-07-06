@@ -19,6 +19,7 @@
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_3.txt'
 AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
 sink(file = AutoLogFilePath)
+ResultsOutputDir = S3_ResultsOutputDir
 library(mice)
 library(forcats)
 library(naniar)
@@ -258,6 +259,7 @@ SDPP.save.file(Demograhics_Imputed,
                Prefix = Prefix,
                ProjectDirectory = ProjectDirectory)
 # End of Script -----------------------------------------------------------
+rm(ResultsOutputDir,n.imp,n.iter)
 fprintf("SDPP-ABCD-TabDat Step 3 finished! Finish Time:%s\n",Sys.time())
 sink()
 

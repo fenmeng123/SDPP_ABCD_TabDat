@@ -42,15 +42,11 @@ fprintf("=================================Step 2 Specifications=================
 fprintf('Nothing\n')
 # 3. Step 3-specification -------------------------------------------------
 fprintf("=================================Step 3 Specifications=================================\n")
-ResultsOutputDir = fullfile(ProjectDirectory,'Res_2_Results','Res_Preproc')
-if (!dir.exists(ResultsOutputDir)){
-  fprintf("Output Directory:%s not found, a new folder will be created.",ResultsOutputDir)
-  dir.create(ResultsOutputDir)
-}
+S3_ResultsOutputDir = SDPP.set.output(fullfile(ProjectDirectory,'Res_2_Results','Res_Preproc'))
 # Number of multiple imputed datasets & maximum number of iterations 
 n.imp = 50
 n.iter = 25
-fprintf("Step 3 Results Output Directory: %s\n",ResultsOutputDir)
+fprintf("Step 3 Results Output Directory: %s\n",S3_ResultsOutputDir)
 fprintf('Number of Multiple Imputation Replicates: %d\n',n.imp)
 fprintf('Number of Maximum Iterations in Multiple Imputation: %d\n',n.iter)
 

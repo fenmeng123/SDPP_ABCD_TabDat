@@ -9,37 +9,20 @@
 # Update Date: 2023.06.16 By Kunru Song
 # Update Date: 2023.07.06 By Kunru Song
 # =============================================================================#
-
+# 1. Library Packages and Prepare Environment --------------------------------
+AutoLogFileName = 'Log_SDPP-ABCD-TabDat_4.txt'
+AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
+sink(file = AutoLogFilePath)
 library(bruceR)
 library(naniar)
+# ==============================MAIN CODES=====================================#
+# 2. Load abcd_p_demo.csv and perform re-coding --------------------------------
+stq_FileDir = fullfile(TabulatedDataDirectory,'/novel-technologies/nt_y_st.csv')
+stq = readABCDdata(stq_FileDir)
+fprintf("Variable Data type:\n")
+sapply(stq,typeof)
 
-setwd('I:\\ABCDStudyNDA\\Download_ABCDV4.0_skr220403\\Package_1199282')
-readABCDdata<-function(filename){
-  data = read.table(filename,header = TRUE,sep = '\t')
-  # remove some specific columns which are same across all .txt files
-  data <- subset(data, select = -c(collection_id, dataset_id,collection_title))
-  # get variable descriptions
-  var.descrip <- data[1,]
-  # remove the first row
-  data<-data[-1,]
-  # add comments to all columns
-  for (i in 1:length(var.descrip)){
-    comment(data[,i])<-var.descrip[1,i]
-  }
-  return(data)
-}
-
-
-# load data from txt ------------------------------------------------------
-
-stq = readABCDdata('abcd_stq01.txt')
-stq = subset(stq, select = -abcd_stq01_id)
-stq = stq[,-(140:201)]# remove variables with weird descriptions
-stq[,7:ncol(stq)] = apply(stq[,7:ncol(stq)],2,as.numeric)
-stq_anchor = subset(stq,select = c(subjectkey,src_subject_id,interview_date,interview_age,sex,eventname))
-saveRDS(stq,'I:\\ABCDStudyNDA\\ABCD_DataAnalysis_4.0\\DataPreprocessing\\ABCD4.0_STQ_RawItem.rds')
-
-# Recoding screen use data ------------------------------------------------
+# 3. Re-coding Youth's Screen Use Time -----------------------------------------
 
 #------------------- Screen Time Survey (baseline and 1-year FU) --------------#
 # 0 = None; .25 = < 30 minutes; 0.5 = 30 minutes; 1 = 1 hour; 2 = 2 hours; 3 = 3 hours; 4 = 4+ hours 
@@ -57,8 +40,11 @@ saveRDS(stq,'I:\\ABCDStudyNDA\\ABCD_DataAnalysis_4.0\\DataPreprocessing\\ABCD4.0
 # screen10_wknd_y weekend Text on a cell phone, tablet, or computer (GChat, Whatsapp, etc.)
 # screen11_wknd_y weekend Visit social networking sites like Facebook, Twitter, Instagram, etc.
 # screen12_wknd_y weekend Video chat (Skype, Facetime, etc.)
-stq_old_12item = subset(stq,select = c(screen1_wkdy_y,screen2_wkdy_y,screen3_wkdy_y,screen4_wkdy_y,screen5_wkdy_y,screen_wkdy_y,
-                                       screen7_wknd_y,screen8_wknd_y,screen9_wknd_y,screen10_wknd_y,screen11_wknd_y,screen12_wknd_y))
+stq_old_12item = subset(stq,
+                        select = c(screen1_wkdy_y,screen2_wkdy_y,screen3_wkdy_y,
+                                   screen4_wkdy_y,screen5_wkdy_y,screen_wkdy_y,
+                                   screen7_wknd_y,screen8_wknd_y,screen9_wknd_y,
+                                   screen10_wknd_y,screen11_wknd_y,screen12_wknd_y))
 colnames(stq_old_12item) = c('weekday_TV','weekday_Video','weekday_Game','weekday_Text','weekday_SocialNet','weekday_VideoChat',
                              'weekend_TV','weekend_Video','weekend_Game','weekend_Text','weekend_SocialNet','weekend_VideoChat')
 

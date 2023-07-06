@@ -88,6 +88,15 @@ SDPP.read.intdat <- function(FileName,ProjectDirectory){
   }
   return(data)
 }
+SDPP.set.output <- function(ResultsOutputDir){
+  if (!dir.exists(ResultsOutputDir)){
+    fprintf("Output Directory:%s not found, a new folder will be created.",ResultsOutputDir)
+    dir.create(ResultsOutputDir)
+  }else{
+    fprintf("Output Directory Check Passed. Folder at %s\n",ResultsOutputDir)
+  }
+  return(ResultsOutputDir)
+}
 # 2. SDPP Project Managing Functions --------------------------------------
 SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory){
   if (!file.exists(ProjectDirectory)){
