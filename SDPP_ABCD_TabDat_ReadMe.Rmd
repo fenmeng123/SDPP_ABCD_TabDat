@@ -29,7 +29,8 @@ output: rmarkdown::github_document
 
 3. Any bugs found in this pipeline should be reported in Github Issues. 
 
-4. Please refer to SDPP-ABCD-TabDat *User Manual* when you have any questions about using this pipeline.
+4. Please refer to SDPP-ABCD-TabDat **User Manual** when you have any questions about using this pipeline.
+
 -----
 
 #### Update Logs

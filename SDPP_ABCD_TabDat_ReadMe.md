@@ -37,35 +37,8 @@ Dr.Jin-tao Zhang.
 
 3.  Any bugs found in this pipeline should be reported in Github Issues.
 
-4.  Abbreviation Table
-
-Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert
-Online](https://tableconvert.com/)
-
-| Common |                        | Novel Technology |                                                |
-|--------|------------------------|------------------|------------------------------------------------|
-| T0     | Baseline Wave Data     | SMA              | Screen Media Activity                          |
-| T1     | One-year follow-up     | OS               | OwnerShip                                      |
-| T2     | Two-year follow-up     | STQ              | Screen Time Questionnaire                      |
-| T3     | Three-year follow-up   | TPD              | TyPical Day (prefix) or Time Per Day (postfix) |
-| T4     | Four-year follow-up    | TPW              | Time Per Week                                  |
-| MVA    | Missing Value Analysis | open             | calculated value from open-answered STQ items  |
-| MI     | Multiple Imputation    | weekday          | in a typical weekday                           |
-| Rep    | Auto-generated Report  | weekend          | in a typical weekend day                       |
-| Rec    | Re-coded data          | School           | School-related work                            |
-| Raw    | Raw data               | SMQ              | Social Media Questionnaire                     |
-| Imp    | Imputed data           | SOC              | SOCial media apps                              |
-|        |                        | SMAS             | bergen Social Media Addiction Scale            |
-|        |                        | MVOC             | Multiplayer Videogame Online Chatting          |
-|        |                        | UM               | Use Most                                       |
-|        |                        | NOFE             | the Number Of FollowErs                        |
-|        |                        | NOFI             | the Number Of FollowIngs                       |
-|        |                        | NOA              | the Number Of Account                          |
-|        |                        | MP               | Mobile Phone                                   |
-|        |                        | MPIQ             | Mobile Phone Involvement Questionnaire         |
-|        |                        | VGAS             | Video Game Addiction Scale                     |
-|        |                        | ODQ              | Online Dating Questionnaire                    |
-|        |                        | SUAB             | Screen Usage Around Bedtime                    |
+4.  Please refer to SDPP-ABCD-TabDat **User Manual** when you have any
+    questions about using this pipeline.
 
 ------------------------------------------------------------------------
 
