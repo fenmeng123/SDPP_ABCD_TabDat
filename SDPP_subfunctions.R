@@ -118,7 +118,18 @@ SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory){
 }
 # 3. Data Processing Functions --------------------------------------------
 dt.print.mva.counts <- function(dt_name,var_name){
-  print(eval(parse(text = sprintf("%s[,table(%s,useNA = 'if')]",dt_name,var_name))))
+  if (eval(parse(text = sprintf("is.numeric(%s$%s)",dt_name,var_name)))){
+    eval(parse(text = sprintf("print(psych::describe(%s$%s,check=T))",dt_name,var_name)))
+  }else{
+    print(eval(parse(text = sprintf("%s[,table(%s,useNA = 'if')]",dt_name,var_name))))
+  }
+}
+df.print.mva.counts <- function(var,df=NA) {
+  if (!"data.frame" %in% class(df)){
+    print(table(var,useNA = 'if',dnn = deparse(substitute(var))))
+  }else if (is.character(var)){
+    print(table(df[[var]],useNA = 'if'))
+  }
 }
 MODE.Row <- function(df){
   uniqv <- unique(df)
@@ -128,6 +139,14 @@ Check.Numeric <- function(Class_String){
   Flag = ("numeric" %in% Class_String) | 
     ("double" %in% Class_String) | 
     ("integer" %in% Class_String)
+  return(Flag)
+}
+Check.YN <- function(var){
+  if (is.numeric(var)){
+    Flag = sum(c(0,1) %in% unique(var))==2
+  }else if (is.character(var)){
+    Flag = sum(c('0','1') %in% unique(var))==2
+  }
   return(Flag)
 }
 BOCF.Variables <- function(data,anchor_wave,variable_name,autocheck=F){
@@ -231,9 +250,15 @@ Recode.STQ <- function(var,Scheme = '7 Levels'){
   }
   return(V_NEW)
 }
-Recode.ABCD.NA <- function(var){
+Recode.ABCD.NA <- function(var,VarName = NA){
+  if (is.na(VarName)){
+    VarName = deparse(substitute(var))
+  }
   if (Check.Numeric(class(var))){
-    fprintf("%d '777', %d '999' were found in %s\n",sum(var==777,na.rm = T),sum(var==999,na.rm = T),deparse(substitute(var)))
+    fprintf("Auto-recode 777 and 999 into NA for %s. \t",VarName)
+    fprintf("The number of '777':  %d. The number of '999': %d.\n",
+            sum(var==777,na.rm = T),
+            sum(var==999,na.rm = T))
     fprintf("Re-coding these values to NA......\t")
     V_NEW = RECODE(var,"777=NA;999=NA")
     fprintf(" Finished! \n")
@@ -241,6 +266,48 @@ Recode.ABCD.NA <- function(var){
   }else {
     stop("Input vector is not a numeric variable!Please Check your code!")
   }
+}
+Recode.ABCD.RADT <- function(var,VarName = NA,charFlag=T){
+  if (is.na(VarName)){
+    VarName = deparse(substitute(var))
+  }
+  if (Check.Numeric(class(var))){
+    fprintf("Auto-recode 777 to 'Refuse Answer' and 999 to 'Dont Know' for %s. \t",VarName)
+    fprintf("The number of '777':  %d. The number of '999': %d.\n",
+            sum(var==777,na.rm = T),
+            sum(var==999,na.rm = T))
+    if (charFlag){
+      fprintf("Re-coding these values to RA and DT......\t")
+      V_NEW = RECODE(var,"777='Refuse to Answer';999='Dont Know';")
+    }else{
+      fprintf("Re-coding these values to -1 and -2......\t")
+      V_NEW = RECODE(var,"777=-1;999=-2;")
+    }
+    fprintf(" Finished! \n")
+    return(V_NEW)
+  }else {
+    stop("Input vector is not a numeric variable!Please Check your code!")
+  }
+}
+Recode.ABCD.YN <- function(var,VarName=NA){
+  if (is.na(VarName)){
+    VarName = deparse(substitute(var))
+  }
+  fprintf("Input: %s \t Check for ABCD-style YN variable:\t",VarName)
+  if (Check.YN(var)){
+    fprintf('Passed.\n')
+    var = Recode.ABCD.NA(var,VarName = VarName)
+    V_NEW = RECODE(var,
+                   "0='No';1='Yes';else=NA;")
+    V_NEW = factor(V_NEW,
+                   levels = c('No','Yes'))
+    fprintf('Re-coded YN Variable (from %s):\n',VarName)
+    print(table(V_NEW,useNA = 'if'))
+  }else{
+    fprintf('Falied!\n')
+    stop("The input vector is not a ABCD-style YN variable.Please Check your code!")
+  }
+  return(V_NEW)
 }
 MVA.Report.By.Wave <- function(df){
   if ('eventname' %in% colnames(df)){
@@ -269,7 +336,12 @@ Merge.Value.NA <- function(V1,V2){
     str_remove_all('NA') %>%
     as.numeric() -> V_NEW
   fprintf("New Variable Value Counts After Merging:\n")
-  print(table(V_NEW,useNA = 'if'))
+  if (length(unique(V_NEW)>30)){
+    print(psych::describe(V_NEW))
+    # print(summary(V_NEW))
+  }else{
+    print(table(V_NEW,useNA = 'if'))
+  }
   return(V_NEW)
 }
 

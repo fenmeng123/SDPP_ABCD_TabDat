@@ -1,7 +1,7 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-07-06
+2023-07-07
 
 ### Basic Infomation
 
@@ -18,7 +18,9 @@ Dr.Jin-tao Zhang.
 
 **First Created Date:** 2022.06
 
-### Citation and Suggestion
+------------------------------------------------------------------------
+
+### Citation and Suggestions
 
 1.  If you would like to use any codes from this SDPP, please kindly
     cite our published article (below is a APA-format Citation):
@@ -37,22 +39,48 @@ Dr.Jin-tao Zhang.
 
 4.  Abbreviation Table
 
-| Abbr. | Meaning                   |
-|:------|:--------------------------|
-| T0    | Baseline Wave Data        |
-| T1    | One-year follow-up        |
-| T2    | Two-year follow-up        |
-| T3    | Three-year follow-up      |
-| T4    | Four-year follow-up       |
-| MVA   | Missing Value Analysis    |
-| MI    | Multiple Imputation       |
-| STQ   | Screen Time Questionnaire |
+Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert
+Online](https://tableconvert.com/)
+
+| Common |                        | Novel Technology |                                                |
+|--------|------------------------|------------------|------------------------------------------------|
+| T0     | Baseline Wave Data     | SMA              | Screen Media Activity                          |
+| T1     | One-year follow-up     | OS               | OwnerShip                                      |
+| T2     | Two-year follow-up     | STQ              | Screen Time Questionnaire                      |
+| T3     | Three-year follow-up   | TPD              | TyPical Day (prefix) or Time Per Day (postfix) |
+| T4     | Four-year follow-up    | TPW              | Time Per Week                                  |
+| MVA    | Missing Value Analysis | open             | calculated value from open-answered STQ items  |
+| MI     | Multiple Imputation    | weekday          | in a typical weekday                           |
+| Rep    | Auto-generated Report  | weekend          | in a typical weekend day                       |
+| Rec    | Re-coded data          | School           | School-related work                            |
+| Raw    | Raw data               | SMQ              | Social Media Questionnaire                     |
+| Imp    | Imputed data           | SOC              | SOCial media apps                              |
+|        |                        | SMAS             | bergen Social Media Addiction Scale            |
+|        |                        | MVOC             | Multiplayer Videogame Online Chatting          |
+|        |                        | UM               | Use Most                                       |
+|        |                        | NOFE             | the Number Of FollowErs                        |
+|        |                        | NOFI             | the Number Of FollowIngs                       |
+|        |                        | NOA              | the Number Of Account                          |
+|        |                        | MP               | Mobile Phone                                   |
+|        |                        | MPIQ             | Mobile Phone Involvement Questionnaire         |
+|        |                        | VGAS             | Video Game Addiction Scale                     |
+|        |                        | ODQ              | Online Dating Questionnaire                    |
+|        |                        | SUAB             | Screen Usage Around Bedtime                    |
 
 ------------------------------------------------------------------------
 
 ### User Mannual
 
-**Update Logs:**
+#### Update Logs
+
+- 2023.07.07
+
+  - Completed Step 4 and write Usage Notes in README, which provide a
+    comprehensive overview for using SDPP-ABCD-TabDat.
+  - Update some codes to generate more elegant code running logs, which
+    would be saved into *‘Res_1_Logs’* folders under your project
+    directory. SDPP_ParaSet will generate a log with postfix 0. The
+    numeric postfix is correspond to the step number.
 
 - 2023.07.06
 
@@ -145,7 +173,9 @@ Dr.Jin-tao Zhang.
   - Added more comments into R script. Added code blocks to make
     everything easy to read.
 
-**Usage Notes:**
+------------------------------------------------------------------------
+
+#### Usage Notes
 
 1.  Please set all necessary parameters in SDPP_ParaSet.R before running
     any codes in this pipeline and then source it.
@@ -179,12 +209,15 @@ Dr.Jin-tao Zhang.
     al., 2022, Dev Cog Neurosci):
 
 - 4.1 Item Choice Changed
+
   - Beginning in Year 2, the activities listed were changed slightly to
     reflect the increase in video streaming: watching TV shows or movies
     changed to “watching or streaming TV shows or movies”; watching
     videos (such as YouTube) changed to “watching or streaming videos or
     live streaming (such as YouTube, Twitch)”
+
 - 4.2 New Items Added
+
   - 4.2.1 Time spent playing videogames was broken down into “time spent
     on single player”and “multiplayer gaming”.
   - 4.2.2 Editing photos or videos to post on social media was added;
@@ -195,7 +228,9 @@ Dr.Jin-tao Zhang.
   - 4.2.5 Importantly, the response format in Year 2 was changed from
     categories to open format, where individuals input the hours and
     minutes, they estimated spending on each screen usage activity.
+
 - 4.3 Coding Method Changed
+
   - Bagot et al. have reported their harmonizing method to capture such
     changes beginning in two-year follow-up wave (Page 5, Section 2.2.10
     Self-reported screen usage). SDPP-ABCD-TabDat, here, followed the
@@ -234,39 +269,98 @@ Dr.Jin-tao Zhang.
   > use in the ABCD® study. Dev Cogn Neurosci. 2022 Sep 1;57:101150.
   > doi: 10.1016/j.dcn.2022.101150. Epub ahead of print. PMID: 36084446;
   > PMCID: PMC9465320.*
+
 - 4.4 Mobile Phone-related Items in the ABCD STQ
-  - 4.4.1 Mobile phone involvement questionnaire (MPIQ) MPIQ is an
-    8-item questionnaire designed to assess problematic mobile phone
-    usage, beginning in Year 2. Reference article could be found at:
 
-    > Needing to connect: The effect of self and others on young
-    > people’s involvement with their mobile phones (2010).
+  - Mobile phone involvement questionnaire (MPIQ). MPIQ is an 8-item
+    questionnaire designed to assess problematic mobile phone usage,
+    beginning in Year 2. Reference article could be found at:
 
-    MPIQ Item Descriptions: How much do you agree with the following
-    statements in relation to your cell phone use? Coding: 1=Strongly
-    Disagree; 2=Disagree; 3=Somewhat Disagree; 4=Neither Agree nor
-    Disagree;5=Somewhat Agree; 6=Agree; 7=Strongly Agree; 777=Refuse to
-    Answer.
+  >     Needing to connect: The effect of self and others on young people's involvement with their mobile phones (2010).
 
-    Items (Q1-Q8):
-
-    screentime_phone1: I interrupt whatever else I am doing when I am
-    contacted on my phone
-
-    screentime_phone2: I often use my phone for no particular reason
-
-    screentime_phone3: I feel connected to others when I am using my
-    phone
-
-    screentime_phone4: Arguments have arisen with others because of my
-    phone use
-
-    screentime_phone5: I lose track of how much I am using my phone.
-
-    screentime_phone6: I often think about my phone when I am not using
-    it
-
-    screentime_phone7: I have been unable to reduce my phone use
-
-    screentime_phone8: The thought of being without my phone makes me
+  - MPIQ Item Descriptions: How much do you agree with the following
+    statements in relation to your cell phone use?
+  - Coding: 1=Strongly Disagree; 2=Disagree; 3=Somewhat Disagree;
+    4=Neither Agree nor Disagree;5=Somewhat Agree; 6=Agree; 7=Strongly
+    Agree; 777=Refuse to Answer.MPIQ Items Descriptions (Q1-Q8):
+  - screentime_phone1: I interrupt whatever else I am doing when I am
+    contacted on my phone;
+  - screentime_phone2: I often use my phone for no particular reason;
+  - screentime_phone3: I feel connected to others when I am using my
+    phone;
+  - screentime_phone4: Arguments have arisen with others because of my
+    phone use;
+  - screentime_phone5: I lose track of how much I am using my phone;
+  - screentime_phone6: I often think about my phone when I am not using
+    it;
+  - screentime_phone7: I have been unable to reduce my phone use;
+  - screentime_phone8: The thought of being without my phone makes me
     feel distressed
+
+- 4.5 SMAS and VGAS
+
+  - Social Media Addiation Scale (SMAS, 6 Items)
+    - Coding: 1=Never; 2=Very rarely; 3=Rarely; 4=Sometimes; 5=Often;
+      6=Very often; 777=Refuse to answer
+    - screentime_smqa1: I spend a lot of time thinking about social
+      media apps or planning my use of social media apps;
+    - screentime_smqa2: I feel the need to use social media apps more
+      and more;
+    - screentime_smqa3: I use social media apps so I can forget about my
+      problems;
+    - screentime_smqa4: I’ve tried to use my social media apps less but
+      I can’t;
+    - screentime_smqa5: I’ve become stressed or upset if I am not
+      allowed to use my social media apps;
+    - screentime_smqa6: I use social media apps so much that it has had
+      a bad effect on my schoolwork or job;
+  - Video Game Addiction Scale (VGAS)
+    - Items are same with SMAS but replace the “social media” with
+      “playing video games”.
+    - screentime_vgaq1 ~ screentime_vgaq6
+
+- 4.6 Screen Usage Around Bedtime (SUAB)
+
+  - A 9-item measure was administered to youth to assess engagement in
+    activities, including screen time activities, prior to sleeping.
+    Items were modified from Lemola et al. (2015) and Arora et
+    al. (2014). On a 5-point Likert scale ranging from 1 (never) to 5
+    (every night), youth reported how often (in the past week) they
+    engaged in the following activities while already in bed before
+    going to sleep: watch TV or movies, play video games, play music,
+    talk on the phone or text, spend time online on social media, browse
+    the internet, use a computer/laptop for studying. sq3-sq13 shared
+    the same answer items.
+  - Coding: 1=0 nights in the past week; 2=1-2 nights; 3=3-4 nights;
+    4=5-7 nights; 777=Refused to answer.
+    - screentime_sq3: Watch or stream movies, videos, or TV shows
+    - screentime_sq4: Play video games
+    - screentime_sq5: Play music
+    - screentime_sq6: Talk on the phone or text (If you do not own a
+      phone, choose 0 nights)
+    - screentime_sq7: Spend time online on social media (e.g. Facebook)
+    - screentime_sq8: Spend time in chat rooms
+    - screentime_sq9: Browse the Internet, Google-ing (not school
+      related)
+    - screentime_sq10: Use a computer/laptop for studying
+    - screentime_sq11: Reading
+  - Four additional items were asked related to sleep and media use
+    which were adapted from questions in a National Sleep Foundation
+    poll (Gradisar et al., 2013).
+    - screentime_sq1: Is there a TV set or an Internet connected
+      electronic device (computer, iPad, phone) in your bedroom? 1=Yes;
+      0=No; 777=Refuse to answer  
+    - screentime_sq2: What do you usually do with your phone when you
+      are ready to go to sleep? Do you: -1=Not Applicable ; 1=Turn the
+      phone off ; 2=Put the ringer on silent or vibrate ; 3=Leave the
+      ringer on ; 4=Put it outside of the room where I sleep ;
+      777=Refuse to answer
+    - screentime_sq12: In the past week, how often have you had phone
+      calls, text messages or emails that wake you after trying to go to
+      sleep? 1=0 nights in the past week; 2=1-2 nights; 3=3-4 nights;
+      4=5-7 nights; 777=Refused to answer
+    - screentime_sq13: In the past week, when you woke up during the
+      night, how often have you used your phone or other device to send
+      messages/play games/search or browse the internet/use social
+      media/read or write emails? 1=0 nights in the past week; 2=1-2
+      nights; 3=3-4 nights; 4=5-7 nights; 777=Refused to answer
