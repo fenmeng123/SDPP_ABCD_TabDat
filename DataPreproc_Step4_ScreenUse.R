@@ -1,12 +1,11 @@
 # =============================================================================#
-# SDPP Step 3: Read and re-coding Screen Use-related data
+# SDPP Step 4: Read and re-coding Screen Use-related data
 # R Packages Dependency: bruceR, forcats, naniar
 # Step File Notes: 
-# 1. The imputation about the core demographics was referred to ABCD-DAIRC
-# 2. Ref Link:
+# 1. Ref Link:
 # https://github.com/fenmeng123/2022_JAACAP_ABCD_SMA_pattern
 # https://wiki.abcdstudy.org/release-notes/non-imaging/novel-technologies.html#screen-time-questionnaire
-# 3. Target File: ABCD4.0_Demographics_Recode.rds
+# 2. Target File: ABCD4.0_Demographics_Recode.rds
 # Update Date: 2023.06.16 By Kunru Song
 # Update Date: 2023.07.06 By Kunru Song
 # =============================================================================#
@@ -15,10 +14,10 @@ AutoLogFileName = 'Log_SDPP-ABCD-TabDat_4.txt'
 AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
 sink(file = AutoLogFilePath)
 ResultsOutputDir = S4_ResultsOutputDir
-library(bruceR)
 library(naniar)
+library(forcats)
 # ==============================MAIN CODES=====================================#
-# 2. Load abcd_p_demo.csv and perform re-coding --------------------------------
+# 2. Load nt_y_st.csv and perform re-coding --------------------------------
 stq_FileDir = fullfile(TabulatedDataDirectory,'/novel-technologies/nt_y_st.csv')
 stq = readABCDdata(stq_FileDir)
 fprintf("Youth Screen Time Questionnaire Raw Data-Variable Data type:\n")

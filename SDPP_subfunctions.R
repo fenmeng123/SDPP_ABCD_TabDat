@@ -49,6 +49,29 @@ readABCDdata<-function(filename,version="5.0"){
   print(table(data$eventname))
   return(data)
 }
+eval_s <- function(user.string,...){
+  res = eval(parse(text = sprintf(user.string,...)))
+  return(res)
+}
+# 2. SDPP Project Managing Functions --------------------------------------
+SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory){
+  if (!file.exists(ProjectDirectory)){
+    options(warn = -1)
+    cat("Project Directory not found! Auto-creating SDPP Project Folder....\n")
+    dir.create(ProjectDirectory)
+    dir.create(normalizePath(paste(ProjectDirectory,'Res_1_Logs',sep = '/'),winslash = '/'))
+    dir.create(normalizePath(paste(ProjectDirectory,'Res_2_Results',sep = '/'),winslash = '/'))
+    dir.create(normalizePath(paste(ProjectDirectory,'Res_3_IntermediateData',sep = '/'),winslash = '/'))
+    dir.create(normalizePath(paste(ProjectDirectory,'Res_4_Reports',sep = '/'),winslash = '/'))
+    dir.create(normalizePath(paste(ProjectDirectory,'Step_0_Preprocessing',sep = '/'),winslash = '/'))
+    cat(sprintf("SDPP Project has been created at %s\n",normalizePath(ProjectDirectory)))
+    cat("Project Folder Structure:\n")
+    cat(list.files(normalizePath(ProjectDirectory)))
+    options(warn = 1)
+  }
+  AutoLogFolderPath = normalizePath(paste(ProjectDirectory,'Res_1_Logs',sep = '/'),winslash = '/')
+  return(AutoLogFolderPath)
+}
 SDPP.save.file <- function(Data,FileName,Prefix,ProjectDirectory,FileFormat=NA,DataLabel=NA){
   if (is.na(FileFormat)){
     OutputFileName = addprefix(Prefix,FileName)
@@ -97,31 +120,51 @@ SDPP.set.output <- function(ResultsOutputDir){
   }
   return(ResultsOutputDir)
 }
-# 2. SDPP Project Managing Functions --------------------------------------
-SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory){
-  if (!file.exists(ProjectDirectory)){
-    options(warn = -1)
-    cat("Project Directory not found! Auto-creating SDPP Project Folder....\n")
-    dir.create(ProjectDirectory)
-    dir.create(normalizePath(paste(ProjectDirectory,'Res_1_Logs',sep = '/'),winslash = '/'))
-    dir.create(normalizePath(paste(ProjectDirectory,'Res_2_Results',sep = '/'),winslash = '/'))
-    dir.create(normalizePath(paste(ProjectDirectory,'Res_3_IntermediateData',sep = '/'),winslash = '/'))
-    dir.create(normalizePath(paste(ProjectDirectory,'Res_4_Reports',sep = '/'),winslash = '/'))
-    dir.create(normalizePath(paste(ProjectDirectory,'Step_0_Preprocessing',sep = '/'),winslash = '/'))
-    cat(sprintf("SDPP Project has been created at %s\n",normalizePath(ProjectDirectory)))
-    cat("Project Folder Structure:\n")
-    cat(list.files(normalizePath(ProjectDirectory)))
-    options(warn = 1)
+SDPP.get.number <- function(FolderPrefix,ProjectDirectory){
+  FolderList = dir(ProjectDirectory,sprintf("%s_.*",FolderPrefix))
+  Num = grep("\\d",unlist(strsplit(FolderList,split = "_",fixed = T)),value = T)
+  Num = as.numeric(Num)
+  return(Num)
+}
+SDPP.creat.folder <- function(FolderName,ProjectDirectory,FolderNum=NA,Type='Step'){
+  if (any(str_ends(dir(ProjectDirectory),FolderName))){
+    fprintf("Duplicated Folder Name was found in %s\n",ProjectDirectory)
+    fprintf("Duplicated Folder Name:%s\n",dir(ProjectDirectory)[str_ends(dir(ProjectDirectory),FolderName)])
+    fprintf("SDPP.creat.step will be skiped. No folder will be created.\n")
+  }else{
+    ExistedStepNum = SDPP.get.number('Step',ProjectDirectory)
+    TailStepNum = tail(ExistedStepNum,1)
+    if (is.na(FolderNum)){
+      NewStepNum = TailStepNum + 1
+      fprintf("Folder Number is NA. Automatedly use tail plus one.(Auto-set Num:%d)\n",NewStepNum)
+    }else if (FolderNum %in% ExistedStepNum){
+      NewStepNum = TailStepNum + 1
+      fprintf("The given Folder Number is redundant. Automatedly use tail plus one.(Auto-set Num:%d)\n",NewStepNum)
+    }else{
+      NewStepNum = FolderNum
+    }
+    if (Type %in% c('Step','Res','Supp','RepVis','SensAna')){
+      NewFolderName = paste(Type,NewStepNum,FolderName,sep = '_')
+      dir.create(fullfile(ProjectDirectory,NewFolderName))
+      fprintf("New SDPP Folder: [%s] has been created at Project:%s\n",NewFolderName,ProjectDirectory)
+    }else{
+      fprintf("SDPP Folder Type incorrect! No folder will be created.\n")
+      stop("Please reset the requested SDPP folder type.")
+    }
   }
-  AutoLogFolderPath = normalizePath(paste(ProjectDirectory,'Res_1_Logs',sep = '/'),winslash = '/')
-  return(AutoLogFolderPath)
 }
 # 3. Data Processing Functions --------------------------------------------
 dt.print.mva.counts <- function(dt_name,var_name){
-  if (eval(parse(text = sprintf("is.numeric(%s$%s)",dt_name,var_name)))){
-    eval(parse(text = sprintf("print(psych::describe(%s$%s,check=T))",dt_name,var_name)))
+  if (is.character(dt_name) & is.character(var_name)){
+    
+    
+    if (eval_s("is.numeric(%s$%s)",dt_name,var_name)){
+      eval(parse(text = sprintf("print(psych::describe(%s$%s,check=T))",dt_name,var_name)))
+    }else{
+      print(eval(parse(text = sprintf("%s[,table(%s,useNA = 'if')]",dt_name,var_name))))
+    }
   }else{
-    print(eval(parse(text = sprintf("%s[,table(%s,useNA = 'if')]",dt_name,var_name))))
+    
   }
 }
 df.print.mva.counts <- function(var,df=NA) {
@@ -193,9 +236,11 @@ Comb.MICE <- function(dat.imp,var.ls.imp){
     imputed.dat = merge(imputed.dat,tmp.dat,by = "src_subject_id", all = F)
     fprintf('Compare variable values before and after multiple imputation:\n')
     fprintf('Before MI:')
-    print(table(original.dat[i],useNA = 'if'))
+    dt.print.mva.counts(original.dat,i)
+    # print(table(original.dat[i],useNA = 'if'))
     fprintf('After MI:')
-    print(table(imputed.dat[i],useNA = 'if'))
+    dt.print.mva.counts(original.dat,i)
+    # print(table(imputed.dat[i],useNA = 'if'))
   }
   return(imputed.dat)
 }

@@ -43,7 +43,7 @@ fprintf('Nothing\n')
 fprintf("=================================Step 3 Specifications=================================\n")
 S3_ResultsOutputDir = SDPP.set.output(fullfile(ProjectDirectory,'Res_2_Results','Res_Preproc'))
 # Number of multiple imputed datasets & maximum number of iterations 
-n.imp = 50
+n.imp = 100
 n.iter = 25
 fprintf("Step 3 Results Output Directory: %s\n",S3_ResultsOutputDir)
 fprintf('Number of Multiple Imputation Replicates: %d\n',n.imp)
