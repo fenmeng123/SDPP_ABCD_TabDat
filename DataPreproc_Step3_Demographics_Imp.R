@@ -189,7 +189,7 @@ dat.imp <- mice( dat0, meth = meth, pred = pred, post = post,
 rm(dat0)
 fprintf("Mulitple Imputation Finished!\n")
 SDPP.save.file(dat.imp,
-               FileName = "Demographics_MICE.rds",
+               FileName = "Demographics_MICE_MILDS.rds",
                Prefix = Prefix,
                ProjectDirectory = ProjectDirectory)
 
@@ -205,17 +205,17 @@ Demographics_after_impute_baseline = select(Demographics_after_impute_baseline,
 Demographics_after_impute_baseline = merge(Demographics_after_impute_baseline,
                                            Imputed_Data,
                                            by = 'src_subject_id')
-Demograhics_Imputed = rbind(Demographics_after_impute_baseline,
+Demographics_Imputed = rbind(Demographics_after_impute_baseline,
                             subset(Demographic,
                              eventname != "baseline_year_1_arm_1"))
 # BOCF for imputed data
-Demograhics_Imputed = as.data.frame(Demograhics_Imputed)
+Demographics_Imputed = as.data.frame(Demographics_Imputed)
 #     Remove BMI from BOCF variable list
 var.ls.imp = grep('BMI',var.ls.imp,value = T,invert = T)
 fprintf("The following variables will be processed by BOCF:\n")
 print(var.ls.imp)
 for (i in var.ls.imp){
-  Demograhics_Imputed = BOCF.Variables(Demograhics_Imputed,'baseline_year_1_arm_1',i) 
+  Demographics_Imputed = BOCF.Variables(Demographics_Imputed,'baseline_year_1_arm_1',i) 
 }
 # Comapre imputed and non-imputed data
 Demographics_before_impute_baseline$Label = "Before MI"
@@ -238,17 +238,20 @@ compareGroups::export2xls(groupdiffTab,
                           file = fullfile(ResultsOutputDir,'MVA_MI_CompareTable.xlsx'))
 # Recoding some varibales based on the imputed data
 fprintf('Re-coding the imputed data......\n')
-Demograhics_Imputed$Race_4L = fct_collapse(Demograhics_Imputed$Race_PrntRep,
+
+Demographics_Imputed$Race_6L = fct_collapse(Demographics_Imputed$Race_PrntRep,
+                                            `Mixed/Other` = c('Other',
+                                                              'Mixed'))
+print(table(Demographic$Race_6L))
+
+Demographics_Imputed$Race_4L = fct_collapse(Demographics_Imputed$Race_PrntRep,
                                    `Mixed/Other` = c('AIAN',
                                                      'NHPI',
                                                      'Mixed',
                                                      'Other'))
 print(table(Demographic$Race_4L))
-Demograhics_Imputed$Race_6L = fct_collapse(Demograhics_Imputed$Race_PrntRep,
-                                   `Mixed/Other` = c('Other',
-                                                     'Mixed'))
-print(table(Demographic$Race_6L))
-Demograhics_Imputed$ParentsHighEdu_2L = fct_collapse(Demograhics_Imputed$ParentsHighEdu_5L,
+
+Demographics_Imputed$ParentsHighEdu_2L = fct_collapse(Demographics_Imputed$ParentsHighEdu_5L,
                                              `High school or less` = c('< HS Diploma',
                                                                        'HS Diploma/GED'),
                                              `College education` = c('Some College',
@@ -257,7 +260,7 @@ Demograhics_Imputed$ParentsHighEdu_2L = fct_collapse(Demograhics_Imputed$Parents
 )
 print(table(Demographic$ParentsHighEdu_2L))
 
-Demograhics_Imputed$ParentsMarital_2L = fct_collapse(Demograhics_Imputed$ParentsMarital_6L,
+Demographics_Imputed$ParentsMarital_2L = fct_collapse(Demographics_Imputed$ParentsMarital_6L,
                                                      `Married or living with partner` = c('Married',
                                                                                'Living with partner'),
                                                      `Single` = c('Divorced',
@@ -265,59 +268,59 @@ Demograhics_Imputed$ParentsMarital_2L = fct_collapse(Demograhics_Imputed$Parents
                                                                   'Widowed',
                                                                   'Never married'),
 )
-Demograhics_Imputed$ParentsMarital_2L = factor(Demograhics_Imputed$ParentsMarital_2L,
+Demographics_Imputed$ParentsMarital_2L = factor(Demographics_Imputed$ParentsMarital_2L,
                                        levels = c('Married or living with partner',
                                                   'Single'),
                                        ordered = F)
-print(table(Demograhics_Imputed$ParentsMarital_2L,useNA = 'if'))
+print(table(Demographics_Imputed$ParentsMarital_2L,useNA = 'if'))
 
-Demograhics_Imputed$ParentsMarital_X_Employ[
-  Demograhics_Imputed$ParentsMarital_2L=='Married or living with partner' & 
-    Demograhics_Imputed$ParentEmploy=='Working' & 
-    Demograhics_Imputed$PartnerEmploy=='Working']='Married, 2 in LF'
-Demograhics_Imputed$ParentsMarital_X_Employ[
-  Demograhics_Imputed$ParentsMarital_2L=='Married or living with partner' & 
-    Demograhics_Imputed$ParentEmploy=='Non-working' & 
-    Demograhics_Imputed$PartnerEmploy=='Working']='Married, 1 in LF'
-Demograhics_Imputed$ParentsMarital_X_Employ[
-  Demograhics_Imputed$ParentsMarital_2L=='Married or living with partner' & 
-    Demograhics_Imputed$ParentEmploy=='Working' & 
-    Demograhics_Imputed$PartnerEmploy=='Non-Working']='Married, 1 in LF'
-Demograhics_Imputed$ParentsMarital_X_Employ[ 
-  Demograhics_Imputed$ParentsMarital_2L=='Married or living with partner' & 
-    Demograhics_Imputed$ParentEmploy=='Non-working' & 
-    Demograhics_Imputed$PartnerEmploy=='Non-working']='Married, 0 in LF'
-Demograhics_Imputed$ParentsMarital_X_Employ[
-  Demograhics_Imputed$ParentsMarital_2L=='Single' & 
-    Demograhics_Imputed$ParentEmploy=='Non-working']='Single, Not in LF'
-Demograhics_Imputed$ParentsMarital_X_Employ[
-  Demograhics_Imputed$ParentsMarital_2L=='Single' & 
-    Demograhics_Imputed$ParentEmploy=='Working']='Single, in LF'
+Demographics_Imputed$ParentsMarital_X_Employ[
+  Demographics_Imputed$ParentsMarital_2L=='Married or living with partner' & 
+    Demographics_Imputed$ParentEmploy=='Working' & 
+    Demographics_Imputed$PartnerEmploy=='Working']='Married, 2 in LF'
+Demographics_Imputed$ParentsMarital_X_Employ[
+  Demographics_Imputed$ParentsMarital_2L=='Married or living with partner' & 
+    Demographics_Imputed$ParentEmploy=='Non-working' & 
+    Demographics_Imputed$PartnerEmploy=='Working']='Married, 1 in LF'
+Demographics_Imputed$ParentsMarital_X_Employ[
+  Demographics_Imputed$ParentsMarital_2L=='Married or living with partner' & 
+    Demographics_Imputed$ParentEmploy=='Working' & 
+    Demographics_Imputed$PartnerEmploy=='Non-Working']='Married, 1 in LF'
+Demographics_Imputed$ParentsMarital_X_Employ[ 
+  Demographics_Imputed$ParentsMarital_2L=='Married or living with partner' & 
+    Demographics_Imputed$ParentEmploy=='Non-working' & 
+    Demographics_Imputed$PartnerEmploy=='Non-working']='Married, 0 in LF'
+Demographics_Imputed$ParentsMarital_X_Employ[
+  Demographics_Imputed$ParentsMarital_2L=='Single' & 
+    Demographics_Imputed$ParentEmploy=='Non-working']='Single, Not in LF'
+Demographics_Imputed$ParentsMarital_X_Employ[
+  Demographics_Imputed$ParentsMarital_2L=='Single' & 
+    Demographics_Imputed$ParentEmploy=='Working']='Single, in LF'
 
-Demograhics_Imputed$ParentsMarital_X_Employ = factor(Demograhics_Imputed$ParentsMarital_X_Employ,
+Demographics_Imputed$ParentsMarital_X_Employ = factor(Demographics_Imputed$ParentsMarital_X_Employ,
                                            levels = c('Married, 2 in LF',
                                                       'Married, 1 in LF',
                                                       'Married, 0 in LF',
                                                       'Single, in LF',
                                                       'Single, Not in LF'),
                                            ordered = F)
-print(table(Demograhics_Imputed$ParentsMarital_X_Employ,useNA = 'if'))
+print(table(Demographics_Imputed$ParentsMarital_X_Employ,useNA = 'if'))
 
 # Save Imputed Demographics Data
-SDPP.save.file(Demograhics_Imputed,
+SDPP.save.file(Demographics_Imputed,
                FileName = "Demographics_Imp.rds",
                Prefix = Prefix,
                ProjectDirectory = ProjectDirectory)
-SDPP.save.file(Demograhics_Imputed,
+SDPP.save.file(Demographics_Imputed,
                FileName = "Demographics_Imp.csv",
                Prefix = Prefix,
                ProjectDirectory = ProjectDirectory)
 # MVA for Imputed Demographics Data
 if (!exists('Demographics_Imputed')){
-  Demograhics_Imputed = SDPP.read.intdat(FileName = 'ABCD5.0_Demographics_Imp.rds',
+  Demographics_Imputed = SDPP.read.intdat(FileName = 'ABCD5.0_Demographics_Imp.rds',
                    ProjectDirectory = ProjectDirectory)
 }
-Demograhics_Imputed %>% MVA.Report.By.Wave() %>%
+Demographics_Imputed %>% MVA.Report.By.Wave() %>%
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_Demo_Rec_Imp.doc'),
               row.names = F,
               nsmalls = 1)

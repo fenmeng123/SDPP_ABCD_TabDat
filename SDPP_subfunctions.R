@@ -2,6 +2,9 @@
 # needed when using the SDPP-ABCD-TabDat pipelin. Please make sure you have
 # sourced this script before running any steps in SDPP-ABCD-TabDat.
 # Author: Kunru Song
+# 
+# 
+# 
 # 1. Basic File I/O Functions ---------------------------------------------
 addprefix <- function(prefix,filename,postfix=NA){
   if (!is.na(prefix)){
@@ -156,22 +159,31 @@ SDPP.creat.folder <- function(FolderName,ProjectDirectory,FolderNum=NA,Type='Ste
 # 3. Data Processing Functions --------------------------------------------
 dt.print.mva.counts <- function(dt_name,var_name){
   if (is.character(dt_name) & is.character(var_name)){
-    
-    
-    if (eval_s("is.numeric(%s$%s)",dt_name,var_name)){
-      eval(parse(text = sprintf("print(psych::describe(%s$%s,check=T))",dt_name,var_name)))
-    }else{
-      print(eval(parse(text = sprintf("%s[,table(%s,useNA = 'if')]",dt_name,var_name))))
+    if (!eval_s("is.data.table(%s)",dt_name)){
+      eval_s('%s = as.data.table(%s)',dt_name,dt_name)
     }
-  }else{
-    
+    if (eval_s("is.numeric(%s$%s)",dt_name,var_name)){
+      print(eval_s("print(psych::describe(%s$%s,check=T))",dt_name,var_name))
+    }else{
+      print(eval_s("%s[,table(%s,useNA = 'if')]",dt_name,var_name))
+    }
+  }else if (is.data.table(dt_name) & is.character(var_name)){
+    print(table(dt_name[[var_name]],useNA = 'if',dnn = var_name))
   }
 }
 df.print.mva.counts <- function(var,df=NA) {
   if (!"data.frame" %in% class(df)){
-    print(table(var,useNA = 'if',dnn = deparse(substitute(var))))
+    if (is.factor(var) | is.character(var)){
+      print(table(var,useNA = 'if',dnn = deparse(substitute(var))))
+    }else if (is.numeric(var)){
+      print(psych::describe(var,check = T))
+    }
   }else if (is.character(var)){
-    print(table(df[[var]],useNA = 'if'))
+    if (is.factor(df[[var]]) | is.character(df[[var]]) ){
+      print(table(df[[var]],useNA = 'if',dnn = var))
+    }else if (is.numeric(df[[var]])){
+      print(psych::describe(df[[var]],check = T))
+    }
   }
 }
 MODE.Row <- function(df){
@@ -236,10 +248,10 @@ Comb.MICE <- function(dat.imp,var.ls.imp){
     imputed.dat = merge(imputed.dat,tmp.dat,by = "src_subject_id", all = F)
     fprintf('Compare variable values before and after multiple imputation:\n')
     fprintf('Before MI:')
-    dt.print.mva.counts(original.dat,i)
+    df.print.mva.counts(i,original.dat)
     # print(table(original.dat[i],useNA = 'if'))
     fprintf('After MI:')
-    dt.print.mva.counts(original.dat,i)
+    df.print.mva.counts(i,imputed.dat)
     # print(table(imputed.dat[i],useNA = 'if'))
   }
   return(imputed.dat)
@@ -355,6 +367,7 @@ Recode.ABCD.YN <- function(var,VarName=NA){
   return(V_NEW)
 }
 MVA.Report.By.Wave <- function(df){
+  fprintf("Auto-MVA Report Starting......\n")
   if ('eventname' %in% colnames(df)){
     df %>% Recode.Eventname() %>% 
       group_by(eventname) %>% miss_var_summary() %>% 
@@ -370,6 +383,8 @@ MVA.Report.By.Wave <- function(df){
     df %>% miss_var_summary() %>% 
       as.data.frame() %>% arrange(pct_miss) -> MVA_Report
   }
+  fprintf("Auto-MVA Report Finished!\n")
+  head(MVA_Report, n = 5L)
   return(MVA_Report)
 }
 Merge.Value.NA <- function(V1,V2){
