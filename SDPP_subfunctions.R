@@ -387,6 +387,53 @@ MVA.Report.By.Wave <- function(df){
   head(MVA_Report, n = 5L)
   return(MVA_Report)
 }
+MVA.Report.CaseMiss.By.Wave <- function(df,verbose = T){
+  if ('eventname' %in% colnames(df)){
+    df <- Recode.Eventname(df)
+  }
+  fprintf("Included variables in MVA: \n")
+  print(colnames(df)[!colnames(df) %in% c('src_subject_id','eventname') ])
+  df %>% group_by(eventname) %>% select(-src_subject_id) %>%
+    miss_case_summary() -> Report_case_miss
+  Report_case_miss$pct_miss <- sprintf('%2.2f',Report_case_miss$pct_miss)
+  Report_case_miss$pct_miss <- factor(Report_case_miss$pct_miss,
+                                      levels = unique(Report_case_miss$pct_miss))
+  Report_case_miss %>% count(pct_miss) %>% as.data.frame() -> Report_summary
+  as.character(Report_summary$pct_miss) %>% str_c('%') %>% 
+    RECODE("'100.00%' = 'Complete Miss (100%)';
+           '0.00%' = 'Non-miss (0%)';") -> Report_summary$pct_miss
+  Report_summary = rename(Report_summary,
+                          `Case Miss Status (Percentage)` = pct_miss,
+                          `Number of Cases` = n)
+ fprintf("Case Miss Summary Table:\n")
+ Report_print = rename(Report_summary,
+                       Status = `Case Miss Status (Percentage)`)
+ Report_print$Status = RECODE(Report_print$Status,
+                              "'Complete Miss (100%)' = 'Complete Miss (100%)';
+                              'Non-miss (0%)' = 'Non-miss (0%)';
+                              else = 'Non-complete Miss (0%<pct<100%)';")
+ Report_print %>% group_by(eventname,Status) %>% 
+   reframe(N=sum(`Number of Cases`)) %>% as.data.frame() %>% print()
+ if (verbose){
+   for (i in unique(Report_case_miss$eventname)){
+     SubID = df$src_subject_id[df$eventname==i]
+     SUbID_AnyMiss = SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
+                                                   (Report_case_miss$pct_miss != "0.00")]]
+     SubID_CompMiss = SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
+                                                    (Report_case_miss$pct_miss == "100.00")]]
+     SubID_PartMiss = SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
+                                                    (Report_case_miss$pct_miss != "0.00") & 
+                                                    (Report_case_miss$pct_miss != "100.00")]]
+     fprintf("At [%s] (time point), any Miss in the above variables (Subject ID):\n",i)
+     print(SUbID_AnyMiss)
+     fprintf("At [%s] (time point), Where, the following IDs are completedly missing:\n",i)
+     print(SubID_CompMiss)
+     fprintf("At [%s] (time point), in contrast, the following IDs are partially missing:\n",i)
+     print(SUbID_AnyMiss)
+   }
+ }
+ return(Report_summary)
+}
 Merge.Value.NA <- function(V1,V2){
   fprintf("Merging Two Variables: %s and %s ......\n",deparse(substitute(V1)),deparse(substitute(V2)))
   paste(
@@ -403,5 +450,35 @@ Merge.Value.NA <- function(V1,V2){
     print(table(V_NEW,useNA = 'if'))
   }
   return(V_NEW)
+}
+Call.MATLAB.knnimpute <- function(data_matrix,MATLAB_server_obj){
+  if (!isOpen(MATLAB_server_obj)) {
+    stop("MATLAB server is not connected!")
+  }
+  setVariable(MATLAB_server_obj,data = data_matrix)
+  # evaluate(MATLAB_server_obj,"data = struct2table(data);")
+  evaluate(MATLAB_server_obj,"tmp = knnimpute(data);")
+  imputed_data <- getVariable(MATLAB_server_obj,"tmp")
+  evaluate(MATLAB_server_obj,"clearvars data tmp")
+  return(imputed_data)
+}
+MVA.KNNimpute <- function(df,var_ls,MATLAB_server_obj){
+  df %>% select(all_of(var_ls)) %>% sapply(as.numeric) %>%
+    Call.MATLAB.knnimpute(MATLAB_server_obj) -> imputed_data
+  df[,var_ls] <- imputed_data$tmp
+  return(df)
+}
+Bind.imp.By.Wave <- function(raw_dat_name,imp_dat){
+  data_masking = paste(sprintf("(eventname != '%s')",unique(imp_dat$eventname)),collapse = ' & ')
+  unimp_dat = eval_s("subset(%s,%s)",raw_dat_name,data_masking)
+  
+  data_masking = paste(sprintf("(eventname == '%s')",unique(imp_dat$eventname)),collapse = ' | ')
+  wait_imp_dat = eval_s("subset(%s,%s)",raw_dat_name,data_masking)
+  imp_var_ls = colnames(imp_dat)[!colnames(imp_dat) %in% c('src_subject_id','eventname')]
+  wait_imp_dat = select(wait_imp_dat,!all_of(imp_var_ls))
+
+  new_dat = base::merge(wait_imp_dat,imp_dat,by = c('src_subject_id','eventname'))
+  new_dat = rbind(new_dat,unimp_dat)
+  return(new_dat)
 }
 

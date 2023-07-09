@@ -52,6 +52,8 @@ fprintf('Number of Maximum Iterations in Multiple Imputation: %d\n',n.iter)
 fprintf("=================================Step 4 Specifications=================================\n")
 S4_ResultsOutputDir = SDPP.set.output(fullfile(ProjectDirectory,'Res_2_Results','Res_Preproc'))
 fprintf("Step 4 Results Output Directory: %s\n",S4_ResultsOutputDir)
+fprintf("=================================Step 5 Specifications=================================\n")
+fprintf("Step 5 Results Output Directory will inherit from Step 4:%s \n",S4_ResultsOutputDir)
 
 # End of Script -----------------------------------------------------------
 fprintf("SDPP-ParaSet finished! Finish Time:%s\n",Sys.time())
