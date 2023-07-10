@@ -1,7 +1,7 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-07-07
+2023-07-10
 
 ### Basic Infomation
 
@@ -18,11 +18,19 @@ Dr.Jin-tao Zhang.
 
 **First Created Date:** 2022.06
 
+**ABCD Link**
+
+- [ABCD 5.0 Tabulated Release
+  Data](https://nda.nih.gov/study.html?id=2147)
+- [ABCD 5.0 Data Dictionary](https://data-dict.abcdstudy.org/)
+- [ABCD 5.0 Release Notes & Update
+  Logs](https://wiki.abcdstudy.org/release-notes/start-page.html)
+
 ------------------------------------------------------------------------
 
 ### Citation and Suggestions
 
-1.  If you would like to use any codes from this SDPP, please kindly
+1.  If you would like to use any codes from this pipeline, please kindly
     cite our published article (below is a APA-format Citation):
 
     > *Song K, Zhang JL, Zhou N, Fu Y, Zou B, Xu LX, Wang Z, Li X, Zhao
@@ -32,8 +40,7 @@ Dr.Jin-tao Zhang.
     > Adolesc Psychiatry.2023 Mar 20:S0890-8567(23)00132-6.doi:
     > 10.1016/j.jaac.2023.02.014.Epub ahead of print. PMID: 36963562.*
 
-2.  **SDPP-ABCD-TabDat** now is only available for Dr. Jin-tao Zhang’s
-    Team, which is not allowed to be shared.
+2.  **SDPP-ABCD-TabDat** now is available for Dr. Jin-tao Zhang’s Team.
 
 3.  Any bugs found in this pipeline should be reported in Github Issues.
 
@@ -43,6 +50,13 @@ Dr.Jin-tao Zhang.
 ------------------------------------------------------------------------
 
 #### Update Logs
+
+- 2023.7.9
+
+  - Completed Step 5, added some subfunctions to perform knn-imputation
+    for missing values in SMA-related behavioral measures.
+  - Added coding scheme table.
+  - Fixed some bugs in calling MATLAB Bioinformatics Toolbox.
 
 - 2023.07.07
 
@@ -116,11 +130,6 @@ Dr.Jin-tao Zhang.
     2147)
   - In ABCD 5.0 tabulated data, *‘src_subject_id’* would be used as
     participant identifier.
-  - [ABCD 5.0 Tabulated Release
-    Data](https://nda.nih.gov/study.html?id=2147)
-  - [ABCD 5.0 Data Dictionary](https://data-dict.abcdstudy.org/)
-  - [ABCD 5.0 Release Notes & Update
-    Logs](https://wiki.abcdstudy.org/release-notes/start-page.html)
 
 - 2023.06.06
 

@@ -18,36 +18,80 @@ If you would like to use any codes from this SDPP, please kindly cite our publis
 
   1. Please set all necessary parameters in SDPP_ParaSet.R before running any codes in this pipeline and then source it.
   
-  2. Coding Scheme for ABCD Demographic variable data could be found in Step 1 and Step 2, as well as ABCD-DAIRC github repository:[analysis-NDA](https://github.com/ABCD-STUDY/analysis-nda).
+  2. Coding Scheme for ABCD Demographic variable data could be found in Step 1 and Step 2, as well as ABCD-DAIRC github repository:[analysis-NDA](https://github.com/ABCD-STUDY/analysis-nda). A coding scheme table was also provided by this pipeline.
   
-# Abbreviation Table
+## Abbreviation Table
 
 Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert Online](https://tableconvert.com/)
 
-| Common |                        | Novel Technology |                                                |
-|--------|------------------------|------------------|------------------------------------------------|
-| T0     | Baseline Wave Data     | SMA              | Screen Media Activity                          |
-| T1     | One-year follow-up     | OS               | OwnerShip                                      |
-| T2     | Two-year follow-up     | STQ              | Screen Time Questionnaire                      |
-| T3     | Three-year follow-up   | TPD              | TyPical Day (prefix) or Time Per Day (postfix) |
-| T4     | Four-year follow-up    | TPW              | Time Per Week                                  |
-| MVA    | Missing Value Analysis | open             | calculated value from open-answered STQ items  |
-| MI     | Multiple Imputation    | weekday          | in a typical weekday                           |
-| Rep    | Auto-generated Report  | weekend          | in a typical weekend day                       |
-| Rec    | Re-coded data          | School           | School-related work                            |
-| Raw    | Raw data               | SMQ              | Social Media Questionnaire                     |
-| Imp    | Imputed data           | SOC              | SOCial media apps                              |
-| Reorg  | Re-organized data      | SMAS             | bergen Social Media Addiction Scale            |
-|        |                        | MVOC             | Multiplayer Videogame Online Chatting          |
-|        |                        | UM               | Use Most                                       |
-|        |                        | NOFE             | the Number Of FollowErs                        |
-|        |                        | NOFI             | the Number Of FollowIngs                       |
-|        |                        | NOA              | the Number Of Account                          |
-|        |                        | MP               | Mobile Phone                                   |
-|        |                        | MPIQ             | Mobile Phone Involvement Questionnaire         |
-|        |                        | VGAS             | Video Game Addiction Scale                     |
-|        |                        | ODQ              | Online Dating Questionnaire                    |
-|        |                        | SUAB             | Screen Usage Around Bedtime                    |
+| Common |                                | Novel Technology |                                                |
+|--------|--------------------------------|------------------|------------------------------------------------|
+| T0     | Baseline Wave Data             | SMA              | Screen Media Activity                          |
+| T1     | One-year follow-up             | OS               | OwnerShip                                      |
+| T2     | Two-year follow-up             | STQ              | Screen Time Questionnaire                      |
+| T3     | Three-year follow-up           | TPD              | TyPical Day (prefix) or Time Per Day (postfix) |
+| T4     | Four-year follow-up            | TPW              | Time Per Week                                  |
+| MVA    | Missing Value Analysis         | open             | calculated value from open-answered STQ items  |
+| MI     | Multiple Imputation            | weekday          | in a typical weekday                           |
+| Rep    | Auto-generated Report          | weekend          | in a typical weekend day                       |
+| Rec    | Re-coded data                  | School           | School-related work                            |
+| Raw    | Raw data                       | SMQ              | Social Media Questionnaire                     |
+| Imp    | Imputed data                   | SOC              | SOCial media apps                              |
+| Reorg  | Re-organized data              | SMAS             | bergen Social Media Addiction Scale            |
+| Comp   | Compare                        | MVOC             | Multiplayer Videogame Online Chatting          |
+| ALL    | all avaiable waves in ABCD 5.0 | UM               | Use Most                                       |
+|        |                                | NOFE             | the Number Of FollowErs                        |
+|        |                                | NOFI             | the Number Of FollowIngs                       |
+|        |                                | NOA              | the Number Of Account                          |
+|        |                                | MP               | Mobile Phone                                   |
+|        |                                | MPIQ             | Mobile Phone Involvement Questionnaire         |
+|        |                                | VGAS             | Video Game Addiction Scale                     |
+|        |                                | ODQ              | Online Dating Questionnaire                    |
+|        |                                | SUAB             | Screen Usage Around Bedtime                    |
+
+
+## Coding Scheme Table
+
+| Variable Names                               | Descriptions                                                          | Variable Type | Categories            | Coding Scheme                                                           |
+|----------------------------------------------|-----------------------------------------------------------------------|---------------|-----------------------|-------------------------------------------------------------------------|
+| SexAssigned                                  | Youth's Sex assigned at birth                                         |               |                       |                                                                         |
+| VisitType                                    |                                                                       |               |                       |                                                                         |
+| Education_13L                                | Parent-reported Youth's Education Level                               |               | 1, 2, 3, 4, 5         | "from 1 (1st or 2nd                                                     |
+| grade or lower) to 5 (6th grade or greater)" |
+| SiteID                                       |                                                                       |               |                       |                                                                         |
+| FamilyID                                     |                                                                       |               |                       |                                                                         |
+| GroupID                                      |                                                                       |               |                       |                                                                         |
+| SchoolID                                     |                                                                       |               |                       |                                                                         |
+| DistrictID                                   |                                                                       |               |                       |                                                                         |
+| ACS_Weight                                   |                                                                       |               |                       |                                                                         |
+| Race_6L                                      | Parent-identified Youth's Race                                        |               | "White; Black;        |
+| Asian; Mixed/Other"                          | reference: White                                                      |
+| Ethnicity_PrntRep                            | Parent-identified Youth's Ethnicity                                   |               | "Hispanic; non-       |
+| Hispanic"                                    | reference: Hispanic                                                   |
+| Handedness                                   | Youth's Handedness                                                    |               | right; mixed; left    | reference: right                                                        |
+| ParentsMarital_2L                            | Parent-reported Marital Status                                        |               | "Married or living    |
+| with partner; Single"                        | "reference: Married or                                                |
+| living with partner"                         |
+| ParentsHighEdu_2L                            | Parent-reported the Highest Education Level                           |               | "high school or less; |
+| college education"                           | "reference: high school                                               |
+| or less"                                     |
+| ParentsMarital_X_Employ                      | the Interaction Term of Parent-reported Marital and Employment Status |               | "married 0/1/2 in     |
+| LF(labor force); other 0/1 in LF"            | this variable is not entered to LME model                             |
+| Relationship_3L                              | Parent-reported Family Structure                                      |               | "single; sibling;     |
+| twin/triplet;"                               | reference: single                                                     |
+| HouseholdSize                                | Parent-reported the number of family member in household              |               | 1, 2, 3, 4, 5         | "from 1 (2 to 3 or less people in household) to 5 (7 people and more in |
+| household)"                                  |
+| "Household                                   |
+| Structure"                                   | Parent-reported household structure                                   |               | "another household;   |
+| single household"                            | "reference: another                                                   |
+| household"                                   |
+| BirthCountry                                 |                                                                       |               | other country; USA    | "reference: other                                                       |
+| country"                                     |
+| FamilyIncome                                 |                                                                       |               | 1, 2, 3, 4, 5, 6      | "from 1 (Less than                                                      |
+| $5,000) to 6 ($200,000                       |
+| and greater)"                                |
+
+
 
 # Data Usage Notes
 

@@ -11,7 +11,7 @@
 
 <meta name="author" content="Kunru Song" />
 
-<meta name="date" content="2023-07-09" />
+<meta name="date" content="2023-07-10" />
 
 <title>SDPP-ABCD-TabDat User Manual</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">SDPP-ABCD-TabDat User Manual</h1>
 <h4 class="author">Kunru Song</h4>
-<h4 class="date">2023-07-09</h4>
+<h4 class="date">2023-07-10</h4>
 
 </div>
 
@@ -360,8 +360,12 @@ display: none;
 <ul>
 <li><a href="#citation" id="toc-citation">Citation</a></li>
 <li><a href="#common-usage-notes" id="toc-common-usage-notes">Common
-Usage Notes</a></li>
+Usage Notes</a>
+<ul>
 <li><a href="#abbreviation-table" id="toc-abbreviation-table">Abbreviation Table</a></li>
+<li><a href="#coding-scheme-table" id="toc-coding-scheme-table">Coding
+Scheme Table</a></li>
+</ul></li>
 <li><a href="#data-usage-notes" id="toc-data-usage-notes">Data Usage
 Notes</a>
 <ul>
@@ -404,18 +408,18 @@ of print. PMID: 36963562.</p>
 <li><p>Please set all necessary parameters in SDPP_ParaSet.R before
 running any codes in this pipeline and then source it.</p></li>
 <li><p>Coding Scheme for ABCD Demographic variable data could be found
-in Step 1 and Step 2, as well as ABCD-DAIRC github repository:<a href="https://github.com/ABCD-STUDY/analysis-nda">analysis-NDA</a>.</p></li>
+in Step 1 and Step 2, as well as ABCD-DAIRC github repository:<a href="https://github.com/ABCD-STUDY/analysis-nda">analysis-NDA</a>. A
+coding scheme table was also provided by this pipeline.</p></li>
 </ol>
-</div>
-<div id="abbreviation-table" class="section level1">
-<h1>Abbreviation Table</h1>
+<div id="abbreviation-table" class="section level2">
+<h2>Abbreviation Table</h2>
 <p>Converted from ./.github/SDPP_AbbrTable.xlsx by <a href="https://tableconvert.com/">Table Convert Online</a></p>
 <table>
 <colgroup>
-<col width="8%" />
-<col width="24%" />
-<col width="18%" />
-<col width="48%" />
+<col width="7%" />
+<col width="30%" />
+<col width="16%" />
+<col width="45%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -499,14 +503,14 @@ in Step 1 and Step 2, as well as ABCD-DAIRC github repository:<a href="https://g
 <td>bergen Social Media Addiction Scale</td>
 </tr>
 <tr class="odd">
-<td></td>
-<td></td>
+<td>Comp</td>
+<td>Compare</td>
 <td>MVOC</td>
 <td>Multiplayer Videogame Online Chatting</td>
 </tr>
 <tr class="even">
-<td></td>
-<td></td>
+<td>ALL</td>
+<td>all avaiable waves in ABCD 5.0</td>
 <td>UM</td>
 <td>Use Most</td>
 </tr>
@@ -560,6 +564,284 @@ in Step 1 and Step 2, as well as ABCD-DAIRC github repository:<a href="https://g
 </tr>
 </tbody>
 </table>
+</div>
+<div id="coding-scheme-table" class="section level2">
+<h2>Coding Scheme Table</h2>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="31%" />
+<col width="6%" />
+<col width="10%" />
+<col width="32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Names</th>
+<th>Descriptions</th>
+<th>Variable Type</th>
+<th>Categories</th>
+<th>Coding Scheme</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SexAssigned</td>
+<td>Youth’s Sex assigned at birth</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VisitType</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Education_13L</td>
+<td>Parent-reported Youth’s Education Level</td>
+<td></td>
+<td>1, 2, 3, 4, 5</td>
+<td>“from 1 (1st or 2nd</td>
+</tr>
+<tr class="even">
+<td>grade or lower) to 5 (6th grade or greater)”</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>SiteID</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>FamilyID</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>GroupID</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>SchoolID</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DistrictID</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>ACS_Weight</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Race_6L</td>
+<td>Parent-identified Youth’s Race</td>
+<td></td>
+<td>“White; Black;</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Asian; Mixed/Other”</td>
+<td>reference: White</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Ethnicity_PrntRep</td>
+<td>Parent-identified Youth’s Ethnicity</td>
+<td></td>
+<td>“Hispanic; non-</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Hispanic”</td>
+<td>reference: Hispanic</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Handedness</td>
+<td>Youth’s Handedness</td>
+<td></td>
+<td>right; mixed; left</td>
+<td>reference: right</td>
+</tr>
+<tr class="even">
+<td>ParentsMarital_2L</td>
+<td>Parent-reported Marital Status</td>
+<td></td>
+<td>“Married or living</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>with partner; Single”</td>
+<td>“reference: Married or</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>living with partner”</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>ParentsHighEdu_2L</td>
+<td>Parent-reported the Highest Education Level</td>
+<td></td>
+<td>“high school or less;</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>college education”</td>
+<td>“reference: high school</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>or less”</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>ParentsMarital_X_Employ</td>
+<td>the Interaction Term of Parent-reported Marital and Employment
+Status</td>
+<td></td>
+<td>“married 0/1/2 in</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>LF(labor force); other 0/1 in LF”</td>
+<td>this variable is not entered to LME model</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Relationship_3L</td>
+<td>Parent-reported Family Structure</td>
+<td></td>
+<td>“single; sibling;</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>twin/triplet;”</td>
+<td>reference: single</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>HouseholdSize</td>
+<td>Parent-reported the number of family member in household</td>
+<td></td>
+<td>1, 2, 3, 4, 5</td>
+<td>“from 1 (2 to 3 or less people in household) to 5 (7 people and more
+in</td>
+</tr>
+<tr class="odd">
+<td>household)”</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>“Household</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Structure”</td>
+<td>Parent-reported household structure</td>
+<td></td>
+<td>“another household;</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>single household”</td>
+<td>“reference: another</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>household”</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>BirthCountry</td>
+<td></td>
+<td></td>
+<td>other country; USA</td>
+<td>“reference: other</td>
+</tr>
+<tr class="odd">
+<td>country”</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>FamilyIncome</td>
+<td></td>
+<td></td>
+<td>1, 2, 3, 4, 5, 6</td>
+<td>“from 1 (Less than</td>
+</tr>
+<tr class="odd">
+<td>$5,000) to 6 ($200,000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>and greater)”</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id="data-usage-notes" class="section level1">
 <h1>Data Usage Notes</h1>
