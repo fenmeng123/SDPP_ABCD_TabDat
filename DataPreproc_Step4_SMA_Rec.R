@@ -5,7 +5,7 @@
 # 1. Ref Link:
 # https://github.com/fenmeng123/2022_JAACAP_ABCD_SMA_pattern
 # https://wiki.abcdstudy.org/release-notes/non-imaging/novel-technologies.html#screen-time-questionnaire
-# 2. Target File: ABCD4.0_Demographics_Recode.rds
+# 2. Target File: nt_y_st.csv
 # Update Date: 2023.06.16 By Kunru Song
 # Update Date: 2023.07.06 By Kunru Song
 # =============================================================================#

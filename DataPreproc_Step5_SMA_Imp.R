@@ -2,11 +2,10 @@
 # SDPP Step 5: Perform KNN imputation for Screen Use-related Data
 # R Packages Dependency: bruceR, naniar, simputation
 # Step File Notes: 
-# 1. The imputation about the core demographics was referred to ABCD-DAIRC
-# 2. Ref Link:
+# 1. Ref Link:
 # https://github.com/fenmeng123/2022_JAACAP_ABCD_SMA_pattern
 # https://wiki.abcdstudy.org/release-notes/non-imaging/novel-technologies.html#screen-time-questionnaire
-# 3. Target File: ABCD4.0_Demographics_Recode.rds
+# 2. Target File: ABCD5.0_SMA_Rec.rds, ABCD5.0_SMA_Rec_Imp.rds
 # Update Date: 2023.7.7
 # =============================================================================#
 # 1. Library Packages and Prepare Environment --------------------------------

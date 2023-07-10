@@ -49,8 +49,29 @@ readABCDdata<-function(filename,version="5.0"){
     `4.0` = read4.0(filename)
   )
   cat("Subjects Counts (stratified by eventname):\n")
-  print(table(data$eventname))
+  print(table(data$eventname,useNA = 'if'))
   return(data)
+}
+read.in.batch <- function(DownloadedDataDir,TableNames,FolderName=NA){
+  # tmp <- list()
+  if (is.na(FolderName)){
+    DataFileDir = DownloadedDataDir
+  }else{
+    DataFileDir = fullfile(DownloadedDataDir,FolderName)
+  }
+  for (i in TableNames){
+    if (i == TableNames[1]){
+      fprintf("[%s] is the first element in TableNames vector, which would be set at anchor data frame.\n",i)
+      MergedDF = readABCDdata(filename = fullfile(DataFileDir,i))
+    }else{
+      tmpDF = readABCDdata(filename = fullfile(DataFileDir,i))
+      fprintf("Appending new data frame [%s] ......\n",i)
+      MergedDF = merge(MergedDF,tmpDF,by = c('src_subject_id','eventname'),all=T)
+    }
+  }
+  cat("Subjects Counts (stratified by eventname):\n")
+  print(table(MergedDF$eventname,useNA = 'if'))
+  return(MergedDF)
 }
 eval_s <- function(user.string,...){
   res = eval(parse(text = sprintf(user.string,...)))
@@ -155,6 +176,10 @@ SDPP.creat.folder <- function(FolderName,ProjectDirectory,FolderNum=NA,Type='Ste
       stop("Please reset the requested SDPP folder type.")
     }
   }
+}
+SDPP.filter.data.dict <- function(DataDictionaryFileDir,table_name_nda){
+  readxl::read_excel(DataDictionaryFileDir) %>% as.data.frame() -> dict
+  subset(dict,table_name_nda == table_name_nda)
 }
 # 3. Data Processing Functions --------------------------------------------
 dt.print.mva.counts <- function(dt_name,var_name){
