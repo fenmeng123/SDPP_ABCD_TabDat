@@ -58,6 +58,9 @@ fprintf("Step 5 Results Output Directory will inherit from Step 4:%s \n",S5_Resu
 fprintf("=================================Step 6 Specifications=================================\n")
 S6_ResultsOutputDir = S5_ResultsOutputDir
 fprintf("Step 6 Results Output Directory will inherit from Step 5:%s \n",S6_ResultsOutputDir)
+fprintf("=================================Step 7 Specifications=================================\n")
+S7_ResultsOutputDir = S6_ResultsOutputDir
+fprintf("Step 7 Results Output Directory will inherit from Step 6:%s \n",S7_ResultsOutputDir)
 
 # End of Script -----------------------------------------------------------
 fprintf("SDPP-ParaSet finished! Finish Time:%s\n",Sys.time())

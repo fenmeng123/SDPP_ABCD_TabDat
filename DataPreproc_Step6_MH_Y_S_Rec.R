@@ -8,6 +8,7 @@
 # ABCD 5.0: /core/mental-health/mh_y_upps.csv, mh_y_pps.csv, mh_y_peq.csv, 
 #           mh_y_le.csv, mh_y_erq.csv, mh_y_bisbas.csv, mh_y_7up.csv
 # Update Date: 2023.7.10
+#              2023.7.17
 # =============================================================================#
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_6.txt'
@@ -15,9 +16,7 @@ AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
 sink(file = AutoLogFilePath)
 ResultsOutputDir = S6_ResultsOutputDir
 library(naniar)
-
 # ==============================MAIN CODES=====================================#
-
 # 2. Load Youth Mental Health Summary and select the relevant columns ------------------
 
 file_ls = SDPP.filter.data.dict(DataDictionaryFileDir = dir(pattern = '.*ABCD Data Dictionary.xlsx'),

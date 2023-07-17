@@ -394,6 +394,11 @@ Summary</a>
 <li><a href="#redundant-columns-filtering" id="toc-redundant-columns-filtering">Redundant Columns
 Filtering</a></li>
 </ul></li>
+<li><a href="#aseba-measures" id="toc-aseba-measures">ASEBA Measures</a>
+<ul>
+<li><a href="#child-behavior-checklist-cbcl" id="toc-child-behavior-checklist-cbcl">Child Behavior Checklist
+(CBCL)</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </div>
@@ -1545,7 +1550,101 @@ NAs.</p></li>
 <div id="redundant-columns-filtering" class="section level3">
 <h3>Redundant Columns Filtering</h3>
 <ul>
-<li>Some columns in Youth Mental Health Summary</li>
+<li>Some columns in Youth Mental Health Summary were dropped due to
+there is no need to include these columns in preprocessed data. Details
+could be found in Step 6. For example, the raw BIS/BAS scale has been
+proved that is not appropriate for children. Therefore, there is no need
+to include the raw BIS/BAS subscales sum scores.</li>
+</ul>
+</div>
+</div>
+<div id="aseba-measures" class="section level2">
+<h2>ASEBA Measures</h2>
+<div id="child-behavior-checklist-cbcl" class="section level3">
+<h3>Child Behavior Checklist (CBCL)</h3>
+<ul>
+<li><strong>Step 7 will only retain the CBCL t-scores</strong> from all
+CBCL-related syndrom scales, DSM5-oriented scales and 2007 scales. This
+will be helpful to reduce the complex of preprocessed data frame.
+<ul>
+<li>The ASEBA T scores are particularly useful for viewing profiles and
+multi-informant bar graphs of scale scores, because the T scores provide
+a metric that is standardized on the basis of comparable percentiles for
+the different scales and norm groups. However, for statistical analyses,
+raw scale scores are often preferable, because they reflect all the
+variation that actually occurs in scores obtained by the individuals
+whose data are being analyzed. T scores, by contrast, lump together some
+raw scale scores, such as the different low scores that are given a T
+score of 50. On the other hand, if the lack of differentiation among
+very low scale scores is irrelevant (e.g., when few scale scores in an
+analysis are very low), then use of T scores has the advantage of taking
+account of differences in the normative distributions for different
+scales, individuals of different genders and ages, different kinds of
+informants, and multicultural norm groups.</li>
+<li>Because T scores are not truncated for the broad-band Internalizing,
+Externalizing, and Total Problems scales, the T scores for these scales
+can be analyzed without loss of differentiation among low scale scores.
+The Manuals and Multicultural Supplements provide more extensive
+guidance for statistical analyses of raw scale scores, T scores, and
+other kinds of standard scores (Achenbach et al., 2004; Achenbach &amp;
+Rescorla, 2000, 2001, 2003, 2007, 2010, 2014b).</li>
+<li>So that users need not learn the percentile represented by each T
+score, the ASEBA computer software and hand-scored profiles display
+percentiles as well as T scores. However, because T scores that are in
+the clinical range (T &gt;69; &gt;97th percentile for DSM-oriented and
+syndrome scales) are above the range of meaningful percentiles in
+normative samples, they are based on the number of possible scores in a
+scale that exceed the 97th percentile in the normative sample.</li>
+</ul></li>
+<li>The Child Behavior Checklist (CBCL) is a component of the Achenbach
+System of Empirically Based Assessment (ASEBA). The ASEBA is used to
+detect behavioural and emotional problems in children and adolescents.
+The CBCL is completed by parents. The other two components are the
+Teacher’s Report Form (TRF) (completed by teachers), and the Youth
+Self-Report (YSR) (completed by the child or adolescent himself or
+herself).</li>
+<li>The 2001 revision of the CBCL, the CBCL/6-18 (used with children 6
+to 18), is made up of eight syndrome scales:
+<ul>
+<li>anxious/depressed</li>
+<li>depressed</li>
+<li>somatic complaints</li>
+<li>social problems</li>
+<li>thought problems</li>
+<li>attention problems</li>
+<li>rule-breaking behaviour</li>
+<li>aggressive behaviour</li>
+</ul></li>
+<li>These group into two higher order factors—internalizing and
+externalizing. The time frame for item responses is the past six
+months.</li>
+<li>The 2001 revision also added six DSM-oriented scales consistent with
+DSM diagnostic categories:
+<ul>
+<li>affective problems</li>
+<li>anxiety problems</li>
+<li>somatic problems</li>
+<li>ADHD</li>
+<li>oppositional defiant problems</li>
+<li>conduct problems</li>
+</ul></li>
+<li>In addition to the DSM-oriented scales, the ASEBA forms are scored
+on empirically based syndromes, Internalizing, Externalizing, and Total
+Problems scales. Some of the forms are also scored on scales shown by
+research to be good measures of clinical constructs such as:
+<ul>
+<li>Obsessive-Compulsive Problems (OCD)</li>
+<li>Post-traumatic Stress Problems (PTSD)</li>
+<li>sluggish cognitive tempo (SCT)</li>
+</ul></li>
+<li>The CBCL (and the YSR) are also scored on (optional) competence
+scales for activities, social relations, school and total competence. In
+2001, options for multicultural norms were added allowing scale scores
+to be displayed in relation to different sets of cultural/societal
+norms. Scales were also added for obsessive compulsive disorder (OCD)
+and posttraumatic stress disorder (PTSD).</li>
+<li>The CBCL consists of 113 questions, scored on a three-point Likert
+scale (0=absent, 1= occurs sometimes, 2=occurs often).</li>
 </ul>
 </div>
 </div>
