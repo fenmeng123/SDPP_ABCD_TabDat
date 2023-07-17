@@ -177,9 +177,20 @@ SDPP.creat.folder <- function(FolderName,ProjectDirectory,FolderNum=NA,Type='Ste
     }
   }
 }
-SDPP.filter.data.dict <- function(DataDictionaryFileDir,table_name_nda){
+SDPP.filter.data.dict <- function(DataDictionaryFileDir,filter_col,filter_key,
+                                  search_col = NA){
   readxl::read_excel(DataDictionaryFileDir) %>% as.data.frame() -> dict
-  subset(dict,table_name_nda == table_name_nda)
+  Flag = dict[[filter_col]] == filter_key
+  if (is.na(search_col)){
+    NEW = dict[which(Flag),]
+  }else{
+    if (length(search_col)==1){
+      NEW = dict[[search_col]][which(Flag)]
+    }else if (length(search_col)>1){
+      NEW = dict[which(Flag),search_col]
+    }
+  }
+  return(NEW)
 }
 # 3. Data Processing Functions --------------------------------------------
 dt.print.mva.counts <- function(dt_name,var_name){
@@ -390,6 +401,22 @@ Recode.ABCD.YN <- function(var,VarName=NA){
     stop("The input vector is not a ABCD-style YN variable.Please Check your code!")
   }
   return(V_NEW)
+}
+Recode.ABCD.NM.NT <- function(var_df,var_ls){
+  for (i in var_ls){
+    fprintf('Re-coding NM & NT for variable: %s ......\n',i)
+    tmp = select(var_df,contains(i))
+    fprintf('\t A temp data frame containing the following variables was extracted: \n')
+    fprintf("\t %s \n",colnames(tmp))
+    Flag = (tmp[[str_c(i,'_nm')]] == tmp[[str_c(i,'_nt')]])
+    Flag = replace_na(Flag,FALSE)
+    fprintf("\t Number: %d rows were flagged that NM is equals to NT\n",sum(Flag,na.rm = T))
+    tmp[Flag,i] <- NA
+    var_df[[i]] <- tmp[[i]]
+    fprintf("\t replacing these values with NAs....... \t Completed!\n")
+  }
+  var_df %>% select(-ends_with('_nm')) %>% select(-ends_with('_nt')) -> var_df
+  return(var_df)
 }
 MVA.Report.By.Wave <- function(df){
   fprintf("Auto-MVA Report Starting......\n")

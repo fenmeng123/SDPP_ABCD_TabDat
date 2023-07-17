@@ -1,7 +1,7 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-07-10
+2023-07-17
 
 ### Basic Infomation
 
@@ -50,6 +50,17 @@ Dr.Jin-tao Zhang.
 ------------------------------------------------------------------------
 
 #### Update Logs
+
+- 2023.7.17
+
+  - Completed Step 6, add a new subfunction to re-code nm and nt values
+    in ABCD Summary Data File.
+  - Updated coding scheme table, more columns (e.g. coding details about
+    factor levels collapse will be added in future version).
+
+- 2023.7.10
+
+  - Updated README and User Manual.
 
 - 2023.7.9
 
