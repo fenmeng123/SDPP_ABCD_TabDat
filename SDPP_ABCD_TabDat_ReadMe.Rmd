@@ -3,14 +3,16 @@ title: "Standard Data Preprocessing Pipeline for ABCD Tabulated Data"
 subtitle: "SDPP-ABCD-TabDat"
 author: "Kunru Song"
 date: "`r Sys.Date()`"
-output: rmarkdown::github_document
+output:
+  github_document:
+    toc: TRUE
+    toc_depth: 2
+    html_preview: TRUE
 ---
 
-### Basic Infomation
+# Basic Infomation
 
-**Data Version:** ABCD 5.0 Data Release (tabulated data)
-
-**Author Info:** Kunru Song, PhD Student at BNU, supervised by Dr.Jin-tao Zhang.
+**Author:** Kunru Song, PhD Student at BNU, supervised by Dr.Jin-tao Zhang.
 
 [Kunru's Personal Profile (Researchgate)](https://www.researchgate.net/profile/Kunru-Song)
 
@@ -18,34 +20,42 @@ output: rmarkdown::github_document
 
 **First Created Date:** 2022.06
 
-**ABCD Link**
+**Data Version:** ABCD 5.0 Data Release (tabulated data)
+
+**ABCD Link** 
 
 - [ABCD 5.0 Tabulated Release Data](https://nda.nih.gov/study.html?id=2147)
 - [ABCD 5.0 Data Dictionary](https://data-dict.abcdstudy.org/)
 - [ABCD 5.0 Release Notes & Update Logs](https://wiki.abcdstudy.org/release-notes/start-page.html)
 
------
-
-### Citation and Suggestions
+# Citation and Suggestions
 
 1.  If you would like to use any codes from this pipeline, please kindly cite our published article (below is a APA-format Citation):
 
     >    _Song K, Zhang JL, Zhou N, Fu Y, Zou B, Xu LX, Wang Z, Li X, Zhao Y,Potenza M, Fang X, Zhang JT. Youth Screen Media Activity Patterns and Associations With Behavioral Developmental Measures and Resting-state Brain Functional Connectivity. J Am Acad Child Adolesc Psychiatry.2023 Mar 20:S0890-8567(23)00132-6.doi: 10.1016/j.jaac.2023.02.014.Epub ahead of print. PMID: 36963562._
 
-2.  **SDPP-ABCD-TabDat** now is available for Dr. Jin-tao Zhang's Team.
+2. Please refer to SDPP-ABCD-TabDat **User Manual** when you have any questions about using this pipeline. **User Manual** was wrote by R Markdown syntax and output as a html file for convenient to be read. Users could find the manual in this repository (both .Rmd and .html file): 
 
-3. Any bugs found in this pipeline should be reported in Github Issues. 
+    _SDPP_ABCD_TabDat_UserManual.Rmd_ & _SDPP_ABCD_TabDat_UserManual.html_.
 
-4. Please refer to SDPP-ABCD-TabDat **User Manual** when you have any questions about using this pipeline.
+    In addition, [Find here for online html file preview](http://htmlpreview.github.io/?https://github.com/fenmeng123/SDPP_ABCD_TabDat/blob/master/SDPP_ABCD_TabDat_UserManual.html).(Supported by htmlpreview.github.io)
 
------
 
-#### Update Logs
+3. Any bugs found in this pipeline should be reported in [Github Issues of this repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/issues). 
 
+4. If you would like to participate the collaboration in developing this pipeline, please kindly create a pull requests in [relevant page of this repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/pulls)
+
+
+# Update Logs
+
+ - 2023.7.18
+ 
+ 
  - 2023.7.17
    - Completed Step 6, add a new subfunction to re-code nm and nt values in ABCD Summary Data File.
    - Updated coding scheme table, more columns (e.g. coding details about factor levels collapse will be added in future version).
-
+   - Completed Step 7.
+   
  - 2023.7.10
    - Updated README and User Manual.
 

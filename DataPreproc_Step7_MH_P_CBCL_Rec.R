@@ -75,7 +75,7 @@ NEW_CBCL %>% MVA.Report.By.Wave() %>%
               row.names = F,
               nsmalls = 1)
 
-# End of Scirpt -----------------------------------------------------------
+# End of Script -----------------------------------------------------------
 
 fprintf("SDPP-ABCD-TabDat Step 7 finished! Finish Time:%s\n",Sys.time())
 

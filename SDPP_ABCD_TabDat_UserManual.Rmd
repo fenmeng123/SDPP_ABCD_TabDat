@@ -261,47 +261,64 @@ Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert Online](https://t
         - screentime_sq12: In the past week, how often have you had phone calls, text messages or emails that wake you after trying to go to sleep? 1=0 nights in the past week; 2=1-2 nights; 3=3-4 nights; 4=5-7 nights; 777=Refused to answer
         - screentime_sq13: In the past week, when you woke up during the night,  how often have you used your phone or other device to send messages/play games/search or browse the internet/use social media/read or write emails? 1=0 nights in the past week; 2=1-2 nights; 3=3-4 nights; 4=5-7 nights; 777=Refused to answer
 
-## ABCD Youth Mental Health Summary
+## Mental Health
 
-### Processing about nm and nt
+### ABCD Youth Mental Health Summary
+
+#### Processing about nm and nt
 
   - To get a compact data frame, Step 6 will auto-read ABCD Data Dictionary in working directory to extract key columns that had been indicated in abcd_mhy02.txt (in ABCD 4.0). The other columns such as raw item response will be dropped.
 
   - The Number of Missings (nm) and the Number of Total questions (nt) are two important flags to indicate the missing values status in ABCD summary data file. To perform double-check in ABCD summary data, Step 6 will call a subfunction _*Recode.ABCD.NM.NT*_ to check whether there are values that have been flagged out, whose NM is equals to NT. Step 6 will automatedly replace these rows with NAs.
   
-### Redundant Columns Filtering
+#### Redundant Columns Filtering
 
  - Some columns in Youth Mental Health Summary were dropped due to there is no need to include these columns in preprocessed data. Details could be found in Step 6. For example, the raw BIS/BAS scale has been proved that is not appropriate for children. Therefore, there is no need to include the raw BIS/BAS subscales sum scores.
 
-## ASEBA Measures
+### ASEBA Measures
 
-### Child Behavior Checklist (CBCL)
+#### Child Behavior Checklist (CBCL)
 
  - **Step 7 will only retain the CBCL t-scores** from all CBCL-related syndrom scales, DSM5-oriented scales and 2007 scales. This will be helpful to reduce the complex of preprocessed data frame.
-    - The ASEBA T scores are particularly useful for viewing profiles and multi-informant bar graphs of scale scores, because the T scores provide a metric that is standardized on the basis of comparable percentiles for the different scales and norm groups. However, for statistical analyses, raw scale scores are often preferable, because they reflect all the variation that actually occurs in scores obtained by the individuals whose data are being analyzed. T scores, by contrast, lump together some raw scale scores, such as the different low scores that are given a T score of 50. On the other hand, if the lack of differentiation among very low scale scores is irrelevant (e.g., when few scale scores in an analysis are very low), then use of T scores has the advantage of taking account of differences in the normative distributions for different scales, individuals of different genders and ages, different kinds of informants, and multicultural norm groups.
-    - Because T scores are not truncated for the broad-band Internalizing, Externalizing, and Total Problems scales, the T scores for these scales can be analyzed without loss of differentiation among low scale scores. The Manuals and Multicultural Supplements provide more extensive guidance for statistical analyses of raw scale scores, T scores, and other kinds of standard scores (Achenbach et al., 2004; Achenbach & Rescorla, 2000, 2001, 2003, 2007, 2010, 2014b).
+  - The Child Behavior Checklist (CBCL) is a component of the Achenbach System of Empirically Based Assessment (ASEBA). The ASEBA is used to detect behavioural and emotional problems in children and adolescents. The CBCL is completed by parents. The other two components are the Teacher’s Report Form (TRF) (completed by teachers), and the Youth Self-Report (YSR) (completed by the child or adolescent himself or herself).
+    - The ASEBA T scores are particularly useful, because the T scores provide a metric that is standardized on the basis of comparable percentiles for the different scales and norm groups. However, for statistical analyses, raw scale scores are often preferable, because they reflect all the variation that actually occurs in scores obtained by the individuals whose data are being analyzed. T scores, by contrast, lump together some raw scale scores, such as the different low scores that are given a T score of 50. On the other hand, if the lack of differentiation among very low scale scores is irrelevant (e.g., when few scale scores in an analysis are very low), then use of T scores has the advantage of taking account of differences in the normative distributions for different scales, individuals of different genders and ages, different kinds of informants, and multicultural norm groups.
+    - Because T scores are not truncated for the broad-band Internalizing, Externalizing, and Total Problems scales, the T scores for these scales can be analyzed without loss of differentiation among low scale scores.
     - So that users need not learn the percentile represented by each T score, the ASEBA computer software and hand-scored profiles display percentiles as well as T scores. However, because T scores that are in the clinical range (T >69; >97th percentile for DSM-oriented and syndrome scales) are above the range of meaningful percentiles in normative samples, they are based on the number of possible scores in a scale that exceed the 97th percentile in the normative sample.
- - The Child Behavior Checklist (CBCL) is a component of the Achenbach System of Empirically Based Assessment (ASEBA). The ASEBA is used to detect behavioural and emotional problems in children and adolescents. The CBCL is completed by parents. The other two components are the Teacher’s Report Form (TRF) (completed by teachers), and the Youth Self-Report (YSR) (completed by the child or adolescent himself or herself).
- - The 2001 revision of the CBCL, the CBCL/6-18 (used with children 6 to 18), is made up of eight syndrome scales:
-    - anxious/depressed
-    - depressed
-    - somatic complaints
-    - social problems
-    - thought problems
-    - attention problems
-    - rule-breaking behaviour
-    - aggressive behaviour
- - These group into two higher order factors—internalizing and externalizing. The time frame for item responses is the past six months.
- - The 2001 revision also added six DSM-oriented scales consistent with DSM diagnostic categories:
-    - affective problems
-    - anxiety problems
-    - somatic problems
-    - ADHD
-    - oppositional defiant problems
-    - conduct problems
- - In addition to the DSM-oriented scales, the ASEBA forms are scored on empirically based syndromes, Internalizing, Externalizing, and Total Problems scales. Some of the forms are also scored on scales shown by research to be good measures of clinical constructs such as:
-    - Obsessive-Compulsive Problems (OCD)
-    - Post-traumatic Stress Problems (PTSD)
-    - sluggish cognitive tempo (SCT)
- - The CBCL (and the YSR) are also scored on (optional) competence scales for activities, social relations, school and total competence. In 2001, options for multicultural norms were added allowing scale scores to be displayed in relation to different sets of cultural/societal norms. Scales were also added for obsessive compulsive disorder (OCD) and posttraumatic stress disorder (PTSD).
  - The CBCL consists of 113 questions, scored on a three-point Likert scale (0=absent, 1= occurs sometimes, 2=occurs often).
+ - The 2001 revision of the CBCL, the CBCL/6-18 (used with children 6 to 18), is made up of eight syndrome scales:
+    - **anxious/depressed**
+    - **depressed**
+    - **somatic complaints**
+    - **social problems**
+    - **thought problems**
+    - **attention problems**
+    - **rule-breaking behaviour**
+    - **aggressive behaviour**
+    - These group into two higher order factors—internalizing and externalizing. The time frame for item responses is the past six months.
+ - The 2001 revision also added six DSM-oriented scales consistent with DSM diagnostic categories:
+    - **affective problems**
+    - **anxiety problems**
+    - **somatic problems**
+    - **ADHD**
+    - **oppositional defiant problems**
+    - **conduct problems**
+ - In addition to the DSM-oriented scales, the ASEBA forms are scored on empirically based syndromes, Internalizing, Externalizing, and Total Problems scales. Some of the forms are also scored on scales shown by research to be good measures of clinical constructs such as:
+    - **Obsessive-Compulsive Problems (OCD)**
+    - **Post-traumatic Stress Problems (PTSD)**
+    - **sluggish cognitive tempo (SCT)**
+
+## Neurocognition
+
+### The NIH Cognition Toolbox
+
+ - The NIH Cognition Toolbox comprises seven tasks administered via iPad ([Scoring & Interpretation Guide](https://nihtoolbox.my.salesforce.com/sfc/p/2E000001H4ee/a/2E0000004yR3/Ckb_AKw1oFUC56tgf6tdxcGDYaYbu8rsmBSFOX2Ec4g); [Composite Score Technical Manual](https://www.healthmeasures.net/images/nihtoolbox/Technical_Manuals/Cognition/Toolbox_Cognition_Battery_Composite_Scores_Technical_Manual.pdf)). For each task, raw scores, and uncorrected and age corrected scores are available. The following tasks are included in the battery:
+    - **PVT**  - Picture Vocabulary: Language vocabulary knowledge. A component of the Crystallized Composite Score.
+    - **FICAT** - Flanker Inhibitory Control & Attention: Attention, cognitive control, executive function, inhibition of automatic response. A component of the Fluid Composite Score. Note, remote assessments used a replicated Flanker task administered using the Inquisit platform, because the NIH Toolbox version could not be administered remotely.
+    - **PSMT** - Picture Sequence Memory: Episodic memory; sequencing. A component of the Fluid Composite Score.
+    - **DCCST**- Dimensional Change Card Sort: Executive function: set shifting, flexible thinking, concept formation. A component of the Fluid Composite Score. Administered in Baseline assessment only.
+    - **PCST** - Pattern Comparison processing Speed: Information processing, processing speed. A component of the Fluid Composite Score.
+    - **ORRT** - Oral Reading Recognition: Language, oral reading (decoding) skills, academic achievement. A component of the Crystallized Composite Score. 
+    - **LSWMT**- List Sorting Working Memory: Working memory, information processing. A component of the Fluid Composite Score. Administered in Baseline assessment and 4-year follow-up.
+    - In summary, three composite scores are **Crystalized** Intelligence Composite Score (*PVT and ORRT*), **Fluid** Intelligence Composite Score (*PCST, LSWMT, PSMT, FICAT, DCCST*) and **Total** Composite Score.
+ - **Notes and special considerations:** Note that in the 2-year follow-up assessment, five of the seven NIH Toolbox tasks were administered. The Dimensional Change Card Sort was administered in the baseline testing only, and List Sorting Working Memory was administered in the baseline and 4-year follow-up assessments. Because of this, the NIH Toolbox Fluid and Total Composite Scores could not be calculated for the follow-up assessments.
+ - For longitudinal analyses, we recommend using **either uncorrected Scaled Scores or raw scores**.[Reference: ABCD 5.0 Release Note](https://wiki.abcdstudy.org/release-notes/non-imaging/neurocognition.html#nih-toolbox-cognition)

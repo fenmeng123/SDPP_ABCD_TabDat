@@ -1,14 +1,16 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-07-17
+2023-07-18
 
-### Basic Infomation
+- [Basic Infomation](#basic-infomation)
+- [Citation and Suggestions](#citation-and-suggestions)
+- [Update Logs](#update-logs)
 
-**Data Version:** ABCD 5.0 Data Release (tabulated data)
+# Basic Infomation
 
-**Author Info:** Kunru Song, PhD Student at BNU, supervised by
-Dr.Jin-tao Zhang.
+**Author:** Kunru Song, PhD Student at BNU, supervised by Dr.Jin-tao
+Zhang.
 
 [Kunru’s Personal Profile
 (Researchgate)](https://www.researchgate.net/profile/Kunru-Song)
@@ -18,6 +20,8 @@ Dr.Jin-tao Zhang.
 
 **First Created Date:** 2022.06
 
+**Data Version:** ABCD 5.0 Data Release (tabulated data)
+
 **ABCD Link**
 
 - [ABCD 5.0 Tabulated Release
@@ -26,9 +30,7 @@ Dr.Jin-tao Zhang.
 - [ABCD 5.0 Release Notes & Update
   Logs](https://wiki.abcdstudy.org/release-notes/start-page.html)
 
-------------------------------------------------------------------------
-
-### Citation and Suggestions
+# Citation and Suggestions
 
 1.  If you would like to use any codes from this pipeline, please kindly
     cite our published article (below is a APA-format Citation):
@@ -40,16 +42,31 @@ Dr.Jin-tao Zhang.
     > Adolesc Psychiatry.2023 Mar 20:S0890-8567(23)00132-6.doi:
     > 10.1016/j.jaac.2023.02.014.Epub ahead of print. PMID: 36963562.*
 
-2.  **SDPP-ABCD-TabDat** now is available for Dr. Jin-tao Zhang’s Team.
+2.  Please refer to SDPP-ABCD-TabDat **User Manual** when you have any
+    questions about using this pipeline. **User Manual** was wrote by R
+    Markdown syntax and output as a html file for convenient to be read.
+    Users could find the manual in this repository (both .Rmd and .html
+    file):
 
-3.  Any bugs found in this pipeline should be reported in Github Issues.
+    *SDPP_ABCD_TabDat_UserManual.Rmd* &
+    *SDPP_ABCD_TabDat_UserManual.html*.
 
-4.  Please refer to SDPP-ABCD-TabDat **User Manual** when you have any
-    questions about using this pipeline.
+    In addition, [Find here for online html file
+    preview](http://htmlpreview.github.io/?https://github.com/fenmeng123/SDPP_ABCD_TabDat/blob/master/SDPP_ABCD_TabDat_UserManual.html).(Supported
+    by htmlpreview.github.io)
 
-------------------------------------------------------------------------
+3.  Any bugs found in this pipeline should be reported in [Github Issues
+    of this
+    repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/issues).
 
-#### Update Logs
+4.  If you would like to participate the collaboration in developing
+    this pipeline, please kindly create a pull requests in [relevant
+    page of this
+    repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/pulls)
+
+# Update Logs
+
+- 2023.7.18
 
 - 2023.7.17
 
@@ -57,6 +74,7 @@ Dr.Jin-tao Zhang.
     in ABCD Summary Data File.
   - Updated coding scheme table, more columns (e.g. coding details about
     factor levels collapse will be added in future version).
+  - Completed Step 7.
 
 - 2023.7.10
 
