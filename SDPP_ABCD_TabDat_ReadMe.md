@@ -68,6 +68,11 @@ Zhang.
 
 - 2023.7.18
 
+  - Completed Step 8.
+  - Add more information about Neurocognition and Mental Health to User
+    Manual.
+  - Update the Interactive Data Dictionary Excel File.
+
 - 2023.7.17
 
   - Completed Step 6, add a new subfunction to re-code nm and nt values

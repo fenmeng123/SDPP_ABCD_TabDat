@@ -24,60 +24,72 @@ If you would like to use any codes from this SDPP, please kindly cite our publis
 
 Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert Online](https://tableconvert.com/)
 
-| Common |                                                | Novel Technology  |                                                                             |
-|--------|------------------------------------------------|-------------------|-----------------------------------------------------------------------------|
-| T0     | Baseline wave                                  | OS                | OwnerShip                                                                   |
-| T1     | One-year follow-up wave                        | STQ               | Screen Time Questionnaire                                                   |
-| T2     | Two-year follow-up wave                        | TPD               | TyPical Day (prefix) or Time Per Day (postfix)                              |
-| T3     | Three-year follow-up wave                      | TPW               | Time Per Week                                                               |
-| T4     | Four-year follow-up wave                       | open              | calculated value from open-answered STQ items                               |
-| MVA    | Missing Value Analysis                         | weekday           | in a typical weekday                                                        |
-| MI     | Multiple Imputation                            | weekend           | in a typical weekend day                                                    |
-| Rep    | auto-generated Report                          | School            | School-related work                                                         |
-| Reorg  | Re-organized data                              | SMQ               | Social Media Questionnaire                                                  |
-| Rec    | Re-coded data                                  | SOC               | SOCial media apps                                                           |
-| Raw    | Raw data                                       | SMAS              | bergen Social Media Addiction Scale                                         |
-| Imp    | Imputed data                                   | MVOC              | Multiplayer Videogame Online Chatting                                       |
-| Comp   | Compare                                        | UM                | Use Most                                                                    |
-| ALL    | all avaiable waves in ABCD 5.0                 | NOFE              | the Number Of FollowErs                                                     |
-| S      | Summary (when as postfix of files)             | NOFI              | the Number Of FollowIngs                                                    |
-| Sum    | Sum Scores (when as postfix of variable names) | NOA               | the Number Of Account                                                       |
-| SMA    | Screen Media Activity                          | MP                | Mobile Phone                                                                |
-| MH     | Mental Health                                  | MPIQ              | Mobile Phone Involvement Questionnaire                                      |
-|        |                                                | VGAS              | Video Game Addiction Scale                                                  |
-|        |                                                | ODQ               | Online Dating Questionnaire                                                 |
-|        |                                                | SUAB              | Screen Usage Around Bedtime                                                 |
-|        |                                                | Mental Health     |                                                                             |
-|        |                                                | BIS               | Behavioral Inhibition System (subscale in BIS/BAS)                          |
-|        |                                                | BAS               | Behavioral Activation System (Subscale in BIS/BAS)                          |
-|        |                                                | BAS_FS            | BAS Subscale-Fun Seeking (Sum Score)                                        |
-|        |                                                | BAS_Drive         | BAS Subscale-Drive (Sum Score)                                              |
-|        |                                                | BAS_RR            | BAS Subscale-Reward Responsiveness (Sum Score)                              |
-|        |                                                | PEQ               | Peer Experiences Questionnaire                                              |
-|        |                                                | Overt             | PEQ Subscale - Overt Aggression or Victimization                            |
-|        |                                                | Rel               | PEQ Subscale - Relational Aggression or Victimization                       |
-|        |                                                | Rep               | PEQ Subscale - Reputational Aggression or Victimization                     |
-|        |                                                | Agg               | PEQ Subscale - Dimension - Aggression                                       |
-|        |                                                | Vic               | PEQ Subscale - Dimension - Victimization                                    |
-|        |                                                | PPS               | Prodromal Psychosis Scale                                                   |
-|        |                                                | PPS_Sum           | PPS Derivatives - Total number of youth-reported psychotic-like experiences |
-|        |                                                | PPS_Severity      | PPS Derivatives - The severity score of PPS                                 |
-|        |                                                | PPS_Severity_Mean | PPS Derivatives - The mean severity score of PPS                            |
-|        |                                                | Mania             | 7-Up Mania Inventory                                                        |
-|        |                                                | UPPS              | UPPS-P Children Short Form (ABCD-version)                                   |
-|        |                                                | UPPS_LPers        | UPPS-P Subscale - Lack of Perseverance(Sum Score)                           |
-|        |                                                | UPPS_LPlan        | UPPS-P Subscale - Lack of Planning (Sum Score)                              |
-|        |                                                | UPPS_NU           | UPPS-P Subscale - Negative Urgency (Sum Score)                              |
-|        |                                                | UPPS_PU           | UPPS-P Subscale - Positive Urgency (Sum Score)                              |
-|        |                                                | UPPS_SS           | UPPS-P Subscale - Sensation Seeking (Sum Score)                             |
-|        |                                                | YLE               | Youth-reported Life Events                                                  |
-|        |                                                | YLE_Good          | YLE Derivatives - Total number of good events                               |
-|        |                                                | YLE_Bad           | YLE Derivatives - Total number of bad events                                |
-|        |                                                | YLE_Good_Affected | YLE Derivatives - Mean affected scores of good events                       |
-|        |                                                | YLE_Bad_Affected  | YLE Derivatives - Mean affected scores of bad events                        |
-|        |                                                | ERQ               | Emotion Regulation Questionnaire                                            |
-|        |                                                | ERQ_Reappraisal   | ERQ Subscale - emotion regulation strategies: reapprasial (Sum Score)       |
-|        |                                                | ERQ_Suppression   | ERQ Subscale - emotion regulation strategies: Suppression (Sum Score)       |
+
+| Common |                                                  | Novel Technology |                                                | Imaging-related Variables |                                                         |
+|--------|--------------------------------------------------|------------------|------------------------------------------------|---------------------------|---------------------------------------------------------|
+| T0     | Baseline wave                                    | OS               | OwnerShip                                      | QC                        | Quality Control of MRI                                  |
+| T1     | One-year follow-up wave                          | STQ              | Screen Time Questionnaire                      | RecInc                    | Recommended Image Inclusion                             |
+| T2     | Two-year follow-up wave                          | TPD              | TyPical Day (prefix) or Time Per Day (postfix) | HM                        | Head Motion                                             |
+| T3     | Three-year follow-up wave                        | TPW              | Time Per Week                                  | MeanFD                    | Mean Frame-wise Displacement                            |
+| T4     | Four-year follow-up wave                         | open             | calculated value from open-answered STQ items  | sMRI                      | Structural MRI                                          |
+| MVA    | Missing Value Analysis                           | weekday          | in a typical weekday                           | rsfMRI                    | Resting-state functional MRI                            |
+| MI     | Multiple Imputation                              | weekend          | in a typical weekend day                       | RSFNC                     | Resting-state Functional canonical Network Connectivity |
+| VSO    | Variable-values Summary Overview                 | School           | School-related work                            | tfMRI                     | Task-based functional MRI                               |
+| Rep    | auto-generated Report                            | SMQ              | Social Media Questionnaire                     | MID                       | Monetary Incentive Delay task                           |
+| Reorg  | Re-organized data                                | SOC              | SOCial media apps                              | SST                       | Stop Signal Task                                        |
+| Rec    | Re-coded data                                    | SMAS             | bergen Social Media Addiction Scale            | Enback                    | Emotional N-back task                                   |
+| Raw    | Raw data                                         | MVOC             | Multiplayer Videogame Online Chatting          | Behav                     | Behavioral Performance during task-based fMRI           |
+| Imp    | Imputed data                                     | UM               | Use Most                                       | DTI                       | Diffusion MRI - Diffusion Tensor Imaging                |
+| Comp   | Compare                                          | NOFE             | the Number Of FollowErs                        | RSI                       | Diffusion MRI - Restriction Spectrum Imaging            |
+| ALL    | all avaiable waves in ABCD 5.0                   | NOFI             | the Number Of FollowIngs                       |                           |                                                         |
+| S      | Summary (when as postfix of files)               | NOA              | the Number Of Account                          |                           |                                                         |
+| Sum    | Sum Scores (when as postfix of variable names)   | MP               | Mobile Phone                                   |                           |                                                         |
+| P      | Parent-reported About Youth                      | MPIQ             | Mobile Phone Involvement Questionnaire         |                           |                                                         |
+| Y      | Youth Self-reported                              | VGAS             | Video Game Addiction Scale                     |                           |                                                         |
+| SMA    | Screen Media Activity                            | ODQ              | Online Dating Questionnaire                    |                           |                                                         |
+| MH     | Mental Health                                    | SUAB             | Screen Usage Around Bedtime                    |                           |                                                         |
+| ASEBA  | Achenbach System of Empirically Based Assessment |                  |                                                |                           |                                                         |
+| NC     | Neuro-Cognition                                  |                  |                                                |                           |                                                         |
+| MRI    | Magnetic Resonance Imaging                       |                  |                                                |                           |                                                         |
+| CE     | Culture and Environment                          |                  |                                                |                           |                                                         |
+| PH     | Physical Health                                  |                  |                                                |                           |                                                         |
+| SU     | Substance Use                                    |                  |                                                |                           |                                                         |
+| Ge     | Genetics                                         |                  |                                                |                           |                                                         |
+| LED    | Linked External Data                             |
+
+
+| Neurocognition |                                             | Mental Health     |                                                                             | ASEBA Measures |                                                                      |
+|----------------|---------------------------------------------|-------------------|-----------------------------------------------------------------------------|----------------|----------------------------------------------------------------------|
+| NIHTB          | The NIH Cognition Toolbox                   | BIS               | Behavioral Inhibition System (subscale in BIS/BAS)                          | CBCL           | Child Behavior Checklist                                             |
+| PVT            | Picture Vocabulary Task                     | BAS               | Behavioral Activation System (Subscale in BIS/BAS)                          | AnxDep         | CBCL Syndrom Scale - Anxious/Depressed                               |
+| FICAT          | Flanker Inhibitory Control & Attention Task | BAS_FS            | BAS Subscale-Fun Seeking (Sum Score)                                        | WithDep        | CBCL Syndrome Scale - Withdrawn/Depressed                            |
+| PSMT           | Picture Sequence Memory Task                | BAS_Drive         | BAS Subscale-Drive (Sum Score)                                              | SomaticCo      | CBCL Syndrome Scale - Somatic Complaints                             |
+| DCCST          | Dimensional Change Card Sort Task           | BAS_RR            | BAS Subscale-Reward Responsiveness (Sum Score)                              | Social         | CBCL Syndrome Scale - Social Problems                                |
+| PCST           | Pattern Comparison processing Speed Task    | PEQ               | Peer Experiences Questionnaire                                              | Thought        | CBCL Syndrome Scale - Thought Problems                               |
+| ORRT           | Oral Reading Recognition Task               | Overt             | PEQ Subscale - Overt Aggression or Victimization                            | Attention      | CBCL Syndrome Scale - Attention Problems                             |
+| LSWMT          |  List Sorting Working Memory Task           | Rel               | PEQ Subscale - Relational Aggression or Victimization                       | RuleBreak      | CBCL Syndrome Scale - Rule-breaking Behavior                         |
+| Cryst          | Crystalized Intelligence Composite Score    | Rep               | PEQ Subscale - Reputational Aggression or Victimization                     | Aggressive     | CBCL Syndrome Scale - Aggressive Behavior                            |
+| Fluid          | Fluid Intelligence Composite Score          | Agg               | PEQ Subscale - Dimension - Aggression                                       | Internal       | CBCL Composite Score - Internealizing Problems                       |
+| Total          | Total Intelligence Composite Score          | Vic               | PEQ Subscale - Dimension - Victimization                                    | External       | CBCL Composite Score - Externalizing Problems                        |
+|                |                                             | PPS               | Prodromal Psychosis Scale                                                   | TotProb        | CBCL Composite Score - Total Problems                                |
+|                |                                             | PPS_Sum           | PPS Derivatives - Total number of youth-reported psychotic-like experiences | Depress        | CBCL DSM-5-Oriented Scale - Affective Problems                       |
+|                |                                             | PPS_Severity      | PPS Derivatives - The severity score of PPS                                 | Anxitey        | CBCL DSM-5-Oriented Scale - Anxiety Problems                         |
+|                |                                             | PPS_Severity_Mean | PPS Derivatives - The mean severity score of PPS                            | SomaticPr      | CBCL DSM-5-Oriented Scale - Somatic Problems                         |
+|                |                                             | Mania             | 7-Up Mania Inventory                                                        | ADHD           | CBCL DSM-5-Oriented Scale - Attention Deficit/Hyperactivity Problems |
+|                |                                             | UPPS              | UPPS-P Children Short Form (ABCD-version)                                   | Opposite       | CBCL DSM-5-Oriented Scale - Oppositional Defiant Problems            |
+|                |                                             | UPPS_LPers        | UPPS-P Subscale - Lack of Perseverance(Sum Score)                           | Conduct        | CBCL DSM-5-Oriented Scale - Conduct Problems                         |
+|                |                                             | UPPS_LPlan        | UPPS-P Subscale - Lack of Planning (Sum Score)                              | SCT            | CBCL 2007 Scale - Sluggish Cognitive Tempo                           |
+|                |                                             | UPPS_NU           | UPPS-P Subscale - Negative Urgency (Sum Score)                              | OCD            | CBCL 2007 Scale - Obsessive-Compulsive Problems                      |
+|                |                                             | UPPS_PU           | UPPS-P Subscale - Positive Urgency (Sum Score)                              | Stress         | CBCL 2007 Scale - Post-traumatic Stress Problems                     |
+|                |                                             | UPPS_SS           | UPPS-P Subscale - Sensation Seeking (Sum Score)                             |                |                                                                      |
+|                |                                             | YLE               | Youth-reported Life Events                                                  |                |                                                                      |
+|                |                                             | YLE_Good          | YLE Derivatives - Total number of good events                               |                |                                                                      |
+|                |                                             | YLE_Bad           | YLE Derivatives - Total number of bad events                                |                |                                                                      |
+|                |                                             | YLE_Good_Affected | YLE Derivatives - Mean affected scores of good events                       |                |                                                                      |
+|                |                                             | YLE_Bad_Affected  | YLE Derivatives - Mean affected scores of bad events                        |                |                                                                      |
+|                |                                             | ERQ               | Emotion Regulation Questionnaire                                            |                |                                                                      |
+|                |                                             | ERQ_Reappraisal   | ERQ Subscale - emotion regulation strategies: reapprasial (Sum Score)       |                |                                                                      |
+|                |                                             | ERQ_Suppression   | ERQ Subscale - emotion regulation strategies: Suppression (Sum Score)       |
 
 
 ## Coding Scheme Table
@@ -322,3 +334,4 @@ Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert Online](https://t
     - In summary, three composite scores are **Crystalized** Intelligence Composite Score (*PVT and ORRT*), **Fluid** Intelligence Composite Score (*PCST, LSWMT, PSMT, FICAT, DCCST*) and **Total** Composite Score.
  - **Notes and special considerations:** Note that in the 2-year follow-up assessment, five of the seven NIH Toolbox tasks were administered. The Dimensional Change Card Sort was administered in the baseline testing only, and List Sorting Working Memory was administered in the baseline and 4-year follow-up assessments. Because of this, the NIH Toolbox Fluid and Total Composite Scores could not be calculated for the follow-up assessments.
  - For longitudinal analyses, we recommend using **either uncorrected Scaled Scores or raw scores**.[Reference: ABCD 5.0 Release Note](https://wiki.abcdstudy.org/release-notes/non-imaging/neurocognition.html#nih-toolbox-cognition)
+ - Since the SDPP-ABCD-TabDat followed the instructions from ABCD 5.0 Release Notes, **Step 8 will only retain the uncorrected standard Score** for all NIHTB-related variables.

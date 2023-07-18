@@ -60,7 +60,7 @@ select(NEW_CBCL,-c(src_subject_id,eventname)) %>%
   psych::describeBy(group = Recode.Eventname(NEW_CBCL)$eventname,
                     mat = T,digits =2) %>%
   print_table(file = fullfile(ResultsOutputDir,'VSO_ALL_MH_P_CBCL.doc'),
-              row.names = F,
+              row.names = T,
               nsmalls = 1,
               digits = 2)
 # 5. Save Re-coded CBCL data ----------------------------------------------

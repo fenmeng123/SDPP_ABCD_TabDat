@@ -5,12 +5,24 @@ library(bruceR)
 set.wd()
 source('SDPP_subfunctions.R')
 # SDPP Parameter Settings -------------------------------------------------
+
+
 TabulatedDataDirectory = '../../ABCD_V5.0/core/'
 # Please replace the above string for your own downloaded data directory.
 # Relative Path is required! (relative to the path of the current R script file)
+
 ProjectDirectory = '../DataAnalysis/SMA_Trajectory'
 Prefix = 'ABCD5.0'
 IntermediateDataDir = fullfile(ProjectDirectory,'Res_3_IntermediateData')
+# Step 3 Parameters
+n.imp = 100 # Number of multiple imputed datasets
+n.iter = 25 # maximum number of iterations 
+S3_ResultsOutputDir = SDPP.set.output(
+  fullfile(ProjectDirectory,
+           'Res_2_Results',
+           'Res_Preproc')) # Result Ouput Directory
+
+# ==============================DO NOT CHANGE!=====================================#
 # Auto-log ----------------------------------------------------------------
 # Create Project Folders and get the log-file directory
 AutoLogFolder = SDPP.ABCD.TabDat.PrepareProject(ProjectDirectory)
@@ -41,10 +53,6 @@ fprintf("=================================Step 2 Specifications=================
 fprintf('Nothing\n')
 
 fprintf("=================================Step 3 Specifications=================================\n")
-S3_ResultsOutputDir = SDPP.set.output(fullfile(ProjectDirectory,'Res_2_Results','Res_Preproc'))
-# Number of multiple imputed datasets & maximum number of iterations 
-n.imp = 100
-n.iter = 25
 fprintf("Step 3 Results Output Directory: %s\n",S3_ResultsOutputDir)
 fprintf('Number of Multiple Imputation Replicates: %d\n',n.imp)
 fprintf('Number of Maximum Iterations in Multiple Imputation: %d\n',n.iter)
@@ -61,6 +69,13 @@ fprintf("Step 6 Results Output Directory will inherit from Step 5:%s \n",S6_Resu
 fprintf("=================================Step 7 Specifications=================================\n")
 S7_ResultsOutputDir = S6_ResultsOutputDir
 fprintf("Step 7 Results Output Directory will inherit from Step 6:%s \n",S7_ResultsOutputDir)
+fprintf("=================================Step 7 Specifications=================================\n")
+S8_ResultsOutputDir = S7_ResultsOutputDir
+fprintf("Step 8 Results Output Directory will inherit from Step 7:%s \n",S7_ResultsOutputDir)
+
+
+
+# ==============================DO NOT CHANGE!=====================================#
 
 # End of Script -----------------------------------------------------------
 fprintf("SDPP-ParaSet finished! Finish Time:%s\n",Sys.time())
