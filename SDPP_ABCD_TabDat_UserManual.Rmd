@@ -2,184 +2,118 @@
 title: "SDPP-ABCD-TabDat User Manual"
 author: "Kunru Song"
 date: "`r Sys.Date()`"
+geometry: paperheight=158.7mm,paperwidth=108mm,margin=10mm
 output: 
   html_document:
+    df_print: kable
     toc: true
+    toc_float: 
+        collapsed: false
     toc_depth: 4
+    number_sections: true
+    theme: paper
 ---
-
+```{css Change The Float TOC width, echo=FALSE}
+  #TOC {
+    max-width: fit-content;
+    white-space: nowrap;
+  }
+  
+  div:has(> #TOC) {
+    display: flex;
+    flex-direction: row-reverse;
+}
+    ```
 # Citation
 
 If you would like to use any codes from this SDPP, please kindly cite our published article (below is a APA-format Citation):
 
 >    Song K, Zhang JL, Zhou N, Fu Y, Zou B, Xu LX, Wang Z, Li X, Zhao Y,Potenza M, Fang X, Zhang JT. Youth Screen Media Activity Patterns and Associations With Behavioral Developmental Measures and Resting-state Brain Functional Connectivity. J Am Acad Child Adolesc Psychiatry.2023 Mar 20:S0890-8567(23)00132-6.doi: 10.1016/j.jaac.2023.02.014.Epub ahead of print. PMID: 36963562.
     
-# Common Usage Notes
+# Common Usage Notes {.tabset}
 
   1. Please set all necessary parameters in SDPP_ParaSet.R before running any codes in this pipeline and then source it.
   
   2. Coding Scheme for ABCD Demographic variable data could be found in Step 1 and Step 2, as well as ABCD-DAIRC github repository:[analysis-NDA](https://github.com/ABCD-STUDY/analysis-nda). A coding scheme table was also provided by this pipeline.
   
-## Abbreviation Table
+## Table 1. Abbreviation
 
-Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert Online](https://tableconvert.com/)
+```{R Display Tables, echo=FALSE}
+library(tidyr)
+readxl::read_excel(path = "./.github/SDPP_AbbrTable.xlsx",sheet = 1,
+                   progress = F) %>% as.data.frame() -> T_abbr_1
+T_abbr_1 %>% replace(is.na(T_abbr_1),"") %>% knitr::kable(
+  caption = "Abbr Table 1 (SDPP-Derivates, ABCD MRI-related Common Variables, ABCD Domain: Novel Technology)")
 
+readxl::read_excel(path = "./.github/SDPP_AbbrTable.xlsx",sheet = 2,
+                   progress = F) %>% as.data.frame() -> T_abbr_2
+T_abbr_2 %>% replace(is.na(T_abbr_2),"") %>% knitr::kable(
+  caption = "Abbr Table 2 (ABCD Domain: Neurocognition, Mental Health)")
 
-| Common |                                                  | Novel Technology |                                                | Imaging-related Variables |                                                         |
-|--------|--------------------------------------------------|------------------|------------------------------------------------|---------------------------|---------------------------------------------------------|
-| T0     | Baseline wave                                    | OS               | OwnerShip                                      | QC                        | Quality Control of MRI                                  |
-| T1     | One-year follow-up wave                          | STQ              | Screen Time Questionnaire                      | RecInc                    | Recommended Image Inclusion                             |
-| T2     | Two-year follow-up wave                          | TPD              | TyPical Day (prefix) or Time Per Day (postfix) | HM                        | Head Motion                                             |
-| T3     | Three-year follow-up wave                        | TPW              | Time Per Week                                  | MeanFD                    | Mean Frame-wise Displacement                            |
-| T4     | Four-year follow-up wave                         | open             | calculated value from open-answered STQ items  | sMRI                      | Structural MRI                                          |
-| MVA    | Missing Value Analysis                           | weekday          | in a typical weekday                           | rsfMRI                    | Resting-state functional MRI                            |
-| MI     | Multiple Imputation                              | weekend          | in a typical weekend day                       | RSFNC                     | Resting-state Functional canonical Network Connectivity |
-| VSO    | Variable-values Summary Overview                 | School           | School-related work                            | tfMRI                     | Task-based functional MRI                               |
-| Rep    | auto-generated Report                            | SMQ              | Social Media Questionnaire                     | MID                       | Monetary Incentive Delay task                           |
-| Reorg  | Re-organized data                                | SOC              | SOCial media apps                              | SST                       | Stop Signal Task                                        |
-| Rec    | Re-coded data                                    | SMAS             | bergen Social Media Addiction Scale            | Enback                    | Emotional N-back task                                   |
-| Raw    | Raw data                                         | MVOC             | Multiplayer Videogame Online Chatting          | Behav                     | Behavioral Performance during task-based fMRI           |
-| Imp    | Imputed data                                     | UM               | Use Most                                       | DTI                       | Diffusion MRI - Diffusion Tensor Imaging                |
-| Comp   | Compare                                          | NOFE             | the Number Of FollowErs                        | RSI                       | Diffusion MRI - Restriction Spectrum Imaging            |
-| ALL    | all avaiable waves in ABCD 5.0                   | NOFI             | the Number Of FollowIngs                       |                           |                                                         |
-| S      | Summary (when as postfix of files)               | NOA              | the Number Of Account                          |                           |                                                         |
-| Sum    | Sum Scores (when as postfix of variable names)   | MP               | Mobile Phone                                   |                           |                                                         |
-| P      | Parent-reported About Youth                      | MPIQ             | Mobile Phone Involvement Questionnaire         |                           |                                                         |
-| Y      | Youth Self-reported                              | VGAS             | Video Game Addiction Scale                     |                           |                                                         |
-| SMA    | Screen Media Activity                            | ODQ              | Online Dating Questionnaire                    |                           |                                                         |
-| MH     | Mental Health                                    | SUAB             | Screen Usage Around Bedtime                    |                           |                                                         |
-| ASEBA  | Achenbach System of Empirically Based Assessment |                  |                                                |                           |                                                         |
-| NC     | Neuro-Cognition                                  |                  |                                                |                           |                                                         |
-| MRI    | Magnetic Resonance Imaging                       |                  |                                                |                           |                                                         |
-| CE     | Culture and Environment                          |                  |                                                |                           |                                                         |
-| PH     | Physical Health                                  |                  |                                                |                           |                                                         |
-| SU     | Substance Use                                    |                  |                                                |                           |                                                         |
-| Ge     | Genetics                                         |                  |                                                |                           |                                                         |
-| LED    | Linked External Data                             |
+```
 
 
-| Neurocognition |                                             | Mental Health     |                                                                             | ASEBA Measures |                                                                      |
-|----------------|---------------------------------------------|-------------------|-----------------------------------------------------------------------------|----------------|----------------------------------------------------------------------|
-| NIHTB          | The NIH Cognition Toolbox                   | BIS               | Behavioral Inhibition System (subscale in BIS/BAS)                          | CBCL           | Child Behavior Checklist                                             |
-| PVT            | Picture Vocabulary Task                     | BAS               | Behavioral Activation System (Subscale in BIS/BAS)                          | AnxDep         | CBCL Syndrom Scale - Anxious/Depressed                               |
-| FICAT          | Flanker Inhibitory Control & Attention Task | BAS_FS            | BAS Subscale-Fun Seeking (Sum Score)                                        | WithDep        | CBCL Syndrome Scale - Withdrawn/Depressed                            |
-| PSMT           | Picture Sequence Memory Task                | BAS_Drive         | BAS Subscale-Drive (Sum Score)                                              | SomaticCo      | CBCL Syndrome Scale - Somatic Complaints                             |
-| DCCST          | Dimensional Change Card Sort Task           | BAS_RR            | BAS Subscale-Reward Responsiveness (Sum Score)                              | Social         | CBCL Syndrome Scale - Social Problems                                |
-| PCST           | Pattern Comparison processing Speed Task    | PEQ               | Peer Experiences Questionnaire                                              | Thought        | CBCL Syndrome Scale - Thought Problems                               |
-| ORRT           | Oral Reading Recognition Task               | Overt             | PEQ Subscale - Overt Aggression or Victimization                            | Attention      | CBCL Syndrome Scale - Attention Problems                             |
-| LSWMT          |  List Sorting Working Memory Task           | Rel               | PEQ Subscale - Relational Aggression or Victimization                       | RuleBreak      | CBCL Syndrome Scale - Rule-breaking Behavior                         |
-| Cryst          | Crystalized Intelligence Composite Score    | Rep               | PEQ Subscale - Reputational Aggression or Victimization                     | Aggressive     | CBCL Syndrome Scale - Aggressive Behavior                            |
-| Fluid          | Fluid Intelligence Composite Score          | Agg               | PEQ Subscale - Dimension - Aggression                                       | Internal       | CBCL Composite Score - Internealizing Problems                       |
-| Total          | Total Intelligence Composite Score          | Vic               | PEQ Subscale - Dimension - Victimization                                    | External       | CBCL Composite Score - Externalizing Problems                        |
-|                |                                             | PPS               | Prodromal Psychosis Scale                                                   | TotProb        | CBCL Composite Score - Total Problems                                |
-|                |                                             | PPS_Sum           | PPS Derivatives - Total number of youth-reported psychotic-like experiences | Depress        | CBCL DSM-5-Oriented Scale - Affective Problems                       |
-|                |                                             | PPS_Severity      | PPS Derivatives - The severity score of PPS                                 | Anxitey        | CBCL DSM-5-Oriented Scale - Anxiety Problems                         |
-|                |                                             | PPS_Severity_Mean | PPS Derivatives - The mean severity score of PPS                            | SomaticPr      | CBCL DSM-5-Oriented Scale - Somatic Problems                         |
-|                |                                             | Mania             | 7-Up Mania Inventory                                                        | ADHD           | CBCL DSM-5-Oriented Scale - Attention Deficit/Hyperactivity Problems |
-|                |                                             | UPPS              | UPPS-P Children Short Form (ABCD-version)                                   | Opposite       | CBCL DSM-5-Oriented Scale - Oppositional Defiant Problems            |
-|                |                                             | UPPS_LPers        | UPPS-P Subscale - Lack of Perseverance(Sum Score)                           | Conduct        | CBCL DSM-5-Oriented Scale - Conduct Problems                         |
-|                |                                             | UPPS_LPlan        | UPPS-P Subscale - Lack of Planning (Sum Score)                              | SCT            | CBCL 2007 Scale - Sluggish Cognitive Tempo                           |
-|                |                                             | UPPS_NU           | UPPS-P Subscale - Negative Urgency (Sum Score)                              | OCD            | CBCL 2007 Scale - Obsessive-Compulsive Problems                      |
-|                |                                             | UPPS_PU           | UPPS-P Subscale - Positive Urgency (Sum Score)                              | Stress         | CBCL 2007 Scale - Post-traumatic Stress Problems                     |
-|                |                                             | UPPS_SS           | UPPS-P Subscale - Sensation Seeking (Sum Score)                             |                |                                                                      |
-|                |                                             | YLE               | Youth-reported Life Events                                                  |                |                                                                      |
-|                |                                             | YLE_Good          | YLE Derivatives - Total number of good events                               |                |                                                                      |
-|                |                                             | YLE_Bad           | YLE Derivatives - Total number of bad events                                |                |                                                                      |
-|                |                                             | YLE_Good_Affected | YLE Derivatives - Mean affected scores of good events                       |                |                                                                      |
-|                |                                             | YLE_Bad_Affected  | YLE Derivatives - Mean affected scores of bad events                        |                |                                                                      |
-|                |                                             | ERQ               | Emotion Regulation Questionnaire                                            |                |                                                                      |
-|                |                                             | ERQ_Reappraisal   | ERQ Subscale - emotion regulation strategies: reapprasial (Sum Score)       |                |                                                                      |
-|                |                                             | ERQ_Suppression   | ERQ Subscale - emotion regulation strategies: Suppression (Sum Score)       |
+## Table 2. Coding Scheme
+```{R Display Coding Schemes, echo=FALSE}
+library(tidyr)
+readxl::read_excel(path = "./.github/SDPP_CodingScheme.xlsx",sheet = 1,
+                   progress = F) %>% as.data.frame() -> T_abbr_1
+T_abbr_1 %>% replace(is.na(T_abbr_1),"") %>% knitr::kable(
+  caption = "SDPP-ABCD-TabDat Coding Scheme: Participants' Demographic Variables")
+
+readxl::read_excel(path = "./.github/SDPP_CodingScheme.xlsx",sheet = 2,
+                   progress = F) %>% as.data.frame() -> T_abbr_2
+T_abbr_2 %>% replace(is.na(T_abbr_2),"") %>% knitr::kable(
+  caption = "SDPP-ABCD-TabDat Coding Scheme: Neurocognition")
+
+```
 
 
-## Coding Scheme Table
+## Table 3. Included ABCD Variables
+```{R Display Information from Data Dictionary, echo=FALSE}
+library(tidyr)
+source('SDPP_subfunctions.R')
+SDPP.filter.data.dict(dir(pattern = '.*Dictionary.*'),'Included_Flag','Yes','table_name') %>% 
+  table() %>% as.data.frame() -> DataDict_Yes_Table
+SDPP.filter.data.dict(dir(pattern = '.*Dictionary.*'),'Included_Flag','No','table_name') %>% 
+  table() %>% as.data.frame() -> DataDict_No_Table
+SDPP.filter.data.dict(dir(pattern = '.*Dictionary.*'),'Included_Flag','No need to be included','table_name') %>% 
+  table() %>% as.data.frame() -> DataDict_NoNeed_Table
+DataDict_Table = merge(DataDict_Yes_Table,DataDict_No_Table,by = '.',all = T)
+DataDict_Table = merge(DataDict_Table,DataDict_NoNeed_Table,by = '.',all = T)
+data.frame( a = DataDict_Table$.,
+            b = DataDict_Table$Freq.x,
+            c = DataDict_Table$Freq.y,
+            d = DataDict_Table$Freq) %>% replace_na(list(a="",b=0,c=0,d=0)) -> Display_Table
 
-| Variable Names          | Descriptions                                                                                            | Variable Type             | Categories or Data Type                                                                                                                                                                                                                                   | Demographic Imputation Details         |
-|-------------------------|---------------------------------------------------------------------------------------------------------|---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------|
-| SexAssigned             | Youth's Sex assigned at birth                                                                           | Categorical (2 Levels)    | Female; Male;                                                                                                                                                                                                                                             | Directly Imputed by MI                 |
-| VisitType               | Participants'                                                                                           | Categorical (3 Levels)    | On-site; Remote; Hybrid;                                                                                                                                                                                                                                  | Non-imputed                            |
-| Education_13L           | Parent-reported Youth's Education Level                                                                 | Categorical (13 Levels)   | KINGDERGARTEN; 1ST; 2ND; 3RD; 4TH; 5TH; 6TH; 7TH; 8TH; 9TH; 10TH; 11TH; 12TH;                                                                                                                                                                             | Non-imputed                            |
-| SiteID                  | ABCD Site ID                                                                                            | Character                 | String data that contains the Site ID number                                                                                                                                                                                                              | Non-imputed                            |
-| FamilyID                | Participants' Family ID                                                                                 | Character                 | String data                                                                                                                                                                                                                                               | Non-imputed                            |
-| GroupID                 | The in-group order ID, indicates the birth sequence in multi-child famliy                               | Character                 | String data                                                                                                                                                                                                                                               | Non-imputed                            |
-| SchoolID                | Participants' School ID                                                                                 | Character                 | String data                                                                                                                                                                                                                                               | Non-imputed                            |
-| DistrictID              | The District ID for Participants' School                                                                | Character                 | String data                                                                                                                                                                                                                                               | Non-imputed                            |
-| ACS_Weight              | Youth's imputed raked propensity weight                                                                 | Numeric                   | Numeric data in double                                                                                                                                                                                                                                    | Non-imputed                            |
-| Race_6L                 | Parent-identified Youth's Race                                                                          | Categorical (6 Levels)    | White; Black; Asian; AIAN; NHPI; Mixed/Other                                                                                                                                                                                                              | Re-coded based on the imputed variable |
-| Ethnicity_PrntRep       | Parent-identified Youth's Ethnicity                                                                     | Categorical (2 Levels)    | Hispanic; Non-hispanic                                                                                                                                                                                                                                    | Directly Imputed by MI                 |
-| Handedness              | Youth's Handedness (assessed by EHIS)                                                                   | Categorical (3 Levels)    | Right; Left; Mixed;                                                                                                                                                                                                                                       | Non-imputed                            |
-| ParentsMarital_2L       | Parent-reported their Marital Status                                                                    | Categorical (2 Levels)    | Married or living with partner; Single;                                                                                                                                                                                                                   | Re-coded based on the imputed variable |
-| ParentsHighEdu_2L       | Parent-reported theirselves's Highest Education Level                                                   | Categorical (2 Levels)    | High school or less; College education;                                                                                                                                                                                                                   | Re-coded based on the imputed variable |
-| ParentsMarital_X_Employ | the Interaction Term of Parent-reported Marital and Employment Status                                   | Categorical (5 Levels)    | married 0/1/2 in LF; other 0/1 in LF;                                                                                                                                                                                                                     | Re-coded based on the imputed variable |
-| Relationship_3L         | Parent-reported Family Structure (Relationship about children)                                          | Categorical (3 Levels)    | Single; Sibling; Twin/Triplet;                                                                                                                                                                                                                            | Directly Imputed by MI                 |
-| AdoptionChild           | Parent-reported whether their children are adopted                                                      | Categorical (2 Levels)    | No; Yes;                                                                                                                                                                                                                                                  | Non-imputed                            |
-| GenderIdentity_PrntRep  | Parent-reported Youth's Gender Identity                                                                 | Categorical (6 Levels)    | Female; Male; Trans female; Trans male; Gender queer; Different;                                                                                                                                                                                          | Non-imputed                            |
-| RaceEthnicity           | The RaceEthnicity Variable from acspsw03 ABCD Data File                                                 | Categorical (5 Levels)    | White; Black; Asian; Hispanic; Other;                                                                                                                                                                                                                     | Non-imputed                            |
-| Relationship            | Parent-reported Family Structure (Relationship about children)                                          | Categorical (4 Levels)    | Single; Sibling; Twin; Triplet;                                                                                                                                                                                                                           | Non-imputed                            |
-| Religon_PrntRep         | Parent-reported Youth's religon belief                                                                  | Categorical (17 Levels)   | Nothing in Particular; Atheist; Agnostic; Buddhis; Evangelical Protestant; Hindu; Historically Black Church; Jehovahs Witness; Jewish; Mainline Protestant; Mormon; Muslim; Orthodos Christian; Other Christian; Roman Catholic; Unitarian; Someing else; | Non-imputed                            |
-| YouthAge_Prnt           | Parent-reported Youth's Age in years                                                                    | Numeric                   | Numeric data in integer                                                                                                                                                                                                                                   | Non-imputed                            |
-| AdoptionAge             | Parent-reported the age of youth when they were adopted                                                 | Numeric                   | Numeric data in double                                                                                                                                                                                                                                    | Non-imputed                            |
-| USALiveYears            | Parent-reported the Years of their children lived in the USA                                            | Numeric                   | Numeric data in double                                                                                                                                                                                                                                    | Non-imputed                            |
-| ParentAge               | Parent Self-reported Age in years                                                                       | Numeric                   | Numeric data in double                                                                                                                                                                                                                                    | Non-imputed                            |
-| GenderIdentity_PrntSelf | Parent Self-reported Gender Identity                                                                    | Categorical (6 Levels)    | Female; Male; Trans female; Trans male; Gender queer; Different;                                                                                                                                                                                          | Non-imputed                            |
-| Race_PrntSelf           | Parent Self-identified Race                                                                             | Categorical (7 Levels)    | White; Black; Asian; AIAN; NHPI; Mixed; Other                                                                                                                                                                                                             | Non-imputed                            |
-| ParentHighEdu           | Parent Self-reported him/her Education Level                                                            | Categorical (5 Levels)    | < HS Diploma; HS Diploma/GED; Some College; Bachelor; Post Graduate Degree;                                                                                                                                                                               | Non-imputed                            |
-| PartnerHighEdu          | Parent-reported him/her Partner's Education Level                                                       | Categorical (5 Levels)    | < HS Diploma; HS Diploma/GED; Some College; Bachelor; Post Graduate Degree;                                                                                                                                                                               | Non-imputed                            |
-| PartnerEmploy           | Parent-reported him/her Partner's Employment Status                                                     | Categorical (2 Levels)    | Working; Non-working;                                                                                                                                                                                                                                     | Non-imputed                            |
-| FamilyNumInLF           | The number of parents in Labor Force in Family                                                          | Numeric                   | Numeric data in integer [0, 1, 2]                                                                                                                                                                                                                         | Non-imputed                            |
-| SameSexTwin             | Flag indicates whether a twin pair is same sex twin                                                     | Categorical (2 Levels)    | No; Yes;                                                                                                                                                                                                                                                  | Non-imputed                            |
-| GI_PairedSubID_Sub_1    | Genetic Information: genetically related with paticipant-subject ID                                     | Character                 | String data that contains the standard NDA src_subject_id, by descend between participants (postfix 1, 2, 3, 4)                                                                                                                                           | Non-imputed                            |
-| GI_PairProb_Sub_1       | Genetic Information: Probability of identity by descend between participant                             | Numeric                   | Numeric data in double, genetic_pi_hat for subject postfix 1 (2, 3, 4)                                                                                                                                                                                    | Non-imputed                            |
-| GI_Zygosity_Sub_1       | Genetic Information: Genetically inferred zygosity status between participant and subject ID 1, 2, 3, 4 | Categorical (3 Levels)    | Monozygotic; Dizygotic; Sibling;                                                                                                                                                                                                                          | Non-imputed                            |
-| GI_PairedSubID_Sub_2    | Genetic Information: (Same with above)                                                                  | Character                 | String data that contains the standard NDA src_subject_id 2                                                                                                                                                                                               | Non-imputed                            |
-| GI_PairProb_Sub_2       | Genetic Information: (Same with above)                                                                  | Numeric                   | Numeric data in double, genetic_pi_hat for subject postfix 2                                                                                                                                                                                              | Non-imputed                            |
-| GI_Zygosity_Sub_2       | Genetic Information: (Same with above)                                                                  | Categorical (3 Levels)    | Monozygotic; Dizygotic; Sibling;                                                                                                                                                                                                                          | Non-imputed                            |
-| GI_PairedSubID_Sub_3    | Genetic Information: (Same with above)                                                                  | Character                 | String data that contains the standard NDA src_subject_id 3                                                                                                                                                                                               | Non-imputed                            |
-| GI_PairProb_Sub_3       | Genetic Information: (Same with above)                                                                  | Numeric                   | Numeric data in double, genetic_pi_hat for subject postfix 3                                                                                                                                                                                              | Non-imputed                            |
-| GI_Zygosity_Sub_3       | Genetic Information: (Same with above)                                                                  | Categorical (3 Levels)    | Monozygotic; Dizygotic; Sibling;                                                                                                                                                                                                                          | Non-imputed                            |
-| GI_PairedSubID_Sub_4    | Genetic Information: (Same with above)                                                                  | Character                 | String data that contains the standard NDA src_subject_id 4                                                                                                                                                                                               | Non-imputed                            |
-| GI_PairProb_Sub_4       | Genetic Information: (Same with above)                                                                  | Numeric                   | Numeric data in double, genetic_pi_hat for subject postfix 4                                                                                                                                                                                              | Non-imputed                            |
-| GI_Zygosity_Sub_4       | Genetic Information: (Same with above)                                                                  | Categorical (3 Levels)    | Monozygotic; Dizygotic; Sibling;                                                                                                                                                                                                                          | Non-imputed                            |
-| GI_AncestryPC_1         | Genetic Information: First principal component of genetic ancestry                                      | Numeric                   | Numeric data in double, genetic_pc_1                                                                                                                                                                                                                      | Non-imputed                            |
-| GI_AncestryPC_2         | Genetic Information: Second principal component of genetic ancestry                                     | Numeric                   | Numeric data in double, genetic_pc_2                                                                                                                                                                                                                      | Non-imputed                            |
-| GI_AncestryPC_3         | Genetic Information: Third principal component of genetic ancestry                                      | Numeric                   | Numeric data in double, genetic_pc_3                                                                                                                                                                                                                      | Non-imputed                            |
-| GI_AncestryPC_4         | Genetic Information: Fourth principal component of genetic ancestry                                     | Numeric                   | Numeric data in double, genetic_pc_4                                                                                                                                                                                                                      | Non-imputed                            |
-| GI_AncestryPC_5         | Genetic Information: Fifth principal component of genetic ancestry                                      | Numeric                   | Numeric data in double, genetic_pc_5                                                                                                                                                                                                                      | Non-imputed                            |
-| BirthID                 | Birth event ID determined by rel_family_id and unique birthdates within rel_family_id groups            | Character                 | String data whose last number indicate the birth sequence in the same family (e.g. 1, 2, 3, 4)                                                                                                                                                            | Non-imputed                            |
-| Education_R             | Parent-reported Youth's Education Level                                                                 | Ordered Categorical (1-9) | 2ND or  less; 3RD; 4TH; 5TH; 6TH; 7TH; 8TH; 9TH; 10TH or more;                                                                                                                                                                                            | Non-imputed                            |
-| Race_4L                 | Parent-identified Youth's Race                                                                          | Categorical (4 Levels)    | White; Black; Asian; Mixed/Other;                                                                                                                                                                                                                         | Re-coded based on the imputed variable |
-| Religon_8L              | Parent-reported Youth's religon belief                                                                  | Categorical (8 Levels)    | Nothing in Particular; Atheist; Agnostic; Eastern Asian; Christianity; Jewish;  Muslim; Someing else;                                                                                                                                                     | Non-imputed                            |
-| FamilyIncome            | Parent-reported TOTAL COMBINED FAMILY INCOME for the past 12 months                                     | Ordered Categorical       | 1, 2, 3, 4, 5, 6                                                                                                                                                                                                                                          | Directly Imputed by MI                 |
-| YouthNativeLang         | Parent-reported Youth's Nativa Language                                                                 | Categorical (2 Levels)    | English; Other;                                                                                                                                                                                                                                           | Directly Imputed by MI                 |
-| Religon_2L              | Parent-reported Youth's religon belief                                                                  | Categorical (2 Levels)    | Yes; No;                                                                                                                                                                                                                                                  | Directly Imputed by MI                 |
-| HouseholdSize           | Parent-reported the number of family member in household                                                | Ordered Categorical (1-5) | 3 and below; 4; 5; 6; 7 and more;                                                                                                                                                                                                                         | Directly Imputed by MI                 |
-| Race_PrntRep            | Parent-identified Youth's Race                                                                          | Categorical (7 Levels)    | White; Black; Asian; AIAN; NHPI; Mixed; Other                                                                                                                                                                                                             | Directly Imputed by MI                 |
-| ParentsMarital_6L       | Parent-reported their Marital Status                                                                    | Categorical (6 Levels)    | Married; Living with partner; Divorced; Separated; Widowed; Never married;                                                                                                                                                                                | Directly Imputed by MI                 |
-| BMI                     | Youth's Body Mass Index                                                                                 | Numeric                   | Numeric data in double, weight/(height)^2 * 703, weight in lb, height in inch. BMI values above 36 or below 11 were considered as abnormal values and replaced with NAs.                                                                                  | Directly Imputed by MI                 |
-| HouseholdStructure      | Parent-reported household structure                                                                     | Categorical               | Single household; Non-single household;                                                                                                                                                                                                                   | Directly Imputed by MI                 |
-| ParentEmploy            | Parent Self-reported him/her Employment Status                                                          | Categorical (2 Levels)    | Working; Non-working;                                                                                                                                                                                                                                     | Directly Imputed by MI                 |
-| BirthCountry            | Parent-reported the country at birth for their children                                                 | Categorical (2 Levels)    | Other; USA                                                                                                                                                                                                                                                | Non-imputed                            |
-| ParentsHighEdu_5L       | Parent-reported theirselves's Highest Education Level                                                   | Categorical (5 Levels)    | < HS Diploma; HS Diploma/GED; Some College; Bachelor; Post Graduate Degree;                                                                                                                                                                               | Directly Imputed by MI                 |
+knitr::kable(Display_Table[ order(Display_Table$b,decreasing = T),],
+             row.names = F,
+             col.names = c("ABCD 5.0 Data File (table_name)",
+                           "Number of Variables Included",
+                           "Number of Variables Not Included",
+                           "NUmber of Variables No Need to be Included"),
+             align = 'c')
+```
+
+\newpage
 
 
-
-# Data Usage Notes
+# In-build Missing Values Analysis
 
 ## Missing Value Analysis Report
+  - The auto-generated Missing Value Analysis (MVA) Reports by this pipeline will be saved into _Res_Preproc_ folder under your project directory (A user-defined parameter in _*SDPP_ParaSet.R*_).
   
-  The auto-generated Missing Value Analysis (MVA) Reports by this pipeline will be saved into _Res_Preproc_ folder under your project directory (A user-defined parameter in _*SDPP_ParaSet.R*_).
+  - File naming format for MVA report reads as follows:
   
-  File naming format for MVA report reads as follows:
+    - MVA_*Type*_*AssessmentWave*_*VariableName*_*VariableWave*_*Postfix*_.doc
   
-  MVA_*Type*_*AssessmentWave*_*VariableName*_*VariableWave*_*Postfix*_.doc
+    - *Type*: Report-Variable Missing Summary; CaseReport-Case Missing Summary;
   
-  *Type*: Report-Variable Missing Summary; CaseReport-Case Missing Summary;
+    - *AssessmentWave*: ALL-all avaiable waves in ABCD data; T0; T1; T2; T3; T4;
   
-  *AssessmentWave*: ALL-all avaiable waves in ABCD data; T0; T1; T2; T3; T4;
+    - *VariableName*: abbr in above table, please refer to _domain_ abbrs (e.g. Novel Technology);
   
-  *VariableName*: abbr in above table, please refer to _domain_ abbrs (e.g. Novel Technology);
-  
-  *Postfix*: abbr in above table, please refer to _common_ abbrs;
+    - *Postfix*: abbr in above table, please refer to _common_ abbrs;
 
 
 ## Missing Value Imputation
@@ -188,16 +122,18 @@ Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert Online](https://t
   
   2. In Step 5, missing values (NAs) in youth-reported screen use time, MPIQ, SMAS, VGAS, SUAB will be processed by KNN imputation, which is implemented by a MATLAB offical function _knnimpute_ (requires MATLAB offical toolbox: _Bioinformatics Toolbox_). In detail, the Step 5 script will use R.matlab package to create a local MATLAB server and then call the MATLAB function in R environment. Please make sure you have correctly installed the required R package and relevant MATLAB version.
 
-# Data Coding Notes
+# Data Coding Notes - Demographics 
   
 ## Demographic Variables
   
   1. Coding scheme for ABCD demographic variable are referred to the ABCD-DAIRC codes. [Find here](https://github.com/ABCD-STUDY/analysis-nda).
   2. A detailed coding scheme table cound be found in /.github/SDPP_CodingScheme.xlsx, which follows the format of **Table S2** in the supplemental materials of our published JAACAP article.[Article Link](https://www.sciencedirect.com/science/article/pii/S0890856723001326)
 
+# Data Coding Notes - Screen-related Measures   {.tabset}
+
 ## ABCD Screen Time Questionnaire
 
-### Changes in ABCD 5.0
+- Changes in ABCD 5.0
 
   1. In Step 4, some coding details should be noted as follows (Bagot et al., 2022, Dev Cog Neurosci):
   
@@ -219,7 +155,7 @@ Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert Online](https://t
     
     >    _Bagot KS, Tomko RL, Marshall AT, Hermann J, Cummins K, Ksinan A, Kakalis M, Breslin F, Lisdahl KM, Mason M, Redhead JN, Squeglia LM, Thompson WK, Wade T, Tapert SF, Fuemmeler BF, Baker FC. Youth screen use in the ABCD® study. Dev Cogn Neurosci. 2022 Sep 1;57:101150. doi: 10.1016/j.dcn.2022.101150. Epub ahead of print. PMID: 36084446; PMCID: PMC9465320._
 
-### MPIQ
+## Mobile Phone Involvment Questionnaire (MPIQ)
 
   - Mobile Phone-related Items in the ABCD STQ
     
@@ -238,9 +174,8 @@ Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert Online](https://t
     -  screentime_phone7: I have been unable to reduce my phone use; 
     -  screentime_phone8: The thought of being without my phone makes me feel distressed
 
-### SMAS and VGAS
-
-  - 2.5 SMAS and VGAS
+## The Bergan Social Media Addiction Scale (SMAS) and VGAS
+  - SMAS and VGAS
     -  Social Media Addiation Scale (SMAS, 6 Items) 
         -  Coding: 1=Never; 2=Very rarely; 3=Rarely; 4=Sometimes; 5=Often; 6=Very often; 777=Refuse to answer
         -  screentime_smqa1: I spend a lot of time thinking about social media apps or planning my use of social media apps;
@@ -253,43 +188,42 @@ Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert Online](https://t
         - Items are same with SMAS but replace the "social media" with "playing video games".
         - screentime_vgaq1 ~ screentime_vgaq6	
 
-### SUAB
+## Screen Usage Around Bedtime questionnaire (SUAB)
 
-  - Screen Usage Around Bedtime (SUAB)
-    -  A 9-item measure was administered to youth to assess engagement in activities, including screen time activities, prior to sleeping. Items were modified from Lemola et al. (2015) and Arora et al. (2014). On a 5-point Likert scale ranging from 1 (never) to 5 (every night), youth reported how often (in the past week) they engaged in the following activities while already in bed before going to sleep: watch TV or movies, play video games, play music, talk on the phone or text, spend time online on social media, browse the internet, use a computer/laptop for studying. sq3-sq13 shared the same answer items.
+  -  A 9-item measure was administered to youth to assess engagement in activities, including screen time activities, prior to sleeping. Items were modified from Lemola et al. (2015) and Arora et al. (2014). On a 5-point Likert scale ranging from 1 (never) to 5 (every night), youth reported how often (in the past week) they engaged in the following activities while already in bed before going to sleep: watch TV or movies, play video games, play music, talk on the phone or text, spend time online on social media, browse the internet, use a computer/laptop for studying. sq3-sq13 shared the same answer items.
     - Coding: 1=0 nights in the past week; 2=1-2 nights; 3=3-4 nights; 4=5-7 nights; 777=Refused to answer.
-        - screentime_sq3: Watch or stream movies, videos, or TV shows
-        - screentime_sq4: Play video games
-        - screentime_sq5: Play music
-        - screentime_sq6: Talk on the phone or text (If you do not own a phone, choose 0 nights)
-        - screentime_sq7: Spend time online on social media (e.g. Facebook)
-        - screentime_sq8: Spend time in chat rooms
-        - screentime_sq9: Browse the Internet, Google-ing (not school related)
-        - screentime_sq10: Use a computer/laptop for studying
-        - screentime_sq11: Reading
-    - Four additional items were asked related to sleep and media use which were adapted from questions in a National Sleep Foundation poll (Gradisar et al., 2013). 
-        - screentime_sq1: Is there a TV set or an Internet connected electronic device (computer, iPad, phone) in your bedroom? 1=Yes; 0=No; 777=Refuse to answer	
-        - screentime_sq2: What do you usually do with your phone when you are ready to go to sleep? Do you: -1=Not Applicable ; 1=Turn the phone off ; 2=Put the ringer on silent or vibrate ; 3=Leave the ringer on ; 4=Put it outside of the room where I sleep ; 777=Refuse to answer
-        - screentime_sq12: In the past week, how often have you had phone calls, text messages or emails that wake you after trying to go to sleep? 1=0 nights in the past week; 2=1-2 nights; 3=3-4 nights; 4=5-7 nights; 777=Refused to answer
-        - screentime_sq13: In the past week, when you woke up during the night,  how often have you used your phone or other device to send messages/play games/search or browse the internet/use social media/read or write emails? 1=0 nights in the past week; 2=1-2 nights; 3=3-4 nights; 4=5-7 nights; 777=Refused to answer
+      - screentime_sq3: Watch or stream movies, videos, or TV shows
+      - screentime_sq4: Play video games
+      - screentime_sq5: Play music
+      - screentime_sq6: Talk on the phone or text (If you do not own a phone, choose 0 nights)
+      - screentime_sq7: Spend time online on social media (e.g. Facebook)
+      - screentime_sq8: Spend time in chat rooms
+      - screentime_sq9: Browse the Internet, Google-ing (not school related)
+      - screentime_sq10: Use a computer/laptop for studying
+      - screentime_sq11: Reading
+  - Four additional items were asked related to sleep and media use which were adapted from questions in a National Sleep Foundation poll (Gradisar et al., 2013). 
+      - screentime_sq1: Is there a TV set or an Internet connected electronic device (computer, iPad, phone) in your bedroom? 1=Yes; 0=No; 777=Refuse to answer	
+      - screentime_sq2: What do you usually do with your phone when you are ready to go to sleep? Do you: -1=Not Applicable ; 1=Turn the phone off ; 2=Put the ringer on silent or vibrate ; 3=Leave the ringer on ; 4=Put it outside of the room where I sleep ; 777=Refuse to answer
+      - screentime_sq12: In the past week, how often have you had phone calls, text messages or emails that wake you after trying to go to sleep? 1=0 nights in the past week; 2=1-2 nights; 3=3-4 nights; 4=5-7 nights; 777=Refused to answer
+      - screentime_sq13: In the past week, when you woke up during the night,  how often have you used your phone or other device to send messages/play games/search or browse the internet/use social media/read or write emails? 1=0 nights in the past week; 2=1-2 nights; 3=3-4 nights; 4=5-7 nights; 777=Refused to answer
 
-## Mental Health
+# Data Coding Notes - Mental Health
 
-### ABCD Youth Mental Health Summary
+## ABCD Youth Mental Health Summary
 
-#### Processing about nm and nt
+1. Processing about nm and nt
 
   - To get a compact data frame, Step 6 will auto-read ABCD Data Dictionary in working directory to extract key columns that had been indicated in abcd_mhy02.txt (in ABCD 4.0). The other columns such as raw item response will be dropped.
 
   - The Number of Missings (nm) and the Number of Total questions (nt) are two important flags to indicate the missing values status in ABCD summary data file. To perform double-check in ABCD summary data, Step 6 will call a subfunction _*Recode.ABCD.NM.NT*_ to check whether there are values that have been flagged out, whose NM is equals to NT. Step 6 will automatedly replace these rows with NAs.
   
-#### Redundant Columns Filtering
+2. Redundant Columns Filtering
 
  - Some columns in Youth Mental Health Summary were dropped due to there is no need to include these columns in preprocessed data. Details could be found in Step 6. For example, the raw BIS/BAS scale has been proved that is not appropriate for children. Therefore, there is no need to include the raw BIS/BAS subscales sum scores.
 
-### ASEBA Measures
+## ASEBA Measures
 
-#### Child Behavior Checklist (CBCL)
+### Child Behavior Checklist (CBCL)
 
  - **Step 7 will only retain the CBCL t-scores** from all CBCL-related syndrom scales, DSM5-oriented scales and 2007 scales. This will be helpful to reduce the complex of preprocessed data frame.
   - The Child Behavior Checklist (CBCL) is a component of the Achenbach System of Empirically Based Assessment (ASEBA). The ASEBA is used to detect behavioural and emotional problems in children and adolescents. The CBCL is completed by parents. The other two components are the Teacher’s Report Form (TRF) (completed by teachers), and the Youth Self-Report (YSR) (completed by the child or adolescent himself or herself).
@@ -319,9 +253,9 @@ Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert Online](https://t
     - **Post-traumatic Stress Problems (PTSD)**
     - **sluggish cognitive tempo (SCT)**
 
-## Neurocognition
+# Data Coding Notes - Neurocognition
 
-### The NIH Cognition Toolbox
+## The NIH Cognition Toolbox   {.tabset}
 
  - The NIH Cognition Toolbox comprises seven tasks administered via iPad ([Scoring & Interpretation Guide](https://nihtoolbox.my.salesforce.com/sfc/p/2E000001H4ee/a/2E0000004yR3/Ckb_AKw1oFUC56tgf6tdxcGDYaYbu8rsmBSFOX2Ec4g); [Composite Score Technical Manual](https://www.healthmeasures.net/images/nihtoolbox/Technical_Manuals/Cognition/Toolbox_Cognition_Battery_Composite_Scores_Technical_Manual.pdf)). For each task, raw scores, and uncorrected and age corrected scores are available. The following tasks are included in the battery:
     - **PVT**  - Picture Vocabulary: Language vocabulary knowledge. A component of the Crystallized Composite Score.
@@ -335,3 +269,180 @@ Converted from ./.github/SDPP_AbbrTable.xlsx by [Table Convert Online](https://t
  - **Notes and special considerations:** Note that in the 2-year follow-up assessment, five of the seven NIH Toolbox tasks were administered. The Dimensional Change Card Sort was administered in the baseline testing only, and List Sorting Working Memory was administered in the baseline and 4-year follow-up assessments. Because of this, the NIH Toolbox Fluid and Total Composite Scores could not be calculated for the follow-up assessments.
  - For longitudinal analyses, we recommend using **either uncorrected Scaled Scores or raw scores**.[Reference: ABCD 5.0 Release Note](https://wiki.abcdstudy.org/release-notes/non-imaging/neurocognition.html#nih-toolbox-cognition)
  - Since the SDPP-ABCD-TabDat followed the instructions from ABCD 5.0 Release Notes, **Step 8 will only retain the uncorrected standard Score** for all NIHTB-related variables.
+
+### Picture Vocabulary Test (PVT)
+ - The NIH Toolbox Picture Vocabulary Test, a measure of receptive vocabulary, is administered in a computerized adaptive format – that is, after responding to the first question, the next question a participant receives depends on his/her response to the previous question. This approach tailors the assessment to individual participants’ needs. The respondent is presented with an audio recording of a word and four photographic images on the computer screen and is asked to select the picture that most closely matches the meaning of the word. The test takes approximately four minutes to administer and is recommended for ages 3-85.
+ 
+### Flanker Inhibitory Control & Attention Task (FICAT)
+ - The NIH Toolbox Flanker Inhibitory Control and Attention Test (Flanker) measures both a participant’s attention and inhibitory control. The test requires the participant to focus on a given stimulus while inhibiting attention to stimuli (fish for ages 3-7 or arrows for ages 8-85) flanking it. Sometimes the middle stimulus points in the same direction as the “flankers” (congruent) and sometimes in the opposite direction (incongruent). Twenty trials are conducted for ages 8-85. For ages 3-7, if a participant scores ≥ 90% on the fish stimuli, 20 additional trials with arrows are presented. The test takes approximately three minutes to administer. This test is recommended for ages 3-85.
+
+### Picture Sequence Memory Task (PSMT)
+ - The NIH Toolbox Picture Sequence Memory Test (PSMT) was developed to assess Episodic Memory for ages 3-85 years. Respondents recalling increasingly lengthy series of illustrated objects and activities that are presented in a particular order on the computer screen, while corresponding audioVrecorded phrases are played. The participants are asked to recall the  sequence of pictures presented over two learning trials. Sequence length varies from 6V18 pictures, depending on age. Participants are given credit for each adjacent pair of pictures they correctly place (i.e., if pictures in locations 7 and 8 are placed in that order and adjacent to each other anywhere – such as slots 1 and 2 – one point is awarded), up to the maximum value for the sequence, which is one less than the sequence length (if there are 18 pictures in the sequence, the maximum score is 17, because that is the number of adjacent pairs of pictures that exist). The test takes approximately seven minutes to administer. This test is recommended for ages 3-85.
+
+### Dimensional Change Card Sort Task (DCCST)
+ - The NIH Toolbox Dimensional Change Card Sort Test (DCCS) is a measure of cognitive flexibility. Two target pictures are presented that vary along two dimensions (e.g., shape and color). Participants are asked to match a series of bivalent test pictures (e.g., yellow balls and blue trucks) to the target pictures, first according to one dimension (e.g., color) and then, after a number of trials, according to the other dimension (e.g., shape). “Switch” trials are also employed, in which the participant must change the dimension being matched. For example,after four straight trials matching on shape, the participant may be asked to match on color on the next trial and then go back to shape, thus requiring the cognitive flexibility to quickly choose the correct stimulus. This test takes approximately four minutes to administer and is 
+recommended for ages 3-85.
+
+### Pattern Comparison processing Speed Task (PCST)
+ - The NIH Toolbox Pattern Comparison Processing Speed Test (Pattern Comparison) measures speed of processing by asking participants to discern whether two sideVbyVside pictures are the same or not. The items are presented one pair at a time on the computer screen, and the participant is given 90 seconds to respond to as many items as possible (up to a maximum of 130). The items are designed to be simple so as to most purely measure processing speed. The  test overall takes approximately three minutes to administer. This test is recommended for ages 7-85, but is available for use as young as age 3, if desired.
+ 
+### Oral Reading Recognition Task (ORRT)
+ - In the NIH Toolbox Oral Reading Recognition Test (Reading), the participant is asked to read and pronounce letters and words as accurately as possible. The test administrator scores them as  right or wrong. For the youngest children, the initial items require them to identify letters (as opposed to symbols) and to identify a specific letter in an array of four symbols. The test is given via a computerized adaptive format and requires approximately three minutes. This test 
+is recommended for ages 7-85, but is available for use as young as age 3, if desired. Separatebut parallel reading tests have been developed in English and in Spanish.
+ 
+### List Sorting Working Memory Task (LSWMT)
+ - The NIH Toolbox List Sorting Working Memory Test (List Sorting) requires immediate recall and sequencing of different visually and orally presented stimuli. Pictures of different foods and animals are displayed with accompanying audio recording and written text (e.g., “elephant”), and the participant is asked to say the items back in size order from smallest to largest, first within a single dimension (either animals or foods, called 1VList) and then on two dimensions .  The test takes approximately seven minutes to administer and is recommended for ages 7V85, though it is available for use as young as age 3.
+ 
+## Non-NIHTB Neurocognitive Tasks   {.tabset}
+ - Here, non-NIH toolbox neurocognitive tasks indicate all behavioral neurocognitive tests excluding task fMRI-based behavioral performance. 
+ - For these neurocognitive tasks, SDPP-ABCD-TabDat will focus on three indices: 
+    - **total accuracy** (**ACC**, the number of correct trials divided by total trials), 
+    - **averaged reaction time in correct trials** (**RT**, if there are mean RT and median RT, a prefix would be added before RT. If only mean RT is available, *_RT* will be directly added at the end of variable name),
+    - **task performance efficiency** (**EFC**, the Number of Correct trials [NC] divided by RT).
+ - The naming of Non-NIHTB task-related variables follows: **Task Name Abbr**_**Variable Name Abbr**_**Pipeline-specific postfix**. 
+    - **Task Name Abbr** could be found in *Abbr Table* as well as *in below*. 
+    - **Variable Name Abbr** includes: 
+        - **Score** (task performance score for certain task, if not noted, it represents the total score), 
+        - **ACC**, (if not noted, it represents the total accuracy across all task conditions)
+        - **RT**, also **Mean_RT** and **Median_RT** (if not noted, it represents the mean RT of correct trials)
+        - **EFC** (EFC=NC/RT, NC is the number of correct trials)
+        - **Counts** (Some neurocognitve task will calculated the counts of a certain response)
+ - As for some neurocognitive tasks that includes ABCD-recommend validation criteria, there are some variables to indicate the task validation of a participant's performance. These variables are named as follows: **Task Name Abbr**_**Vald**_**Criterion Abbr**. **Vald** is abbr of validation. For most ABCD-recommended criteria, **Criterion Abbr** inlcudes: 
+    - **Comp** (Task Completed or not flag, yes or no)
+    - **JB** (JB criterion for DDT) as well as **ImdCho** (See details in [DDT section](#Delay-Discount-Task)
+    - **Version** (Task Program Version)
+ - For character data about Score and ACC, 4-digit precision will be preserved with round function. As for RT (unit in milliseconds), and EFC, 2-digit and 6-digit will be preserved respectively. All RT, Score and ACC variables will be re-formated into double data. All Counts variables will be re-formated into integer data.
+ 
+ 
+### Snellen Visual Screener (SVS)
+ - This is a vision screening measure. The vision score is the last line correctly read on the Snellen chart without errors, with both eyes together, and using corrective lenses if needed.
+ - ABCD Workgroup suggest that users of neurocognitive data first examine the participants’ vision using the **snellen_va_y** variable. It is possible that poor vision could influence task performance.
+ - **snellen_va_y** (task performance score): 1. Ensure that the chart is located in a well lit area and readily readable. 2. Verify if the child has corrective lenses and if so, whether he or she is wearing them. 3. Ascertain whether h/she can appropriately respond to stimuli on an iPad screen. Smallest line subject was able to see without error? Line numbers are represented on the right-most side of the chart.
+ - **Coding Scheme**: 0 = Can't read line 1; 1 = Line 1; 2 = Line 2; 3 = Line 3; 4 = Line 4; 5 = Line 5; 6 = Line 6; 7 = Line 7; 8 = Line 8; 9 = Line 9; 10 = Line 10; 11 = Line 11.
+ - **SVS-related variables**: This variable will be re-named as **SVS_Score** in SDPP-ABCD-TabDat.
+ 
+### Cash Choice Task (CCT)
+ - The Cash Choice is a single-item proxy for the delay discounting task that asked the youth “Let’s pretend a kind person wanted to give you some money. Would you rather have ** 75** in three days or ** 115** in 3 months?“. The youth indicated one of these two options or a third **can’t decide option**. 
+ - **CCT-related variable**: The youth's response will be re-named as **CCT_Score** to represent CCT perfomance score (3-level categorical variable).
+ 
+### Little Man Task (LMT)
+ - The Little Man Task evaluates visuospatial processing flexibility and attention. Participants view pictures of a figure (little man) presented in different orientations and holding a suitcase and must use mental rotation skills to assess which hand (left or right) is holding the suitcase. Accuracy and latency scores are provided for each trial.
+ - The Little Man Task used in the baseline assessment was administered using a customized program designed by ABCD, whereas the 2-year and 4-year follow-up assessments used a task presented in the Inquisit system from Millisecond.
+ - **LMT-related variables**: ACC, RT, EFC
+ 
+### The Pearson Rey Auditory Verbal Learning Test (RAVLT)
+ - The Rey Auditory Verbal Learning Test (RAVLT) assesses verbal learning and memory. The task is administered according to standard instructions using a 15-item word list; there are five learning trials (Trials I-V), a distractor trial (List B), measures of immediate recall (Trial VI) and 30-minute delayed recall (Trial VII); for all trials, the total correct is recorded together with the number of perseverations and intrusions.
+ - **RAVLT-related variables**: 
+    - RAVLT_*I~VII*_Score (total correct trials number in each block, from Trails I - VII), 
+    - RAVLT_Immediate_Score (the sum of scores from first five trials [Trials I to V]),
+    - RAVLT_Learning_Score (the score of Trial V minus the score of Trial I), 
+    - RAVLT_Forgetting_Score (the score of Trial V minus score of the delayed recall [Trial VII]),
+    - RAVLT_Perc_Forgetting_Score (RAVLT_Forgetting_Score divided by the score of Trial 5).
+ - RAVLT Score Calculation reference:
+    
+    
+    >    Moradi E, Hallikainen I, Hänninen T, Tohka J; Alzheimer's Disease Neuroimaging Initiative. Rey's Auditory Verbal Learning Test scores can be predicted from whole brain MRI in Alzheimer's disease. Neuroimage Clin. 2016;13:415-427. Published 2016 Dec 18. doi:10.1016/j.nicl.2016.12.011.
+    
+
+### Wechsler Intelligence Scale for Children (WISC)
+ - WISC-V Matrix Reasoning Test were administered using the Pearson Q-Interactive platform. Matrix Reasoning Task – Measures fluid intelligence and visuospatial reasoning. The task is from the Wechsler Intelligence Scale for Children-V (WISC-V). Total raw scores, scaled scores (mean = 10, SD = 3), and scores for each item are available.
+ - **WISC-related variables**:
+    - WISC_Raw_Score: total raw scores from WISC-V
+    - WISC_Scaled_Score: toal scaled scores (mean = 10, SD = 3) from WISC-V
+
+### Delay Discount Task (DDT)
+ - The participant makes several choices between a hypothetical small-immediate reward or a standard hypothetical ** 100** future reward at different time points (6h, 1 day, 1 week, 1 month, 3-month, 1 year, and 5 years). Each block of choices features the same delay to the larger reward and the immediate reward is titrated after each choice until both the smaller-sooner reward and the delayed-** 100** reward have equal subjective value to the participant. The summary results file indicates the “indifference point” (the small-immediate amount deemed to have the same subjective value as the  100 delayed reward) at each of the seven delay intervals. When plotted, the area under the curve formed by these indifference points is frequently used to quantify severity of discounting of delayed rewards.
+
+ - **DDT-related variables**:
+    - DDT_Vald_Comp: DDT script was completed or not. (YN)
+    - **DDT_Vald_ImdCho**: values.immediateChoiceValidity. (Added in June 2018) Tally of immediate choices in the three validity questions presented after the "3months", "1year", and "5years" delay blocks (e.g. "get 100 NOW" vs. "get 100 in 5 years"). Values < 3 indicate some inattentive (or at least irrational) behavior by the participant.
+    - **DDT_Vald_JBP1**: Orderly delay-discounting task behavior is evidenced by a revealed preference pattern wherein subjective value (SV) indifference points progressively DECLINE with each increasing delay to the hypothetical reward payout. Per the quality control metrics suggested by Johnson and Bickel (2008) Experimental and Clinical Psychopharmacology, Vol. 16, No. 3, 264–274, JBPass1 “yes” (pass) refers to whether the valuation of the standard reward with delay follows an orderly decline, such that neither of the two following criterion were met: (1) if any indifference point (starting with the second delay) was greater than the preceding indifference point by a magnitude greater than 20% of the larger later reward (here, by * 20* or more); or (2) the last (5-yr) indifference point was not less than the first (6 hour) indifference point by at least a magnitude equal to 10% of the larger later reward (here, by * 10* or more).
+    - **DDT_Vald_JBP1NV**: “values.JBPass1_NumberViolations” is the tally of delay intervals (blocks) wherein the participant’s revealed subjective value indifference point was  20 or more GREATER than the indifference point of the next-sooner delay. This value will be “0” for a session wherein the participant showed an orderly decrease (or at least not an increase) in subjective value from each delay to the next-longer delay. The titrating format of the ABCD delay discounting task may increase the likelihood of one or more delay blocks showing an inconsistent pattern, even from an engaged participant. A result that revealed 1 or 2 violations, especially at the later/longer delay blocks (e.g. 5 years) might not substantially affect the overall area-under-curve of subjective value with delay, such that data may still be useable and reflect the participant’s general preferences about waiting to get larger rewards. Therefore, the ABCD Consortium Neurocognition Workgroup recommends not excluding most cases where JBPass 1 is “no”. Several violations of JBpass Criterion 1 (cf values.JBPass1_NumberViolations variable), however, suggests that the participant was responding somewhat randomly and inconsistently. The ABCD consortium Neurocognition Workgroup recommends caution in using data from cases wherein “values.JBPass1_NumberViolations” is greater than 1 or 2.
+    - **DDT_Vald_JBP2**: Per Johnson and Bickel (2008), values.Consistent_per_JBcriterion2 (yes,no) essentially indicates whether or not the participant discounted delayed rewards at all. JBPass 2 “yes” means that the youth discounted the standard reward (here  100) by at least 10% at the maximum delay interval presented in the task (here 5 years). Assuming a participant was attentive and engaged, a “no” value would suggest that delay had no effect on how the participant valued future rewards. Alternatively, the participant may have adopted a facile, unreflective strategy to respond for the larger reward amount in every trial. Many investigators simply exclude data from participants who do not discount at all. The ABCD consortium. The Neurocognition Workgroup recommends caution using data from cases wherein “values.Consistent_per_JBcriterion2” is not “yes.”
+    - **DDT_*6h~5y*_IDP_Score**: Indifference Point for each delay time, which includes: 6h (6 hours), 1d (1 day), 1w (1 week), 1m (1 month), 3m (3 months), 1y (1 year), 5y (5 years)
+    - DDT_ImdCho_Mean_RT: mean latency (in ms) of 'immediate' choices
+    - DDT_ImdCho_Median_RT: median latency (in ms) of 'immediate' choices
+    - DDT_DeyCho_Mean_RT: mean latency (in ms) of 'delayed' choices
+    - DDT_DeyCho_Median_RT: median latency (in ms) of 'delayed' choices
+    
+### Emotional Stroop Task (EST)
+ - The emotional Stroop task (Stroop, 1935) measures cognitive control under conditions of emotional salience (see Başgöze et al., 2015; Banich et al., 2019). The task-relevant dimension is an emotional word that participants categorized as either a “good” feeling (happy, joyful) or a “bad” feeling (angry, upset). The task-irrelevant dimension is an image, which is of a teenager’s face with either a happy or an angry facial expression. Trials are of two types. On congruent trials, the word and facial emotion are of the same valence (e.g. a happy face paired with word “joyful”). The location of the word varies from trial-to-trial, presented either on the top of the image or at the bottom. On incongruent trials, the word and facial expression are of different valence (e.g., a happy face paired with word “angry”). Participants work through 2 test blocks: one block consists of 50% congruent and 50% incongruent trials; the other consists of 25% incongruent trials and 75% congruent trials. The composition of the former type of block helps individuals keep the task set in mind more so than the latter (Kane & Engle, 2003). The 25% incongruent/75% congruent block is always administered first, followed by the 50% incongruent/50% congruent block. Accuracy and response times for congruent versus incongruent trials for the total task and within each emotion subtype (happy/joyful; angry/upset) are calculated. Relative difficulties with cognitive control are indexed by lower accuracy rates and longer reaction times for incongruent relative to congruent trials.
+ - **Notes and special considerations**: There may be aberrant data in the task with reaction times (RTs). We recommend that researchers should use cut-offs to omit RTs < 200 ms and > 2000 ms. The task’s upper limit for issuing a response was 2000ms.
+ - **EST-related variables**:
+    - EST_Vald_Comp: DDT script was completed or not. (YN)
+    - EST_Cong_ACC: Proportion correct overall (across all test trials)
+    - EST_InCong_ACC: Proportion correct in "congruent" pairings trials (across test blocks)
+    - EST_All_ACC: Proportion correct in "incongruent" pairings trials (across test blocks)
+    - EST_Cong_RT: Mean correct latency (in ms) overall
+    - EST_InCong_RT: mean correct latency (in ms) in "congruent" pairings trials (across test blocks)
+    - EST_All_RT: Mean correct latency (in ms) in "incongruent" pairings trials (across test blocks)
+
+### Game of Dice Task (GDT)
+ - The Game of Dice Task (GDT; Brand et al., 2005) assesses decision-making under conditions of specified risk and has been successfully used with adolescent samples (Drechsler, Rizzo, & Steinhausen, 2008; Duperrouzel et al., 2019; Ross, Graziano, Pacheco-Colón, Coxe, & Gonzalez, 2016). Risk taking is assessed by having participants attempt to predict the outcome of a dice roll by choosing among different options that vary on their outcome probability and pay-off across 18 trials. Specific rules and probabilities for monetary gains and losses are evident throughout the task (Brand et al., 2005). On each trial, participants predict the outcome of a die roll by choosing from four different options (e.g., one number vs. multiple numbers). Options with more numbers (i.e. higher probability of winning) are associated with a lesser reward compared to those with one or two possible numbers (i.e. lower probability of winning). The two options with the lowest probability of winning are considered ‘risky choices.’ The total number of risky choices is often used to quantify performance.
+  - **GDT-related variables**:
+    - GDT_Vald_Version: Task version
+    - GDT_Total_Score: Amount participant owns at the end
+    - GDT_Single_Score: Counts how many times participant has bet on 1 specific dice face
+    - GDT_Double_Score: Counts how many times participant has bet on 2 specific dice face
+    - GDT_Triple_Score: Counts how many times participant has bet on 3 specific dice face
+    - GDT_Quadru_Score: Counts how many times participant has bet on 4 specific dice face
+    - GDT_Safe_Score: Counts how many times participants selected a safe bet (bets on 3 or 4 dice faces)
+    - GDT_Risky_Score: Counts how many times participants selected a risky bet (bets on 1 or 2 dice faces)
+    - GDT_Net_Score: Reflects the number of safe (bets on 3 or 4 numbers) vs. risky (bets on 1 or 2 numbers) choices. It is computed as number of safe bets minus number of risky bets.
+    - GDT_Win_Score: Adds the number of winning bets
+    - GDT_Loss_Score: Adds the number of losing bets
+
+### Social Influence Task (SIT)
+ - The Social Influence Task (SIT) assesses risk perception and propensity for risk taking, as well as susceptibility to perceived peer influence. Over the course of 40 trials, participants are presented with a variety of risky scenarios. Participants are asked to rate an activity’s risk by moving a slider bar between “very LOW risk” (left) and “very HIGH risk” (right). After submitting an initial rating, participants are shown a risk rating of the same activity that is seemingly provided by a group of peers. This peer rating condition is either 4 points lower (‘-4’ condition), 2 points lower (‘-2’ condition), 2 points higher (‘+2’ condition) or 4 points higher (‘+4’ condition) than the participant’s initial rating. Participants are asked to rate the riskiness of the scenario again. For both the initial and final rating trials, participants have a time limit of 4500 ms to provide their rating.
+ - The task is designed to try to ensure ~25% of trials (~10 trials) are in each of the peer rating conditions. To do this, the task script restricts random sampling to only those conditions that can be run given the participant’s initial ratings (e.g., if a participant selected a rating of 1.8, condition -4 and condition -2 cannot be run as both of those conditions would result in a peer rating < 0). If none of the unselected peer conditions can be run due to rating constraints, yet 10 trials have already been in run in all the realistic peer conditions, the script uses the ‘switch sign’ method; it (randomly) selects from the unselected peer conditions and then switches the sign (e.g., selected peer condition -4 will be run as peer condition +4 and vice versa). The script tracks how many such switches had to be made.
+  - **SIT-related variables**:
+    - SIT_Initial_RT: Mean reaction time (in ms) of submitting initial rating after onset of rating scale
+    - SIT_Initial_Mean_Score: The mean initial rating
+    - SIT_Final_RT: The mean final rating
+    - SIT_Final_Mean_Score: Mean reaction time (in ms) of submitting final rating after onset of rating scale
+    - SIT_*-4~+4*_Score: Mean difference within SIT task condition. positive values indicate that one's final rating was higher than initial rating; vice versa for negative values.
+      - SIT_Minus_4_Score: The mean difference in ratings (final - initial) for peer rating condition '-4'
+      - SIT_Minus_2_Score: The mean difference in ratings (final - initial) for peer rating condition '-2'
+      - SIT_Plus_2_Score: The mean difference in ratings (final - initial) for peer rating condition '+2'
+      - SIT_Plus_4_Score: The mean difference in ratings (final - initial) for peer rating condition '+4' 
+    - SIT_Flips_Score: Counts the number of rating flips
+    - SIT_Minus_4_Counts: Counts the number peer rating condition '-4' was run
+    - SIT_Minus_2_Counts: Counts the number peer rating condition '-2' was run
+    - SIT_Plus_2_Counts: Counts the number peer rating condition '+2' was run
+    - SIT_Plus_4_Counts: Counts the number peer rating condition '+4' was run
+    - SIT_Initial_NR_Counts: Counts the number of 'no response' for initial rating trials
+    _ SIT_Final_NR_Counts: Counts the number of 'no response' for final rating trials
+
+### Stanford Mental Arithmetic Response Time Evaluation (SMARTE)
+ - The Stanford Mental Arithmetic Response Time Evaluation (SMARTE) is a youth measure that assesses math fluency and single- and double-digit arithmetic operations via an iPad or smartphone app. Multiple accuracy and reaction time summary scores are calculated. See Starkey & McCandliss BD (2014).
+  - **SMARTE-related variables**:
+    - Enumeration
+    - Math Fluency
+    - Math Recall
+    - 
+    - 
+    - 
+    - 
+
+### Behavioral Indicator of Resiliency to Distress Task (BIRD)
+ - The Behavioral Indicator of Resiliency to Distress (BIRD) task measures a participant’s ability to persist despite distress. The paradigm shows a bird in a cage with 10 number boxes arranged in a circle around it; a green dot moves at random from box to box. The participant must reach the green dot before it moves or else an unpleasant sound is delivered. In level 1 (2 minutes), the participant completes an adaptive training level to estimate RTs; in level 2 (3 minutes) the dot moves faster than the participant’s RT at random (distress component); in level 3 (5 minutes) the participant is allowed to quit at any time (with longer level 3 durations indicating higher tolerance for distress; a binary quit [1: high distress] and no quit [0: low distress] variable is also computed); pre- and post-task affective scales are given prior to the task and after level 2.
+ - **BIRD-related variables**:
+  - 
+
+ 
+ 
+ - BIRD Task Indices Reference:
+ 
+ 
+    >   Tonarely, N.A., Hirlemann, A., Shaw, A.M. et al. Validation and Clinical Correlates of the Behavioral Indicator of Resiliency to Distress Task (BIRD) in a University- and Community-Based Sample of Youth with Emotional Disorders. J Psychopathol Behav Assess 42, 787–798 (2020). https://doi.org/10.1007/s10862-020-09830-7
+
+### Millisecond Flanker Task (FLKR)
+ - This task measures attention, cognitive control, executive function, and inhibition of automatic response similarly to the NIH Toolbox Flanker task of the NIH Toolbox (Cognition) battery. Because the NIH Toolbox version of the Flanker could not be administered remotely, this task was designed to mimic the NIH Toolbox Flanker task as closely as possible.
+ - **Notes and special considerations**: We recommend that users carefully consider the administration differences between the NIH Toolbox Flanker task and the Millisecond Flanker task in their analyses.
+ 
+ 
+ 
+### Barkley Deficits in Executive Functioning Scale (BDEFS)
+ - This measure is the short form of the Barkley Deficits in Executive Functioning Scale for Children and Adolescents. A parent reports on several different dimensions of their child or adolescent’s day-to-day executive functioning (EF), such as organization, acting without thinking, clarity of expression, and procrastination that are predictive of future impairments in psychosocial functioning. See Barkley (2012). Both an EF Summary Score (sum of all 20 item responses) and an EF Symptom Count (tally of responses of 3 or 4 across all items) are calculated for cases with either no missing item responses or only one missing item response (i.e. refuse to answer code “777”).
+
+# Data Coding Notes - Culture & Environment Measures

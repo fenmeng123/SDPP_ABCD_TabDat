@@ -6,7 +6,6 @@ set.wd()
 source('SDPP_subfunctions.R')
 # SDPP Parameter Settings -------------------------------------------------
 
-
 TabulatedDataDirectory = '../../ABCD_V5.0/core/'
 # Please replace the above string for your own downloaded data directory.
 # Relative Path is required! (relative to the path of the current R script file)
@@ -69,10 +68,12 @@ fprintf("Step 6 Results Output Directory will inherit from Step 5:%s \n",S6_Resu
 fprintf("=================================Step 7 Specifications=================================\n")
 S7_ResultsOutputDir = S6_ResultsOutputDir
 fprintf("Step 7 Results Output Directory will inherit from Step 6:%s \n",S7_ResultsOutputDir)
-fprintf("=================================Step 7 Specifications=================================\n")
+fprintf("=================================Step 8 Specifications=================================\n")
 S8_ResultsOutputDir = S7_ResultsOutputDir
 fprintf("Step 8 Results Output Directory will inherit from Step 7:%s \n",S7_ResultsOutputDir)
-
+fprintf("=================================Step 9 Specifications=================================\n")
+S9_ResultsOutputDir = S8_ResultsOutputDir
+fprintf("Step 9 Results Output Directory will inherit from Step 8:%s \n",S9_ResultsOutputDir)
 
 
 # ==============================DO NOT CHANGE!=====================================#

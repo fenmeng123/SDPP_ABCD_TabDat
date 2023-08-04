@@ -1,7 +1,7 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-07-18
+2023-08-01
 
 - [Basic Infomation](#basic-infomation)
 - [Citation and Suggestions](#citation-and-suggestions)
@@ -65,6 +65,12 @@ Zhang.
     repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/pulls)
 
 # Update Logs
+
+- 2023.7.31
+
+  - Update ReadMe and User Manual, auto-load EXCEL file to display
+    tables
+  - Start Step 9
 
 - 2023.7.18
 

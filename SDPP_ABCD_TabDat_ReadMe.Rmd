@@ -47,6 +47,9 @@ output:
 
 
 # Update Logs
+ - 2023.7.31
+   - Update ReadMe and User Manual, auto-load EXCEL file to display tables
+   - Start Step 9
 
  - 2023.7.18
    - Completed Step 8.

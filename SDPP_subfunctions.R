@@ -78,6 +78,10 @@ eval_s <- function(user.string,...){
   return(res)
 }
 # 2. SDPP Project Managing Functions --------------------------------------
+SDPP.clearall <- function(){
+  rm(list=ls())
+  gc()
+}
 SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory){
   if (!file.exists(ProjectDirectory)){
     options(warn = -1)
