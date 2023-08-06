@@ -117,7 +117,7 @@ SDPP.save.file <- function(Data,FileName,Prefix,ProjectDirectory,FileFormat=NA,D
     saveRDS(Data,OutputFileDir)
     cat(sprintf('Saving Data into %s File: %s......\nFinished!\n',toupper(FileFormat),OutputFileDir))
   } else if (FileFormat == 'csv'){
-    write.csv(Demographic,OutputFileDir,fileEncoding = 'UTF-8')
+    write.csv(Data,OutputFileDir,fileEncoding = 'UTF-8')
     cat(sprintf('Saving Data into %s File: %s......\nFinished!\n',toupper(FileFormat),OutputFileDir))
   } else {
     fprintf("Did not find appropraite file postfix! Please Check your code!")
