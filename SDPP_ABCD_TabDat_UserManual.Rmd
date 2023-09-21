@@ -445,4 +445,12 @@ is recommended for ages 7-85, but is available for use as young as age 3, if des
 ### Barkley Deficits in Executive Functioning Scale (BDEFS)
  - This measure is the short form of the Barkley Deficits in Executive Functioning Scale for Children and Adolescents. A parent reports on several different dimensions of their child or adolescent’s day-to-day executive functioning (EF), such as organization, acting without thinking, clarity of expression, and procrastination that are predictive of future impairments in psychosocial functioning. See Barkley (2012). Both an EF Summary Score (sum of all 20 item responses) and an EF Symptom Count (tally of responses of 3 or 4 across all items) are calculated for cases with either no missing item responses or only one missing item response (i.e. refuse to answer code “777”).
 
+## Task fMRI Behavioral Performance and Post-scan Questionnaire
+
+### Monetary Incentive Delay Task (tfMRI-MID)
+
+ - The fMRI Monetary Incentive Delay (MID) task measures domains of reward processing, including anticipation and receipt of reward and losses, and trial-by-trial motivation in speeded responses to win or avoid loss. Each trial of the MID task begins with an incentive cue of five possible trial types (Win 20 USD, Win 5 USD, Lose 20 USD, Lose 5 USD, 0-no money at stake), a delay, a target during which the participant responds to either win money or avoid losing money and feedback.
+ - Task performance is individualized to maintain a 60% accuracy rate. When possible, participants who were unable to complete the task in the scanner, completed the task behaviorally outside the scanner. Variables are provided to identify participants with incomplete data for anticipation analyses, unresponsiveness suggesting inattention to the task, or suboptimal data for feedback analyses. However, these recommended thresholds are subjective, so investigators should choose inclusion/exclusion performance criteria that are appropriate for their analyses.
+
+
 # Data Coding Notes - Culture & Environment Measures

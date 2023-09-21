@@ -1,22 +1,21 @@
-library(tidyverse)
-library(stringr)
-library(naniar)
-
+# Parameter Settings ------------------------------------------------------
 dat.to.be.merged = c("Demographics_Imp","MH_P_CBCL_Rec",
                      "MH_S_Rec","NC_NIHTB","NC_Non-NIHTB",
                      "SMA_Rec_Imp")
 file.postfix = "rds"
 output.file.name = "Merge_Demo_SMA_NC_MH"
 
-
 # ==============================DO NOT CHANGE!==================================
-AutoLogFileName = sprintf('Log_SDPP-ABCD-TabDat_Concatenate_%s.txt',
+library(tidyverse)
+library(stringr)
+library(naniar)
+AutoLogFileName = sprintf('Log_SDPP-ABCD-TabDat_Concatenate_%s_%s.txt',
+                          output.file.name,
                           str_trunc(str_replace_all(as.character(Sys.time()),"( )|(:)|([.])|(-)","_"),
                                     width = 21,
                                     ellipsis = ""))
 AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
 sink(file = AutoLogFilePath)
-
 
 dat.file.ls = sprintf("%s_%s.%s",Prefix,dat.to.be.merged,file.postfix)
 preprocessed.dat.ls = list()
@@ -75,8 +74,24 @@ for (i in Flag){
   concatenated_data$DistrictID[i] = lt$district_id[SingleSubMask]
   concatenated_data$BirthID[i] = lt$rel_birth_id[SingleSubMask]
   fprintf("\t\t\t interview_age, date, VisitType, SiteID, FamilyID, SchoolID, DistrictID, BirthID were filled.\n")
+  fprintf("\t\t\t %d,%s,%s,%s,%s,%s,%s,%s.\n",
+          concatenated_data$interview_age[i],
+          concatenated_data$interview_date[i],
+          concatenated_data$VisitType[i],
+          concatenated_data$SiteID[i],
+          concatenated_data$FamilyID[i],
+          concatenated_data$SchoolID[i],
+          concatenated_data$DistrictID[i],
+          concatenated_data$BirthID[i])
+  if (is.na(concatenated_data$FamilyID[i])){
+    fprintf("\t\t\t FamilyID is Still NA, Executing BOFC for FamilyID....\n")
+    tmpT0Flag = (concatenated_data$src_subject_id == concatenated_data$src_subject_id[i]) &
+      (concatenated_data$eventname == "baseline_year_1_arm_1")
+    concatenated_data[i,"FamilyID"] = concatenated_data[which(tmpT0Flag),"FamilyID"]
+    fprintf("\t\t\t BOCF for FamilyID Finished! FamilyID: %s\n",concatenated_data$FamilyID[i])
+  }
   if (sum(is.na(concatenated_data[i,time.invariant.covs.ls])) > 16 ){
-    fprintf("\t\t\t BOCF for Subject: %s [Wave: %s] from baseline_year_1_arm_1... Finished!\n",
+    fprintf("BOCF for Subject: %s [Wave: %s] from baseline_year_1_arm_1... Finished!\n",
             concatenated_data$src_subject_id[i],
             concatenated_data$eventname[i])
     tmpT0Flag = (concatenated_data$src_subject_id == concatenated_data$src_subject_id[i]) &
@@ -89,6 +104,18 @@ for (i in Flag){
   }
 }
 
+sapply(concatenated_data, typeof) %>% unlist() %>% as.data.frame() -> DataType
+rename(DataType,VariableTypes = .) -> DataType
+DataType$VariableNames <- rownames(DataType)
+rownames(DataType) <- NULL
+DataType$VariableTypes[sapply(concatenated_data, is.factor)] <- "char"
+DataType$VariableTypes <- str_replace_all(DataType$VariableTypes,'integer','double')
+DataType$VariableTypes <- str_replace_all(DataType$VariableTypes,'character','char')
+
+SDPP.save.file(DataType,
+               FileName = sprintf('%s_DataType.csv',output.file.name),
+               Prefix = Prefix,
+               ProjectDirectory = ProjectDirectory)
 SDPP.save.file(concatenated_data,
                FileName = sprintf("%s.rds",output.file.name),
                Prefix = Prefix,

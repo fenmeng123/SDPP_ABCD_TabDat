@@ -1,7 +1,7 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-08-01
+2023-09-21
 
 - [Basic Infomation](#basic-infomation)
 - [Citation and Suggestions](#citation-and-suggestions)
@@ -12,8 +12,11 @@ Kunru Song
 **Author:** Kunru Song, PhD Student at BNU, supervised by Dr.Jin-tao
 Zhang.
 
-[Kunru’s Personal Profile
-(Researchgate)](https://www.researchgate.net/profile/Kunru-Song)
+[Kunru’s Researchgate
+Profile](https://www.researchgate.net/profile/Kunru-Song)
+
+[Kunru’s Google Scholar
+Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
 
 [Dr. Jin-tao Zhang’s Lab
 (Researchgate)](https://www.researchgate.net/lab/Jintao-Zhang-Lab-2)
@@ -65,6 +68,17 @@ Zhang.
     repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/pulls)
 
 # Update Logs
+
+- 2023.8.7
+
+  - Start Step 11.
+
+- 2023.8.5
+
+  - Completed Step 9.
+  - Update User Manual for Non-NIH toolbox Neurocognition Tasks data
+    re-coding.
+  - Start Step 10.
 
 - 2023.7.31
 
