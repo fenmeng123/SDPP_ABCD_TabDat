@@ -50,9 +50,6 @@ if (any(res$status %in% "Not Installed!")){
 }
 library(bruceR)
 
-
-
-
 # SDPP Step Parameters Setting --------------------------------------------
 # Step 3 Parameters
 n.imp = 100 # Number of multiple imputed datasets
@@ -71,8 +68,6 @@ fprintf('Starting SDPP-ABCD-TabDat......\n')
 fprintf('R package: bruceR is a common-used package in this pipeline, which would be included in all steps.\n')
 basic.info = sessionInfo()
 other.info = Sys.info()
-
-
 
 fprintf("===============================SDPP-ABCD-TabDat Settings===============================\n")
 fprintf("Scripts Executing Date: \t\t %s\n",Sys.time())
