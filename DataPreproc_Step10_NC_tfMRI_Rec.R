@@ -16,24 +16,22 @@
 # =============================================================================#
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_10.txt'
+DatTableNames = c("mri_y_tfmr_mid_beh.csv","mri_y_tfmr_mid_qtn.csv",
+                  "mri_y_tfmr_sst_beh.csv","mri_y_tfmr_nback_beh.csv",
+                  "mri_y_tfmr_nback_rec_beh.csv")
+SubfolderName = "imaging"
 AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
-sink(file = AutoLogFilePath,type = 'output',append = F)
+s_sink(AutoLogFilePath)
 ResultsOutputDir = S10_ResultsOutputDir
 rm(S9_ResultsOutputDir)
 library(naniar)
 # ==============================MAIN CODES=====================================#
 # 2. Load NIHTB and its composite scores data ---------------------------------
 data = read.in.batch(DownloadedDataDir = TabulatedDataDirectory,
-                     TableNames = c("mri_y_tfmr_mid_beh.csv","mri_y_tfmr_mid_qtn.csv",
-                                    "mri_y_tfmr_sst_beh.csv","mri_y_tfmr_nback_beh.csv",
-                                    "mri_y_tfmr_nback_rec_beh.csv"),
-                     FolderName = "imaging")
-
+                     TableNames = DatTableNames,
+                     FolderName = SubfolderName)
 NEW_data <- SDPP.select.cols.by.dict(data,
-                                     TableNames = c("mri_y_tfmr_mid_beh","mri_y_tfmr_mid_qtn",
-                                                    "mri_y_tfmr_sst_beh","mri_y_tfmr_nback_beh",
-                                                    "mri_y_tfmr_nback_rec_beh"))
-# NEW_data = select(data,c(src_subject_id,eventname))
+                                     TableNames = DatTableNames)
 
 
 
@@ -62,7 +60,4 @@ select(NEW_tfMRI_behav,-c(src_subject_id,eventname)) %>%
               digits = 2)
 # End of Script -----------------------------------------------------------
 
-
-fprintf("SDPP-ABCD-TabDat Step 10 finished! Finish Time:%s\n",Sys.time())
-
-sink()
+s_close_sink()

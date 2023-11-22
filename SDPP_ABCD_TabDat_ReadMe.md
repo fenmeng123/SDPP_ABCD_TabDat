@@ -71,11 +71,16 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
 
 - 2023.11.22
 
-  - find some bugs and start codes re-constructing to improve the
+  - find some bugs and start codes re-constructing to improve
     readability of all codes in SDPP-ABCD-TabDat.
   - Add new features: filter columns by manually modified ABCD Data
     Dictionary file.
   - Update Step 10.
+  - Update User Manual for Step 9.
+
+- 2023.9.21
+
+- Update Step 9.
 
 - 2023.8.7
 

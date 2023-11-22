@@ -31,6 +31,25 @@ fullfile <- function(...){
 fprintf <- function(StringVar,...){
   cat(sprintf(StringVar,...))
 }
+s_sink <- function(LogFileDir){
+  fprintf('Start a new log file: %s\n',LogFileDir)
+  sink(file = LogFileDir,
+       type = 'output',
+       append = F,
+       split = T)
+}
+s_get_script_name <- function(){
+  return(basename(rstudioapi::getSourceEditorContext()$path))
+}
+s_close_sink <- function(){
+  StepNumStr <- s_get_script_name() %>%
+    str_extract(pattern = 'Step(\\d{1,})') %>%
+    str_remove_all('Step')
+  fprintf("SDPP-ABCD-TabDat Step %s finished! Finish Time:%s\n",
+          StepNumStr,Sys.time())
+  sink()
+}
+
 read4.0 <- function(filename){
   data = read.table(filename,header = TRUE,sep = '\t')
   # remove some specific columns which are same across all .txt files
@@ -255,12 +274,15 @@ SDPP.creat.folder <- function(FolderName,
 SDPP.filter.data.dict <- function(DataDictionaryFileDir = dir(pattern = '.*Dictionary.*xlsx'),
                                   filter_col = 'Included_Flag',
                                   filter_key = 'Yes',
-                                  search_col = NA){
+                                  search_col = NA,
+                                  verbose = T){
   if (length(DataDictionaryFileDir) > 1){
     warning('Multiple ABCD Data Dictionray (EXCEL files) have been found! Using the first one as default.')
     DataDictionaryFileDir <- DataDictionaryFileDir[1]
   }
-  fprintf('ABCD Data Dictionary used: [%s]\n',DataDictionaryFileDir)
+  if (verbose){
+    fprintf('ABCD Data Dictionary used: [%s]\n',DataDictionaryFileDir)
+  }
   dict <- DataDictionaryFileDir %>%
     import() %>%
     as.data.frame()
@@ -292,7 +314,10 @@ SDPP.select.cols.by.dict <- function(data,
   fprintf('Selected columns in data frame:\n')
   print(knitr::kable(filtered_dict,row.names = F))
   selected_data <- data %>%
-    select(all_of(filtered_dict$var_name))
+    select(c(src_subject_id,
+             eventname,
+             all_of(filtered_dict$var_name))
+           )
   return(selected_data)
 }
 
