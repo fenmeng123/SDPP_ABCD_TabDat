@@ -34,7 +34,10 @@ fprintf <- function(StringVar,...){
 read4.0 <- function(filename){
   data = read.table(filename,header = TRUE,sep = '\t')
   # remove some specific columns which are same across all .txt files
-  data <- subset(data, select = -c(collection_id, dataset_id,collection_title))
+  data <- subset(data, 
+                 select = -c(collection_id,
+                             dataset_id,
+                             collection_title))
   # get variable descriptions
   var.descrip <- data[1,]
   # remove the first row
@@ -97,7 +100,6 @@ SDPP.check.package <- function(package_name = c("readxl",
   res = data.frame(name = package_name)
   for (i in 1:length(package_name)){
     package_path = system.file(package = package_name[i])
-    
     if(!nzchar(package_path)){
       package_status = "Not Installed!"
     }else{
@@ -107,13 +109,13 @@ SDPP.check.package <- function(package_name = c("readxl",
     res$path[i] = package_path
   }
   if (any(res$status %in% "Not Installed!")){
-    cat("Some required R packageds have not been installed! Please see the table below:\n")
+    fpirntf("Some required R packageds have not been installed! Please see the table below:\n")
     print(res)
-    cat("SDPP-ABCD-TabDat rely on these packages, please make sure you have installed all required R packages!\n")
+    fprintf("SDPP-ABCD-TabDat rely on these packages, please make sure you have installed all required R packages!\n")
     stop("SDPP-ABCD-TabDat Check Required Packages: Failed! See above information.")
   }else{
-    cat("SDPP-ABCD-TabDat Check Required Packages: Passed!\n")
-    cat("All required R packages have been installed: \n")
+    fprintf("SDPP-ABCD-TabDat Check Required Packages: Passed!\n")
+    fprintf("All required R packages have been installed: \n")
     print(res)
   }
   return(res)
@@ -203,32 +205,47 @@ SDPP.set.output <- function(ResultsOutputDir){
   return(ResultsOutputDir)
 }
 SDPP.get.number <- function(FolderPrefix,ProjectDirectory){
-  FolderList = dir(ProjectDirectory,sprintf("%s_.*",FolderPrefix))
-  Num = grep("\\d",unlist(strsplit(FolderList,split = "_",fixed = T)),value = T)
-  Num = as.numeric(Num)
+  FolderList = dir(path = ProjectDirectory,
+                   pattern = sprintf("%s_.*",FolderPrefix))
+  Num = grep("\\d",
+             unlist(strsplit(FolderList,
+                             split = "_",
+                             fixed = T)),
+             value = T) %>%
+    as.numeric()
   return(Num)
 }
-SDPP.creat.folder <- function(FolderName,ProjectDirectory,FolderNum=NA,Type='Step'){
+SDPP.creat.folder <- function(FolderName,
+                              ProjectDirectory,
+                              FolderNum=NA,
+                              Type='Step'){
   if (any(str_ends(dir(ProjectDirectory),FolderName))){
-    fprintf("Duplicated Folder Name was found in %s\n",ProjectDirectory)
-    fprintf("Duplicated Folder Name:%s\n",dir(ProjectDirectory)[str_ends(dir(ProjectDirectory),FolderName)])
-    fprintf("SDPP.creat.step will be skiped. No folder will be created.\n")
+    fprintf("Duplicated subfolder was found in project folder: [%s]\n",
+            ProjectDirectory)
+    fprintf("\tDuplicated name: [%s]\n",
+            dir(ProjectDirectory)[str_ends(dir(ProjectDirectory),FolderName)])
+    fprintf("SDPP.creat.folder will be skiped. No folder will be created.\n")
   }else{
-    ExistedStepNum = SDPP.get.number('Step',ProjectDirectory)
+    ExistedStepNum = SDPP.get.number(Type,ProjectDirectory)
     TailStepNum = tail(ExistedStepNum,1)
-    if (is.na(FolderNum)){
+    if (any(is.na(FolderNum))){
       NewStepNum = TailStepNum + 1
-      fprintf("Folder Number is NA. Automatedly use tail plus one.(Auto-set Num:%d)\n",NewStepNum)
+      fprintf("Folder Number is NA.
+              Automatedly use tail plus one.(Auto set number:%d)\n",
+              NewStepNum)
     }else if (FolderNum %in% ExistedStepNum){
       NewStepNum = TailStepNum + 1
-      fprintf("The given Folder Number is redundant. Automatedly use tail plus one.(Auto-set Num:%d)\n",NewStepNum)
+      fprintf("The given Folder Number already exists.
+              Automatedly use tail plus one.(Auto set number:%d)\n",
+              NewStepNum)
     }else{
       NewStepNum = FolderNum
     }
     if (Type %in% c('Step','Res','Supp','RepVis','SensAna')){
       NewFolderName = paste(Type,NewStepNum,FolderName,sep = '_')
       dir.create(fullfile(ProjectDirectory,NewFolderName))
-      fprintf("New SDPP Folder: [%s] has been created at Project:%s\n",NewFolderName,ProjectDirectory)
+      fprintf("New SDPP Folder: [%s] has been created at Project:%s\n",
+              NewFolderName,ProjectDirectory)
     }else{
       fprintf("SDPP Folder Type incorrect! No folder will be created.\n")
       stop("Please reset the requested SDPP folder type.")
@@ -532,35 +549,44 @@ MVA.Report.CaseMiss.By.Wave <- function(df,verbose = T){
   }
   fprintf("Included variables in MVA: \n")
   print(colnames(df)[!colnames(df) %in% c('src_subject_id','eventname') ])
-  df %>% group_by(eventname) %>% select(-src_subject_id) %>%
-    miss_case_summary() -> Report_case_miss
+  Report_case_miss <- df %>% 
+    group_by(eventname) %>%
+    select(-src_subject_id) %>%
+    miss_case_summary()
   Report_case_miss$pct_miss <- sprintf('%2.2f',Report_case_miss$pct_miss)
   Report_case_miss$pct_miss <- factor(Report_case_miss$pct_miss,
                                       levels = unique(Report_case_miss$pct_miss))
-  Report_case_miss %>% count(pct_miss) %>% as.data.frame() -> Report_summary
-  as.character(Report_summary$pct_miss) %>% str_c('%') %>% 
+  Report_summary <- Report_case_miss %>% 
+    count(pct_miss) %>% 
+    as.data.frame() 
+  Report_summary$pct_miss <- Report_summary$pct_miss %>% 
+    as.character() %>%
+    str_c('%') %>% 
     RECODE("'100.00%' = 'Complete Miss (100%)';
-           '0.00%' = 'Non-miss (0%)';") -> Report_summary$pct_miss
-  Report_summary = rename(Report_summary,
+           '0.00%' = 'Non-miss (0%)';")
+  Report_summary <- rename(Report_summary,
                           `Case Miss Status (Percentage)` = pct_miss,
                           `Number of Cases` = n)
  fprintf("Case Miss Summary Table:\n")
- Report_print = rename(Report_summary,
+ Report_print <- rename(Report_summary,
                        Status = `Case Miss Status (Percentage)`)
- Report_print$Status = RECODE(Report_print$Status,
+ Report_print$Status <- RECODE(Report_print$Status,
                               "'Complete Miss (100%)' = 'Complete Miss (100%)';
                               'Non-miss (0%)' = 'Non-miss (0%)';
                               else = 'Non-complete Miss (0%<pct<100%)';")
- Report_print %>% group_by(eventname,Status) %>% 
-   reframe(N=sum(`Number of Cases`)) %>% as.data.frame() %>% print()
+ Report_print %>%
+   group_by(eventname,Status) %>% 
+   reframe(N=sum(`Number of Cases`)) %>%
+   as.data.frame() %>%
+   print()
  if (verbose){
    for (i in unique(Report_case_miss$eventname)){
-     SubID = df$src_subject_id[df$eventname==i]
-     SUbID_AnyMiss = SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
+     SubID <- df$src_subject_id[df$eventname==i]
+     SUbID_AnyMiss <- SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
                                                    (Report_case_miss$pct_miss != "0.00")]]
-     SubID_CompMiss = SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
+     SubID_CompMiss <- SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
                                                     (Report_case_miss$pct_miss == "100.00")]]
-     SubID_PartMiss = SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
+     SubID_PartMiss <- SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
                                                     (Report_case_miss$pct_miss != "0.00") & 
                                                     (Report_case_miss$pct_miss != "100.00")]]
      fprintf("At [%s] (time point), any Miss in the above variables (Subject ID):\n",i)
@@ -608,16 +634,25 @@ MVA.KNNimpute <- function(df,var_ls,MATLAB_server_obj){
   return(df)
 }
 Bind.imp.By.Wave <- function(raw_dat_name,imp_dat){
-  data_masking = paste(sprintf("(eventname != '%s')",unique(imp_dat$eventname)),collapse = ' & ')
-  unimp_dat = eval_s("subset(%s,%s)",raw_dat_name,data_masking)
+  data_masking <- paste(sprintf("(eventname != '%s')",
+                                unique(imp_dat$eventname)),
+                        collapse = ' & ')
+  unimp_dat <- eval_s("subset(%s,%s)",
+                     raw_dat_name,
+                     data_masking)
   
-  data_masking = paste(sprintf("(eventname == '%s')",unique(imp_dat$eventname)),collapse = ' | ')
-  wait_imp_dat = eval_s("subset(%s,%s)",raw_dat_name,data_masking)
-  imp_var_ls = colnames(imp_dat)[!colnames(imp_dat) %in% c('src_subject_id','eventname')]
-  wait_imp_dat = select(wait_imp_dat,!all_of(imp_var_ls))
+  data_masking <- paste(sprintf("(eventname == '%s')",
+                                unique(imp_dat$eventname)),
+                        collapse = ' | ')
+  wait_imp_dat <- eval_s("subset(%s,%s)",
+                         raw_dat_name,
+                         data_masking)
+  imp_var_ls <- colnames(imp_dat)[!colnames(imp_dat) %in% c('src_subject_id','eventname')]
+  wait_imp_dat <- select(wait_imp_dat,!all_of(imp_var_ls))
 
-  new_dat = base::merge(wait_imp_dat,imp_dat,by = c('src_subject_id','eventname'))
-  new_dat = rbind(new_dat,unimp_dat)
+  new_dat <- base::merge(wait_imp_dat,imp_dat,
+                         by = c('src_subject_id','eventname'))
+  new_dat <- rbind(new_dat,unimp_dat)
   return(new_dat)
 }
 

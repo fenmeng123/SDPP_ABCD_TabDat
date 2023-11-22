@@ -9,7 +9,7 @@ Kunru Song
 
 # Basic Infomation
 
-**Author:** Kunru Song, PhD Student at BNU, supervised by Dr.Jin-tao
+**Author:** Kunru Song, PhD Candidate at BNU, supervised by Dr.Jin-tao
 Zhang.
 
 [Kunru’s Researchgate
@@ -25,7 +25,7 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
 
 **Data Version:** ABCD 5.0 Data Release (tabulated data)
 
-**ABCD Link**
+**ABCD Links**
 
 - [ABCD 5.0 Tabulated Release
   Data](https://nda.nih.gov/study.html?id=2147)

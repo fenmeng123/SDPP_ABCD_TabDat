@@ -86,8 +86,10 @@ fprintf("=================================Step 10 Specifications================
 S10_ResultsOutputDir = S9_ResultsOutputDir
 fprintf("Step 10 Results Output Directory will inherit from Step 9:%s \n",S10_ResultsOutputDir)
 
-# ==============================DO NOT CHANGE!=====================================#
 
+AutoLogFolder = SDPP.ABCD.TabDat.PrepareProject(ProjectDirectory);
+
+# ==============================DO NOT CHANGE!=====================================#
 # End of Script -----------------------------------------------------------
 fprintf("SDPP-ParaSet finished! Finish Time:%s\n",Sys.time())
 sink()
