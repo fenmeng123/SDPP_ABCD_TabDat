@@ -1,11 +1,11 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-09-21
+2023-11-22
 
 - [Basic Infomation](#basic-infomation)
 - [Citation and Suggestions](#citation-and-suggestions)
-- [Update Logs](#update-logs)
+- [Change Logs](#change-logs)
 
 # Basic Infomation
 
@@ -67,7 +67,15 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
     page of this
     repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/pulls)
 
-# Update Logs
+# Change Logs
+
+- 2023.11.22
+
+  - find some bugs and start codes re-constructing to improve the
+    readability of all codes in SDPP-ABCD-TabDat.
+  - Add new features: filter columns by manually modified ABCD Data
+    Dictionary file.
+  - Update Step 10.
 
 - 2023.8.7
 
