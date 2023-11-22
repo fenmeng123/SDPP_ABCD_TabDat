@@ -1,5 +1,5 @@
 # SDPP_subfunctions.R is a script contains all user-defined functions that are
-# needed when using the SDPP-ABCD-TabDat pipelin. Please make sure you have
+# needed when using the SDPP-ABCD-TabDat pipeline. Please make sure you have
 # sourced this script before running any steps in SDPP-ABCD-TabDat.
 # Author: Kunru Song
 # 
@@ -8,17 +8,24 @@
 # 1. Basic File I/O Functions ---------------------------------------------
 addprefix <- function(prefix,filename,postfix=NA){
   if (!is.na(prefix)){
-    filename = paste(prefix,filename,sep = '_')
+    filename = paste(prefix,
+                     filename,
+                     sep = '_')
   }
   if (is.na(postfix)){
     return(filename)
   }else{
-    filename = paste(filename,postfix,sep = '.')
+    filename = paste(filename,
+                     postfix,
+                     sep = '.')
     return(filename)
   }
 }
 fullfile <- function(...){
-  PathStr = normalizePath(paste(...,sep = '/'),winslash = '/',mustWork = F)
+  PathStr = normalizePath(
+    paste(...,sep = '/'),
+    winslash = '/',
+    mustWork = F)
   return(PathStr)
 }
 fprintf <- function(StringVar,...){
@@ -32,10 +39,6 @@ read4.0 <- function(filename){
   var.descrip <- data[1,]
   # remove the first row
   data<-data[-1,]
-  # # add comments to all columns
-  # for (i in 1:length(var.descrip)){
-  #   comment(data[,i])<-var.descrip[1,i]
-  # }
   return(data)
 }
 read5.0 <- function(filename){
@@ -53,7 +56,6 @@ readABCDdata<-function(filename,version="5.0"){
   return(data)
 }
 read.in.batch <- function(DownloadedDataDir,TableNames,FolderName=NA){
-  # tmp <- list()
   if (is.na(FolderName)){
     DataFileDir = DownloadedDataDir
   }else{
@@ -82,25 +84,77 @@ SDPP.clearall <- function(){
   rm(list=ls())
   gc()
 }
-SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory){
-  if (!file.exists(ProjectDirectory)){
-    options(warn = -1)
-    cat("Project Directory not found! Auto-creating SDPP Project Folder....\n")
-    dir.create(ProjectDirectory)
-    dir.create(normalizePath(paste(ProjectDirectory,'Res_1_Logs',sep = '/'),winslash = '/'))
-    dir.create(normalizePath(paste(ProjectDirectory,'Res_2_Results',sep = '/'),winslash = '/'))
-    dir.create(normalizePath(paste(ProjectDirectory,'Res_3_IntermediateData',sep = '/'),winslash = '/'))
-    dir.create(normalizePath(paste(ProjectDirectory,'Res_4_Reports',sep = '/'),winslash = '/'))
-    dir.create(normalizePath(paste(ProjectDirectory,'Step_0_Preprocessing',sep = '/'),winslash = '/'))
-    cat(sprintf("SDPP Project has been created at %s\n",normalizePath(ProjectDirectory)))
-    cat("Project Folder Structure:\n")
-    cat(list.files(normalizePath(ProjectDirectory)))
-    options(warn = 1)
+SDPP.check.package <- function(package_name = c("readxl",
+                                                "bruceR",
+                                                "forcats",
+                                                "mice",
+                                                "svDialogs",
+                                                "naniar",
+                                                "R.matlab",
+                                                "Hmisc",
+                                                "tidyverse",
+                                                "knitr")){
+  res = data.frame(name = package_name)
+  for (i in 1:length(package_name)){
+    package_path = system.file(package = package_name[i])
+    
+    if(!nzchar(package_path)){
+      package_status = "Not Installed!"
+    }else{
+      package_status = "Installed."
+    }
+    res$status[i] = package_status
+    res$path[i] = package_path
   }
-  AutoLogFolderPath = normalizePath(paste(ProjectDirectory,'Res_1_Logs',sep = '/'),winslash = '/')
+  if (any(res$status %in% "Not Installed!")){
+    cat("Some required R packageds have not been installed! Please see the table below:\n")
+    print(res)
+    cat("SDPP-ABCD-TabDat rely on these packages, please make sure you have installed all required R packages!\n")
+    stop("SDPP-ABCD-TabDat Check Required Packages: Failed! See above information.")
+  }else{
+    cat("SDPP-ABCD-TabDat Check Required Packages: Passed!\n")
+    cat("All required R packages have been installed: \n")
+    print(res)
+  }
+  return(res)
+}
+SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory){
+  SDPPFolderStruct <- list(
+    Res_1_Dir = fullfile(ProjectDirectory,'Res_1_Logs'),
+    Res_2_Dir = fullfile(ProjectDirectory,'Res_2_Results'),
+    Res_3_Dir = fullfile(ProjectDirectory,'Res_3_IntermediateData'),
+    Res_4_Dir = fullfile(ProjectDirectory,'Res_4_Reports'),
+    Res_5_Dir = fullfile(ProjectDirectory,'Res_5_GitIgnore'),
+    Step_0_Dir = fullfile(ProjectDirectory,'Step_0_Preprocessing'),
+    Supp_1_Dir = fullfile(ProjectDirectory,'Supp_1_Subfunctions'),
+    Supp_2_Dir = fullfile(ProjectDirectory,'Supp_2_References')
+    )
+  if (!dir.exists(ProjectDirectory)){
+    cat("Project Directory not found! Auto-creating SDPP Project Folder...\n")
+    dir.create(ProjectDirectory)
+    cat(sprintf("SDPP Project has been created at %s\n",normalizePath(ProjectDirectory)))
+  }
+  for (i in names(SDPPFolderStruct)){
+    if (!dir.exists(SDPPFolderStruct[[i]])){
+      dir.create(SDPPFolderStruct[[i]])
+      fprintf('|SDPP Default Project Structure - [%s]|\n\tCreated folder: [%s]\n',
+              i,SDPPFolderStruct[[i]])
+    }else{
+      fprintf('|SDPP Default Project Structure - [%s]|\n\tAlready exist: [%s]\n',
+              i,SDPPFolderStruct[[i]])
+    }
+  }
+  cat("Project Folder Structure:\n")
+  fprintf('%s\n',list.files(fullfile(ProjectDirectory)))
+  AutoLogFolderPath = SDPPFolderStruct[['Res_1_Dir']]
   return(AutoLogFolderPath)
 }
-SDPP.save.file <- function(Data,FileName,Prefix,ProjectDirectory,FileFormat=NA,DataLabel=NA){
+SDPP.save.file <- function(Data,
+                           FileName,
+                           Prefix,
+                           ProjectDirectory,
+                           FileFormat=NA,
+                           DataLabel=NA){
   if (is.na(FileFormat)){
     OutputFileName = addprefix(Prefix,FileName)
     FileFormat = unlist(lapply(strsplit(FileName,split = ".",fixed = T),tail,1))
@@ -115,10 +169,10 @@ SDPP.save.file <- function(Data,FileName,Prefix,ProjectDirectory,FileFormat=NA,D
   }
   if (FileFormat == 'rds'){
     saveRDS(Data,OutputFileDir)
-    cat(sprintf('Saving Data into %s File: %s......\nFinished!\n',toupper(FileFormat),OutputFileDir))
+    fprintf('Saving Data into %s File: %s......\nFinished!\n',toupper(FileFormat),OutputFileDir)
   } else if (FileFormat == 'csv'){
     write.csv(Data,OutputFileDir,fileEncoding = 'UTF-8')
-    cat(sprintf('Saving Data into %s File: %s......\nFinished!\n',toupper(FileFormat),OutputFileDir))
+    fprintf('Saving Data into %s File: %s......\nFinished!\n',toupper(FileFormat),OutputFileDir)
   } else {
     fprintf("Did not find appropraite file postfix! Please Check your code!")
     fprintf("SDPP.save file will be skipped! Save data failed!")
@@ -181,21 +235,50 @@ SDPP.creat.folder <- function(FolderName,ProjectDirectory,FolderNum=NA,Type='Ste
     }
   }
 }
-SDPP.filter.data.dict <- function(DataDictionaryFileDir,filter_col,filter_key,
+SDPP.filter.data.dict <- function(DataDictionaryFileDir = dir(pattern = '.*Dictionary.*xlsx'),
+                                  filter_col = 'Included_Flag',
+                                  filter_key = 'Yes',
                                   search_col = NA){
-  readxl::read_excel(DataDictionaryFileDir) %>% as.data.frame() -> dict
-  Flag = dict[[filter_col]] == filter_key
-  if (is.na(search_col)){
-    NEW = dict[which(Flag),]
+  if (length(DataDictionaryFileDir) > 1){
+    warning('Multiple ABCD Data Dictionray (EXCEL files) have been found! Using the first one as default.')
+    DataDictionaryFileDir <- DataDictionaryFileDir[1]
+  }
+  fprintf('ABCD Data Dictionary used: [%s]\n',DataDictionaryFileDir)
+  dict <- DataDictionaryFileDir %>%
+    import() %>%
+    as.data.frame()
+  RowFlag = which(dict[[filter_col]] == filter_key)
+  if (any(is.na(search_col))){
+    filtered_dict = dict[RowFlag,]
   }else{
     if (length(search_col)==1){
-      NEW = dict[[search_col]][which(Flag)]
+      filtered_dict = dict[[search_col]][RowFlag]
     }else if (length(search_col)>1){
-      NEW = dict[which(Flag),search_col]
+      filtered_dict = dict[RowFlag,search_col]
     }
   }
-  return(NEW)
+  return(filtered_dict)
 }
+SDPP.select.cols.by.dict <- function(data,
+                                     TableNames,
+                                     DataDictionaryFileDir = 
+                                       dir(pattern = '.*ABCD Data Dictionary\\.xlsx$')){
+  if (any(str_detect(TableNames,'\\.csv'))){
+    TableNames = str_remove_all(TableNames,
+                                '\\.csv')
+  }
+  filtered_dict <- SDPP.filter.data.dict(DataDictionaryFileDir,
+                        search_col = c('table_name','var_name')) %>%
+    subset(table_name %in% TableNames)
+  fprintf('%d columns will be selected according to data dictionary file.\n',
+          nrow(filtered_dict))
+  fprintf('Selected columns in data frame:\n')
+  print(knitr::kable(filtered_dict,row.names = F))
+  selected_data <- data %>%
+    select(all_of(filtered_dict$var_name))
+  return(selected_data)
+}
+
 # 3. Data Processing Functions --------------------------------------------
 dt.print.mva.counts <- function(dt_name,var_name){
   if (is.character(dt_name) & is.character(var_name)){

@@ -16,7 +16,7 @@
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_1.txt'
 AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
-sink(file = AutoLogFilePath)
+sink(file = AutoLogFilePath,type = 'output',append = F)
 library(readxl)
 # ==============================MAIN CODES=====================================#
 # 2. Load abcd_p_demo.csv and perform re-coding --------------------------------
