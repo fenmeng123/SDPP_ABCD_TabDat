@@ -23,21 +23,19 @@
 # =============================================================================#
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_9.txt'
-AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
-sink(file = AutoLogFilePath)
-ResultsOutputDir = S9_ResultsOutputDir
-rm(S9_ResultsOutputDir)
+DatTableNames = c("nc_y_adm.csv","nc_y_svs.csv",
+                  "nc_y_cct.csv","nc_y_lmt.csv",
+                  "nc_y_ravlt.csv","nc_y_wisc.csv",
+                  "nc_y_ddis.csv","nc_y_est.csv",
+                  "nc_y_gdt.csv","nc_y_sit.csv",
+                  "nc_y_smarte.csv","nc_p_bdef.csv",
+                  "nc_y_flkr.csv","nc_y_bird.csv")
+s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 library(naniar)
 # ==============================MAIN CODES=====================================#
 # 2. Load NIHTB and its composite scores data ---------------------------------
 data = read.in.batch(DownloadedDataDir = TabulatedDataDirectory,
-                    TableNames = c("nc_y_adm.csv","nc_y_svs.csv",
-                                   "nc_y_cct.csv","nc_y_lmt.csv",
-                                   "nc_y_ravlt.csv","nc_y_wisc.csv",
-                                   "nc_y_ddis.csv","nc_y_est.csv",
-                                   "nc_y_gdt.csv","nc_y_sit.csv",
-                                   "nc_y_smarte.csv","nc_p_bdef.csv",
-                                   "nc_y_flkr.csv","nc_y_bird.csv"),
+                    TableNames = DatTableNames,
                     FolderName = "neurocognition")
 NEW_data = select(data,c(src_subject_id,eventname))
 
@@ -496,6 +494,5 @@ select(NEW_NonNIHTB,-c(src_subject_id,eventname)) %>%
               digits = 2)
 # End of Script -----------------------------------------------------------
 
-fprintf("SDPP-ABCD-TabDat Step 9 finished! Finish Time:%s\n",Sys.time())
+s_close_sink()
 
-sink()

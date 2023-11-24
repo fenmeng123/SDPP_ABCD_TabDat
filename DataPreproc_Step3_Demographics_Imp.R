@@ -18,9 +18,7 @@
 # =============================================================================#
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_3.txt'
-AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
-sink(file = AutoLogFilePath)
-ResultsOutputDir = S3_ResultsOutputDir
+s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 library(mice)
 library(forcats)
 library(naniar)
@@ -326,6 +324,6 @@ Demographics_Imputed %>% MVA.Report.By.Wave() %>%
               nsmalls = 1)
 # End of Script -----------------------------------------------------------
 rm(ResultsOutputDir,n.imp,n.iter)
-fprintf("SDPP-ABCD-TabDat Step 3 finished! Finish Time:%s\n",Sys.time())
-sink()
+s_close_sink()
+
 

@@ -12,7 +12,7 @@
 #                         mri_y_tfmr_nback_beh.csv
 #                         mri_y_tfmr_nback_rec_beh.csv
 # Update Date: 2023.8.7
-# Update Date: 2023.11.2
+# Update Date: 2023.11.24
 # =============================================================================#
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_10.txt'
@@ -21,10 +21,7 @@ DatTableNames = c("mri_y_tfmr_mid_beh.csv","mri_y_tfmr_mid_qtn.csv",
                   "mri_y_tfmr_nback_rec_beh.csv")
 SubfolderName = "imaging"
 
-AutoLogFilePath = fullfile(AutoLogFolder,AutoLogFileName)
-s_sink(AutoLogFilePath)
-ResultsOutputDir = S10_ResultsOutputDir
-rm(S10_ResultsOutputDir)
+s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 library(naniar)
 # ==============================MAIN CODES=====================================#
 # 2. Load task performance data during fMRI scanning ----------------------

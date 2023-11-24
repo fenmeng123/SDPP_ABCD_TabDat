@@ -15,8 +15,7 @@
 # =============================================================================#
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_1.txt'
-AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
-sink(file = AutoLogFilePath,type = 'output',append = F)
+s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 library(readxl)
 # ==============================MAIN CODES=====================================#
 # 2. Load abcd_p_demo.csv and perform re-coding --------------------------------
@@ -705,5 +704,4 @@ cat(sprintf('Raw Demographics Data (Double and Character) will be saved into: %s
 write.csv(Demographic,OutputFileDir,fileEncoding = 'UTF-8')
 
 # End of script -------------------------------------------------------
-fprintf("SDPP-ABCD-TabDat Step 1 finished! Finish Time:%s\n",Sys.time())
-sink()
+s_close_sink()

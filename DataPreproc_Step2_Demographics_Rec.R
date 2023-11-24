@@ -21,8 +21,7 @@
 # =============================================================================#
 # 1 Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_2.txt'
-AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
-sink(file = AutoLogFilePath)
+s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 library(forcats)
 # ==============================MAIN CODES=====================================#
 # 2. Read RDS-file and print all columns data type ----------------------------
@@ -351,6 +350,5 @@ write.csv(Demographic,OutputFileDir,
 cat(sprintf('Saving Data into CSV File: %s......\nFinished!\n',OutputFileDir))
 
 # End of script -----------------------------------------------------------
-fprintf("SDPP-ABCD-TabDat Step 2 finished! Finish Time:%s\n",Sys.time())
-sink()
+s_close_sink()
 

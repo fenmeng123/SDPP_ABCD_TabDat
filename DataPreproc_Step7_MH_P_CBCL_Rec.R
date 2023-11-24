@@ -11,9 +11,7 @@
 # =============================================================================#
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_7.txt'
-AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
-sink(file = AutoLogFilePath)
-ResultsOutputDir = S7_ResultsOutputDir 
+s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 library(naniar)
 # ==============================MAIN CODES=====================================#
 # 2. Load CBCL and its sum scores data ---------------------------------------
@@ -77,6 +75,5 @@ NEW_CBCL %>% MVA.Report.By.Wave() %>%
 
 # End of Script -----------------------------------------------------------
 
-fprintf("SDPP-ABCD-TabDat Step 7 finished! Finish Time:%s\n",Sys.time())
+s_close_sink()
 
-sink()

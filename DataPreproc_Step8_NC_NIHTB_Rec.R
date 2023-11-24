@@ -10,9 +10,7 @@
 # =============================================================================#
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_8.txt'
-AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
-sink(file = AutoLogFilePath)
-ResultsOutputDir = S8_ResultsOutputDir 
+s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 library(naniar)
 # ==============================MAIN CODES=====================================#
 # 2. Load NIHTB and its composite scores data ---------------------------------
@@ -78,6 +76,4 @@ NEW_NIHTB %>% MVA.Report.By.Wave() %>%
 
 # End of Script -----------------------------------------------------------
 
-fprintf("SDPP-ABCD-TabDat Step 8 finished! Finish Time:%s\n",Sys.time())
-
-sink()
+s_close_sink()

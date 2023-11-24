@@ -10,9 +10,7 @@
 # =============================================================================#
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_5.txt'
-AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
-sink(file = AutoLogFilePath)
-ResultsOutputDir = S4_ResultsOutputDir
+s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 library(naniar)
 library(R.matlab)
 # ==============================MAIN CODES=====================================#
@@ -161,6 +159,4 @@ close(MATLAB_Client)
 
 print(MATLAB_Client)
 
-fprintf("SDPP-ABCD-TabDat Step 5 finished! Finish Time:%s\n",Sys.time())
-
-sink()
+s_close_sink()

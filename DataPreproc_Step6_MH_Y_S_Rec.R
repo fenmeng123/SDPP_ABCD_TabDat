@@ -12,9 +12,7 @@
 # =============================================================================#
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_6.txt'
-AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
-sink(file = AutoLogFilePath)
-ResultsOutputDir = S6_ResultsOutputDir
+s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 library(naniar)
 # ==============================MAIN CODES=====================================#
 # 2. Load Youth Mental Health Summary and select the relevant columns ------------------
@@ -138,6 +136,5 @@ NEW_MH_S %>% MVA.Report.By.Wave() %>%
 
 # End of Script -----------------------------------------------------------
 
-fprintf("SDPP-ABCD-TabDat Step 6 finished! Finish Time:%s\n",Sys.time())
+s_close_sink()
 
-sink()

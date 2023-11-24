@@ -11,9 +11,7 @@
 # =============================================================================#
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_4.txt'
-AutoLogFilePath = fullfile(ProjectDirectory,'Res_1_Logs',AutoLogFileName)
-sink(file = AutoLogFilePath)
-ResultsOutputDir = S4_ResultsOutputDir
+s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 library(naniar)
 library(forcats)
 # ==============================MAIN CODES=====================================#
@@ -443,5 +441,5 @@ SDPP.save.file(ScreenUse,
                ProjectDirectory = ProjectDirectory)
 
 # End of script -------------------------------------------------------
-sink()
+s_close_sink()
 
