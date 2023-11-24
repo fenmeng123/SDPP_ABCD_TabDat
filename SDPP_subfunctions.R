@@ -139,7 +139,7 @@ SDPP.check.package <- function(package_name = c("readxl",
   }
   return(res)
 }
-SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory){
+SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory,verbose = T){
   SDPPFolderStruct <- list(
     Res_1_Dir = fullfile(ProjectDirectory,'Res_1_Logs'),
     Res_2_Dir = fullfile(ProjectDirectory,'Res_2_Results'),
@@ -151,24 +151,50 @@ SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory){
     Supp_2_Dir = fullfile(ProjectDirectory,'Supp_2_References')
     )
   if (!dir.exists(ProjectDirectory)){
-    cat("Project Directory not found! Auto-creating SDPP Project Folder...\n")
+    if (verbose) cat("Project Directory not found! Auto-creating SDPP Project Folder...\n")
     dir.create(ProjectDirectory)
-    cat(sprintf("SDPP Project has been created at %s\n",normalizePath(ProjectDirectory)))
+    if (verbose) cat(sprintf("SDPP Project has been created at %s\n",normalizePath(ProjectDirectory)))
   }
   for (i in names(SDPPFolderStruct)){
     if (!dir.exists(SDPPFolderStruct[[i]])){
       dir.create(SDPPFolderStruct[[i]])
-      fprintf('|SDPP Default Project Structure - [%s]|\n\tCreated folder: [%s]\n',
+      if (verbose) fprintf('|SDPP Default Project Structure - [%s]|\n\tCreated folder: [%s]\n',
               i,SDPPFolderStruct[[i]])
     }else{
-      fprintf('|SDPP Default Project Structure - [%s]|\n\tAlready exist: [%s]\n',
+      if (verbose) fprintf('|SDPP Default Project Structure - [%s]|\n\tAlready exist: [%s]\n',
               i,SDPPFolderStruct[[i]])
     }
   }
-  cat("Project Folder Structure:\n")
-  fprintf('%s\n',list.files(fullfile(ProjectDirectory)))
+  if (verbose) cat("Project Folder Structure:\n")
+  if (verbose) fprintf('%s\n',list.files(fullfile(ProjectDirectory)))
   AutoLogFolderPath = SDPPFolderStruct[['Res_1_Dir']]
   return(AutoLogFolderPath)
+}
+SDPP.Initialize <- function(ProjectDirectory){
+  fprintf('Starting SDPP-ABCD-TabDat......\n')
+  fprintf('R package: bruceR is a common-used package in this pipeline, which would be included in all steps.\n')
+  # Check the required packages
+  res <- SDPP.check.package()
+  basic.info = sessionInfo()
+  other.info = Sys.info()
+  IntermediateDataDir = fullfile(ProjectDirectory,'Res_3_IntermediateData')
+  ResultsOutputDir = SDPP.set.output(
+    fullfile(ProjectDirectory,
+             'Res_2_Results',
+             'Res_Preproc'))
+  fprintf("===============================SDPP-ABCD-TabDat Settings===============================\n")
+  fprintf("Scripts Executing Date: \t\t %s\n",Sys.time())
+  fprintf("Running under OS: \t\t %s\n",basic.info$running)
+  fprintf("Platform: \t\t\t %s\n",basic.info$platform)
+  fprintf("R Version: \t\t\t %s\n",basic.info$R.version$version.string)
+  fprintf("Running on Computer Name: \t %s\n",other.info['nodename'])
+  fprintf("Working Directory: \t\t %s\n",getwd())
+  fprintf("Project Directory: \t\t\t %s\n",fullfile(ProjectDirectory))
+  fprintf("Downloaded NDA Data Directory: \t %s\n",fullfile(TabulatedDataDirectory))
+  fprintf("Output Intermediate Data File Prefix: \t %s\n",Prefix)
+  fprintf("Output Intermediate Data Directory: \t %s\n",IntermediateDataDir)
+  fprintf("Output Derivative Files Directory:\t %s\n",ResultsOutputDir)
+  AutoLogFolder = SDPP.ABCD.TabDat.PrepareProject(ProjectDirectory)
 }
 SDPP.save.file <- function(Data,
                            FileName,
