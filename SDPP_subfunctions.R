@@ -276,6 +276,11 @@ SDPP.filter.data.dict <- function(DataDictionaryFileDir = dir(pattern = '.*Dicti
                                   filter_key = 'Yes',
                                   search_col = NA,
                                   verbose = T){
+  # Exclude the temporal copy file when Data Dictionary is currently opened.
+  DataDictionaryFileDir <- DataDictionaryFileDir[
+                                    !str_detect(DataDictionaryFileDir,'^\\~\\$')
+                                    ]
+  # Identify multiple Data Dictionary files
   if (length(DataDictionaryFileDir) > 1){
     warning('Multiple ABCD Data Dictionray (EXCEL files) have been found! Using the first one as default.')
     DataDictionaryFileDir <- DataDictionaryFileDir[1]

@@ -11,7 +11,7 @@
 
 <meta name="author" content="Kunru Song" />
 
-<meta name="date" content="2023-11-22" />
+<meta name="date" content="2023-11-24" />
 
 <title>SDPP-ABCD-TabDat User Manual</title>
 
@@ -1511,7 +1511,7 @@ font-size: 0.95em;
 
 <h1 class="title toc-ignore">SDPP-ABCD-TabDat User Manual</h1>
 <h4 class="author">Kunru Song</h4>
-<h4 class="date">2023-11-22</h4>
+<h4 class="date">2023-11-24</h4>
 
 </div>
 
@@ -2066,8 +2066,8 @@ events</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">MID-PQ</td>
+<td align="left">Post scan Questionnaire after MID task</td>
 <td align="left">ERQ_Reappraisal</td>
 <td align="left">ERQ Subscale - emotion regulation strategies:
 reapprasial (Sum Score)</td>
@@ -2075,8 +2075,8 @@ reapprasial (Sum Score)</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">RECMEM</td>
+<td align="left">N-Back Recognition Memory task</td>
 <td align="left">ERQ_Suppression</td>
 <td align="left">ERQ Subscale - emotion regulation strategies:
 Suppression (Sum Score)</td>
@@ -2675,8 +2675,8 @@ ABCD Variables</h2>
 </tr>
 <tr class="odd">
 <td align="center">mri_y_tfmr_mid_beh</td>
-<td align="center">64</td>
-<td align="center">157</td>
+<td align="center">63</td>
+<td align="center">158</td>
 <td align="center">20</td>
 </tr>
 <tr class="even">
@@ -3526,10 +3526,10 @@ together, and using corrective lenses if needed.</li>
 examine the participants’ vision using the <strong>snellen_va_y</strong>
 variable. It is possible that poor vision could influence task
 performance.</li>
-<li><strong>snellen_va_y</strong> (task performance score): 1. Ensure
-that the chart is located in a well lit area and readily readable. 2.
-Verify if the child has corrective lenses and if so, whether he or she
-is wearing them. 3. Ascertain whether h/she can appropriately respond to
+<li><strong>SVS_Score</strong> (task performance score): 1. Ensure that
+the chart is located in a well lit area and readily readable. 2. Verify
+if the child has corrective lenses and if so, whether he or she is
+wearing them. 3. Ascertain whether h/she can appropriately respond to
 stimuli on an iPad screen. Smallest line subject was able to see without
 error? Line numbers are represented on the right-most side of the
 chart.</li>
@@ -3910,31 +3910,30 @@ tolerance for distress; a binary quit [1: high distress] and no quit [0:
 low distress] variable is also computed); pre- and post-task affective
 scales (Positive Affects and Negative Affects Scale, PANAS) are given
 prior to the task and after level 2.</p></li>
-<li><p><strong>BIRD-related variables</strong>:</p></li>
-<li><p>BIRD_Score: total score of the BIRD task</p></li>
-<li><p>BIRD_Dot_RT: mean dot latency (reaction time)</p></li>
-<li><p>BIRD_Challenge_RT: mean challenge latency (reaction
-time)</p></li>
-<li><p>BIRD_Quit_Score: Quit flage (1-high distress, 0-low
-distress)</p></li>
-<li><p>BIRD_Persistence_Score: time of persistence duration at level
-3</p></li>
-<li><p>BIRD_Pre_Anxiety_Score: Pre-task PANAS subscale sum score,
-anxiety</p></li>
-<li><p>BIRD_Pre_Frustra_Score: Pre-task PANAS subscale sum score,
-frustration</p></li>
-<li><p>BIRD_Pre_Irritab_Score: pre-task PANAS subscale sum score,
-irritability</p></li>
-<li><p>BIRD_Pre_Happine_Score: Pre-task PANAS subscale sum score,
-happiness</p></li>
-<li><p>BIRD_Post_Anxiety_Score: Post-task (after level 2) PANAS
-subscale, anxiety</p></li>
-<li><p>BIRD_Post_Frustra_Score: Post-task (after level 2) PANAS
-subscale, frustration</p></li>
-<li><p>BIRD_Post_Irritab_Score: Post-task (after level 2) PANAS
-subscale, irritability</p></li>
-<li><p>BIRD_Post_Happine_Score: Post-task (after level 2) PANAS
-subscale, happiness</p></li>
+<li><p><strong>BIRD-related variables</strong>:</p>
+<ul>
+<li>BIRD_Score: total score of the BIRD task</li>
+<li>BIRD_Dot_RT: mean dot latency (reaction time)</li>
+<li>BIRD_Challenge_RT: mean challenge latency (reaction time)</li>
+<li>BIRD_Quit_Score: Quit flage (1-high distress, 0-low distress)</li>
+<li>BIRD_Persistence_Score: time of persistence duration at level 3</li>
+<li>BIRD_Pre_Anxiety_Score: Pre-task PANAS subscale sum score,
+anxiety</li>
+<li>BIRD_Pre_Frustra_Score: Pre-task PANAS subscale sum score,
+frustration</li>
+<li>BIRD_Pre_Irritab_Score: pre-task PANAS subscale sum score,
+irritability</li>
+<li>BIRD_Pre_Happine_Score: Pre-task PANAS subscale sum score,
+happiness</li>
+<li>BIRD_Post_Anxiety_Score: Post-task (after level 2) PANAS subscale,
+anxiety</li>
+<li>BIRD_Post_Frustra_Score: Post-task (after level 2) PANAS subscale,
+frustration</li>
+<li>BIRD_Post_Irritab_Score: Post-task (after level 2) PANAS subscale,
+irritability</li>
+<li>BIRD_Post_Happine_Score: Post-task (after level 2) PANAS subscale,
+happiness</li>
+</ul></li>
 <li><p>BIRD Task Indices Reference:</p>
 <blockquote>
 <p>Tonarely, N.A., Hirlemann, A., Shaw, A.M. et al. Validation and
@@ -3985,28 +3984,77 @@ Both an EF Summary Score (sum of all 20 item responses) and an EF
 Symptom Count (tally of responses of 3 or 4 across all items) are
 calculated for cases with either no missing item responses or only one
 missing item response (i.e. refuse to answer code “777”).</li>
-<li><strong>BDEFS-related Variables</strong></li>
+<li><strong>BDEFS-related Variables</strong>
+<ul>
 <li>BDEFS_Score: Sum score of BDEFS (sum of all 20 item responses)</li>
 <li>BDEFS_Symptom_Counts: Counts of executive functioning symptoms
 (tally of responses of 3 or 4 across all items)</li>
+</ul></li>
 </ul>
 </div>
 </div>
-<div id="task-fmri-behavioral-performance-and-post-scan-questionnaire" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> Task fMRI Behavioral
-Performance and Post-scan Questionnaire</h2>
-<div id="monetary-incentive-delay-task-tfmri-mid" class="section level3" number="7.3.1">
+<div id="task-fmri-behavioral-performance-and-post-scan-questionnaire" class="section level2 tabset" number="7.3">
+<h2 class="tabset"><span class="header-section-number">7.3</span> Task
+fMRI Behavioral Performance and Post-scan Questionnaire</h2>
+<ul>
+<li>The naming of Non-NIHTB task-related variables follows: <strong>Task
+Name Abbr</strong>_(<strong>Run Number</strong>)<em><strong>Variable
+Name Abbr</strong></em><strong>Pipeline-specific postfix</strong>.
+<ul>
+<li><strong>Task Name Abbr</strong> could be found in <em>Abbr
+Table</em> as well as <em>in below</em>.</li>
+<li><strong>Run Number</strong> is an optional part in variable naming,
+which follows the form of <strong>R[integer]</strong>. The subsequent
+integer indicates the number of run. Usually, it could be
+<strong>R1</strong> and <strong>R2</strong> (two runs in task-fMRI
+scanning). If variable naming did not include this part, it means this
+variable is the averaged value across two runs.</li>
+<li><strong>Variable Name Abbr</strong> includes:
+<ul>
+<li><strong>NR</strong> (the number of run administrated)</li>
+<li><strong>NT</strong> (the number of trials administrated)</li>
+<li><strong>Score</strong> (task performance score for certain task, if
+not noted, it represents the total score),</li>
+<li><strong>ACC</strong>, (if not noted, it represents the total
+accuracy across all task conditions)</li>
+<li><strong>RT</strong>, also <strong>Mean_RT</strong> and
+<strong>Std_RT</strong> (if not noted, it represents the mean RT of
+correct trials)</li>
+<li><strong>EFC</strong> (EFC=NC/RT, NC is the number of correct
+trials)</li>
+<li><strong>Counts</strong> (Some neurocognitve task will calculated the
+counts of a certain response)</li>
+</ul></li>
+</ul></li>
+<li>As for some neurocognitive tasks that includes ABCD-recommend
+validation criteria, there are some variables to indicate the task
+validation of a participant’s performance. These variables are named as
+follows: <strong>Task Name
+Abbr</strong>_<strong>Vald</strong>_<strong>Criterion Abbr</strong>.
+<strong>Vald</strong> is abbr of validation. For most ABCD-recommended
+criteria, <strong>Criterion Abbr</strong> inlcudes:
+<ul>
+<li><strong>Comp</strong> (Task Completed or not flag, yes or no)</li>
+<li><strong>Perf</strong> (Task performance is acceptable or not flag,
+yes or no)</li>
+<li><strong>Feed</strong> (Feedback performance is acceptable or not
+flag, yes or no)</li>
+</ul></li>
+</ul>
+<div id="monetary-incentive-delay-task-mid" class="section level3" number="7.3.1">
 <h3><span class="header-section-number">7.3.1</span> Monetary Incentive
-Delay Task (tfMRI-MID)</h3>
+Delay Task (MID)</h3>
 <ul>
 <li>The fMRI Monetary Incentive Delay (MID) task measures domains of
 reward processing, including anticipation and receipt of reward and
 losses, and trial-by-trial motivation in speeded responses to win or
 avoid loss. Each trial of the MID task begins with an incentive cue of
-five possible trial types (Win 20 USD, Win 5 USD, Lose 20 USD, Lose 5
-USD, 0-no money at stake), a delay, a target during which the
-participant responds to either win money or avoid losing money and
-feedback.</li>
+five possible trial types (Win 0.20 USD [Small ReWard,
+<strong>SRW</strong>], Win 5 USD [Large ReWard, <strong>LRW</strong>],
+Lose 0.20 USD [Small LOss, <strong>SLO</strong>] , Lose 5 USD [Large
+LOss, <strong>LLO</strong>], 0-no money at stake [NEUtral condition,
+<strong>NEU</strong>]), a delay, a target during which the participant
+responds to either win money or avoid losing money and feedback.</li>
 <li>Task performance is individualized to maintain a 60% accuracy rate.
 When possible, participants who were unable to complete the task in the
 scanner, completed the task behaviorally outside the scanner. Variables
@@ -4016,6 +4064,289 @@ task, or suboptimal data for feedback analyses. However, these
 recommended thresholds are subjective, so investigators should choose
 inclusion/exclusion performance criteria that are appropriate for their
 analyses.</li>
+<li><strong>MID-related Variables</strong>
+<ul>
+<li><strong>MID_Vald_Comp</strong>: MID script was completed or not.
+(YN)</li>
+<li><strong>MID_Vald_Perf</strong>: The recommended inclusion criteria
+require that the participant make at least 20 responses (i.e., button
+presses) per run: tfmri_mid_beh_performflag = 1.</li>
+<li><strong>MID_Vald_Feed</strong>: If any trial type across both runs
+yields fewer than 4 events in either the positive feedback or negative
+feedback, this will reduce the reliability of analyses of feedback
+trials. It is suggested that analyses of feedback trials be limited to
+participants with at least 4 events in each feedback trial type:
+tfmri_mid_beh_feedbackflag = 1. <em>Note that this feedback flag is not
+included in the default, recommended inclusion criteria for MID task
+fMRI, but can be used in combination with imgincl_mid_include to further
+limit the sample.</em></li>
+<li>MID_Vald_NR: number of valid runs in the file</li>
+<li>MID_Vald_R1_NT: total number of trials for run 1</li>
+<li>MID_Vald_R2_NT: total number of trials for run 2</li>
+<li>MID_(SRW/LRW/SLO/LLO/NEU/HRW/HLO)(PFB/NFB)_(ACC/Mean_RT/Std_RT):
+using abbreviation keywords to indicate all components (calculated
+scores) in the MID task.
+<ul>
+<li>Task Condition:
+<ul>
+<li>SRW: Small Reward condition, win $0.20</li>
+<li>LRW: Large Reward condition, win $5</li>
+<li>SLO: Small Loss condition, lose $0.20</li>
+<li>LLO: Large Loss condition, lose $5</li>
+<li>NEU: Neutral condition, no win no loss (no money at stake).</li>
+<li>HRW: Hybrid Reward, combined two kinds of Reward conditions, win 5
+or 0.20 USD.</li>
+<li>HLO: Hybrid Loss, combined two kinds of Loss conditions, lose 5 or
+0.20 USD.</li>
+</ul></li>
+<li>Trial Feedback Condition:
+<ul>
+<li>PFB: positive feedback, that is, win money or not lose money.</li>
+<li>NFB: negative feedback, that is, not win money or lose money.</li>
+</ul></li>
+<li>Performance Indices (averaged across runs):
+<ul>
+<li>ACC: rate of the <strong>Task Condition</strong> + <strong>Trail
+Feedback Condition</strong> on its <strong>Task Condition</strong>
+category. For example, <em>MID_SRWPFB_ACC</em> indicates <em>Number of
+small reward trials that yielded positive feedback in run 1 and run 2
+combined divided by the total number of small reward trials</em></li>
+<li>Mean_RT: the averaged reaction time for trials with <strong>Task
+Condition</strong> + <strong>Trail Feedback Condition</strong>
+combination.</li>
+<li>Std_RT: the standard deviation of reaction time for trials with
+<strong>Task Condition</strong> + <strong>Trail Feedback
+Condition</strong> combination.</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="monetary-incentive-delay---post-scan-questionnaire-midpq" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Monetary Incentive
+Delay - Post scan Questionnaire (MIDPQ)</h3>
+<ul>
+<li>After completion of the in-scanner task, participants are asked to
+rate how they felt when viewing the different cues and receiving the
+different outcomes during the MID task to determine the effectiveness
+and value of wins and losses.</li>
+<li>For individuals who have values in MIDPQ re-scan columns, the
+self-reported data will be replaced by the ‘re-scan’ columns. Because
+these items answered after re-scan can reflect the actual feelings
+corresponding to the brain activation.</li>
+<li><strong>MIDPQ-related Variables</strong>
+<ul>
+<li>Naming of MIDPQ-related variables follows the form of
+*MIDPQ_(EXC/NERV/TRY/)_(SRW/LRW/SLO/LLO/NEU)*</li>
+<li>MIDPQ also uses <strong>Task Condition</strong> abbreviation
+keywords mentioned in MID task behavioral performance data:
+<ul>
+<li>SRW: Small Reward condition, win $0.20</li>
+<li>LRW: Large Reward condition, win $5</li>
+<li>SLO: Small Loss condition, lose $0.20</li>
+<li>LLO: Large Loss condition, lose $5</li>
+<li>NEU: Neutral condition, no win no loss (no money at stake).</li>
+</ul></li>
+<li>Questionnaire-specific abbreviation keywords:
+<ul>
+<li>EXC:
+<ul>
+<li>How EXCITED were you when: You saw a circle saying you could win
+$5?</li>
+<li>How EXCITED were you when: You saw a circle saying you could win
+$0.20?</li>
+<li>How EXCITED were you when: You saw a square saying you could lose
+$5?</li>
+<li>How EXCITED were you when: You saw a square saying you could lose
+$0.20?</li>
+<li>How EXCITED were you when: You saw a triangle saying there was no
+money at stake?</li>
+</ul></li>
+<li>NERV:
+<ul>
+<li>How NERVOUS were you when: You saw a circle saying you could win
+$5?</li>
+<li>How NERVOUS were you when: You saw a circle saying you could win
+$0.20?</li>
+<li>How NERVOUS were you when: You saw a square saying you could lose
+$5?</li>
+<li>How NERVOUS were you when: You saw a square saying you could lose
+$0.20?</li>
+<li>How NERVOUS were you when: You saw a triangle saying there was no
+money at stake?</li>
+</ul></li>
+<li>TRY:
+<ul>
+<li>How hard did you try: to win $5?</li>
+<li>How hard did you try: to win $0.20?</li>
+<li>How hard did you try: to not lose $5?</li>
+<li>How hard did you try: to not lose $0.20?</li>
+<li>How hard did you try: on the “no money at stake” trials?</li>
+</ul></li>
+</ul></li>
+<li>MIDPQ_THINK_YN: While the game was being explained to you, did you
+think about what you would like to do with the money you might win
+during the game? (Yes or No, [0 = No; 1 = Yes])</li>
+</ul></li>
+</ul>
+</div>
+<div id="stop-signal-task-sst" class="section level3" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> Stop Signal Task
+(SST)</h3>
+<ul>
+<li><p>The fMRI Stop Signal Task (SST) measures impulse control and
+impulsivity. The task requires participants to withhold or interrupt a
+motor response to a “Go” stimulus when it is followed unpredictably by a
+signal to stop. To ensure approximately 50% successful and 50%
+unsuccessful Stop trials, a tracking algorithm varies the interval
+between the onset of the Go stimulus and the onset of the Stop Signal
+(the Stop Signal Delay) based on individual performance. When possible,
+participants who were unable to complete the task in the scanner
+completed the task behaviorally outside the scanner.</p></li>
+<li><p><strong>Notes and special consideration</strong>:</p>
+<blockquote>
+<p>We provide two estimates of the Stop Signal Reaction Time (Logan et
+al., Psychological Review, 1984), a derived measure of the response
+inhibition process. The mean method (tfmri_sst_all_beh_total_mssrt)
+subtracts each participant’s mean SSD from their mean Go RT. (In
+previous data releases this variable was named
+tfmri_sst_all_beh_total_meanrt). The second estimate uses the
+integration method (tfmri_sst_all_beh_total_issrt) in which the mean SSD
+is subtracted from the nth Go RT with n being the participant’s overall
+successful inhibition rate. For the integration method calculation, any
+Go RT omissions were replaced with the longest go RT for that
+participant. In addition, premature responses on Stop trials (i.e.,
+choice responses made before the Stop signal was presented) were
+included when calculating the participant’s probability of successful
+stopping and the SSD’s on these trials were included in calculating the
+average SSD.</p>
+</blockquote></li>
+<li><p><strong>SST-related Variables</strong></p>
+<ul>
+<li><strong>SST_Vald_Perf</strong>: Poor performance in the SST task
+(tfmri_sst_beh_performflag = 0) is indicated if
+<ul>
+<li>Go trials
+<ul>
+<li>&lt;300 GO trials</li>
+<li>Correct GO trial percentage &lt;60%</li>
+<li>Incorrect GO trial percentage &gt;30%</li>
+<li>Late GO trial percentage (summing correct and incorrect trials)
+&gt;30%</li>
+<li>No Response GO trial percentage &gt;30%</li>
+<li>Correct GO response time &lt; Incorrect Stop response time</li>
+</ul></li>
+<li>STOP trials
+<ul>
+<li>STOP trial accuracy (i.e., successful inhibitions) &lt;20% or
+&gt;80%</li>
+</ul></li>
+</ul></li>
+<li><strong>SST_Vald_Race</strong>: Race model violators where Stop Fail
+RT &gt; Go RT</li>
+<li><strong>SST_Vald_Glit</strong>: Task coding error</li>
+<li><strong>SST_Vald_0SSD</strong>: Number of Stop trials with 0ms
+SSD</li>
+<li><strong>SST_SSRT_Mean</strong>: Stop Signal Reaction Time, mean
+estimation</li>
+<li><strong>SST_SSRT_Inte</strong>: Stop Signal Reaction Time,
+integration estimation</li>
+</ul></li>
+</ul>
+</div>
+<div id="emotional-n-back-task-enb" class="section level3" number="7.3.4">
+<h3><span class="header-section-number">7.3.4</span> Emotional N-back
+Task (ENB)</h3>
+<ul>
+<li>The fMRI Emotional nBack task (ENB) assesses memory, emotion and
+face and place perceptual processes. The task is a block design working
+memory task using four categories of stimuli (places, positive faces,
+negative faces and neutral faces) and two memory load conditions (0 and
+2 back). The task includes 80 trials for each of the two memory load
+conditions, 20 trials for each stimulus type in each of the two memory
+load conditions and 40 trials of each stimulus type. Accuracy and
+reaction time (RT) are provided for all conditions. When possible,
+participants who were unable to complete the task in the scanner,
+completed the task behaviorally outside the scanner</li>
+<li><strong>ENB-related Variables</strong></li>
+<li>ENB_Vald_Perf: Poor performance in the nBack task is indicated if
+the overall response accuracy for the 0-back or 2-back blocks is less
+than 60%</li>
+<li>Naming of the ENB-related variables follows the form of
+<strong>ENB</strong>_<strong>(TOT/2BK/0BK)</strong>_<strong>(CALL/CPSF/CNGF/CNUF/CPLA)</strong>_<strong>(ACC/Mean_RT/Std_RT)</strong>,
+using abbreviation keywords:
+<ul>
+<li><strong>Task Condition</strong>:
+<ul>
+<li>TOT: across total trials</li>
+<li>2BK: across all 2-back trials</li>
+<li>0BK: across all 0-back trials</li>
+</ul></li>
+<li><strong>Trial Stimuli</strong>:
+<ul>
+<li>CALL: <strong>C</strong>orrect responsed to <strong>ALL</strong>
+stimuli during run 1 and run 2 (correct responses)</li>
+<li>CPSF: <strong>C</strong>orrect responses to
+<strong>P</strong>o<strong>S</strong>itive <strong>F</strong>ace stimuli
+during run 1 and run 2</li>
+<li>CNGF: <strong>C</strong>orrect responses to
+<strong>N</strong>e<strong>G</strong>ative <strong>F</strong>ace stimuli
+during run 1 and run 2</li>
+<li>CNUF: <strong>C</strong>orrect responses to
+<strong>N</strong>e<strong>U</strong>tral <strong>F</strong>ace stimuli
+during run 1 and run 2</li>
+<li>CPLA: <strong>C</strong>orrect responses to <strong>PLA</strong>ce
+stimuli during run 1 and run 2</li>
+</ul></li>
+<li><strong>Performance Indices</strong>:
+<ul>
+<li>ACC: accuracy rate</li>
+<li>Mean_RT: average of reaction time</li>
+<li>Std_RT: standard deviation of reaction time</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="n-back-recognition-memory-recmem-task" class="section level3" number="7.3.5">
+<h3><span class="header-section-number">7.3.5</span> N-Back Recognition
+Memory (RECMEM) Task</h3>
+<ul>
+<li>The Emotional nBack Recognition Memory (RECMEM) task engages
+short-term memory for items presented during the fMRI Emotional nBack
+task. This task was performed outside the scanner after the completion
+of the fMRI nBack task. Both HitRate (HR) and False Alarms (FA) are
+provided for each condition along with key dependent variables of
+response bias, corrected accuracy, and d-prime.</li>
+<li>Key dependent variables:
+<ul>
+<li>HR: hit rate</li>
+<li>FA: false alarms</li>
+<li>BR: response bias [(mean(FA)/(1-mean(HR)-mean(FA))) - 0.5]</li>
+<li>PR: corrected recognition [mean(HR)-mean(FA)]</li>
+<li>DPR: discriminability index [z(HR) - z(FA)], d-prime</li>
+</ul></li>
+<li><strong>RECMEM-related Variables</strong>
+<ul>
+<li>Naming of RECMEN-related variables follow the form of
+<strong>RECMEM</strong>_<strong>(PSF/NGF/NUF/PLA)</strong>_<strong>(BR/PR/DPR)</strong></li>
+<li><strong>Task Condition</strong>
+<ul>
+<li>PSF: Positive Face stimuli</li>
+<li>NGF: Negative Face stimuli</li>
+<li>NUF: Neutral Face stimuli</li>
+<li>PLA: Place stimuli</li>
+</ul></li>
+<li><strong>Performance Indices</strong>
+<ul>
+<li>BR (Response Bias): computed as <span class="math inline">\(\frac{False\,Alarm_{Old}}{1-(Hit\,Rate_{Old}-False\,Alram_{New})}-0.5\)</span>
+where <em>Old</em> is the old stimuli that have been presented in ENB,
+<em>New</em> is the new stimuli that have not been presented in ENB but
+in RECMEM</li>
+<li>PR (corrected recognition accuracy): computed as <span class="math inline">\(Hit\,Rate_{Old}-False\,Alarm_{New}\)</span></li>
+<li>DPR (D-prime [<span class="math inline">\(D&#39;\)</span>],
+Discriminability Index): computed as <span class="math inline">\(f^{-1}_{normal}(Hit\,Rate_{Old})-f^{-1}_{normal}(False\,Alarm_{New})\\where\,f^{-1}_{normal}\,is\,the\,normal\,inverse\,cumulative\,distribution\,function\,(ICDF)\\if\,Hit\,Rate\,or\,False\,Alarm=0,\,HR\,or\,FA\,will\,be\,replaced\,by\,\frac{1}{2N}\\if\,HR\,or\,FA=1,\,replaced\,by\,(1-\frac{1}{2N})\\N\,is\,total\,number\,of\,trials\)</span></li>
+</ul></li>
+</ul></li>
 </ul>
 </div>
 </div>

@@ -1,13 +1,22 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-11-22
+2023-11-24
 
-- [Basic Infomation](#basic-infomation)
+- [Introduction](#introduction)
 - [Citation and Suggestions](#citation-and-suggestions)
 - [Change Logs](#change-logs)
 
-# Basic Infomation
+# Introduction
+
+**SDPP-ABCD-TabDat** (**S**tandard **D**ata **P**reprocessing
+**P**ipeline for the **A**dolescent **B**rain **C**ognitive
+**D**evelopment study **T**abulated **D**ata) is a open-source tool
+aiming to provide an user-friendly data preprocessing pipeline for
+tabulated data from the ABCD study. This tool mainly depends on R. I
+hope this open-source tool could improve the accuracy of the secondary
+data analysis with the ABCD study and also provide an easy way to
+reproduce results and findings related to the ABCD study data.
 
 **Author:** Kunru Song, PhD Candidate at BNU, supervised by Dr.Jin-tao
 Zhang.
@@ -35,8 +44,10 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
 
 # Citation and Suggestions
 
-1.  If you would like to use any codes from this pipeline, please kindly
-    cite our published article (below is a APA-format Citation):
+1.  If you would like to use any codes in this open-source tool
+    (licensed by GNU GPL v3), please kindly follow terms and conditions
+    in GNU GPL v3 or later and cite our published article used this tool
+    (below is a APA-format Citation):
 
     > *Song K, Zhang JL, Zhou N, Fu Y, Zou B, Xu LX, Wang Z, Li X, Zhao
     > Y,Potenza M, Fang X, Zhang JT. Youth Screen Media Activity
@@ -48,18 +59,15 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
 2.  Please refer to SDPP-ABCD-TabDat **User Manual** when you have any
     questions about using this pipeline. **User Manual** was wrote by R
     Markdown syntax and output as a html file for convenient to be read.
-    Users could find the manual in this repository (both .Rmd and .html
-    file):
-
-    *SDPP_ABCD_TabDat_UserManual.Rmd* &
+    Users could find the manual in this repository:
     *SDPP_ABCD_TabDat_UserManual.html*.
 
     In addition, [Find here for online html file
     preview](http://htmlpreview.github.io/?https://github.com/fenmeng123/SDPP_ABCD_TabDat/blob/master/SDPP_ABCD_TabDat_UserManual.html).(Supported
     by htmlpreview.github.io)
 
-3.  Any bugs found in this pipeline should be reported in [Github Issues
-    of this
+3.  Any bugs found in this pipeline can be reported in [Github Issues of
+    this
     repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/issues).
 
 4.  If you would like to participate the collaboration in developing
@@ -68,6 +76,17 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
     repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/pulls)
 
 # Change Logs
+
+- 2023.11.24
+
+  - Completed Step 10.
+  - Update User Manual for Step 10.
+  - Update README
+
+- 2023.11.23
+
+  - Update README and User Manual for Step 10.
+  - Change license to GNU GPL v3.
 
 - 2023.11.22
 
@@ -80,7 +99,7 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
 
 - 2023.9.21
 
-- Update Step 9.
+  - Update Step 9.
 
 - 2023.8.7
 
