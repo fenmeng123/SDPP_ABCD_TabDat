@@ -1,7 +1,7 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-11-24
+2023-11-25
 
 - [Introduction](#introduction)
 - [Citation and Suggestions](#citation-and-suggestions)
@@ -77,11 +77,17 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
 
 # Change Logs
 
+- 2023.11.25
+
+  - Completed Step 11.
+  - Update User Manual for Step 11.
+
 - 2023.11.24
 
   - Completed Step 10.
   - Update User Manual for Step 10.
   - Update README
+  - Start Step 11.
 
 - 2023.11.23
 
