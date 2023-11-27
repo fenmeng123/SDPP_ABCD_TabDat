@@ -78,7 +78,7 @@ readABCDdata<-function(filename,version="5.0"){
                   `5.0` = read5.0(filename),
                   `4.0` = read4.0(filename)
   )
-  cat("Subjects Counts (stratified by eventname):\n")
+  cat("[Single File] Subjects Counts (stratified by eventname):\n")
   print(table(data$eventname,useNA = 'if'))
   return(data)
 }
@@ -98,7 +98,7 @@ read.in.batch <- function(DownloadedDataDir,TableNames,FolderName=NA){
       MergedDF = merge(MergedDF,tmpDF,by = c('src_subject_id','eventname'),all=T)
     }
   }
-  cat("Subjects Counts (stratified by eventname):\n")
+  cat("[Merged Data Frame] Subjects Counts (stratified by eventname):\n")
   print(table(MergedDF$eventname,useNA = 'if'))
   return(MergedDF)
 }
@@ -450,10 +450,8 @@ Comb.MICE <- function(dat.imp,var.ls.imp){
     fprintf('Compare variable values before and after multiple imputation:\n')
     fprintf('Before MI:')
     df.print.mva.counts(i,original.dat)
-    # print(table(original.dat[i],useNA = 'if'))
     fprintf('After MI:')
     df.print.mva.counts(i,imputed.dat)
-    # print(table(imputed.dat[i],useNA = 'if'))
   }
   return(imputed.dat)
 }

@@ -24,14 +24,16 @@ library(forcats)
 library(naniar)
 # ==============================MAIN CODES=====================================#
 # 2. Load and prepare re-coded demographic data --------------------------
-Demographic = readRDS(fullfile(IntermediateDataDir,
-                               addprefix(Prefix,'Demographics_Recode.rds')))
+Demographic <- addprefix(Prefix,'Demographics_Recode.rds') %>%
+  fullfile(IntermediateDataDir,.) %>%
+  import(verbose = T)
+
 Demographic$FamilyID = as.character(Demographic$FamilyID)
 baseline_demo = subset(Demographic,eventname=='baseline_year_1_arm_1')
 baseline_demo %>% MVA.Report.By.Wave() %>%
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_T0_Demo_Rec.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 print(sapply(baseline_demo, typeof))
 baseline_demo = as.data.table(baseline_demo)
 fprintf("----------------------------------------------------------------------------\n")

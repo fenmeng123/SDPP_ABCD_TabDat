@@ -11,7 +11,7 @@ Kunru Song
 
 **SDPP-ABCD-TabDat** (**S**tandard **D**ata **P**reprocessing
 **P**ipeline for the **A**dolescent **B**rain **C**ognitive
-**D**evelopment study **T**abulated **D**ata) is a open-source tool
+**D**evelopment study **T**abulated **D**ata) is an open-source tool
 aiming to provide an user-friendly data preprocessing pipeline for
 tabulated data from the ABCD study. This tool mainly depends on R. I
 hope this open-source tool could improve the accuracy of the secondary
