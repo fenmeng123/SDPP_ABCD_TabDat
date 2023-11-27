@@ -79,11 +79,14 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
 
 - 2023.11.27
 
-- Update README and User Manual for Step 11.
-
-- Fixed some bugs in *SDPP_ParaSet.R* and *SDPP_Concatenate.R*
-
-- Start Step 12
+  - Update README and User Manual for Step 11.
+  - Fixed some bugs in *SDPP_ParaSet.R* and *SDPP_Concatenate.R*
+  - Start & completed Step 12.
+  - Add some paragraphs to clarify the rationale of mutliple imputaion
+    startergy used in this pipeline.
+  - TO DO: 1) re-construct some basic warp functions in
+    *SDPP_subfunction.R*; 2) Check the robustness of *Step_3*; 3)
+    Integrate *neuroCombat* into this pipeline.
 
 - 2023.11.25
 
