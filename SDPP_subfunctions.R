@@ -32,6 +32,11 @@ fprintf <- function(StringVar,...){
   cat(sprintf(StringVar,...))
 }
 s_sink <- function(LogFileDir){
+  # Close all opened log files
+  for(i in seq_len(sink.number())){
+    sink(NULL)
+  }
+  # Start a new logging session
   fprintf('Start a new log file: %s\n',LogFileDir)
   sink(file = LogFileDir,
        type = 'output',
@@ -70,8 +75,8 @@ read5.0 <- function(filename){
 readABCDdata<-function(filename,version="5.0"){
   cat(sprintf("Reading tabulated data from: %s\n",filename))
   data <- switch (version,
-    `5.0` = read5.0(filename),
-    `4.0` = read4.0(filename)
+                  `5.0` = read5.0(filename),
+                  `4.0` = read4.0(filename)
   )
   cat("Subjects Counts (stratified by eventname):\n")
   print(table(data$eventname,useNA = 'if'))
@@ -149,7 +154,7 @@ SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory,verbose = T){
     Step_0_Dir = fullfile(ProjectDirectory,'Step_0_Preprocessing'),
     Supp_1_Dir = fullfile(ProjectDirectory,'Supp_1_Subfunctions'),
     Supp_2_Dir = fullfile(ProjectDirectory,'Supp_2_References')
-    )
+  )
   if (!dir.exists(ProjectDirectory)){
     if (verbose) cat("Project Directory not found! Auto-creating SDPP Project Folder...\n")
     dir.create(ProjectDirectory)
@@ -159,10 +164,10 @@ SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory,verbose = T){
     if (!dir.exists(SDPPFolderStruct[[i]])){
       dir.create(SDPPFolderStruct[[i]])
       if (verbose) fprintf('|SDPP Default Project Structure - [%s]|\n\tCreated folder: [%s]\n',
-              i,SDPPFolderStruct[[i]])
+                           i,SDPPFolderStruct[[i]])
     }else{
       if (verbose) fprintf('|SDPP Default Project Structure - [%s]|\n\tAlready exist: [%s]\n',
-              i,SDPPFolderStruct[[i]])
+                           i,SDPPFolderStruct[[i]])
     }
   }
   if (verbose) cat("Project Folder Structure:\n")
@@ -304,8 +309,8 @@ SDPP.filter.data.dict <- function(DataDictionaryFileDir = dir(pattern = '.*Dicti
                                   verbose = T){
   # Exclude the temporal copy file when Data Dictionary is currently opened.
   DataDictionaryFileDir <- DataDictionaryFileDir[
-                                    !str_detect(DataDictionaryFileDir,'^\\~\\$')
-                                    ]
+    !str_detect(DataDictionaryFileDir,'^\\~\\$')
+  ]
   # Identify multiple Data Dictionary files
   if (length(DataDictionaryFileDir) > 1){
     warning('Multiple ABCD Data Dictionray (EXCEL files) have been found! Using the first one as default.')
@@ -338,17 +343,17 @@ SDPP.select.cols.by.dict <- function(data,
                                 '\\.csv')
   }
   filtered_dict <- SDPP.filter.data.dict(DataDictionaryFileDir,
-                        search_col = c('table_name','var_name')) %>%
+                                         search_col = c('table_name','var_name')) %>%
     subset(table_name %in% TableNames)
   fprintf('%d columns will be selected according to data dictionary file.\n',
           nrow(filtered_dict))
   fprintf('Selected columns in data frame:\n')
-  print(knitr::kable(filtered_dict,row.names = F))
+  print(knitr::kable(filtered_dict,row.names = F,format = 'simple'))
   selected_data <- data %>%
     select(c(src_subject_id,
              eventname,
              all_of(filtered_dict$var_name))
-           )
+    )
   return(selected_data)
 }
 
@@ -407,8 +412,8 @@ BOCF.Variables <- function(data,anchor_wave,variable_name,autocheck=F){
   for (i in data_anchor$src_subject_id){
     if (autocheck){
       Flag = which(is.na(data_BOFC[data_BOFC$src_subject_id == i,variable_name]))
-        data_BOFC[Flag,variable_name] <- data_anchor[data_anchor$src_subject_id == i,
-                                                variable_name]
+      data_BOFC[Flag,variable_name] <- data_anchor[data_anchor$src_subject_id == i,
+                                                   variable_name]
     }else{
       data_BOFC[data_BOFC$src_subject_id == i,variable_name] <- data_anchor[data_anchor$src_subject_id == i,variable_name]
     }
@@ -589,7 +594,7 @@ MVA.Report.By.Wave <- function(df){
                   names_sort = T,
                   names_vary = "slowest") %>%
       as.data.frame() %>% arrange(variable) -> MVA_Report
-      
+    
   }else{
     fprintf("Column 'eventname' not found! group_by function was ignored!")
     df %>% miss_var_summary() %>% 
@@ -621,39 +626,39 @@ MVA.Report.CaseMiss.By.Wave <- function(df,verbose = T){
     RECODE("'100.00%' = 'Complete Miss (100%)';
            '0.00%' = 'Non-miss (0%)';")
   Report_summary <- rename(Report_summary,
-                          `Case Miss Status (Percentage)` = pct_miss,
-                          `Number of Cases` = n)
- fprintf("Case Miss Summary Table:\n")
- Report_print <- rename(Report_summary,
-                       Status = `Case Miss Status (Percentage)`)
- Report_print$Status <- RECODE(Report_print$Status,
-                              "'Complete Miss (100%)' = 'Complete Miss (100%)';
+                           `Case Miss Status (Percentage)` = pct_miss,
+                           `Number of Cases` = n)
+  fprintf("Case Miss Summary Table:\n")
+  Report_print <- rename(Report_summary,
+                         Status = `Case Miss Status (Percentage)`)
+  Report_print$Status <- RECODE(Report_print$Status,
+                                "'Complete Miss (100%)' = 'Complete Miss (100%)';
                               'Non-miss (0%)' = 'Non-miss (0%)';
                               else = 'Non-complete Miss (0%<pct<100%)';")
- Report_print %>%
-   group_by(eventname,Status) %>% 
-   reframe(N=sum(`Number of Cases`)) %>%
-   as.data.frame() %>%
-   print()
- if (verbose){
-   for (i in unique(Report_case_miss$eventname)){
-     SubID <- df$src_subject_id[df$eventname==i]
-     SUbID_AnyMiss <- SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
-                                                   (Report_case_miss$pct_miss != "0.00")]]
-     SubID_CompMiss <- SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
-                                                    (Report_case_miss$pct_miss == "100.00")]]
-     SubID_PartMiss <- SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
-                                                    (Report_case_miss$pct_miss != "0.00") & 
-                                                    (Report_case_miss$pct_miss != "100.00")]]
-     fprintf("At [%s] (time point), any Miss in the above variables (Subject ID):\n",i)
-     print(SUbID_AnyMiss)
-     fprintf("At [%s] (time point), Where, the following IDs are completedly missing:\n",i)
-     print(SubID_CompMiss)
-     fprintf("At [%s] (time point), in contrast, the following IDs are partially missing:\n",i)
-     print(SUbID_AnyMiss)
-   }
- }
- return(Report_summary)
+  Report_print %>%
+    group_by(eventname,Status) %>% 
+    reframe(N=sum(`Number of Cases`)) %>%
+    as.data.frame() %>%
+    print()
+  if (verbose){
+    for (i in unique(Report_case_miss$eventname)){
+      SubID <- df$src_subject_id[df$eventname==i]
+      SUbID_AnyMiss <- SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
+                                                     (Report_case_miss$pct_miss != "0.00")]]
+      SubID_CompMiss <- SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
+                                                      (Report_case_miss$pct_miss == "100.00")]]
+      SubID_PartMiss <- SubID[Report_case_miss$case[(Report_case_miss$eventname == i) &
+                                                      (Report_case_miss$pct_miss != "0.00") & 
+                                                      (Report_case_miss$pct_miss != "100.00")]]
+      fprintf("At [%s] (time point), any Miss in the above variables (Subject ID):\n",i)
+      print(SUbID_AnyMiss)
+      fprintf("At [%s] (time point), Where, the following IDs are completedly missing:\n",i)
+      print(SubID_CompMiss)
+      fprintf("At [%s] (time point), in contrast, the following IDs are partially missing:\n",i)
+      print(SUbID_AnyMiss)
+    }
+  }
+  return(Report_summary)
 }
 Merge.Value.NA <- function(V1,V2){
   fprintf("Merging Two Variables: %s and %s ......\n",deparse(substitute(V1)),deparse(substitute(V2)))
@@ -694,8 +699,8 @@ Bind.imp.By.Wave <- function(raw_dat_name,imp_dat){
                                 unique(imp_dat$eventname)),
                         collapse = ' & ')
   unimp_dat <- eval_s("subset(%s,%s)",
-                     raw_dat_name,
-                     data_masking)
+                      raw_dat_name,
+                      data_masking)
   
   data_masking <- paste(sprintf("(eventname == '%s')",
                                 unique(imp_dat$eventname)),
@@ -705,7 +710,7 @@ Bind.imp.By.Wave <- function(raw_dat_name,imp_dat){
                          data_masking)
   imp_var_ls <- colnames(imp_dat)[!colnames(imp_dat) %in% c('src_subject_id','eventname')]
   wait_imp_dat <- select(wait_imp_dat,!all_of(imp_var_ls))
-
+  
   new_dat <- base::merge(wait_imp_dat,imp_dat,
                          by = c('src_subject_id','eventname'))
   new_dat <- rbind(new_dat,unimp_dat)
