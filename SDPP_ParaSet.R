@@ -24,8 +24,8 @@ n.iter = 25 # maximum number of iterations
 
 # ==============================DO NOT CHANGE!=====================================#
 SDPP.Initialize(ProjectDirectory)
-ResultsOutputDir = SDPP.set.output(fullfile(ProjectDirectory,'Res_3_IntermediateData'))
-
+IntermediateDataDir = SDPP.set.output(fullfile(ProjectDirectory,'Res_3_IntermediateData'))
+ResultsOutputDir = SDPP.set.output(fullfile(ProjectDirectory,'Res_2_Results','Res_Preproc'))
 fprintf("=================================Step 3 Specifications=================================\n")
 fprintf('Number of Multiple Imputation Replicates: %d\n',n.imp)
 fprintf('Number of Maximum Iterations in Multiple Imputation: %d\n',n.iter)
