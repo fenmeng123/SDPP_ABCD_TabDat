@@ -1,7 +1,7 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-11-25
+2023-11-27
 
 - [Introduction](#introduction)
 - [Citation and Suggestions](#citation-and-suggestions)
@@ -76,6 +76,14 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
     repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/pulls)
 
 # Change Logs
+
+- 2023.11.27
+
+- Update README and User Manual for Step 11.
+
+- Fixed some bugs in *SDPP_ParaSet.R* and *SDPP_Concatenate.R*
+
+- Start Step 12
 
 - 2023.11.25
 
