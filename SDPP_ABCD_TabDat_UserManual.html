@@ -11,7 +11,7 @@
 
 <meta name="author" content="Kunru Song" />
 
-<meta name="date" content="2023-11-27" />
+<meta name="date" content="2023-11-28" />
 
 <title>SDPP-ABCD-TabDat User Manual</title>
 
@@ -1511,7 +1511,7 @@ font-size: 0.95em;
 
 <h1 class="title toc-ignore">SDPP-ABCD-TabDat User Manual</h1>
 <h4 class="author">Kunru Song</h4>
-<h4 class="date">2023-11-27</h4>
+<h4 class="date">2023-11-28</h4>
 
 </div>
 
@@ -5187,6 +5187,8 @@ here</a>. This pipeline will uses the following ‘yes or no’ flags (0=No;
 1=Yes) to indicates all QC-passed participants for each MRI modality. It
 should be noted that ‘NA’ values in the raw CSV file were re-coded into
 ‘0’.</li>
+<li>For missing values (<code>NA</code>) in <strong>RecInc</strong>,
+<code>0</code> will be used to replace NA values.</li>
 <li><strong>RecInc-related variables</strong>:
 <ul>
 <li>QC_RecInc_sMRI_T1w: Structural MRI T1-weighted Images.</li>
@@ -5397,6 +5399,1544 @@ Nomenclature for MRI-related variables</h2>
 </ul></li>
 </ul></li>
 </ul>
+</div>
+<div id="structural-mri-smri-t1w-t2w" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> Structural MRI (sMRI;
+T1w, T2w)</h2>
+<div id="smri-sdpp-look-up-table" class="section level3 tabset" number="9.3.1">
+<h3 class="tabset"><span class="header-section-number">9.3.1</span> sMRI
+SDPP Look-uP Table</h3>
+<div id="desikan-atlas" class="section level4" number="9.3.1.1">
+<h4><span class="header-section-number">9.3.1.1</span> Desikan
+Atlas</h4>
+<table>
+<caption>sMRI Look-up Table 1. Desikan Parcellation (aparc)</caption>
+<colgroup>
+<col width="13%" />
+<col width="36%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">SDPP ROI abbr</th>
+<th align="left">ABCD ROI name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_banksstslh</td>
+<td align="left">banks of superior temporal sulcus (left
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_caudalanteriorcingulatelh</td>
+<td align="left">caudalanteriorcingulate (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_caudalmiddlefrontallh</td>
+<td align="left">caudalmiddlefrontal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_cuneuslh</td>
+<td align="left">cuneus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_entorhinallh</td>
+<td align="left">entorhinal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_fusiformlh</td>
+<td align="left">fusiform (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_inferiorparietallh</td>
+<td align="left">inferiorparietal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_inferiortemporallh</td>
+<td align="left">inferiortemporal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_isthmuscingulatelh</td>
+<td align="left">isthmuscingulate (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_lateraloccipitallh</td>
+<td align="left">lateraloccipital (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_lateralorbitofrontallh</td>
+<td align="left">lateralorbitofrontal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_linguallh</td>
+<td align="left">lingual (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_medialorbitofrontallh</td>
+<td align="left">medialorbitofrontal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_middletemporallh</td>
+<td align="left">middletemporal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_parahippocampallh</td>
+<td align="left">parahippocampal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_paracentrallh</td>
+<td align="left">paracentral (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_parsopercularislh</td>
+<td align="left">parsopercularis (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_parsorbitalislh</td>
+<td align="left">parsorbitalis (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_parstriangularislh</td>
+<td align="left">parstriangularis (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_pericalcarinelh</td>
+<td align="left">pericalcarine (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_postcentrallh</td>
+<td align="left">postcentral (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_posteriorcingulatelh</td>
+<td align="left">posteriorcingulate (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_precentrallh</td>
+<td align="left">precentral (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_precuneuslh</td>
+<td align="left">precuneus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_rostralanteriorcingulatelh</td>
+<td align="left">rostralanteriorcingulate (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_rostralmiddlefrontallh</td>
+<td align="left">rostralmiddlefrontal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_superiorfrontallh</td>
+<td align="left">superiorfrontal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_superiorparietallh</td>
+<td align="left">superiorparietal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_superiortemporallh</td>
+<td align="left">superiortemporal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_supramarginallh</td>
+<td align="left">supramarginal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_frontalpolelh</td>
+<td align="left">frontalpole (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_temporalpolelh</td>
+<td align="left">temporalpole (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_transversetemporallh</td>
+<td align="left">transversetemporal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_insulalh</td>
+<td align="left">insula (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_banksstsrh</td>
+<td align="left">banks of superior temporal sulcus (right
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_caudalanteriorcingulaterh</td>
+<td align="left">caudalanteriorcingulate (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_caudalmiddlefrontalrh</td>
+<td align="left">caudalmiddlefrontal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_cuneusrh</td>
+<td align="left">cuneus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_entorhinalrh</td>
+<td align="left">entorhinal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_fusiformrh</td>
+<td align="left">fusiform (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_inferiorparietalrh</td>
+<td align="left">inferiorparietal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_inferiortemporalrh</td>
+<td align="left">inferiortemporal (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_isthmuscingulaterh</td>
+<td align="left">isthmuscingulate (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_lateraloccipitalrh</td>
+<td align="left">lateraloccipital (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_lateralorbitofrontalrh</td>
+<td align="left">lateralorbitofrontal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_lingualrh</td>
+<td align="left">lingual (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_medialorbitofrontalrh</td>
+<td align="left">medialorbitofrontal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_middletemporalrh</td>
+<td align="left">middletemporal (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_parahippocampalrh</td>
+<td align="left">parahippocampal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_paracentralrh</td>
+<td align="left">paracentral (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_parsopercularisrh</td>
+<td align="left">parsopercularis (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_parsorbitalisrh</td>
+<td align="left">parsorbitalis (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_parstriangularisrh</td>
+<td align="left">parstriangularis (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_pericalcarinerh</td>
+<td align="left">pericalcarine (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_postcentralrh</td>
+<td align="left">postcentral (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_posteriorcingulaterh</td>
+<td align="left">posteriorcingulate (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_precentralrh</td>
+<td align="left">precentral (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_precuneusrh</td>
+<td align="left">precuneus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_rostralanteriorcingulaterh</td>
+<td align="left">rostralanteriorcingulate (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_rostralmiddlefrontalrh</td>
+<td align="left">rostralmiddlefrontal (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_superiorfrontalrh</td>
+<td align="left">superiorfrontal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_superiorparietalrh</td>
+<td align="left">superiorparietal (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_superiortemporalrh</td>
+<td align="left">superiortemporal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_supramarginalrh</td>
+<td align="left">supramarginal (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_frontalpolerh</td>
+<td align="left">frontalpole (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_temporalpolerh</td>
+<td align="left">temporalpole (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_transversetemporalrh</td>
+<td align="left">transversetemporal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_insularh</td>
+<td align="left">insula (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_mean.lh</td>
+<td align="left">mean (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_mean.rh</td>
+<td align="left">mean (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_mean</td>
+<td align="left">mean (bilateral)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_total.lh</td>
+<td align="left">total (left hemisphere - area and volume)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cortdesikan_total.rh</td>
+<td align="left">total (right hemisphere - area and volume)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cortdesikan_total</td>
+<td align="left">total (bilateral - area and volume)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="destrieux-atlas" class="section level4" number="9.3.1.2">
+<h4><span class="header-section-number">9.3.1.2</span> Destrieux
+Atlas</h4>
+<table>
+<caption>sMRI Look-up Table 2. Destrieux Parcellation (aparc2)</caption>
+<colgroup>
+<col width="10%" />
+<col width="31%" />
+<col width="58%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">SDPP ROI abbr</th>
+<th align="left">ABCD ROI Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.frontomargin.lh</td>
+<td align="left">fronto-marginal gyrus and sulcus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.occipital.inf.lh</td>
+<td align="left">inferior occipital gyrus and sulcus (left
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.paracentral.lh</td>
+<td align="left">paracentral lobule and sulcus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.subcentral.lh</td>
+<td align="left">subcentral gyrus and sulci (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.transv.frontopol.lh</td>
+<td align="left">transverse frontopolar gyri and sulci (left
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.cingul.ant.lh</td>
+<td align="left">anterior part of the cingulate gyrus and sulcus (left
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.cingul.mid.ant.lh</td>
+<td align="left">middle-anterior part of the cingulate gyrus and sulcus
+(left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.cingul.mid.post.lh</td>
+<td align="left">middle-posterior part of the cingulate gyrus and sulcus
+(left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.cingul.post.dorsal.lh</td>
+<td align="left">posterior-dorsal part of the cingulate gyrus (left
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.cingul.post.ventral.lh</td>
+<td align="left">posterior-ventral part of the cingulate gyrus (left
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.cuneus.lh</td>
+<td align="left">cuneus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.front.inf.opercular.lh</td>
+<td align="left">opercular part of the inferior frontal gyrus (left
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.front.inf.orbital.lh</td>
+<td align="left">orbital part of the inferior frontal gyrus (left
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.front.inf.triangul.lh</td>
+<td align="left">triangular part of the inferior frontal gyrus (left
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.front.middle.lh</td>
+<td align="left">middle frontal gyrus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.front.sup.lh</td>
+<td align="left">superior frontal gyrus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.ins.lg.and.s.cent.ins.lh</td>
+<td align="left">long insular gyrus and central sulcus of the insula
+(left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.insular.short.lh</td>
+<td align="left">short insular gyri (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.occipital.middle.lh</td>
+<td align="left">middle occipital gyrus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.occipital.sup.lh</td>
+<td align="left">superior occipital gyrus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.oc.temp.lat.fusifor.lh</td>
+<td align="left">lateral occipito-temporal gyrus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.oc.temp.med.lingual.lh</td>
+<td align="left">lingual gyrus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.oc.temp.med.parahip.lh</td>
+<td align="left">parahippocampal gyrus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.orbital.lh</td>
+<td align="left">orbital gyri (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.pariet.inf.angular.lh</td>
+<td align="left">angular gyrus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.pariet.inf.supramar.lh</td>
+<td align="left">supramarginal gyrus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.parietal.sup.lh</td>
+<td align="left">superior parietal lobule (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.postcentral.lh</td>
+<td align="left">postcentral gyrus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.precentral.lh</td>
+<td align="left">precentral gyrus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.precuneus.lh</td>
+<td align="left">precuneus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.rectus.lh</td>
+<td align="left">gyrus rectus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.subcallosal.lh</td>
+<td align="left">subcallosal gyrus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.temp.sup.g.t.transv.lh</td>
+<td align="left">anterior transverse temporal gyrus (left
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.temp.sup.lateral.lh</td>
+<td align="left">lateral aspect of the superior temporal gyrus (left
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.temp.sup.plan.polar.lh</td>
+<td align="left">planum polare of the superior temporal gyrus (left
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.temp.sup.plan.tempo.lh</td>
+<td align="left">planum temporale (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.temporal.inf.lh</td>
+<td align="left">inferior temporal gyrus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.temporal.middle.lh</td>
+<td align="left">middle temporal gyrus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_lat.fis.ant.horizont.lh</td>
+<td align="left">horizontal ramus of the anterior segment of the lateral
+sulcus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_lat.fis.ant.vertical.lh</td>
+<td align="left">vertical ramus of the anterior segment of the lateral
+sulcus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_lat.fis.post.lh</td>
+<td align="left">posterior ramus of the lateral sulcus (left
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_pole.occipital.lh</td>
+<td align="left">occipital pole (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_pole.temporal.lh</td>
+<td align="left">temporal pole (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.calcarine.lh</td>
+<td align="left">calcarine sulcus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.central.lh</td>
+<td align="left">central sulcus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.cingul.marginalis.lh</td>
+<td align="left">marginal branch of the cingulate sulcus (left
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.circular.insula.ant.lh</td>
+<td align="left">anterior segment of the circular sulcus of the insula
+(left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.circular.insula.inf.lh</td>
+<td align="left">inferior segment of the circular sulcus of the insula
+(left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.circular.insula.sup.lh</td>
+<td align="left">superior segment of the circular sulcus of the insula
+(left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.collat.transv.ant.lh</td>
+<td align="left">anterior transverse collateral sulcus (left
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.collat.transv.post.lh</td>
+<td align="left">posterior transverse collateral sulcus (left
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.front.inf.lh</td>
+<td align="left">inferior frontal sulcus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.front.middle.lh</td>
+<td align="left">middle frontal sulcus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.front.sup.lh</td>
+<td align="left">superior frontal sulcus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.interm.prim.jensen.lh</td>
+<td align="left">sulcus intermedius primus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.intrapariet.and.p.trans.lh</td>
+<td align="left">intraparietal sulcus and transverse parietal sulci
+(left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.oc.middle.and.lunatus.lh</td>
+<td align="left">middle occipital sulcus and lunatus sulcus (left
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.oc.sup.and.transversal.lh</td>
+<td align="left">superior occipital sulcus and transverse occipital
+sulcus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.occipital.ant.lh</td>
+<td align="left">anterior occipital sulcus and preoccipital notch (left
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.oc.temp.lat.lh</td>
+<td align="left">lateral occipito-temporal sulcus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.oc.temp.med.and.lingual.lh</td>
+<td align="left">medial occipito-temporal sulcus and lingual sulcus
+(left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.orbital.lateral.lh</td>
+<td align="left">lateral orbital sulcus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.orbital.med.olfact.lh</td>
+<td align="left">medial orbital sulcus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.orbital.h.shaped.lh</td>
+<td align="left">orbital sulci (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.parieto.occipital.lh</td>
+<td align="left">parieto-occipital sulcus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.pericallosal.lh</td>
+<td align="left">s.pericallosal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.postcentral.lh</td>
+<td align="left">postcentral sulcus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.precentral.inf.part.lh</td>
+<td align="left">inferior part of the precentral sulcus (left
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.precentral.sup.part.lh</td>
+<td align="left">superior part of the precentral sulcus (left
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.suborbital.lh</td>
+<td align="left">suborbital sulcus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.subparietal.lh</td>
+<td align="left">subparietal sulcus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.temporal.inf.lh</td>
+<td align="left">inferior temporal sulcus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.temporal.sup.lh</td>
+<td align="left">superior temporal sulcus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.temporal.transverse.lh</td>
+<td align="left">transverse temporal sulcus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.frontomargin.rh</td>
+<td align="left">fronto-marginal gyrus and sulcus (right
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.occipital.inf.rh</td>
+<td align="left">inferior occipital gyrus and sulcus (right
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.paracentral.rh</td>
+<td align="left">paracentral lobule and sulcus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.subcentral.rh</td>
+<td align="left">subcentral gyrus and sulci (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.transv.frontopol.rh</td>
+<td align="left">transverse frontopolar gyri and sulci (right
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.cingul.ant.rh</td>
+<td align="left">anterior part of the cingulate gyrus and sulcus (right
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.cingul.mid.ant.rh</td>
+<td align="left">middle-anterior part of the cingulate gyrus and sulcus
+(right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.and.s.cingul.mid.post.rh</td>
+<td align="left">middle-posterior part of the cingulate gyrus and sulcus
+(right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.cingul.post.dorsal.rh</td>
+<td align="left">posterior-dorsal part of the cingulate gyrus (right
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.cingul.post.ventral.rh</td>
+<td align="left">posterior-ventral part of the cingulate gyrus (right
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.cuneus.rh</td>
+<td align="left">cuneus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.front.inf.opercular.rh</td>
+<td align="left">opercular part of the inferior frontal gyrus (right
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.front.inf.orbital.rh</td>
+<td align="left">orbital part of the inferior frontal gyrus (right
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.front.inf.triangul.rh</td>
+<td align="left">triangular part of the inferior frontal gyrus (right
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.front.middle.rh</td>
+<td align="left">middle frontal gyrus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.front.sup.rh</td>
+<td align="left">superior frontal gyrus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.ins.lg.and.s.cent.ins.rh</td>
+<td align="left">long insular gyrus and central sulcus of the insula
+(right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.insular.short.rh</td>
+<td align="left">short insular gyri (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.occipital.middle.rh</td>
+<td align="left">middle occipital gyrus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.occipital.sup.rh</td>
+<td align="left">superior occipital gyrus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.oc.temp.lat.fusifor.rh</td>
+<td align="left">lateral occipito-temporal gyrus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.oc.temp.med.lingual.rh</td>
+<td align="left">lingual gyrus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.oc.temp.med.parahip.rh</td>
+<td align="left">parahippocampal gyrus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.orbital.rh</td>
+<td align="left">orbital gyri (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.pariet.inf.angular.rh</td>
+<td align="left">angular gyrus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.pariet.inf.supramar.rh</td>
+<td align="left">supramarginal gyrus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.parietal.sup.rh</td>
+<td align="left">superior parietal lobule (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.postcentral.rh</td>
+<td align="left">postcentral gyrus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.precentral.rh</td>
+<td align="left">precentral gyrus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.precuneus.rh</td>
+<td align="left">precuneus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.rectus.rh</td>
+<td align="left">gyrus rectus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.subcallosal.rh</td>
+<td align="left">subcallosal gyrus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.temp.sup.g.t.transv.rh</td>
+<td align="left">anterior transverse temporal gyrus (right
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.temp.sup.lateral.rh</td>
+<td align="left">lateral aspect of the superior temporal gyrus (right
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.temp.sup.plan.polar.rh</td>
+<td align="left">planum polare of the superior temporal gyrus (right
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.temp.sup.plan.tempo.rh</td>
+<td align="left">planum temporale (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.temporal.inf.rh</td>
+<td align="left">inferior temporal gyrus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_g.temporal.middle.rh</td>
+<td align="left">middle temporal gyrus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_lat.fis.ant.horizont.rh</td>
+<td align="left">horizontal ramus of the anterior segment of the lateral
+sulcus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_lat.fis.ant.vertical.rh</td>
+<td align="left">vertical ramus of the anterior segment of the lateral
+sulcus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_lat.fis.post.rh</td>
+<td align="left">posterior ramus of the lateral sulcus (right
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_pole.occipital.rh</td>
+<td align="left">occipital pole (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_pole.temporal.rh</td>
+<td align="left">temporal pole (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.calcarine.rh</td>
+<td align="left">calcarine sulcus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.central.rh</td>
+<td align="left">central sulcus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.cingul.marginalis.rh</td>
+<td align="left">marginal branch of the cingulate sulcus (right
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.circular.insula.ant.rh</td>
+<td align="left">anterior segment of the circular sulcus of the insula
+(right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.circular.insula.inf.rh</td>
+<td align="left">inferior segment of the circular sulcus of the insula
+(right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.circular.insula.sup.rh</td>
+<td align="left">superior segment of the circular sulcus of the insula
+(right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.collat.transv.ant.rh</td>
+<td align="left">anterior transverse collateral sulcus (right
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.collat.transv.post.rh</td>
+<td align="left">posterior transverse collateral sulcus (right
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.front.inf.rh</td>
+<td align="left">inferior frontal sulcus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.front.middle.rh</td>
+<td align="left">middle frontal sulcus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.front.sup.rh</td>
+<td align="left">superior frontal sulcus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.interm.prim.jensen.rh</td>
+<td align="left">sulcus intermedius primus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.intrapariet.and.p.trans.rh</td>
+<td align="left">intraparietal sulcus and transverse parietal sulci
+(right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.oc.middle.and.lunatus.rh</td>
+<td align="left">middle occipital sulcus and lunatus sulcus (right
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.oc.sup.and.transversal.rh</td>
+<td align="left">superior occipital sulcus and transverse occipital
+sulcus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.occipital.ant.rh</td>
+<td align="left">anterior occipital sulcus and preoccipital notch (right
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.oc.temp.lat.rh</td>
+<td align="left">lateral occipito-temporal sulcus (right
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.oc.temp.med.and.lingual.rh</td>
+<td align="left">medial occipito-temporal sulcus and lingual sulcus
+(right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.orbital.lateral.rh</td>
+<td align="left">lateral orbital sulcus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.orbital.med.olfact.rh</td>
+<td align="left">medial orbital sulcus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.orbital.h.shaped.rh</td>
+<td align="left">orbital sulci (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.parieto.occipital.rh</td>
+<td align="left">parieto-occipital sulcus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.pericallosal.rh</td>
+<td align="left">s.pericallosal (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.postcentral.rh</td>
+<td align="left">postcentral sulcus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.precentral.inf.part.rh</td>
+<td align="left">inferior part of the precentral sulcus (right
+hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.precentral.sup.part.rh</td>
+<td align="left">superior part of the precentral sulcus (right
+hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.suborbital.rh</td>
+<td align="left">suborbital sulcus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.subparietal.rh</td>
+<td align="left">subparietal sulcus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.temporal.inf.rh</td>
+<td align="left">inferior temporal sulcus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.temporal.sup.rh</td>
+<td align="left">superior temporal sulcus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_s.temporal.transverse.rh</td>
+<td align="left">transverse temporal sulcus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_mean.lh</td>
+<td align="left">mean (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_mean.rh</td>
+<td align="left">mean (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_mean</td>
+<td align="left">mean (bilateral)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_total.lh</td>
+<td align="left">total (left hemisphere - area and volume)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_total.rh</td>
+<td align="left">total (right hemisphere - area and volume)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">cort.destrieux_total</td>
+<td align="left">total (bilateral - area and volume)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="subcortical-segmentation" class="section level4" number="9.3.1.3">
+<h4><span class="header-section-number">9.3.1.3</span> Subcortical
+Segmentation</h4>
+<table>
+<caption>sMRI Look-up Table 3. Subcortical Segmentation (aseg)</caption>
+<colgroup>
+<col width="12%" />
+<col width="31%" />
+<col width="56%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">SDPP ROI abbr</th>
+<th align="left">ABCD ROI name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_cerebralwhitematterlh</td>
+<td align="left">cerebral white matter (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_cerebralcortexlh</td>
+<td align="left">cerebral cortex (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_lateralventriclelh</td>
+<td align="left">lateral ventricle (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_inflatventlh</td>
+<td align="left">inferior lateral ventricle (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_cerebellumwhitematterlh</td>
+<td align="left">cerebellum white matter (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_cerebellumcortexlh</td>
+<td align="left">cerebellum cortex (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_thalamusproperlh</td>
+<td align="left">thalamus proper (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_caudatelh</td>
+<td align="left">caudate (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_putamenlh</td>
+<td align="left">putamen (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_pallidumlh</td>
+<td align="left">pallidum (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_hippocampuslh</td>
+<td align="left">hippocampus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_amygdalalh</td>
+<td align="left">amygdala (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_lesionlh</td>
+<td align="left">lesions (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_accumbensarealh</td>
+<td align="left">accumbens area (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_ventraldclh</td>
+<td align="left">ventral DC (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_cerebralwhitematterrh</td>
+<td align="left">cerebral white matter (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_cerebralcortexrh</td>
+<td align="left">cerebral cortex (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_lateralventriclerh</td>
+<td align="left">lateral ventricle (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_inflatventrh</td>
+<td align="left">inferior lateral ventricle (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_cerebellumwhitematterrh</td>
+<td align="left">cerebellum white matter (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_cerebellumcortexrh</td>
+<td align="left">cerebellum cortex (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_thalamusproperrh</td>
+<td align="left">thalamus proper (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_caudaterh</td>
+<td align="left">caudate (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_putamenrh</td>
+<td align="left">putamen (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_pallidumrh</td>
+<td align="left">pallidum (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_hippocampusrh</td>
+<td align="left">hippocampus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_amygdalarh</td>
+<td align="left">amygdala (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_lesionrh</td>
+<td align="left">lesions (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_accumbensarearh</td>
+<td align="left">accumbens area (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_ventraldcrh</td>
+<td align="left">ventral DC (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_wmhypointensities</td>
+<td align="left">wm hypointensities</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_wmhypointensitieslh</td>
+<td align="left">wm hypointensities (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_wmhypointensitiesrh</td>
+<td align="left">wm hypointensities (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_ccposterior</td>
+<td align="left">CC Posterior</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_ccmidposterior</td>
+<td align="left">CC Mid_Posterior</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_cccentral</td>
+<td align="left">CC Central</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_ccmidanterior</td>
+<td align="left">CC Mid_Anterior</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_ccanterior</td>
+<td align="left">CC Anterior</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_latventricles</td>
+<td align="left">lateral ventricles</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_3rdventricle</td>
+<td align="left">3rd ventricle</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_4thventricle</td>
+<td align="left">4th ventricle</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_allventricles</td>
+<td align="left">all ventricles</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_csf</td>
+<td align="left">csf</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_brainstem</td>
+<td align="left">brain stem</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_wholebrain</td>
+<td align="left">whole brain</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_brainmaskvolume</td>
+<td align="left">brain mask volume</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_brainsegmentationvolume</td>
+<td align="left">brain segmentation volume *</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_intracranialvolume</td>
+<td align="left">intracranial volume (i.e. estimated total intracranial
+volume) *</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">subcortaseg_supratentorialvolume</td>
+<td align="left">supratentorial volume *</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">subcortaseg_subcorticalgrayvolume</td>
+<td align="left">subcortical gray volume *</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="diffusion-mri-dmri-dti-rsi" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> Diffusion MRI (dMRI;
+DTI, RSI)</h2>
+</div>
+<div id="resting-state-functional-mri-rsfmri" class="section level2" number="9.5">
+<h2><span class="header-section-number">9.5</span> Resting-state
+functional MRI (rsfMRI)</h2>
+</div>
+<div id="task-based-functional-mri-tfmri" class="section level2" number="9.6">
+<h2><span class="header-section-number">9.6</span> task-based functional
+MRI (tfMRI)</h2>
 </div>
 </div>
 

@@ -1,7 +1,7 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-11-27
+2023-11-28
 
 - [Introduction](#introduction)
 - [Citation and Suggestions](#citation-and-suggestions)
@@ -76,6 +76,13 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
     repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/pulls)
 
 # Change Logs
+
+- 2023.11.28
+
+  - Start Step 13 (extract sMRI-related variables).
+  - Add an EXCEL template: SDPP-MRI-Look-up-table
+    (*.github/SDPP_MRI_ROI_LookUpTable.xlsx*)
+  - Update README & User Manual for ABCD MRI tabulated data.
 
 - 2023.11.27
 
