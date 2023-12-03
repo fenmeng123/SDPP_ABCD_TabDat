@@ -22,7 +22,7 @@ sapply(CBCL,typeof)
 CBCL %>% MVA.Report.By.Wave() %>% 
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_MH_P_CBCL_Raw.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 
 # 3. Filter columns and re-name it ----------------------------------------
 # Only t-scores will be retained.
@@ -59,7 +59,7 @@ select(NEW_CBCL,-c(src_subject_id,eventname)) %>%
                     mat = T,digits =2) %>%
   print_table(file = fullfile(ResultsOutputDir,'VSO_ALL_MH_P_CBCL.doc'),
               row.names = T,
-              nsmalls = 1,
+              digits = 1,
               digits = 2)
 # 5. Save Re-coded CBCL data ----------------------------------------------
 
@@ -71,7 +71,7 @@ SDPP.save.file(NEW_CBCL,
 NEW_CBCL %>% MVA.Report.By.Wave() %>%
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_MH_P_CBCL_Rec.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 
 # End of Script -----------------------------------------------------------
 

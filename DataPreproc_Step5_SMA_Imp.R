@@ -145,7 +145,7 @@ SMA = Bind.imp.By.Wave('SMA',SUAB_T23)
 SMA %>% MVA.Report.By.Wave() %>%
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_SMA_Rec_Imp.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 
 SDPP.save.file(SMA,
                FileName = "SMA_Rec_Imp.rds",

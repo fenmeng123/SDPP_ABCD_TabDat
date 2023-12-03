@@ -23,7 +23,7 @@ sapply(stq,typeof)
 stq %>% MVA.Report.By.Wave() %>% 
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_SMA_RawData.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 # 3. Re-coding Youth's Screen Use Time (Screen Time Questionnaire) -------------
 #------------------- Screen Time Survey (baseline and 1-year FU) --------------#
 # Re-code and rename to a 7-level ordinal variable as numeric data type
@@ -194,7 +194,7 @@ TPD_STQ = cbind(TPD_STQ,
 TPD_STQ %>% MVA.Report.By.Wave() %>% 
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_SMA_Rec_TPD_STQ.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 # Variables measured the TOTAL time in ABCD STQ
 # 
 # screentime_wkdy_typical_hr
@@ -433,7 +433,7 @@ ScreenUse = Hmisc::Merge(TPD_STQ,VGAS,SMQ,MPIQ,SUAB,ODQ, id = ~src_subject_id*ev
 ScreenUse %>% MVA.Report.By.Wave() %>%
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_SMA_Rec.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 
 SDPP.save.file(ScreenUse,
                FileName = "SMA_Rec.rds",

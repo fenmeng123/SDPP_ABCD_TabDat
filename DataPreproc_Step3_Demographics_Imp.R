@@ -122,7 +122,7 @@ Demographics_before_impute_baseline = subset(Demographics_before_impute,
 Demographics_before_impute_baseline %>% MVA.Report.By.Wave() %>%
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_T0_Demo_Rec_Consist.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 
 # 6. Multiple Imputation for all key demographic variables--------------
 var.ls <- c("src_subject_id", "interview_age",
@@ -156,7 +156,7 @@ sapply(dat0, typeof)
 dat0 %>% MVA.Report.By.Wave() %>%
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_T0_Demo_KeyVars.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 
 # Perform Little's MCAR Testing
 fprintf("========================Little's MCAR Testing========================")
@@ -323,7 +323,7 @@ if (!exists('Demographics_Imputed')){
 Demographics_Imputed %>% MVA.Report.By.Wave() %>%
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_Demo_Rec_Imp.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 # End of Script -----------------------------------------------------------
 rm(ResultsOutputDir,n.imp,n.iter)
 s_close_sink()

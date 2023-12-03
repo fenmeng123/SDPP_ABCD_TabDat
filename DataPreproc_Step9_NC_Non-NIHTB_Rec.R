@@ -43,7 +43,7 @@ NEW_data = select(data,c(src_subject_id,eventname))
 data %>% MVA.Report.By.Wave() %>% 
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_NC_Non-NIHTB_Raw.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 
 # 3. Filter columns and re-name it ----------------------------------------
 data %>% select(c(snellen_va_y,
@@ -271,7 +271,7 @@ data %>% select(c(snellen_va_y,
 # NEW_data %>% MVA.Report.By.Wave() %>% 
 #   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_NC_Non-NIHTB_Rec.doc'),
 #               row.names = F,
-#               nsmalls = 1)
+#               digits = 1)
 
 # 4. Check and Re-formate Variable Type ---------------------------------------
 sapply(NEW_data, typeof) %>% sort() -> DataType
@@ -483,14 +483,14 @@ SDPP.save.file(NEW_NonNIHTB,
 NEW_NonNIHTB %>% MVA.Report.By.Wave() %>%
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_NC_Non-NIHTB_Rec.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 
 select(NEW_NonNIHTB,-c(src_subject_id,eventname)) %>% 
   psych::describeBy(group = Recode.Eventname(NEW_NonNIHTB)$eventname,
                     mat = T,digits =2) %>%
   print_table(file = fullfile(ResultsOutputDir,'VSO_ALL_NC_Non-NIHTB.doc'),
               row.names = T,
-              nsmalls = 1,
+              digits = 1,
               digits = 2)
 # End of Script -----------------------------------------------------------
 

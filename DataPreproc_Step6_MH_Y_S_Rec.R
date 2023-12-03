@@ -35,7 +35,7 @@ var_ls = append(var_ls,c('eventname','src_subject_id'))
 MH[,var_ls] %>% MVA.Report.By.Wave() %>% 
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_MH_S_Raw.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 MH[,var_ls] %>% rename(upps_y_ss_lack_of_pers = upps_y_ss_lack_of_perseverance) -> MH_S
 
 
@@ -131,7 +131,7 @@ SDPP.save.file(NEW_MH_S,
 NEW_MH_S %>% MVA.Report.By.Wave() %>%
   print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_MH_S_Rec.doc'),
               row.names = F,
-              nsmalls = 1)
+              digits = 1)
 
 
 # End of Script -----------------------------------------------------------
