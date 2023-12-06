@@ -322,7 +322,7 @@ SDPP.filter.data.dict <- function(DataDictionaryFileDir = dir(pattern = '.*Dicti
   dict <- DataDictionaryFileDir %>%
     import() %>%
     as.data.frame()
-  RowFlag = which(dict[[filter_col]] == filter_key)
+  RowFlag = which(dict[[filter_col]] %in% filter_key)
   if (any(is.na(search_col))){
     filtered_dict = dict[RowFlag,]
   }else{
