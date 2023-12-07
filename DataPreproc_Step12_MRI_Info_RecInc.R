@@ -6,9 +6,9 @@
 # https://wiki.abcdstudy.org/release-notes/imaging/overview.html
 # Target File: 
 # ABCD 4.0 : 
-# ABCD 5.0: /core/culture-environment/mri_y_adm_info.csv
-#                                     mri_y_qc_incl.csv
-#                                     mri_y_qc_motion.csv
+# ABCD 5.0: /core/imaging/mri_y_adm_info.csv
+#                         mri_y_qc_incl.csv
+#                         mri_y_qc_motion.csv
 # 
 # Update Date: 2023.11.27
 # =============================================================================#
@@ -30,13 +30,13 @@ NEW_data <- SDPP.select.cols.by.dict(data,
 # 3. Re-naming all selected variables -------------------------------------
 NEW_data <- NEW_data %>%
   rename(MRI_BatchID = mri_info_deviceserialnumber,
-         QC_RecInc_sMRI_T1w = imgincl_t1w_include,
-         QC_RecInc_sMRI_T2w = imgincl_t2w_include,
+         QC_RecInc_sMRI_T1w    = imgincl_t1w_include,
+         QC_RecInc_sMRI_T2w    = imgincl_t2w_include,
          QC_RecInc_dMRI_DTIRSI = imgincl_dmri_include,
-         QC_RecInc_rsfMRI = imgincl_rsfmri_include,
-         QC_RecInc_tfMRI_MID = imgincl_mid_include,
-         QC_RecInc_tfMRI_NB = imgincl_nback_include,
-         QC_RecInc_tfMRI_SST = imgincl_sst_include,
+         QC_RecInc_rsfMRI      = imgincl_rsfmri_include,
+         QC_RecInc_tfMRI_MID   = imgincl_mid_include,
+         QC_RecInc_tfMRI_NB    = imgincl_nback_include,
+         QC_RecInc_tfMRI_SST   = imgincl_sst_include,
          HM_tfMRI_NB_MeanFD         = tfmri_nback_all_meanmotion,
          HM_tfMRI_NB_MeanRotat      = tfmri_nback_all_meanrot,
          HM_tfMRI_NB_MeanTrans      = tfmri_nback_all_meantrans,

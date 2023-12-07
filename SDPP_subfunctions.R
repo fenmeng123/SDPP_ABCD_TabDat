@@ -714,4 +714,51 @@ Bind.imp.By.Wave <- function(raw_dat_name,imp_dat){
   new_dat <- rbind(new_dat,unimp_dat)
   return(new_dat)
 }
-
+Standardize.MRI.Atlas.Name <- function(sMRI_Atlas_VarName){
+  sMRI_Atlas_VarName$SDPP_ROIname <- NA
+  for (iroi in unique(sMRI_Atlas_VarName$ROIname)){
+    tmpRowFlag <- which(sMRI_Atlas_VarName$ROIname == iroi)
+    if (iroi %in% c('left hemisphere','right hemisphere','whole brain')) {
+      fprintf("Skip for [%s], using the last part of raw variable name [%s] instead.\n",
+              iroi,unique(sMRI_Atlas_VarName$rawvarname_p4[tmpRowFlag]))
+      sMRI_Atlas_VarName$SDPP_ROIname[
+        tmpRowFlag
+        ] <- sMRI_Atlas_VarName$rawvarname_p4[tmpRowFlag]
+      next
+    }
+    tmpCountsTable <- sMRI_Atlas_VarName %>%
+      subset(ROIname == iroi) %>%
+      select(
+        c(rawvarname_p4,ROIname)
+      ) %>%
+      table() %>%
+      as.data.frame()
+    tmpReplaceStr <- tmpCountsTable$rawvarname_p4[
+      which.max(tmpCountsTable$Freq)
+    ] %>%
+      as.character()
+    fprintf("Replace ROIs labeled by [%s] with ABCD ROI name [%s]\t",
+            iroi,tmpReplaceStr)
+    fprintf("|Frequnecy = %.2f|\n",
+            max(tmpCountsTable$Freq)/sum(tmpCountsTable$Freq))
+    sMRI_Atlas_VarName$SDPP_ROIname[tmpRowFlag] <- tmpReplaceStr
+  }
+  return(sMRI_Atlas_VarName)
+}
+Update.LUT.Content <- function(LUT){
+  for (ilabel in LUT[['ggseg Label']]){
+    if (is.na(ilabel)){
+      fprintf("NA was detected from Look Up Table. Skip! \n")
+    }else{
+      tmpRowFlag <- which(sMRI_DK_VarName$ROIname == ilabel)
+      tmpReplaceStr <- unique(sMRI_DK_VarName$SDPP_ROIname[tmpRowFlag])
+    }
+    if (length(tmpReplaceStr) > 1){
+      fprintf("Mutiple strings to be replaced were detected! Please check:\n")
+      print(tmpReplaceStr)
+    }else{
+      LUT$`SDPP ROI abbr`[LUT$`ggseg Label` == ilabel] <- tmpReplaceStr
+    }
+  }
+  return(LUT)
+}
