@@ -768,13 +768,13 @@ Standardize.MRI.Atlas.Name <- function(sMRI_Atlas_VarName){
   }
   return(sMRI_Atlas_VarName)
 }
-Update.LUT.Content <- function(LUT){
+Update.LUT.Content <- function(LUT,sMRI_Atlas_VarName){
   for (ilabel in LUT[['ggseg Label']]){
     if (is.na(ilabel)){
       fprintf("NA was detected from Look Up Table. Skip! \n")
     }else{
-      tmpRowFlag <- which(sMRI_DK_VarName$ROIname == ilabel)
-      tmpReplaceStr <- unique(sMRI_DK_VarName$SDPP_ROIname[tmpRowFlag])
+      tmpRowFlag <- which(sMRI_Atlas_VarName$ROIname == ilabel)
+      tmpReplaceStr <- unique(sMRI_Atlas_VarName$SDPP_ROIname[tmpRowFlag])
     }
     if (length(tmpReplaceStr) > 1){
       fprintf("Mutiple strings to be replaced were detected! Please check:\n")
@@ -782,6 +782,29 @@ Update.LUT.Content <- function(LUT){
     }else{
       LUT$`SDPP ROI abbr`[LUT$`ggseg Label` == ilabel] <- tmpReplaceStr
     }
+  }
+  return(LUT)
+}
+Update.LUT.Warp <- function(sMRI_Atlas_VarName,
+                            AtlasName = 'Desikan'){
+  # Add the SDPP nomenclature to MRI look-up table 
+  LUT <- import(file = './.github/SDPP_MRI_ROI_LookUpTable.xlsx',
+                sheet = AtlasName,
+                verbose = T)
+  # Update look up table
+  if (any(is.na(LUT$`SDPP ROI abbr`))){
+    LUT <- Update.LUT.Content(LUT,sMRI_Atlas_VarName)
+    LUT %>%
+      export(file = './.github/SDPP_MRI_ROI_LookUpTable.xlsx',
+             sheet = AtlasName,
+             verbose = T)
+  }else{
+    fprintf("For [%s] sheet in LUT file, all cells in the 'SDPP ROI abbr' already have values.\n",
+            AtlasName)
+    fprintf("See the top five rows in below:\n")
+    head(LUT) %>%
+      knitr::kable(format = 'simple') %>%
+      print()
   }
   return(LUT)
 }

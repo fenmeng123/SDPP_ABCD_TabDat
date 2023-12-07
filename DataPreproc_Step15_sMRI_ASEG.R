@@ -16,7 +16,7 @@
 # 
 # Update Date: 2023.12.7
 # =============================================================================#
-# 1.  ---------------------------------------------------------------------
+# 1. ASEG Settings -------------------------------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_15.txt'
 DK_FileNames = c(
   "mri_y_smr_vol_aseg.csv",
@@ -25,5 +25,41 @@ DK_FileNames = c(
 )
 
 SubfolderName = "imaging"
+AtlasName = "ASEG"
 
 # s_sink(fullfile(AutoLogFolder,AutoLogFileName))
+# library(naniar)
+
+# 2. Export labels of ASEG & ASEG Extra Atlas from ggsegExtra ------------
+
+if (requireNamespace("ggsegDefaultExtra", quietly = T)) {
+  ggsegDefaultExtra::hcpa_3d$ggseg_3d %>%
+    as.data.frame() %>%
+    na.omit() %>%
+    select(
+      c(region,label)
+    ) %>%
+    export(file = './.github/SDPP_ggseg_AtlasLUT.xlsx',
+           sheet = 'ASEG_Extra',
+           verbose = T)
+}else{
+  fprintf("ggsegDefaultExtra has not been installed! Using the default ggseg_AtlasLUT file from SDPP instead.\n")
+}
+if (requireNamespace("ggseg", quietly = T)) {
+  ggseg::aseg %>%
+    as.data.frame() %>%
+    na.omit() %>%
+    select(
+      c(hemi,side,region,label)
+    ) %>%
+    export(file = './.github/SDPP_ggseg_AtlasLUT.xlsx',
+           sheet = 'ASEG',
+           verbose = T)
+}else{
+  fprintf("ggseg has not been installed! Using the default ggseg_AtlasLUT file from SDPP instead.\n")
+}
+
+
+# End of Script -----------------------------------------------------------
+
+s_close_sink()

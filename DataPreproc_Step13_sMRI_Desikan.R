@@ -21,7 +21,7 @@
 # 
 # Update Date: 2023.12.7
 # =============================================================================#
-# 1.  ---------------------------------------------------------------------
+# 1. Desikan Settings ----------------------------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_13.txt'
 DK_FileNames = c(
   "mri_y_smr_thk_dsk.csv",
@@ -38,22 +38,28 @@ DK_FileNames = c(
 
 SubfolderName = "imaging"
 
+AtlasName = "Desikan"
+
 s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 library(naniar)
 
 # ==============================MAIN CODES=====================================#
 # 2. Extract and Update Desikan-Killiany Atlas Variable Names -------------
+if (requireNamespace("ggseg", quietly = T)) {
+  # Export the data frame of Desikan-Killiany Atlas from ggseg mapping
+  ggseg::dk$data %>%
+    as.data.frame() %>%
+    na.omit() %>%
+    select(
+      c(hemi,side,region,label)
+    ) %>%
+    export(file = './.github/SDPP_ggseg_AtlasLUT.xlsx',
+           sheet = AtlasName,
+           verbose = T)
+}else{
+  fprintf("ggseg has not been installed! Using the default ggseg_AtlasLUT file from SDPP instead.\n")
+}
 
-# Export the data frame of Desikan-Killiany Atlas from ggseg mapping
-ggseg::dk$data %>%
-  as.data.frame() %>%
-  na.omit() %>%
-  select(
-    c(hemi,side,region,label)
-  ) %>%
-  export(file = './.github/SDPP_ggseg_AtlasLUT.xlsx',
-         sheet = 'Desikan',
-         verbose = T)
 # Load Desikan-Killinay Nomenclature from dictionary
 DK_TableName <- DK_FileNames %>%
   str_remove_all('\\.csv')
@@ -104,17 +110,9 @@ sMRI_DK_VarName$VarType <- sMRI_DK_VarName$rawvarname_p2 %>%
 sMRI_DK_VarName$newvarname <- str_c(sMRI_DK_VarName$VarType,
                                     sMRI_DK_VarName$SDPP_ROIname,
                                     sep = '_')
-# Add the SDPP nomenclature to MRI look-up table 
-LUT <- import(file = './.github/SDPP_MRI_ROI_LookUpTable.xlsx',
-              sheet = 'Desikan',
-              verbose = T)
 
-# Update look up table
-LUT <- Update.LUT.Content(LUT)
-LUT %>%
-  export(file = './.github/SDPP_MRI_ROI_LookUpTable.xlsx',
-         sheet = 'Desikan',
-         verbose = T)
+LUT <- Update.LUT.Warp(sMRI_DK_VarName,AtlasName)
+
 
 # 3. Load and re-naming all Desikan-Killiany Variables --------------------
 
