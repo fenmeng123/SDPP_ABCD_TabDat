@@ -135,23 +135,11 @@ colnames(NEW_data) <- Vec_ColNames
 fprintf("Finished Variable Re-naming for sMRI Measures from Desikan-Killiany Atlas!\n")
 # 4. Save re-coded data ---------------------------------------------------
 
-SDPP.save.file(NEW_data,
-               FileName = "sMRI_Desikan.rds",
-               Prefix = Prefix,
-               ProjectDirectory = ProjectDirectory)
-
-NEW_data %>% MVA.Report.By.Wave() %>%
-  print_table(file = fullfile(ResultsOutputDir,'MVA_Report_ALL_sMRI_Desikan.doc'),
-              row.names = F)
-
-select(NEW_data,-c(src_subject_id,eventname)) %>% 
-  psych::describeBy(group = Recode.Eventname(NEW_data)$eventname,
-                    mat = T,digits =2) %>%
-  print_table(file = fullfile(ResultsOutputDir,'VSO_ALL_sMRI_Desikan.doc'),
-              row.names = T,
-              digits = 2)
-
-
+SDPP.StdOut.IntermediateData.Files(NEW_data,
+                                   FileLabel = 'sMRI_Desikan',
+                                   Prefix = Prefix,
+                                   ProjectDirectory = ProjectDirectory,
+                                   ResultsOutputDir = ResultsOutputDir)
 # End of Script -----------------------------------------------------------
 
 s_close_sink()

@@ -356,7 +356,30 @@ SDPP.select.cols.by.dict <- function(data,
     )
   return(selected_data)
 }
+SDPP.StdOut.IntermediateData.Files <- function(NEW_data,
+                                               FileLabel = 'tmp',
+                                               Prefix = "ABCD5.0",
+                                               ProjectDirectory = "../DataAnalysis/SMA_Trajectory",
+                                               ResultsOutputDir = "../DataAnalysis/SMA_Trajectory/Res_2_Results/Res_Preproc"){
 
+  SDPP.save.file(NEW_data,
+                 FileName = str_c(FileLabel,".rds"),
+                 Prefix = Prefix,
+                 ProjectDirectory = ProjectDirectory)
+  
+  NEW_data %>% MVA.Report.By.Wave() %>%
+    print_table(file = fullfile(ResultsOutputDir,
+                                str_c('MVA_Report_ALL_',FileLabel,'.doc')),
+                row.names = F)
+  
+  select(NEW_data,-c(src_subject_id,eventname)) %>% 
+    psych::describeBy(group = Recode.Eventname(NEW_data)$eventname,
+                      mat = T,digits =2) %>%
+    print_table(file = fullfile(ResultsOutputDir,
+                                str_c('VSO_ALL',FileLabel,'.doc')),
+                row.names = T,
+                digits = 2)
+}
 # 3. Data Processing Functions --------------------------------------------
 dt.print.mva.counts <- function(dt_name,var_name){
   if (is.character(dt_name) & is.character(var_name)){
