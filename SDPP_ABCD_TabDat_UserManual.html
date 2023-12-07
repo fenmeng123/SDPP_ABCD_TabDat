@@ -11,7 +11,7 @@
 
 <meta name="author" content="Kunru Song" />
 
-<meta name="date" content="2023-12-06" />
+<meta name="date" content="2023-12-07" />
 
 <title>SDPP-ABCD-TabDat User Manual</title>
 
@@ -1511,7 +1511,7 @@ font-size: 0.95em;
 
 <h1 class="title toc-ignore">SDPP-ABCD-TabDat User Manual</h1>
 <h4 class="author">Kunru Song</h4>
-<h4 class="date">2023-12-06</h4>
+<h4 class="date">2023-12-07</h4>
 
 </div>
 
@@ -2152,42 +2152,42 @@ Imaging [MRI])</caption>
 <tr class="odd">
 <td align="left">PBI</td>
 <td align="left">children’s report of Parental Behavioral Inventory</td>
-<td align="left">T1wContr</td>
+<td align="left">T1Contr</td>
 <td align="left">Normalized T1 cortical gray/white intensity
 contrast</td>
 </tr>
 <tr class="even">
 <td align="left">MNBS</td>
 <td align="left">Multidimensional Neglecful Behavior Scale</td>
-<td align="left">T1wGray</td>
+<td align="left">T1Gray</td>
 <td align="left">Average T1 intensity of gray matter voxels (+0.2 mm
 from ROI’s gray/white boundary)</td>
 </tr>
 <tr class="odd">
 <td align="left">PM</td>
 <td align="left">Parental Monitoring</td>
-<td align="left">T1wWhite</td>
+<td align="left">T1White</td>
 <td align="left">Average T1 intensity of white matter voxels (-0.2 mm
 from ROI’s gray/white boundary)</td>
 </tr>
 <tr class="even">
 <td align="left">FES</td>
 <td align="left">Family Environment Scale</td>
-<td align="left">T2wContr</td>
+<td align="left">T2Contr</td>
 <td align="left">Normalized T2 cortical gray/white intensity
 contrast</td>
 </tr>
 <tr class="odd">
 <td align="left">PET</td>
 <td align="left">Pet Ownership</td>
-<td align="left">T2wGray</td>
+<td align="left">T2Gray</td>
 <td align="left">Average T2 intensity of gray matter voxels (+0.2 mm
 from ROI’s gray/white boundary)</td>
 </tr>
 <tr class="even">
 <td align="left">CE Part 3</td>
 <td align="left">Peers- and Family-related Measures</td>
-<td align="left">T2wWhite</td>
+<td align="left">T2White</td>
 <td align="left">Average T2 intensity of white matter voxels (-0.2 mm
 from ROI’s gray/white boundary)</td>
 </tr>
@@ -2200,7 +2200,7 @@ from ROI’s gray/white boundary)</td>
 <tr class="even">
 <td align="left">PNH</td>
 <td align="left">Peer Network Health: protective scale</td>
-<td align="left">DKT</td>
+<td align="left">DK</td>
 <td align="left">labels from Desikan-Killiany atlas-based
 classification</td>
 </tr>
@@ -2225,21 +2225,20 @@ classification</td>
 <tr class="even">
 <td align="left">CE Part 4</td>
 <td align="left">Other CE-related Measures</td>
-<td align="left">wb</td>
-<td align="left">whole brain</td>
+<td align="left">mean</td>
+<td align="left">Mean of vertex or voxel values in whole brain</td>
 </tr>
 <tr class="odd">
 <td align="left">PSB</td>
 <td align="left">ProSocial Behavior scale</td>
-<td align="left">Mean</td>
-<td align="left">Mean of vertex or voxel values in this ROI</td>
+<td align="left">total</td>
+<td align="left">Total value in whole brain</td>
 </tr>
 <tr class="even">
 <td align="left">WPS</td>
 <td align="left">Wills Problem Solving scale</td>
-<td align="left">Total</td>
-<td align="left">Total value or sum of vertex/voxel values in this
-ROI</td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>
@@ -2827,22 +2826,94 @@ ABCD Variables</h2>
 <td align="center">3</td>
 </tr>
 <tr class="even">
+<td align="center">mri_y_smr_area_dsk</td>
+<td align="center">71</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">mri_y_smr_sulc_dsk</td>
+<td align="center">71</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">mri_y_smr_t1_contr_dsk</td>
+<td align="center">71</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">mri_y_smr_t1_gray_dsk</td>
+<td align="center">71</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">mri_y_smr_t1_white_dsk</td>
+<td align="center">71</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">mri_y_smr_t2_contr_dsk</td>
+<td align="center">71</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">mri_y_smr_t2_gray_dsk</td>
+<td align="center">71</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">mri_y_smr_t2_white_dsk</td>
+<td align="center">71</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
 <td align="center">mri_y_smr_thk_dsk</td>
 <td align="center">71</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
+<td align="center">mri_y_smr_vol_dsk</td>
+<td align="center">71</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
 <td align="center">abcd_p_demo</td>
 <td align="center">65</td>
 <td align="center">175</td>
 <td align="center">1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">mri_y_tfmr_mid_beh</td>
 <td align="center">63</td>
 <td align="center">158</td>
 <td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center">mri_y_smr_vol_aseg</td>
+<td align="center">46</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">mri_y_smr_t1_aseg</td>
+<td align="center">40</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">mri_y_smr_t2_aseg</td>
+<td align="center">40</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="odd">
 <td align="center">mri_y_tfmr_nback_beh</td>
@@ -5474,10 +5545,10 @@ Atlas</h4>
 <table>
 <caption>sMRI Look-up Table 1. Desikan Parcellation (aparc)</caption>
 <colgroup>
-<col width="11%" />
 <col width="10%" />
-<col width="33%" />
-<col width="44%" />
+<col width="20%" />
+<col width="29%" />
+<col width="39%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -5489,426 +5560,174 @@ Atlas</h4>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">banksstslh</td>
+<td align="left">lh_bankssts</td>
 <td align="left">cortdesikan_banksstslh</td>
 <td align="left">banks of superior temporal sulcus (left
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_caudalanteriorcingulatelh</td>
-<td align="left">caudal anterior cingulate (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_caudalmiddlefrontallh</td>
-<td align="left">caudal middle frontal (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_cuneuslh</td>
-<td align="left">cuneus (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_entorhinallh</td>
-<td align="left">entorhinal (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_fusiformlh</td>
-<td align="left">fusiform (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_inferiorparietallh</td>
-<td align="left">inferior parietal (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_inferiortemporallh</td>
-<td align="left">inferior temporal (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_isthmuscingulatelh</td>
-<td align="left">isthmus cingulate (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_lateraloccipitallh</td>
-<td align="left">lateral occipital (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_lateralorbitofrontallh</td>
-<td align="left">lateral orbito-frontal (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_linguallh</td>
-<td align="left">lingual (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_medialorbitofrontallh</td>
-<td align="left">medial orbito-frontal (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_middletemporallh</td>
-<td align="left">middle temporal (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_parahippocampallh</td>
-<td align="left">parahippocampal (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_paracentrallh</td>
-<td align="left">paracentral (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_parsopercularislh</td>
-<td align="left">pars-opercularis (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_parsorbitalislh</td>
-<td align="left">pars-orbitalis (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_parstriangularislh</td>
-<td align="left">pars-triangularis (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_pericalcarinelh</td>
-<td align="left">pericalcarine (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_postcentrallh</td>
-<td align="left">postcentral (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_posteriorcingulatelh</td>
-<td align="left">posterior cingulate (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_precentrallh</td>
-<td align="left">precentral (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_precuneuslh</td>
-<td align="left">precuneus (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_rostralanteriorcingulatelh</td>
-<td align="left">rostral anterior cingulate (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_rostralmiddlefrontallh</td>
-<td align="left">rostral middle frontal (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_superiorfrontallh</td>
-<td align="left">superior frontal (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_superiorparietallh</td>
-<td align="left">superior parietal (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_superiortemporallh</td>
-<td align="left">superior temporal (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_supramarginallh</td>
-<td align="left">supra-marginal (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_frontalpolelh</td>
-<td align="left">frontal pole (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_temporalpolelh</td>
-<td align="left">temporal pole (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_transversetemporallh</td>
-<td align="left">transverse temporal (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_insulalh</td>
-<td align="left">insula (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">banksstsrh</td>
+<td align="left">rh_bankssts</td>
 <td align="left">cortdesikan_banksstsrh</td>
 <td align="left">banks of superior temporal sulcus (right
 hemisphere)</td>
 </tr>
+<tr class="odd">
+<td align="left">cdacatelh</td>
+<td align="left">lh_caudalanteriorcingulate</td>
+<td align="left">cortdesikan_caudalanteriorcingulatelh</td>
+<td align="left">caudal anterior cingulate (left hemisphere)</td>
+</tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">cdacaterh</td>
+<td align="left">rh_caudalanteriorcingulate</td>
 <td align="left">cortdesikan_caudalanteriorcingulaterh</td>
 <td align="left">caudal anterior cingulate (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">cdmdfrlh</td>
+<td align="left">lh_caudalmiddlefrontal</td>
+<td align="left">cortdesikan_caudalmiddlefrontallh</td>
+<td align="left">caudal middle frontal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">cdmdfrrh</td>
+<td align="left">rh_caudalmiddlefrontal</td>
 <td align="left">cortdesikan_caudalmiddlefrontalrh</td>
 <td align="left">caudal middle frontal (right hemisphere)</td>
 </tr>
+<tr class="odd">
+<td align="left">cuneuslh</td>
+<td align="left">lh_cuneus</td>
+<td align="left">cortdesikan_cuneuslh</td>
+<td align="left">cuneus (left hemisphere)</td>
+</tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">cuneusrh</td>
+<td align="left">rh_cuneus</td>
 <td align="left">cortdesikan_cuneusrh</td>
 <td align="left">cuneus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">ehinallh</td>
+<td align="left">lh_entorhinal</td>
+<td align="left">cortdesikan_entorhinallh</td>
+<td align="left">entorhinal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">ehinalrh</td>
+<td align="left">rh_entorhinal</td>
 <td align="left">cortdesikan_entorhinalrh</td>
 <td align="left">entorhinal (right hemisphere)</td>
 </tr>
+<tr class="odd">
+<td align="left">frpolelh</td>
+<td align="left">lh_frontalpole</td>
+<td align="left">cortdesikan_frontalpolelh</td>
+<td align="left">frontal pole (left hemisphere)</td>
+</tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">frpolerh</td>
+<td align="left">rh_frontalpole</td>
+<td align="left">cortdesikan_frontalpolerh</td>
+<td align="left">frontal pole (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">fusiformlh</td>
+<td align="left">lh_fusiform</td>
+<td align="left">cortdesikan_fusiformlh</td>
+<td align="left">fusiform (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">fusiformrh</td>
+<td align="left">rh_fusiform</td>
 <td align="left">cortdesikan_fusiformrh</td>
 <td align="left">fusiform (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">ifpllh</td>
+<td align="left">lh_inferiorparietal</td>
+<td align="left">cortdesikan_inferiorparietallh</td>
+<td align="left">inferior parietal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">ifplrh</td>
+<td align="left">rh_inferiorparietal</td>
 <td align="left">cortdesikan_inferiorparietalrh</td>
 <td align="left">inferior parietal (right hemisphere)</td>
 </tr>
+<tr class="odd">
+<td align="left">iftmlh</td>
+<td align="left">lh_inferiortemporal</td>
+<td align="left">cortdesikan_inferiortemporallh</td>
+<td align="left">inferior temporal (left hemisphere)</td>
+</tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">iftmrh</td>
+<td align="left">rh_inferiortemporal</td>
 <td align="left">cortdesikan_inferiortemporalrh</td>
 <td align="left">inferior temporal (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_isthmuscingulaterh</td>
-<td align="left">isthmus cingulate (right hemisphere)</td>
+<td align="left">insulalh</td>
+<td align="left">lh_insula</td>
+<td align="left">cortdesikan_insulalh</td>
+<td align="left">insula (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_lateraloccipitalrh</td>
-<td align="left">lateral occipital (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_lateralorbitofrontalrh</td>
-<td align="left">lateral orbito-frontal (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_lingualrh</td>
-<td align="left">lingual (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_medialorbitofrontalrh</td>
-<td align="left">medial orbito frontal (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_middletemporalrh</td>
-<td align="left">middle temporal (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_parahippocampalrh</td>
-<td align="left">parahippocampal (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_paracentralrh</td>
-<td align="left">paracentral (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_parsopercularisrh</td>
-<td align="left">pars-opercularis (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_parsorbitalisrh</td>
-<td align="left">pars-orbitalis (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_parstriangularisrh</td>
-<td align="left">pars-triangularis (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_pericalcarinerh</td>
-<td align="left">pericalcarine (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_postcentralrh</td>
-<td align="left">postcentral (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_posteriorcingulaterh</td>
-<td align="left">posterior cingulate (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_precentralrh</td>
-<td align="left">precentral (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_precuneusrh</td>
-<td align="left">precuneus (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_rostralanteriorcingulaterh</td>
-<td align="left">rostral anterior cingulate (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_rostralmiddlefrontalrh</td>
-<td align="left">rostral middle frontal (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_superiorfrontalrh</td>
-<td align="left">superior frontal (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_superiorparietalrh</td>
-<td align="left">superior parietal (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_superiortemporalrh</td>
-<td align="left">superior temporal (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_supramarginalrh</td>
-<td align="left">supra-marginal (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_frontalpolerh</td>
-<td align="left">frontal pole (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_temporalpolerh</td>
-<td align="left">temporal pole (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_transversetemporalrh</td>
-<td align="left">transverse temporal (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">insularh</td>
+<td align="left">rh_insula</td>
 <td align="left">cortdesikan_insularh</td>
 <td align="left">insula (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_mean.lh</td>
-<td align="left">mean (left hemisphere)</td>
+<td align="left">ihcatelh</td>
+<td align="left">lh_isthmuscingulate</td>
+<td align="left">cortdesikan_isthmuscingulatelh</td>
+<td align="left">isthmus cingulate (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">cortdesikan_mean.rh</td>
-<td align="left">mean (right hemisphere)</td>
+<td align="left">ihcaterh</td>
+<td align="left">rh_isthmuscingulate</td>
+<td align="left">cortdesikan_isthmuscingulaterh</td>
+<td align="left">isthmus cingulate (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">locclh</td>
+<td align="left">lh_lateraloccipital</td>
+<td align="left">cortdesikan_lateraloccipitallh</td>
+<td align="left">lateral occipital (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">loccrh</td>
+<td align="left">rh_lateraloccipital</td>
+<td align="left">cortdesikan_lateraloccipitalrh</td>
+<td align="left">lateral occipital (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">lobfrlh</td>
+<td align="left">lh_lateralorbitofrontal</td>
+<td align="left">cortdesikan_lateralorbitofrontallh</td>
+<td align="left">lateral orbito-frontal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">lobfrrh</td>
+<td align="left">rh_lateralorbitofrontal</td>
+<td align="left">cortdesikan_lateralorbitofrontalrh</td>
+<td align="left">lateral orbito-frontal (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">linguallh</td>
+<td align="left">lh_lingual</td>
+<td align="left">cortdesikan_linguallh</td>
+<td align="left">lingual (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">lingualrh</td>
+<td align="left">rh_lingual</td>
+<td align="left">cortdesikan_lingualrh</td>
+<td align="left">lingual (right hemisphere)</td>
 </tr>
 <tr class="odd">
 <td align="left">NA</td>
@@ -5919,20 +5738,272 @@ hemisphere)</td>
 <tr class="even">
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">cortdesikan_total.lh</td>
-<td align="left">total (left hemisphere - area and volume)</td>
+<td align="left">cortdesikan_mean.lh</td>
+<td align="left">mean (left hemisphere)</td>
 </tr>
 <tr class="odd">
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">cortdesikan_total.rh</td>
-<td align="left">total (right hemisphere - area and volume)</td>
+<td align="left">cortdesikan_mean.rh</td>
+<td align="left">mean (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">mobfrlh</td>
+<td align="left">lh_medialorbitofrontal</td>
+<td align="left">cortdesikan_medialorbitofrontalrh</td>
+<td align="left">medial orbito frontal (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">mobfrrh</td>
+<td align="left">rh_medialorbitofrontal</td>
+<td align="left">cortdesikan_medialorbitofrontallh</td>
+<td align="left">medial orbito-frontal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">mdtmlh</td>
+<td align="left">lh_middletemporal</td>
+<td align="left">cortdesikan_middletemporallh</td>
+<td align="left">middle temporal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">mdtmrh</td>
+<td align="left">rh_middletemporal</td>
+<td align="left">cortdesikan_middletemporalrh</td>
+<td align="left">middle temporal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">paracnlh</td>
+<td align="left">lh_paracentral</td>
+<td align="left">cortdesikan_paracentrallh</td>
+<td align="left">paracentral (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">paracnrh</td>
+<td align="left">rh_paracentral</td>
+<td align="left">cortdesikan_paracentralrh</td>
+<td align="left">paracentral (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">parahpallh</td>
+<td align="left">lh_parahippocampal</td>
+<td align="left">cortdesikan_parahippocampallh</td>
+<td align="left">parahippocampal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">parahpalrh</td>
+<td align="left">rh_parahippocampal</td>
+<td align="left">cortdesikan_parahippocampalrh</td>
+<td align="left">parahippocampal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">parsopclh</td>
+<td align="left">lh_parsopercularis</td>
+<td align="left">cortdesikan_parsopercularislh</td>
+<td align="left">pars opercularis (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">parsopcrh</td>
+<td align="left">rh_parsopercularis</td>
+<td align="left">cortdesikan_parsopercularisrh</td>
+<td align="left">pars opercularis (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">parsobislh</td>
+<td align="left">lh_parsorbitalis</td>
+<td align="left">cortdesikan_parsorbitalislh</td>
+<td align="left">pars orbitalis (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">parsobisrh</td>
+<td align="left">rh_parsorbitalis</td>
+<td align="left">cortdesikan_parsorbitalisrh</td>
+<td align="left">pars orbitalis (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">parstgrislh</td>
+<td align="left">lh_parstriangularis</td>
+<td align="left">cortdesikan_parstriangularislh</td>
+<td align="left">pars triangularis (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">parstgrisrh</td>
+<td align="left">rh_parstriangularis</td>
+<td align="left">cortdesikan_parstriangularisrh</td>
+<td align="left">pars triangularis (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">pericclh</td>
+<td align="left">lh_pericalcarine</td>
+<td align="left">cortdesikan_pericalcarinelh</td>
+<td align="left">pericalcarine (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">periccrh</td>
+<td align="left">rh_pericalcarine</td>
+<td align="left">cortdesikan_pericalcarinerh</td>
+<td align="left">pericalcarine (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">postcnlh</td>
+<td align="left">lh_postcentral</td>
+<td align="left">cortdesikan_postcentrallh</td>
+<td align="left">postcentral (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">postcnrh</td>
+<td align="left">rh_postcentral</td>
+<td align="left">cortdesikan_postcentralrh</td>
+<td align="left">postcentral (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">ptcatelh</td>
+<td align="left">lh_posteriorcingulate</td>
+<td align="left">cortdesikan_posteriorcingulatelh</td>
+<td align="left">posterior cingulate (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">ptcaterh</td>
+<td align="left">rh_posteriorcingulate</td>
+<td align="left">cortdesikan_posteriorcingulaterh</td>
+<td align="left">posterior cingulate (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">precnlh</td>
+<td align="left">lh_precentral</td>
+<td align="left">cortdesikan_precentrallh</td>
+<td align="left">precentral (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">precnrh</td>
+<td align="left">rh_precentral</td>
+<td align="left">cortdesikan_precentralrh</td>
+<td align="left">precentral (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">pclh</td>
+<td align="left">lh_precuneus</td>
+<td align="left">cortdesikan_precuneuslh</td>
+<td align="left">precuneus (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">pcrh</td>
+<td align="left">rh_precuneus</td>
+<td align="left">cortdesikan_precuneusrh</td>
+<td align="left">precuneus (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">rracatelh</td>
+<td align="left">lh_rostralanteriorcingulate</td>
+<td align="left">cortdesikan_rostralanteriorcingulatelh</td>
+<td align="left">rostral anterior cingulate (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">rracaterh</td>
+<td align="left">rh_rostralanteriorcingulate</td>
+<td align="left">cortdesikan_rostralanteriorcingulaterh</td>
+<td align="left">rostral anterior cingulate (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">rrmdfrlh</td>
+<td align="left">lh_rostralmiddlefrontal</td>
+<td align="left">cortdesikan_rostralmiddlefrontallh</td>
+<td align="left">rostral middle frontal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">rrmdfrrh</td>
+<td align="left">rh_rostralmiddlefrontal</td>
+<td align="left">cortdesikan_rostralmiddlefrontalrh</td>
+<td align="left">rostral middle frontal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">sufrlh</td>
+<td align="left">lh_superiorfrontal</td>
+<td align="left">cortdesikan_superiorfrontallh</td>
+<td align="left">superior frontal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">sufrrh</td>
+<td align="left">rh_superiorfrontal</td>
+<td align="left">cortdesikan_superiorfrontalrh</td>
+<td align="left">superior frontal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">supllh</td>
+<td align="left">lh_superiorparietal</td>
+<td align="left">cortdesikan_superiorparietallh</td>
+<td align="left">superior parietal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">suplrh</td>
+<td align="left">rh_superiorparietal</td>
+<td align="left">cortdesikan_superiorparietalrh</td>
+<td align="left">superior parietal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">sutmlh</td>
+<td align="left">lh_superiortemporal</td>
+<td align="left">cortdesikan_superiortemporallh</td>
+<td align="left">superior temporal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">sutmrh</td>
+<td align="left">rh_superiortemporal</td>
+<td align="left">cortdesikan_superiortemporalrh</td>
+<td align="left">superior temporal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">smlh</td>
+<td align="left">lh_supramarginal</td>
+<td align="left">cortdesikan_supramarginallh</td>
+<td align="left">supra-marginal (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">smrh</td>
+<td align="left">rh_supramarginal</td>
+<td align="left">cortdesikan_supramarginalrh</td>
+<td align="left">supra-marginal (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">tmpolelh</td>
+<td align="left">lh_temporalpole</td>
+<td align="left">cortdesikan_temporalpolelh</td>
+<td align="left">temporal pole (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">tmpolerh</td>
+<td align="left">rh_temporalpole</td>
+<td align="left">cortdesikan_temporalpolerh</td>
+<td align="left">temporal pole (right hemisphere)</td>
 </tr>
 <tr class="even">
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="left">cortdesikan_total</td>
 <td align="left">total (bilateral - area and volume)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">cortdesikan_total.lh</td>
+<td align="left">total (left hemisphere - area and volume)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">cortdesikan_total.rh</td>
+<td align="left">total (right hemisphere - area and volume)</td>
+</tr>
+<tr class="odd">
+<td align="left">trvtmlh</td>
+<td align="left">lh_transversetemporal</td>
+<td align="left">cortdesikan_transversetemporallh</td>
+<td align="left">transverse temporal (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">trvtmrh</td>
+<td align="left">rh_transversetemporal</td>
+<td align="left">cortdesikan_transversetemporalrh</td>
+<td align="left">transverse temporal (right hemisphere)</td>
 </tr>
 </tbody>
 </table>

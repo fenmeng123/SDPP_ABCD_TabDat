@@ -1,7 +1,7 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-11-28
+2023-12-07
 
 - [Introduction](#introduction)
 - [Citation and Suggestions](#citation-and-suggestions)
@@ -76,6 +76,21 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
     repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/pulls)
 
 # Change Logs
+
+- 2023.12.7
+
+  - Completed Step 12.
+  - Start Step 13 for sMRI tabulated data preprcossing, including
+    Destrieux (aparc.a2009s) and subcortical auto-segmentation (aseg)
+    atlas.
+  - Add new ggseg look up table in **/.github** folder.
+
+- 2023.12.6
+
+  - Add compatability of nomenclature for ggseg label based on ABCD ROI
+    names
+  - Add new MRI ROI Look Up Table (LUT) for Desikan-Killiany Atlas in
+    **/.github** folder.
 
 - 2023.11.28
 
