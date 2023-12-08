@@ -1,7 +1,7 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-12-07
+2023-12-09
 
 - [Introduction](#introduction)
 - [Citation and Suggestions](#citation-and-suggestions)
@@ -76,6 +76,18 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
     repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/pulls)
 
 # Change Logs
+
+- 2023.12.9
+
+  - Completed Step 13 & 14
+  - Drafting the first version of SDPP_Batch
+  - refractoring some basic functions in SDPP_subfunctions, add more
+    high-level warps for convenient callback.
+  - Reduce the complexity of SDPP_Paraset.
+  - Add sMRI variable names mapping table in **/.github** folder.
+  - TO DO: 1) more flexible SDPP_Batch; 2) integrate SDPP_Batch with
+    SDPP_Paraset; 3) check the effecacy of SDPP-ABCD-TabDat on ABCD data
+    release V5.1
 
 - 2023.12.7
 
