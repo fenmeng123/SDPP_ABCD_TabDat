@@ -9,21 +9,33 @@
 # 3. Target File
 # ABCD 4.0: pdem02.txt; acspsw03.txt; abcd_ehis01.txt; abcd_ant01.txt.
 # ABCD 5.0: ce_p_acc.csv; abcd_p_demo.csv;
-# Update Date: 2023.06.03 By Kunru Song
-# Update Date: 2023.06.29 By Kunru Song
-# Update Date: 2023.07.03 By Kunru Song
+# 
+# Update Date: 2023.12.08
 # =============================================================================#
+SDPP.Run.Step1 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name()){
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_1.txt'
+
+SubfolderName = "abcd-general"
+
 s_sink(fullfile(AutoLogFolder,AutoLogFileName))
-library(readxl)
+
 # ==============================MAIN CODES=====================================#
 # 2. Load abcd_p_demo.csv and perform re-coding --------------------------------
-pdem_FileDir = fullfile(TabulatedDataDirectory,'/abcd-general/abcd_p_demo.csv')
-demo_base = readABCDdata(pdem_FileDir)
-# Deprecated for ABCD V5.0
-# demo_base_recode = subset(demo_base,select = c(subjectkey,interview_date,interview_age,sex))
-demo_base_recode = select(demo_base,c(src_subject_id,eventname))
+demo_base <- fullfile(TabulatedDataDirectory,
+                        SubfolderName,
+                        'abcd_p_demo.csv') %>%
+  readABCDdata()
+demo_base_recode <- demo_base %>%
+  select(
+    c(src_subject_id,eventname)
+  )
 
 # 2.0 Parent-reported Youth's Age -----------------------------------------
 # demo_brthdat_v2, How old is the child?
@@ -37,23 +49,37 @@ demo_base_recode$YouthAge_Prnt = as.numeric(
 # 0 = KINDERGARTEN ; 1 = 1ST GRADE  ; 2 = 2ND GRADE ; 3 = 3RD GRADE ; 4 = 4TH GRADE ; 5 = 5TH GRADE;
 # 6 = 6TH GRADE ; 7 = 7TH GRADE ; 8 = 8TH GRADE; 9 = 9TH GRADE; 10 = 10TH GRADE ; 11 = 11TH GRADE;
 # 12 = 12TH GRADE
-EducationC = as.numeric(str_remove_all(paste(demo_base$demo_ed_v2,demo_base$demo_ed_v2_l,sep = ''),'NA'))
-
-demo_base_recode$EducationC = RECODE(EducationC,
-                                     "0='KINDERGARTEN';1='1ST GRADE'; 2='2ND GRADE';
-                                     3='3RD GRADE'; 4='4TH GRADE'; 5='5TH GRADE';
-                                     6='6TH GRADE'; 7='7TH GRADE'; 8='8TH GRADE';
-                                     9='9TH GRADE';10='10TH GRADE'; 11='11TH GRADE';
-                                     12='12TH GRADE';else=NA")
+demo_base_recode$EducationC <- paste(demo_base$demo_ed_v2,
+                                     demo_base$demo_ed_v2_l,
+                                     sep = '') %>%
+  str_remove_all(pattern = 'NA') %>%
+  as.numeric() %>%
+  RECODE("0='KINDERGARTEN';
+          1='1ST GRADE';
+          2='2ND GRADE';
+          3='3RD GRADE';
+          4='4TH GRADE';
+          5='5TH GRADE';
+          6='6TH GRADE';
+          7='7TH GRADE';
+          8='8TH GRADE';
+          9='9TH GRADE';
+          10='10TH GRADE';
+          11='11TH GRADE';
+          12='12TH GRADE';
+          else=NA")
 
 # 2.2 Youth's Adoption Info -----------------------------------------------
 # demo_adopt_agex_v2, How old was he/she at the time of adoption?
 # demo_adopt_agex_v2_bl_dk, 999 = Dont know
-demo_base_recode$AdoptionAge = replace_na(demo_base$demo_adopt_agex_v2,0L)+
-  replace_na(demo_base$demo_adopt_agex_v2_bl_dk,0L)
-demo_base_recode$AdoptionAge = RECODE(demo_base_recode$AdoptionAge,
+demo_base_recode$AdoptionAge <- tidyr::replace_na(demo_base$demo_adopt_agex_v2,
+                                                  0L)+
+                                tidyr::replace_na(demo_base$demo_adopt_agex_v2_bl_dk,
+                                                  0L)
+demo_base_recode$AdoptionAge <- RECODE(demo_base_recode$AdoptionAge,
                                       "0=NA;")
-demo_base_recode$AdoptionFlag = !is.na(demo_base_recode$AdoptionAge)
+demo_base_recode$AdoptionFlag = !is.na(demo_base_recode$AdoptionAge) %>%
+  as.numeric()
 demo_base_recode$AdoptionAge = RECODE(demo_base_recode$AdoptionAge,
                                       "999=NA;")
 
@@ -67,16 +93,20 @@ demo_base_recode$AdoptionAge = RECODE(demo_base_recode$AdoptionAge,
 # Other: 25, Other Race;
 # 77, Refuse To Answer; 99, Don't Know
 # Parent-reported race was coded according to https://github.com/ABCD-STUDY/analysis-nda/blob/master/notebooks/general/categorical_extension3.0.R
-Race_PrntRep = subset(demo_base,select = c(demo_race_a_p___10,demo_race_a_p___11,
-                                  demo_race_a_p___12,demo_race_a_p___13,
-                                  demo_race_a_p___14,demo_race_a_p___15,
-                                  demo_race_a_p___16,demo_race_a_p___17,
-                                  demo_race_a_p___18,demo_race_a_p___19,
-                                  demo_race_a_p___20,demo_race_a_p___21,
-                                  demo_race_a_p___22,demo_race_a_p___23,
-                                  demo_race_a_p___24,demo_race_a_p___25,
-                                  demo_race_a_p___77,demo_race_a_p___99))
-Race_PrntRep = as.data.table(Race_PrntRep)
+Race_PrntRep = demo_base %>%
+  select(
+          c(demo_race_a_p___10,demo_race_a_p___11,
+            demo_race_a_p___12,demo_race_a_p___13,
+            demo_race_a_p___14,demo_race_a_p___15,
+            demo_race_a_p___16,demo_race_a_p___17,
+            demo_race_a_p___18,demo_race_a_p___19,
+            demo_race_a_p___20,demo_race_a_p___21,
+            demo_race_a_p___22,demo_race_a_p___23,
+            demo_race_a_p___24,demo_race_a_p___25,
+            demo_race_a_p___77,demo_race_a_p___99)
+          ) %>%
+  as.data.table()
+
 # 2.3.1 White
 # "White"
 Race_PrntRep [ , white:=(demo_race_a_p___10==1)*1]
@@ -551,14 +581,14 @@ gen_recode = select(gen_recode,
                            genetic_pc_2,
                            genetic_pc_3,
                            genetic_pc_4,
-                           genetic_pc_5,
-                         ))
-gen_recode = rename(gen_recode,
-                    GI_AncestryPC_1 = genetic_pc_1,
-                    GI_AncestryPC_2 = genetic_pc_2,
-                    GI_AncestryPC_3 = genetic_pc_3,
-                    GI_AncestryPC_4 = genetic_pc_4,
-                    GI_AncestryPC_5 = genetic_pc_5)
+                           genetic_pc_5)
+                    ) %>%
+  rename(GI_AncestryPC_1 = genetic_pc_1,
+        GI_AncestryPC_2 = genetic_pc_2,
+        GI_AncestryPC_3 = genetic_pc_3,
+        GI_AncestryPC_4 = genetic_pc_4,
+        GI_AncestryPC_5 = genetic_pc_5)
+
 # 6. Youth's Handedness ---------------------------------------------------
 # ehi_y_ss_scoreb, 1=right handed; 2=left handed; 3=mixed handed//
 # Calculation: if ((mean([ehi1b], [ehi2b], [ehi3b],[ehi4b]) < -60),2, 
@@ -578,7 +608,7 @@ BMI = readABCDdata(ant_FileDir)
 if (file.exists('ABCD5.0_BMI_NotesTable.xlsx')){
   cat("ABCD_5.0_BMI_NotesTable.xlsx was found at working directory (i.e. the folder contains SDPP-ABCD-TabDat scripts)!\n")
   cat("Automated Replacement for errors in measures of heigth and weight will be executed.\n")
-  CorrectiveTable = read_excel(path = fullfile(getwd(),"ABCD5.0_BMI_NotesTable.xlsx"),
+  CorrectiveTable = import(file = "./ABCD5.0_BMI_NotesTable.xlsx",
                                sheet = "ManualCorrectiveTable")
   for (i in 1:nrow(CorrectiveTable)){
     cat(sprintf("Replace values for subject:%s\t",CorrectiveTable$src_subject_id[i]))
@@ -630,8 +660,9 @@ Demographic = merge(Demographic,lt_recode,
                     by = intersect(colnames(Demographic),colnames(lt_recode)),
                     all = F)
 # 9. Baseline Observation Carry Forward (BOCF)  ---------------------------
-# BOCF for ACS-PSW and EHIS variables
-BOCF.Variables(Demographic,'baseline_year_1_arm_1','AdoptionFlag') %>%
+
+Demographic <- Demographic %>%
+  BOCF.Variables('baseline_year_1_arm_1','AdoptionFlag') %>%
   BOCF.Variables('baseline_year_1_arm_1','AdoptionAge') %>%
   BOCF.Variables('baseline_year_1_arm_1','Race_PrntRep') %>%
   BOCF.Variables('baseline_year_1_arm_1','Ethnicity_PrntRep') %>%
@@ -674,7 +705,7 @@ BOCF.Variables(Demographic,'baseline_year_1_arm_1','AdoptionFlag') %>%
   BOCF.Variables('baseline_year_1_arm_1','FamilyID') %>%
   BOCF.Variables('baseline_year_1_arm_1','BirthID') %>%
   BOCF.Variables('baseline_year_1_arm_1','Handedness') %>%
-  BOCF.Variables('1_year_follow_up_y_arm_1','YouthNativeLang') -> Demographic
+  BOCF.Variables('1_year_follow_up_y_arm_1','YouthNativeLang')
 
 # 10. Set Columns Data Type and Re-order Columns ---------------------------
 sapply(Demographic, typeof)
@@ -693,15 +724,11 @@ Demographic = select(Demographic,
                        everything())) 
 
 # 11. Save Double- and Character-type Demographic Data ---------------------
-OutputFileName = paste(Prefix,'Demographics','Raw.rds',sep = '_')
-OutputFileDir = fullfile(ProjectDirectory,'Res_3_IntermediateData',OutputFileName)
-cat(sprintf('Raw Demographics Data (Double and Character) will be saved into: %s\n',OutputFileDir))
-saveRDS(Demographic,OutputFileDir)
-cat(sprintf('Saving Data into RDS File: %s......\tFinished!\n',OutputFileName))
-OutputFileName = paste(Prefix,'Demographics','Raw.csv',sep = '_')
-OutputFileDir = fullfile(ProjectDirectory,'Res_3_IntermediateData',OutputFileName)
-cat(sprintf('Raw Demographics Data (Double and Character) will be saved into: %s\n',OutputFileDir))
-write.csv(Demographic,OutputFileDir,fileEncoding = 'UTF-8')
+SDPP.StdOut.RDS.CSV.Files(NEW_data = Demographic,
+                          FileLabel = "Demographics_Raw",
+                          IntermediateDataDir = IntermediateDataDir,
+                          Prefix = Prefix)
 
 # End of script -------------------------------------------------------
-s_close_sink()
+s_close_sink(SourceScriptName = SourceScriptName)
+}

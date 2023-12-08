@@ -16,8 +16,8 @@
 # https://nda.nih.gov/data_structure.html?short_name=acspsw03
 # https://nda.nih.gov/data_structure.html?short_name=abcd_lt01
 # https://data-dict.abcdstudy.org/
-# Update Date: 2023.06.15 By Kunru Song
-# Update Date: 2023.07.03 By Kunru Song
+# 
+# Update Date: 2023.12.09
 # =============================================================================#
 # 1 Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_2.txt'
@@ -338,16 +338,10 @@ print(sapply(Demographic, typeof)) # print data type
 print(sapply(Demographic, class))
 
 # 5. Save Results ----------------------------------------------------
-OutputFileDir = fullfile(ProjectDirectory,'Res_3_IntermediateData',
-                         paste(Prefix,'Demographics_Recode.rds',sep = '_'))
-cat(sprintf('Recoded Demographics Data will be saved into: %s\n',OutputFileDir))
-saveRDS(Demographic,OutputFileDir)
-cat(sprintf('Saving Data into RDS File: %s......\nFinished!\n',OutputFileDir))
-OutputFileDir = fullfile(ProjectDirectory,'Res_3_IntermediateData',
-                         paste(Prefix,'Demographics_Recode.csv',sep = '_'))
-write.csv(Demographic,OutputFileDir,
-          fileEncoding = 'UTF-8')
-cat(sprintf('Saving Data into CSV File: %s......\nFinished!\n',OutputFileDir))
+SDPP.StdOut.RDS.CSV.Files(NEW_data = Demographic,
+                          FileLabel = "Demographics_Rec",
+                          IntermediateDataDir = IntermediateDataDir,
+                          Prefix = Prefix)
 
 # End of script -----------------------------------------------------------
 s_close_sink()

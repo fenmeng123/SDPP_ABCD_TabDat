@@ -5,7 +5,7 @@
 # Step File Notes: 
 # https://wiki.abcdstudy.org/release-notes/imaging/overview.html
 # Target File: 
-# ABCD 4.0 : 
+# ABCD 4.0: 
 # ABCD 5.0: 
 # (Desikan-Killiany Atlas)
 #           /core/imaging/mri_y_smr_thk_dsk.csv
@@ -19,7 +19,7 @@
 #                         mri_y_smr_t2_gray_dsk.csv
 #                         mri_y_smr_t2_white_dsk.csv
 # 
-# Update Date: 2023.12.7
+# Update Date: 2023.12.8
 # =============================================================================#
 # 1. Desikan Settings ----------------------------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_13.txt'
@@ -112,7 +112,10 @@ sMRI_DK_VarName$newvarname <- str_c(sMRI_DK_VarName$VarType,
                                     sep = '_')
 
 LUT <- Update.LUT.Warp(sMRI_DK_VarName,AtlasName)
-
+export(sMRI_DK_VarName,
+       file = './.github/SDPP_sMRI_VarNameMapping.xlsx',
+       sheet = AtlasName,
+       verbose = T)
 
 # 3. Load and re-naming all Desikan-Killiany Variables --------------------
 
@@ -131,13 +134,14 @@ for (iIndex in 1:nrow(sMRI_DK_VarName)){
 }
 colnames(NEW_data) <- Vec_ColNames
 fprintf("Finished Variable Re-naming for sMRI Measures from Desikan-Killiany Atlas!\n")
-# 4. Save re-coded data ---------------------------------------------------
 
-SDPP.StdOut.IntermediateData.Files(NEW_data,
-                                   FileLabel = 'sMRI_Desikan',
-                                   Prefix = Prefix,
-                                   ProjectDirectory = ProjectDirectory,
-                                   ResultsOutputDir = ResultsOutputDir)
+# 4. Save re-named data ---------------------------------------------------
+
+SDPP.StdOut.MVA.VSO.Files(NEW_data,
+                          FileLabel = 'sMRI_Desikan',
+                          Prefix = Prefix,
+                          ProjectDirectory = ProjectDirectory,
+                          ResultsOutputDir = ResultsOutputDir)
 # End of Script -----------------------------------------------------------
 
 s_close_sink()

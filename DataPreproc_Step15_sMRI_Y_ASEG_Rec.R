@@ -33,7 +33,7 @@ AtlasName = "ASEG"
 # 2. Export labels of ASEG & ASEG Extra Atlas from ggsegExtra ------------
 
 if (requireNamespace("ggsegDefaultExtra", quietly = T)) {
-  ggsegDefaultExtra::hcpa_3d$ggseg_3d %>%
+  ggsegDefaultExtra::hcpa_3d$ggseg_3d[,c('region','label','roi')] %>%
     as.data.frame() %>%
     na.omit() %>%
     select(
@@ -46,7 +46,7 @@ if (requireNamespace("ggsegDefaultExtra", quietly = T)) {
   fprintf("ggsegDefaultExtra has not been installed! Using the default ggseg_AtlasLUT file from SDPP instead.\n")
 }
 if (requireNamespace("ggseg", quietly = T)) {
-  ggseg::aseg %>%
+  ggseg::aseg$data %>%
     as.data.frame() %>%
     na.omit() %>%
     select(

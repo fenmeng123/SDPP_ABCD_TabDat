@@ -31,7 +31,7 @@ fullfile <- function(...){
 fprintf <- function(StringVar,...){
   cat(sprintf(StringVar,...))
 }
-s_sink <- function(LogFileDir){
+s_sink <- function(LogFileDir, pause_flag = F){
   # Close all opened log files
   for(i in seq_len(sink.number())){
     sink(NULL)
@@ -40,16 +40,22 @@ s_sink <- function(LogFileDir){
   fprintf('Start a new log file: %s\n',LogFileDir)
   sink(file = LogFileDir,
        type = 'output',
-       append = F,
+       append = pause_flag,
        split = T)
 }
 s_get_script_name <- function(){
   return(basename(rstudioapi::getSourceEditorContext()$path))
 }
-s_close_sink <- function(){
-  StepNumStr <- s_get_script_name() %>%
-    str_extract(pattern = 'Step(\\d{1,})') %>%
-    str_remove_all('Step')
+s_close_sink <- function(SourceScriptName = NULL){
+  if (is.null(SourceScriptName)){
+    StepNumStr <- s_get_script_name() %>%
+      str_extract(pattern = 'Step(\\d{1,})') %>%
+      str_remove_all('Step')
+  }else{
+    StepNumStr <- SourceScriptName %>%
+      str_extract(pattern = 'Step(\\d{1,})') %>%
+      str_remove_all('Step')
+  }
   fprintf("SDPP-ABCD-TabDat Step %s finished! Finish Time:%s\n",
           StepNumStr,Sys.time())
   sink()
@@ -102,9 +108,15 @@ read.in.batch <- function(DownloadedDataDir,TableNames,FolderName=NA){
   print(table(MergedDF$eventname,useNA = 'if'))
   return(MergedDF)
 }
-eval_s <- function(user.string,...){
-  res = eval(parse(text = sprintf(user.string,...)))
-  return(res)
+eval_s <- function(user.string,...,
+                   return.res = T){
+  R_cmd_str <- sprintf(user.string,...)
+  res = eval(parse(text = R_cmd_str))
+  if (return.res){
+    return(res)
+  }else{
+    return(R_cmd_str)
+  }
 }
 # 2. SDPP Project Managing Functions --------------------------------------
 SDPP.clearall <- function(){
@@ -170,41 +182,55 @@ SDPP.ABCD.TabDat.PrepareProject <- function(ProjectDirectory,verbose = T){
                            i,SDPPFolderStruct[[i]])
     }
   }
-  if (verbose) cat("Project Folder Structure:\n")
+  if (verbose) cat("Project root folder content:\n")
   if (verbose) fprintf('%s\n',list.files(fullfile(ProjectDirectory)))
   AutoLogFolderPath = SDPPFolderStruct[['Res_1_Dir']]
   return(AutoLogFolderPath)
 }
-SDPP.Initialize <- function(ProjectDirectory){
-  fprintf('Starting SDPP-ABCD-TabDat......\n')
+SDPP.Initialize <- function(ProjectDirectory,
+                            TabulatedDataDirectory,
+                            Prefix){
+  fprintf("-------------------------------SDPP-ABCD-TabDat Start of Initializing---------------------------------\n")
+  fprintf('Initializing SDPP-ABCD-TabDat......\n')
   fprintf('R package: bruceR is a common-used package in this pipeline, which would be included in all steps.\n')
+  fprintf("SDPP-ABCD-TabDat is a free software developed by Kunru Song (Ph.D. candidate at Beijing Normal University).\n")
+  fprintf("SDPP-ABCD-TabDat has been used in our published paper: \n")
+  fprintf("Song K, Zhang JL, Zhou N, et al. Youth Screen Media Activity Patterns and Associations With\n Behavioral Developmental Measures and Resting-state Brain Functional Connectivity.\n J Am Acad Child Adolesc Psychiatry. 2023;62(9):1051-1063. doi:10.1016/j.jaac.2023.02.014\n")
+  fprintf("If you would like to use the SDPP-ABCD-TabDat to process your own ABCD data, please kindly cite the abovementioned article.\n")
+  fprintf("See more details in README and User Manual.\n")
+  fprintf("===============================SDPP-ABCD-TabDat Dpendicies Checking===================================\n")
   # Check the required packages
   res <- SDPP.check.package()
-  basic.info = sessionInfo()
-  other.info = Sys.info()
-  IntermediateDataDir = fullfile(ProjectDirectory,'Res_3_IntermediateData')
-  ResultsOutputDir = SDPP.set.output(
-    fullfile(ProjectDirectory,
-             'Res_2_Results',
-             'Res_Preproc'))
-  fprintf("===============================SDPP-ABCD-TabDat Settings===============================\n")
+  basic.info <- sessionInfo()
+  other.info <- Sys.info()
+  IntermediateDataDir <- SDPP.set.output(fullfile(ProjectDirectory,'Res_3_IntermediateData'))
+  ResultsOutputDir <- SDPP.set.output(fullfile(ProjectDirectory,'Res_2_Results','Res_Preproc'))
+  fprintf("===============================SDPP-ABCD-TabDat Environment Settings==================================\n")
   fprintf("Scripts Executing Date: \t\t %s\n",Sys.time())
   fprintf("Running under OS: \t\t %s\n",basic.info$running)
   fprintf("Platform: \t\t\t %s\n",basic.info$platform)
   fprintf("R Version: \t\t\t %s\n",basic.info$R.version$version.string)
   fprintf("Running on Computer Name: \t %s\n",other.info['nodename'])
+  fprintf("===============================SDPP-ABCD-TabDat Data Settings=========================================\n")
   fprintf("Working Directory: \t\t %s\n",getwd())
   fprintf("Project Directory: \t\t\t %s\n",fullfile(ProjectDirectory))
   fprintf("Downloaded NDA Data Directory: \t %s\n",fullfile(TabulatedDataDirectory))
   fprintf("Output Intermediate Data File Prefix: \t %s\n",Prefix)
   fprintf("Output Intermediate Data Directory: \t %s\n",IntermediateDataDir)
   fprintf("Output Derivative Files Directory:\t %s\n",ResultsOutputDir)
-  AutoLogFolder = SDPP.ABCD.TabDat.PrepareProject(ProjectDirectory)
+  fprintf("===============================SDPP-ABCD-TabDat Project Settings======================================\n")
+  AutoLogFolder <- SDPP.ABCD.TabDat.PrepareProject(ProjectDirectory)
+  fprintf("-------------------------------SDPP-ABCD-TabDat End of Initializing-----------------------------------\n")
+  return(list("IntermediateDataDir" = IntermediateDataDir,
+              "ResultsOutputDir" = ResultsOutputDir,
+              "AutoLogFolder" = AutoLogFolder))
+  
 }
 SDPP.save.file <- function(Data,
                            FileName,
                            Prefix,
-                           ProjectDirectory,
+                           IntermediateDataDir=NULL,
+                           ProjectDirectory=NULL,
                            FileFormat=NA,
                            DataLabel=NA){
   if (is.na(FileFormat)){
@@ -213,7 +239,20 @@ SDPP.save.file <- function(Data,
   }else{
     OutputFileName = addprefix(Prefix,FileName,postfix = FileFormat)
   }
-  OutputFileDir = fullfile(ProjectDirectory,'Res_3_IntermediateData',OutputFileName)
+  if (is.null(IntermediateDataDir) & is.null(ProjectDirectory)){
+    fprintf("Both of the [IntermediateDataDir] and [ProjectDirectory] are NULL.\n")
+    stop("At least one of them should be explictly specified!")
+  }
+  if (!is.null(IntermediateDataDir) & !is.null(ProjectDirectory)){
+    fprintf("Both of the [IntermediateDataDir] and [ProjectDirectory] are specified!\n")
+    fprintf("Only using the [IntermediateDataDir]: %s",IntermediateDataDir)
+    ProjectDirectory <- NULL
+  }
+  if (!is.null(IntermediateDataDir)){
+    OutputFileDir = fullfile(IntermediateDataDir,OutputFileName)
+  }else if (!is.null(ProjectDirectory)){
+    OutputFileDir = fullfile(ProjectDirectory,'Res_3_IntermediateData',OutputFileName)
+  }
   if (is.na(DataLabel)){
     fprintf('Variable: %s will be saved into: %s\n',deparse(substitute(Data)),OutputFileDir)
   }else{
@@ -356,29 +395,52 @@ SDPP.select.cols.by.dict <- function(data,
     )
   return(selected_data)
 }
-SDPP.StdOut.IntermediateData.Files <- function(NEW_data,
-                                               FileLabel = 'tmp',
-                                               Prefix = "ABCD5.0",
-                                               ProjectDirectory = "../DataAnalysis/SMA_Trajectory",
-                                               ResultsOutputDir = "../DataAnalysis/SMA_Trajectory/Res_2_Results/Res_Preproc"){
-
+SDPP.StdOut.RDS.CSV.Files <- function(NEW_data,
+                                      FileLabel = 'tmp',
+                                      Prefix = "ABCD5.1",
+                                      ProjectDirectory = "../DataAnalysis/Tmp_Project",
+                                      IntermediateDataDir = "../DataAnalysis/Tmp_Project/Res_3_IntermediateData",
+                                      RDS = T,
+                                      CSV = T){
+  SDPP.save.file(Data = NEW_data,
+                 FileName = FileLabel,
+                 Prefix = Prefix,
+                 IntermediateDataDir = IntermediateDataDir,
+                 ProjectDirectory = ProjectDirectory,
+                 FileFormat='rds')
+  SDPP.save.file(Data = NEW_data,
+                 FileName = FileLabel,
+                 Prefix = Prefix,
+                 IntermediateDataDir = IntermediateDataDir,
+                 ProjectDirectory = ProjectDirectory,
+                 FileFormat='csv')
+}
+SDPP.StdOut.MVA.VSO.Files <- function(NEW_data,
+                                      FileLabel = 'tmp',
+                                      Prefix = "ABCD5.1",
+                                      ProjectDirectory = "../DataAnalysis/Tmp_Project",
+                                      ResultsOutputDir = "../DataAnalysis/Tmp_Project/Res_2_Results/Res_Preproc",
+                                      MVA = T,
+                                      VSO = T){
   SDPP.save.file(NEW_data,
                  FileName = str_c(FileLabel,".rds"),
                  Prefix = Prefix,
                  ProjectDirectory = ProjectDirectory)
-  
-  NEW_data %>% MVA.Report.By.Wave() %>%
-    print_table(file = fullfile(ResultsOutputDir,
-                                str_c('MVA_Report_ALL_',FileLabel,'.doc')),
-                row.names = F)
-  
-  select(NEW_data,-c(src_subject_id,eventname)) %>% 
-    psych::describeBy(group = Recode.Eventname(NEW_data)$eventname,
-                      mat = T,digits =2) %>%
-    print_table(file = fullfile(ResultsOutputDir,
-                                str_c('VSO_ALL',FileLabel,'.doc')),
-                row.names = T,
-                digits = 2)
+  if (MVA){
+    NEW_data %>% MVA.Report.By.Wave() %>%
+      print_table(file = fullfile(ResultsOutputDir,
+                                  str_c('MVA_Report_ALL_',FileLabel,'.doc')),
+                  row.names = F)
+  }
+  if (VSO){
+    select(NEW_data,-c(src_subject_id,eventname)) %>% 
+      psych::describeBy(group = Recode.Eventname(NEW_data)$eventname,
+                        mat = T,digits =2) %>%
+      print_table(file = fullfile(ResultsOutputDir,
+                                  str_c('VSO_ALL',FileLabel,'.doc')),
+                  row.names = T,
+                  digits = 2)
+  }
 }
 # 3. Data Processing Functions --------------------------------------------
 dt.print.mva.counts <- function(dt_name,var_name){
@@ -429,7 +491,7 @@ Check.YN <- function(var){
   return(Flag)
 }
 BOCF.Variables <- function(data,anchor_wave,variable_name,autocheck=F){
-  cat(sprintf('Carry Forward variable:%s from baseline to Follow-up Waves\n',variable_name))
+  fprintf('Carry Forward variable:%s from baseline to Follow-up Waves\n',variable_name)
   data_anchor = subset(data,eventname == anchor_wave)
   data_BOFC = subset(data,eventname != anchor_wave)
   for (i in data_anchor$src_subject_id){
@@ -442,7 +504,7 @@ BOCF.Variables <- function(data,anchor_wave,variable_name,autocheck=F){
     }
   }
   data = rbind(data_anchor,data_BOFC)
-  cat(sprintf('Variable:%s BOCF finished!\n',variable_name))
+  fprintf('Variable:%s BOCF finished!\n',variable_name)
   return(data)
 }
 Comb.MICE <- function(dat.imp,var.ls.imp){
@@ -605,7 +667,7 @@ Recode.ABCD.NM.NT <- function(var_df,var_ls){
   return(var_df)
 }
 MVA.Report.By.Wave <- function(df){
-  fprintf("Auto-MVA Report Starting......\n")
+  fprintf("|Auto-MVA Report| Starting......\n")
   if ('eventname' %in% colnames(df)){
     df %>% Recode.Eventname() %>% 
       group_by(eventname) %>% miss_var_summary() %>% 
@@ -618,11 +680,13 @@ MVA.Report.By.Wave <- function(df){
     
   }else{
     fprintf("Column 'eventname' not found! group_by function was ignored!")
-    df %>% miss_var_summary() %>% 
-      as.data.frame() %>% arrange(pct_miss) -> MVA_Report
+    MVA_Report <- df %>% 
+      naniar::miss_var_summary() %>% 
+      as.data.frame() %>%
+      arrange(pct_miss)
   }
-  fprintf("Auto-MVA Report Finished!\n")
-  head(MVA_Report, n = 5L)
+  fprintf("|Auto-MVA Report| Finished!\n")
+  knitr::kable(head(MVA_Report, n = 5L),format = "simple")
   return(MVA_Report)
 }
 MVA.Report.CaseMiss.By.Wave <- function(df,verbose = T){
@@ -634,7 +698,7 @@ MVA.Report.CaseMiss.By.Wave <- function(df,verbose = T){
   Report_case_miss <- df %>% 
     group_by(eventname) %>%
     select(-src_subject_id) %>%
-    miss_case_summary()
+    naniar::miss_case_summary()
   Report_case_miss$pct_miss <- sprintf('%2.2f',Report_case_miss$pct_miss)
   Report_case_miss$pct_miss <- factor(Report_case_miss$pct_miss,
                                       levels = unique(Report_case_miss$pct_miss))
