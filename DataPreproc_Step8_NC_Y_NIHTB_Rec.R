@@ -8,6 +8,14 @@
 # ABCD 5.0: /core/neurocognition/nc_y_nihtb.csv
 # Update Date: 2023.7.18
 # =============================================================================#
+SDPP.Run.Step8 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_8.txt'
 s_sink(fullfile(AutoLogFolder,AutoLogFileName))
@@ -77,3 +85,4 @@ NEW_NIHTB %>% MVA.Report.By.Wave() %>%
 # End of Script -----------------------------------------------------------
 
 s_close_sink()
+}

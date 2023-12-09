@@ -12,7 +12,14 @@
 # 
 # Update Date: 2023.11.27
 # =============================================================================#
-
+SDPP.Run.Step12 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_12.txt'
 DatTableNames = c("mri_y_adm_info.csv","mri_y_qc_incl.csv","mri_y_qc_motion.csv")
 SubfolderName = "imaging"
@@ -109,3 +116,4 @@ select(NEW_MRI_InfoQC,-c(src_subject_id,eventname)) %>%
 # End of Script -----------------------------------------------------------
 
 s_close_sink()
+}

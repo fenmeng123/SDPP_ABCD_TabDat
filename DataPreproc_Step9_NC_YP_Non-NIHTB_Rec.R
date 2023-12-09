@@ -21,6 +21,14 @@
 #                               /nc_p_bdef.csv
 # Update Date: 2023.7.20
 # =============================================================================#
+SDPP.Run.Step9 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_9.txt'
 DatTableNames = c("nc_y_adm.csv","nc_y_svs.csv",
@@ -496,3 +504,4 @@ select(NEW_NonNIHTB,-c(src_subject_id,eventname)) %>%
 
 s_close_sink()
 
+}

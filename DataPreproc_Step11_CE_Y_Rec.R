@@ -26,6 +26,14 @@
 #                                     ce_y_wps.csv
 # Update Date: 2023.11.25
 # =============================================================================#
+SDPP.Run.Step11 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_11.txt'
 DatTableNames = c("ce_y_acc.csv","ce_y_macv.csv",
@@ -159,3 +167,4 @@ select(NEW_CE_Y,-c(src_subject_id,eventname)) %>%
 s_close_sink()
 
 
+}

@@ -8,6 +8,14 @@
 # 2. Target File: ABCD5.0_SMA_Rec.rds, ABCD5.0_SMA_Rec_Imp.rds
 # Update Date: 2023.7.7
 # =============================================================================#
+SDPP.Run.Step5 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_5.txt'
 s_sink(fullfile(AutoLogFolder,AutoLogFileName))
@@ -15,7 +23,7 @@ library(naniar)
 library(R.matlab)
 # ==============================MAIN CODES=====================================#
 # 2. Load preprocessed SMA data from RDS file in the project directory
-SMA = SDPP.read.intdat('ABCD5.0_SMA_Rec.rds',
+SMA = SDPP.read.intdat(str_c(Prefix,'_SMA_Rec.rds'),
                        ProjectDirectory = ProjectDirectory)
 Matlab$startServer()
 MATLAB_Client = Matlab()
@@ -160,3 +168,4 @@ close(MATLAB_Client)
 print(MATLAB_Client)
 
 s_close_sink()
+}

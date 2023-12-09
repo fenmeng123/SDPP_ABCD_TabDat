@@ -10,6 +10,14 @@
 # Update Date: 2023.7.10
 #              2023.7.17
 # =============================================================================#
+SDPP.Run.Step6 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_6.txt'
 s_sink(fullfile(AutoLogFolder,AutoLogFileName))
@@ -138,3 +146,4 @@ NEW_MH_S %>% MVA.Report.By.Wave() %>%
 
 s_close_sink()
 
+}

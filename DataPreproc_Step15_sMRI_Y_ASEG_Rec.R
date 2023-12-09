@@ -16,6 +16,14 @@
 # 
 # Update Date: 2023.12.7
 # =============================================================================#
+SDPP.Run.Step15 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1. ASEG Settings -------------------------------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_15.txt'
 DK_FileNames = c(
@@ -63,3 +71,4 @@ if (requireNamespace("ggseg", quietly = T)) {
 # End of Script -----------------------------------------------------------
 
 s_close_sink()
+}

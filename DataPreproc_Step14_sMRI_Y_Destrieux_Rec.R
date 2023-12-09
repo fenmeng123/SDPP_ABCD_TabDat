@@ -22,6 +22,14 @@
 # 
 # Update Date: 2023.12.8
 # =============================================================================#
+SDPP.Run.Step14 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1. Destrieux Settings ------------------------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_14.txt'
 DST_FileNames = c(
@@ -274,3 +282,4 @@ SDPP.StdOut.MVA.VSO.Files(NEW_data,
 # End of Script -----------------------------------------------------------
 
 s_close_sink()
+}

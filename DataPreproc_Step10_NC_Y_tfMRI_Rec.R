@@ -14,6 +14,14 @@
 # Update Date: 2023.8.7
 # Update Date: 2023.11.24
 # =============================================================================#
+SDPP.Run.Step10 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_10.txt'
 DatTableNames = c("mri_y_tfmr_mid_beh.csv","mri_y_tfmr_mid_qtn.csv",
@@ -264,3 +272,4 @@ select(NEW_tfMRI_behav,-c(src_subject_id,eventname)) %>%
 # End of Script -----------------------------------------------------------
 
 s_close_sink()
+}

@@ -19,16 +19,33 @@
 # 
 # Update Date: 2023.12.09
 # =============================================================================#
+SDPP.Run.Step2 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1 Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_2.txt'
 s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 library(forcats)
 # ==============================MAIN CODES=====================================#
 # 2. Read RDS-file and print all columns data type ----------------------------
-Demographic = readRDS(fullfile(ProjectDirectory,
-                               'Res_3_IntermediateData',
-                               str_c(Prefix,'_Demographics_Raw.rds')))
-sapply(Demographic, typeof)
+RawDemographicFileDir <- common::file.find(
+  path = IntermediateDataDir,
+  pattern = sprintf("%s_Demographics_Raw.rds",Prefix),
+  up = 0,
+  down = 0) %>%
+  fullfile()
+if (is.null(RawDemographicFileDir)){
+  stop("|SDPP Step 2| Can not find the raw demographic data file! Have you run Step 1 before?")
+}
+Demographic <- import(RawDemographicFileDir,verbose = T)
+fprintf("Columns' data type in raw demographic data files: \n")
+sapply(Demographic, typeof) %>%
+  print()
 # 3. Re-coding Individual Key Demographics -----------------------------------
 Demographic$SexAssigned = factor(Demographic$SexAssigned,
                          levels = c('Female','Male','Intersex-Male'))
@@ -334,7 +351,9 @@ select(Demographic,-c(ParentsEdu,ParentsMarital)) %>%
            Relationship_3L,HouseholdStructure,HouseholdSize,FamilyIncome,
            Religon_2L,BirthCountry,AdoptionChild,GenderIdentity_PrntRep,
            everything())) -> Demographic
+fprintf("Columns' data type after re-coding: \n")
 print(sapply(Demographic, typeof)) # print data type
+fprintf("Class of columns after re-coding: \n")
 print(sapply(Demographic, class))
 
 # 5. Save Results ----------------------------------------------------
@@ -345,4 +364,4 @@ SDPP.StdOut.RDS.CSV.Files(NEW_data = Demographic,
 
 # End of script -----------------------------------------------------------
 s_close_sink()
-
+}

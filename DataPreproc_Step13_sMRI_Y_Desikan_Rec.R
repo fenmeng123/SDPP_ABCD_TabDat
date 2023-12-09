@@ -21,6 +21,14 @@
 # 
 # Update Date: 2023.12.8
 # =============================================================================#
+SDPP.Run.Step13 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1. Desikan Settings ----------------------------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_13.txt'
 DK_FileNames = c(
@@ -147,3 +155,4 @@ SDPP.StdOut.MVA.VSO.Files(NEW_data,
 s_close_sink()
 
 
+}

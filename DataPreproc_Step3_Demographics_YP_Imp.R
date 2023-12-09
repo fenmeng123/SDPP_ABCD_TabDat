@@ -16,6 +16,14 @@
 # Update Date: 2023.07.05 By Kunru Song
 # Update Date: 2023.07.07 By Kunru Song
 # =============================================================================#
+SDPP.Run.Step3 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_3.txt'
 s_sink(fullfile(AutoLogFolder,AutoLogFileName))
@@ -317,7 +325,7 @@ SDPP.save.file(Demographics_Imputed,
                ProjectDirectory = ProjectDirectory)
 # MVA for Imputed Demographics Data
 if (!exists('Demographics_Imputed')){
-  Demographics_Imputed = SDPP.read.intdat(FileName = 'ABCD5.0_Demographics_Imp.rds',
+  Demographics_Imputed = SDPP.read.intdat(FileName = str_c(Prefix,'_Demographics_Imp.rds'),
                    ProjectDirectory = ProjectDirectory)
 }
 Demographics_Imputed %>% MVA.Report.By.Wave() %>%
@@ -327,5 +335,4 @@ Demographics_Imputed %>% MVA.Report.By.Wave() %>%
 # End of Script -----------------------------------------------------------
 rm(ResultsOutputDir,n.imp,n.iter)
 s_close_sink()
-
-
+}

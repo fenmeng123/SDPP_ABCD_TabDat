@@ -9,6 +9,14 @@
 # Update Date: 2023.06.16 By Kunru Song
 # Update Date: 2023.07.06 By Kunru Song
 # =============================================================================#
+SDPP.Run.Step4 <- function(Prefix,
+                           TabulatedDataDirectory,
+                           ProjectDirectory,
+                           AutoLogFolder,
+                           ResultsOutputDir,
+                           IntermediateDataDir,
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_4.txt'
 s_sink(fullfile(AutoLogFolder,AutoLogFileName))
@@ -443,3 +451,4 @@ SDPP.save.file(ScreenUse,
 # End of script -------------------------------------------------------
 s_close_sink()
 
+}

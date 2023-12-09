@@ -18,7 +18,8 @@ SDPP.Run.Step1 <- function(Prefix,
                            AutoLogFolder,
                            ResultsOutputDir,
                            IntermediateDataDir,
-                           SourceScriptName = s_get_script_name()){
+                           SourceScriptName = s_get_script_name(),
+                           ...){
 # 1. Library Packages and Prepare Environment --------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_1.txt'
 
