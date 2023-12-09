@@ -1,7 +1,7 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-12-09
+2023-12-10
 
 - [Introduction](#introduction)
 - [Citation and Suggestions](#citation-and-suggestions)
@@ -62,7 +62,7 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
     Users could find the manual in this repository:
     *SDPP_ABCD_TabDat_UserManual.html*.
 
-    In addition, [Find here for online html file
+    In addition, [find here for online html file
     preview](http://htmlpreview.github.io/?https://github.com/fenmeng123/SDPP_ABCD_TabDat/blob/master/SDPP_ABCD_TabDat_UserManual.html).(Supported
     by htmlpreview.github.io)
 
@@ -77,6 +77,15 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
 
 # Change Logs
 
+- 2023.12.10
+
+  - Completed SDPP_Batch, implement click-to-run interface.
+  - Separate user-defined necessary arguments to a new
+    SDPP_UserDefined_Input.R script.
+  - TO DO: 1) check the full pipeline and fix bugs; 2) write a new usage
+    notes section in user mannual; 3) write some basic code examples in
+    README.
+
 - 2023.12.9
 
   - Completed Step 13 & 14
@@ -85,9 +94,9 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
     high-level warps for convenient callback.
   - Reduce the complexity of SDPP_Paraset.
   - Add sMRI variable names mapping table in **/.github** folder.
-  - TO DO: 1) more flexible SDPP_Batch; 2) integrate SDPP_Batch with
-    SDPP_Paraset; 3) check the effecacy of SDPP-ABCD-TabDat on ABCD data
-    release V5.1
+  - TO DO: 1) more flexible SDPP_Batch; *2) integrate SDPP_Batch with
+    SDPP_Paraset;* 3) check the efficacy of SDPP-ABCD-TabDat on ABCD
+    data release V5.1
 
 - 2023.12.7
 
@@ -118,9 +127,9 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
   - Start & completed Step 12.
   - Add some paragraphs to clarify the rationale of mutliple imputaion
     startergy used in this pipeline.
-  - TO DO: 1) re-construct some basic warp functions in
-    *SDPP_subfunction.R*; 2) Check the robustness of *Step_3*; 3)
-    Integrate *neuroCombat* into this pipeline.
+  - TO DO: *1) re-construct some basic warp functions in
+    SDPP_subfunction.R;* *2) Check the robustness of Step_3;* 3)
+    Integrate **neuroCombat** into this pipeline.
 
 - 2023.11.25
 
