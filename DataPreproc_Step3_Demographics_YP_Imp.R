@@ -8,7 +8,7 @@
 # https://zhuanlan.zhihu.com/p/584937019
 # 3. Target File (Intermediate Data File): 
 #     ABCD5.0_Demographics_MICE.rds
-#     ABCD5.0_Demographics_Non-impute.rds
+#     ABCD5.0_Demographics_Non-impute.rds948
 #     ABCD5.0_Demographics_Non-impute.csv
 #     ABCD5.0_Demographics_Imputed.rds
 #     ABCD5.0_Demographics_Imputed.csv
@@ -32,7 +32,7 @@ library(forcats)
 library(naniar)
 # ==============================MAIN CODES=====================================#
 # 2. Load and prepare re-coded demographic data --------------------------
-Demographic <- addprefix(Prefix,'Demographics_Recode.rds') %>%
+Demographic <- addprefix(Prefix,'Demographics_Rec.rds') %>%
   fullfile(IntermediateDataDir,.) %>%
   import(verbose = T)
 
@@ -203,7 +203,8 @@ SDPP.save.file(dat.imp,
 
 # 7. Post-processing for Multiple Imputation ------------------------------
 if (!exists('dat.imp')){
-  dat.imp = SDPP.read.intdat('ABCD5.0_Demographics_MICE.rds',ProjectDirectory)
+  dat.imp = SDPP.read.intdat(str_c(Prefix,'_Demographics_MICE.rds'),
+                             ProjectDirectory = ProjectDirectory)
 }
 # get imputed dataset out
 Imputed_Data = Comb.MICE(dat.imp,var.ls.imp)
