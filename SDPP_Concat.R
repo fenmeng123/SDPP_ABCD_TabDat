@@ -1,4 +1,4 @@
-SDPP.RunBatch <- function(FileLabelList = NULL,
+SDPP.RunConcat <- function(FileLabelList = NULL,
                           OutputFileName = 'Merge_tmp',
                           FileType = 'rds',
                           BOCF_VarList = NULL,
@@ -51,33 +51,6 @@ SDPP.RunBatch <- function(FileLabelList = NULL,
     print(BOCF_VarList)
   }
   
-  IntermediateFileList <- str_c(Prefix,'_',
-                                FileLabelList,
-                                '.',
-                                FileType)
-  IntermediateFileDir <- vector(mode = "character",length = length(IntermediateFileList))
-  for (ifileNo in 1:length(IntermediateFileList)){
-     tmpFileDir <- common::file.find(
-                    path = IntermediateDataDir,
-                    pattern = IntermediateFileList[ifileNo],
-                    up = 0,
-                    down = 0) %>%
-       fullfile() 
-     if (length(tmpFileDir) == 0) tmpFileDir <- NA
-     IntermediateFileDir[ifileNo] <- tmpFileDir
-  }
-  T_IntermediateFile <- data.frame(TargetFile = IntermediateFileList,
-                                   MachtedFile = IntermediateFileDir)
-  fprintf("|SDPP Concat| %d intermediate data files were found:\n",
-          nrow(na.omit(T_IntermediateFile)))
-  knitr::kable(T_IntermediateFile,format = 'simple')
-  fprintf("|SDPP Concat| %d intermediate data files will be ignored because lost of directory!\n",
-          nrow(T_IntermediateFile) - nrow(na.omit(T_IntermediateFile)))
-  OutputFileName <- str_c(OutputFileName,'_Incomp')
-  fprintf("|SDPP Concat| A post-fix [Incomp] will be appended to the output file name: [%s]\n",
-          OutputFileName)
-  T_IntermediateFile <- na.omit(T_IntermediateFile)
-  
   pacman::p_unload(pacman::p_loaded(), character.only = TRUE)
   bruceR::set.wd()
   source('SDPP_subfunctions.R')
@@ -96,6 +69,37 @@ SDPP.RunBatch <- function(FileLabelList = NULL,
                                       ellipsis = ""))
   AutoLogFilePath = fullfile(AutoLogFolder,AutoLogFileName)
   s_sink(AutoLogFilePath)
+  
+  IntermediateFileList <- str_c(Prefix,'_',
+                                FileLabelList,
+                                '.',
+                                FileType)
+  IntermediateFileDir <- vector(mode = "character",length = length(IntermediateFileList))
+  for (ifileNo in 1:length(IntermediateFileList)){
+    tmpFileDir <- common::file.find(
+      path = IntermediateDataDir,
+      pattern = IntermediateFileList[ifileNo],
+      up = 0,
+      down = 0) %>%
+      fullfile() 
+    if (length(tmpFileDir) == 0) tmpFileDir <- NA
+    IntermediateFileDir[ifileNo] <- tmpFileDir
+  }
+  T_IntermediateFile <- data.frame(TargetFile = IntermediateFileList,
+                                   MachtedFile = IntermediateFileDir)
+  fprintf("|SDPP Concat| %d intermediate data files were found:\n",
+          nrow(na.omit(T_IntermediateFile)))
+  knitr::kable(T_IntermediateFile,format = 'simple') %>%
+    print()
+  fprintf("|SDPP Concat| %d intermediate data files will be ignored because lost of directory!\n",
+          nrow(T_IntermediateFile) - nrow(na.omit(T_IntermediateFile)))
+  if (nrow(T_IntermediateFile) > nrow(na.omit(T_IntermediateFile))){
+    OutputFileName <- str_c(OutputFileName,'_Incomp')
+    fprintf("|SDPP Concat| A post-fix [Incomp] will be appended to the output file name: [%s]\n",
+            OutputFileName)
+  }
+  
+  T_IntermediateFile <- na.omit(T_IntermediateFile)
   
   dat.file.ls = T_IntermediateFile$MachtedFile
   

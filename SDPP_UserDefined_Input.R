@@ -19,12 +19,12 @@ Prefix = 'ABCD5.1'
 # 2 SDPP Batch Argument Settings -----------------------------------------------
 # 2.1 (Important!) Specify the SDPP steps to be execute -------------------
 SDPP_Step_SpecVec = c(
-  "SDPP.Run.Step1" =  F,
-  "SDPP.Run.Step2" =  F,
-  "SDPP.Run.Step3" =  F,
-  "SDPP.Run.Step4" =  F,
-  "SDPP.Run.Step5" =  F,
-  "SDPP.Run.Step6" =  F,
+  "SDPP.Run.Step1" =  T,
+  "SDPP.Run.Step2" =  T,
+  "SDPP.Run.Step3" =  T,
+  "SDPP.Run.Step4" =  T,
+  "SDPP.Run.Step5" =  T,
+  "SDPP.Run.Step6" =  T,
   "SDPP.Run.Step7" =  T,
   "SDPP.Run.Step8" =  T,
   "SDPP.Run.Step9" =  T,
@@ -41,8 +41,8 @@ Flag_RunBatch <- T
 
 # 3. SDPP Steps Parameters Setting ---------------------------------------------
 # 3.1 Step 3 Parameters
-n.imp <- 5 # Number of multiple imputed datasets
-n.iter <- 5 # maximum number of iterations 
+n.imp <- 500 # Number of multiple imputed datasets
+n.iter <- 25 # maximum number of iterations 
 
 
 # 4. SDPP Concat Argument Settings ---------------------------------------------

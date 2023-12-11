@@ -7,6 +7,7 @@ bruceR::set.wd()
 library(bruceR)
 source('SDPP_subfunctions.R')
 source('SDPP_Batch.R')
+source('SDPP_Concat.R')
 source('SDPP_UserDefined_Input.R')
 # Create Project Folders and get the log-file directory
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_0.txt'
@@ -29,19 +30,45 @@ rm(AutoLogFileName)
 
 if (Flag_RunBatch){
   fprintf("|SDPP ParaSet| SDPP Batch will start soon......\n")
-  fprintf("|SDPP ParaSet| finished! Finish Time:%s\n",Sys.time())
-  sink()
-  SDPP.RunBatch(SDPP_Step_SpecVec = SDPP_Step_SpecVec,
-                TabulatedDataDirectory = TabulatedDataDirectory,
-                ProjectDirectory = ProjectDirectory,
-                AutoLogFolder = AutoLogFolder,
-                ResultsOutputDir = ResultsOutputDir,
-                IntermediateDataDir = IntermediateDataDir,
-                Prefix = Prefix,
-                n.imp,
-                n.iter)
+  if (Flag_RunConcat)
+    fprintf("|SDPP ParaSet| SDPP Concat will be executed after finishing SDPP Batch.\n")
+  else{
+    fprintf("|SDPP ParaSet| SDPP Concat will be ignored!\n")
+  }
 }else{
   fprintf("|SDPP ParaSet| Dry-run finished, you can check all specifications and parameters in your R environment!\n")
-  fprintf("|SDPP ParaSet| finished! Finish Time:%s\n",Sys.time())
-  sink()
+  if (Flag_RunConcat){
+    fprintf("|SDPP ParaSet| SDPP Concat will be executed directly, based on the existing intermediate data files.\n")
+    fprintf("|SDPP ParaSet| Please make sure all required intermediate data have been created, see details in SDPP Concat's log.\n")
+  }else{
+    fprintf("|SDPP ParaSet| SDPP Concat will be ignored!\n")
+  }
+}
+
+fprintf("|SDPP ParaSet| finished! Finish Time:%s\n",Sys.time())
+sink()
+
+if (Flag_RunBatch){
+SDPP.RunBatch(SDPP_Step_SpecVec = SDPP_Step_SpecVec,
+              TabulatedDataDirectory = TabulatedDataDirectory,
+              ProjectDirectory = ProjectDirectory,
+              AutoLogFolder = AutoLogFolder,
+              ResultsOutputDir = ResultsOutputDir,
+              IntermediateDataDir = IntermediateDataDir,
+              Prefix = Prefix,
+              n.imp,
+              n.iter)
+}
+
+if (Flag_RunConcat){
+SDPP.RunConcat(FileLabelList = FileLabelList,
+               OutputFileName = OutputFileName,
+               FileType = FileType,
+               BOCF_VarList = BOCF_VarList,
+               TabulatedDataDirectory = TabulatedDataDirectory,
+               ProjectDirectory = ProjectDirectory,
+               AutoLogFolder = AutoLogFolder,
+               ResultsOutputDir = ResultsOutputDir,
+               IntermediateDataDir = IntermediateDataDir,
+               Prefix = Prefix)
 }
