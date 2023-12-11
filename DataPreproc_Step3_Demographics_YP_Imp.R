@@ -52,9 +52,9 @@ baseline_demo$Race_PrntRep = tidyr::replace_na(as.character(baseline_demo$Race_P
 baseline_demo$RaceEthnicity = tidyr::replace_na(as.character(baseline_demo$RaceEthnicity),"")
 baseline_demo$Ethnicity_PrntRep = tidyr::replace_na(as.character(baseline_demo$Ethnicity_PrntRep),"")
 fprintf("Missing Value Counts before Consistence Check:\n")
-dt.print.mva.counts('baseline_demo','Race_PrntRep')
-dt.print.mva.counts('baseline_demo','Ethnicity_PrntRep')
-dt.print.mva.counts('baseline_demo','RaceEthnicity')
+df.print.mva.counts('Race_PrntRep',baseline_demo)
+df.print.mva.counts('Ethnicity_PrntRep',baseline_demo)
+df.print.mva.counts('RaceEthnicity',baseline_demo)
 fprintf("----------------------------------------------------------------------------\n")
 fprintf("Beginning Race and Ethnithicity Consistence Auto-check and Auto-impute:\n")
 tmp = baseline_demo[,c('Race_PrntRep','Ethnicity_PrntRep','RaceEthnicity')]
@@ -67,8 +67,8 @@ baseline_demo$Race_PrntRep[baseline_demo$Race_PrntRep==""] = race_miss$Race_Prnt
 baseline_demo$Ethnicity_PrntRep[baseline_demo$Ethnicity_PrntRep==""] = ethn_miss$Ethnicity_PrntRep
 fprintf("----------------------------------------------------------------------------\n")
 fprintf("Consistence Auto-check and Auto-impute have been finished!\n")
-dt.print.mva.counts('baseline_demo','Race_PrntRep')
-dt.print.mva.counts('baseline_demo','Ethnicity_PrntRep')
+df.print.mva.counts('Race_PrntRep',baseline_demo)
+df.print.mva.counts('Ethnicity_PrntRep',baseline_demo)
 fprintf("Re-coding Race and Ethniticy variables......\n")
 baseline_demo$Race_PrntRep = factor(baseline_demo$Race_PrntRep,
                                   levels = c('White',
@@ -79,29 +79,29 @@ baseline_demo$Race_PrntRep = factor(baseline_demo$Race_PrntRep,
                                              'Mixed',
                                              'Other'),
                                   ordered = F)
-dt.print.mva.counts('baseline_demo','Race_PrntRep')
+df.print.mva.counts('Race_PrntRep',baseline_demo)
 baseline_demo$Race_4L = fct_collapse(baseline_demo$Race_PrntRep,
                                    `Mixed/Other` = c('AIAN',
                                                      'NHPI',
                                                      'Mixed',
                                                      'Other'))
-dt.print.mva.counts('baseline_demo','Race_4L')
+df.print.mva.counts('Race_4L',baseline_demo)
 baseline_demo$Race_6L = fct_collapse(baseline_demo$Race_PrntRep,
                                    `Mixed/Other` = c('Other',
                                                      'Mixed'))
-dt.print.mva.counts('baseline_demo','Race_6L')
+df.print.mva.counts('Race_6L',baseline_demo)
 baseline_demo$Ethnicity_PrntRep = factor(baseline_demo$Ethnicity_PrntRep,
                                          levels = c('Non-hispanic',
                                                     'Hispanic'),
                                        ordered = F)
-dt.print.mva.counts('baseline_demo','Ethnicity_PrntRep')
+df.print.mva.counts('Ethnicity_PrntRep',baseline_demo)
 baseline_demo$RaceEthnicity = factor(baseline_demo$RaceEthnicity,levels = c('White',
                                                                         'Black',
                                                                         'Asian',
                                                                         'Hispanic',
                                                                         'Other'),
                                    ordered = F)
-dt.print.mva.counts('baseline_demo','RaceEthnicity')
+df.print.mva.counts('RaceEthnicity',baseline_demo)
 Demographics_before_impute = rbind(baseline_demo,
                                    as.data.table(subset(Demographic,eventname!='baseline_year_1_arm_1')))
 
@@ -154,7 +154,7 @@ fprintf("The following variables were included in Multilple Imputation:\n")
 print(colnames(dat0)[2:ncol(dat0)])
 fprintf("Missing Value Analysis (MVA):\n")
 for (i in colnames(dat0)[2:ncol(dat0)]){
-  dt.print.mva.counts('Demographics_before_impute_baseline',i)
+  df.print.mva.counts(i,Demographics_before_impute_baseline)
 }
 print(miss_var_summary(dat0))
 var.ls.imp = miss_var_summary(dat0)$variable[miss_var_summary(dat0)$n_miss != 0]
@@ -334,6 +334,5 @@ Demographics_Imputed %>% MVA.Report.By.Wave() %>%
               row.names = F,
               digits = 1)
 # End of Script -----------------------------------------------------------
-rm(ResultsOutputDir,n.imp,n.iter)
 s_close_sink()
 }

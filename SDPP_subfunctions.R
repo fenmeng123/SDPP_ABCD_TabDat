@@ -443,20 +443,20 @@ SDPP.StdOut.MVA.VSO.Files <- function(NEW_data,
   }
 }
 # 3. Data Processing Functions --------------------------------------------
-dt.print.mva.counts <- function(dt_name,var_name){
-  if (is.character(dt_name) & is.character(var_name)){
-    if (!eval_s("is.data.table(%s)",dt_name)){
-      eval_s('%s = as.data.table(%s)',dt_name,dt_name)
-    }
-    if (eval_s("is.numeric(%s$%s)",dt_name,var_name)){
-      print(eval_s("print(psych::describe(%s$%s,check=T))",dt_name,var_name))
-    }else{
-      print(eval_s("%s[,table(%s,useNA = 'if')]",dt_name,var_name))
-    }
-  }else if (is.data.table(dt_name) & is.character(var_name)){
-    print(table(dt_name[[var_name]],useNA = 'if',dnn = var_name))
-  }
-}
+# dt.print.mva.counts <- function(dt_name,var_name){
+#   if (is.character(dt_name) & is.character(var_name)){
+#     if (!eval_s("is.data.table(%s)",dt_name)){
+#       eval_s('%s = as.data.table(%s)',dt_name,dt_name)
+#     }
+#     if (eval_s("is.numeric(%s$%s)",dt_name,var_name)){
+#       print(eval_s("print(psych::describe(%s$%s,check=T))",dt_name,var_name))
+#     }else{
+#       print(eval_s("%s[,table(%s,useNA = 'if')]",dt_name,var_name))
+#     }
+#   }else if (is.data.table(dt_name) & is.character(var_name)){
+#     print(table(dt_name[[var_name]],useNA = 'if',dnn = var_name))
+#   }
+# }
 df.print.mva.counts <- function(var,df=NA) {
   if (!"data.frame" %in% class(df)){
     if (is.factor(var) | is.character(var)){
@@ -779,26 +779,28 @@ MVA.KNNimpute <- function(df,var_ls,MATLAB_server_obj){
   df[,var_ls] <- imputed_data$tmp
   return(df)
 }
-Bind.imp.By.Wave <- function(raw_dat_name,imp_dat){
-  data_masking <- paste(sprintf("(eventname != '%s')",
-                                unique(imp_dat$eventname)),
-                        collapse = ' & ')
-  unimp_dat <- eval_s("subset(%s,%s)",
-                      raw_dat_name,
-                      data_masking)
+Bind.imp.By.Wave <- function(raw_dat,imp_dat){
+  unimp_dat <- sprintf("subset(raw_dat,%s)",
+                     paste(sprintf("(eventname != '%s')",
+                                   unique(imp_dat$eventname)),
+                           collapse = ' & ')) %>%
+    parse(text = .) %>%
+    eval()
+  wait_imp_dat <- sprintf("subset(raw_dat,%s)",
+                          paste(sprintf("(eventname == '%s')",
+                                        unique(imp_dat$eventname)),
+                                collapse = ' | ')) %>%
+    parse(text = .) %>%
+    eval()
   
-  data_masking <- paste(sprintf("(eventname == '%s')",
-                                unique(imp_dat$eventname)),
-                        collapse = ' | ')
-  wait_imp_dat <- eval_s("subset(%s,%s)",
-                         raw_dat_name,
-                         data_masking)
-  imp_var_ls <- colnames(imp_dat)[!colnames(imp_dat) %in% c('src_subject_id','eventname')]
+  imp_var_ls <- colnames(imp_dat)[!(colnames(imp_dat) %in% c('src_subject_id','eventname'))]
   wait_imp_dat <- select(wait_imp_dat,!all_of(imp_var_ls))
   
   new_dat <- base::merge(wait_imp_dat,imp_dat,
                          by = c('src_subject_id','eventname'))
+  
   new_dat <- rbind(new_dat,unimp_dat)
+  
   return(new_dat)
 }
 Standardize.MRI.Atlas.Name <- function(sMRI_Atlas_VarName){

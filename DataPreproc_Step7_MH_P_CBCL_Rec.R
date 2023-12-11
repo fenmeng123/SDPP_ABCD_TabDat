@@ -67,7 +67,6 @@ select(NEW_CBCL,-c(src_subject_id,eventname)) %>%
                     mat = T,digits =2) %>%
   print_table(file = fullfile(ResultsOutputDir,'VSO_ALL_MH_P_CBCL.doc'),
               row.names = T,
-              digits = 1,
               digits = 2)
 # 5. Save Re-coded CBCL data ----------------------------------------------
 

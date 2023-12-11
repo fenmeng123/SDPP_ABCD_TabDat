@@ -1,47 +1,3 @@
-# Parameter Settings ------------------------------------------------------
-
-source('SDPP_UserDefined_Input.R')
-
-FileLabelList = c("Demographics_Imp",
-                  "MH_P_CBCL_Rec","MH_S_Rec",
-                  "NC_NIHTB","NC_Non-NIHTB","NC_tfMRI_behav",
-                  "CE_Y_Rec",
-                  "SMA_Rec_Imp")
-FileType = "rds"
-OutputFileName = "Merge_Demo_NC_MH_CE_SMA"
-# BOCF Anchor Settings
-BOCF_VarList = c("SexAssigned",
-                 "GroupID",
-                 "Race_6L","Ethnicity_PrntRep",
-                 "Handedness",
-                 "ParentsMarital_2L","ParentsHighEdu_2L","ParentsMarital_X_Employ",
-                 "Relationship_3L",
-                 "AdoptionChild",
-                 "GenderIdentity_PrntRep",
-                 "RaceEthnicity",
-                 "Relationship",
-                 "Religon_PrntRep",
-                 "AdoptionAge",
-                 "USALiveYears",
-                 "GenderIdentity_PrntSelf",
-                 "Race_PrntSelf",
-                 "ParentHighEdu","PartnerHighEdu",
-                 "ParentEmploy","PartnerEmploy","FamilyNumInLF",
-                 "SameSexTwin",
-                 "GI_PairedSubID_Sub_1","GI_PairProb_Sub_1","GI_Zygosity_Sub_1",
-                 "GI_PairedSubID_Sub_2","GI_PairProb_Sub_2","GI_Zygosity_Sub_2",
-                 "GI_PairedSubID_Sub_3","GI_PairProb_Sub_3","GI_Zygosity_Sub_3",
-                 "GI_PairedSubID_Sub_4","GI_PairProb_Sub_4","GI_Zygosity_Sub_4",
-                 "GI_AncestryPC_1","GI_AncestryPC_2","GI_AncestryPC_3",
-                 "GI_AncestryPC_4","GI_AncestryPC_5","BirthID",
-                 "Education_R",
-                 "Race_PrntRep","ParentsMarital_6L","Race_4L",
-                 "Religon_8L",
-                 "FamilyIncome",
-                 "YouthNativeLang",
-                 "Religon_2L",
-                 "HouseholdSize","HouseholdStructure",
-                 "BirthCountry","ParentsHighEdu_5L")
 SDPP.RunBatch <- function(FileLabelList = NULL,
                           OutputFileName = 'Merge_tmp',
                           FileType = 'rds',
@@ -54,12 +10,12 @@ SDPP.RunBatch <- function(FileLabelList = NULL,
                           Prefix = "ABCDtmp",
                           ...){
   if (is.null(FileLabelList)){
-    fprintf("Please check the input argument: [FileLabelList] !\n")
-    stop("The list of data files to be merged must be explicitly specified!\n")
+    fprintf("|SDPP Concat| Please check the input argument: [FileLabelList] !\n")
+    stop("|SDPP Concat| The list of data files to be merged must be explicitly specified!\n")
   }
   if (is.null(BOCF_VarList)){
-    fprintf("[BOCF_VarList] is null !\n")
-    fprintf("Using SDPP default BOCF covariates list:\n")
+    fprintf("|SDPP Concat| [BOCF_VarList] is null !\n")
+    fprintf("|SDPP Concat| Using SDPP default BOCF covariates list:\n")
     BOCF_VarList <- c("SexAssigned",
                       "GroupID",
                       "Race_6L","Ethnicity_PrntRep",
@@ -95,15 +51,44 @@ SDPP.RunBatch <- function(FileLabelList = NULL,
     print(BOCF_VarList)
   }
   
+  IntermediateFileList <- str_c(Prefix,'_',
+                                FileLabelList,
+                                '.',
+                                FileType)
+  IntermediateFileDir <- vector(mode = "character",length = length(IntermediateFileList))
+  for (ifileNo in 1:length(IntermediateFileList)){
+     tmpFileDir <- common::file.find(
+                    path = IntermediateDataDir,
+                    pattern = IntermediateFileList[ifileNo],
+                    up = 0,
+                    down = 0) %>%
+       fullfile() 
+     if (length(tmpFileDir) == 0) tmpFileDir <- NA
+     IntermediateFileDir[ifileNo] <- tmpFileDir
+  }
+  T_IntermediateFile <- data.frame(TargetFile = IntermediateFileList,
+                                   MachtedFile = IntermediateFileDir)
+  fprintf("|SDPP Concat| %d intermediate data files were found:\n",
+          nrow(na.omit(T_IntermediateFile)))
+  knitr::kable(T_IntermediateFile,format = 'simple')
+  fprintf("|SDPP Concat| %d intermediate data files will be ignored because lost of directory!\n",
+          nrow(T_IntermediateFile) - nrow(na.omit(T_IntermediateFile)))
+  OutputFileName <- str_c(OutputFileName,'_Incomp')
+  fprintf("|SDPP Concat| A post-fix [Incomp] will be appended to the output file name: [%s]\n",
+          OutputFileName)
+  T_IntermediateFile <- na.omit(T_IntermediateFile)
+  
   pacman::p_unload(pacman::p_loaded(), character.only = TRUE)
   bruceR::set.wd()
   source('SDPP_subfunctions.R')
   SDPP.check.package(package_name = c('tidyverse',
                                       'stringr',
                                       'naniar'))
+  require(bruceR)
   require(tidyverse)
   require(stringr)
   require(naniar)
+  
   AutoLogFileName = sprintf('Log_SDPP-ABCD-TabDat_Concat_%s_%s.txt',
                             OutputFileName,
                             str_trunc(str_replace_all(as.character(Sys.time()),"( )|(:)|([.])|(-)","_"),
@@ -112,22 +97,22 @@ SDPP.RunBatch <- function(FileLabelList = NULL,
   AutoLogFilePath = fullfile(AutoLogFolder,AutoLogFileName)
   s_sink(AutoLogFilePath)
   
-  dat.file.ls = sprintf("%s_%s.%s",
-                        Prefix,
-                        FileLabelList,
-                        FileType)
+  dat.file.ls = T_IntermediateFile$MachtedFile
+  
   preprocessed.dat.ls = list()
   iter_num = 1
-  for (i in dat.file.ls){
-    dat.path = fullfile(IntermediateDataDir,i)
+  for (irds in dat.file.ls){
+    dat.path = fullfile(irds)
     fprintf("Load data from RDS file: %s\n",dat.path)
     preprocessed.dat.ls[[iter_num]] = readRDS(dat.path)
     iter_num = iter_num + 1
   }
   
-  preprocessed.dat.ls %>% reduce(full_join,
-                                 by = c("src_subject_id","eventname")) -> concatenated_data
-  fprintf("|SDPP Concat| Concatenate %s data... Finished!\n",paste(FileLabelList,collapse = ", "))
+  concatenated_data <- preprocessed.dat.ls %>%
+    reduce(full_join,
+           by = c("src_subject_id","eventname"))
+  fprintf("|SDPP Concat| Concatenate %s data... Finished!\n",
+          paste(T_IntermediateFile$TargetFile,collapse = ", "))
   
   # load ABCD longitudinal tractor and fill NA blank in concatenated_data
   lt = readABCDdata(fullfile(TabulatedDataDirectory,'/abcd-general/abcd_y_lt.csv'))
@@ -182,8 +167,8 @@ SDPP.RunBatch <- function(FileLabelList = NULL,
     }
   }
   
-  sapply(concatenated_data, typeof) %>% unlist() %>% as.data.frame() -> DataType
-  rename(DataType,VariableTypes = .) -> DataType
+  DataType <- sapply(concatenated_data, typeof) %>% unlist() %>% as.data.frame()
+  DataType <- rename(DataType,VariableTypes = .)
   DataType$VariableNames <- rownames(DataType)
   rownames(DataType) <- NULL
   DataType$VariableTypes[sapply(concatenated_data, is.factor)] <- "char"

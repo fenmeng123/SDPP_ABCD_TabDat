@@ -67,7 +67,6 @@ select(NEW_NIHTB,-c(src_subject_id,eventname)) %>%
                     mat = T,digits =2) %>%
   print_table(file = fullfile(ResultsOutputDir,'VSO_ALL_NC_NIHTB.doc'),
               row.names = T,
-              digits = 1,
               digits = 2)
 
 # 5. Save Re-coded NIHTB Sum Scores data ----------------------------------------------

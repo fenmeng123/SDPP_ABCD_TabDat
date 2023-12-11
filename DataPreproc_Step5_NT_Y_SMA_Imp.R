@@ -56,7 +56,7 @@ SMA_TPD_STQ_T012 %>% MVA.Report.CaseMiss.By.Wave(verbose = F) %>%
   print_table(digits = 2,row.names = F,
               file = fullfile(ResultsOutputDir,'MVA_CaseReport_ALL_SMA_STQ12_T012_Imp.doc'))
   
-SMA = Bind.imp.By.Wave('SMA',SMA_TPD_STQ_T012)
+SMA = Bind.imp.By.Wave(SMA,SMA_TPD_STQ_T012)
 
 # 4. Impute MPIQ ----------------------------------------------------------
 impute_var_ls = c("MPIQ_1","MPIQ_2",
@@ -79,7 +79,7 @@ MPIQ_T234 %>% MVA.Report.CaseMiss.By.Wave(verbose = F) %>%
   print_table(digits = 2,row.names = F,
               file = fullfile(ResultsOutputDir,'MVA_CaseReport_ALL_SMA_MPIQ_T234_Imp.doc'))
 
-SMA = Bind.imp.By.Wave('SMA',MPIQ_T234)
+SMA = Bind.imp.By.Wave(SMA,MPIQ_T234)
 
 # 5. Impute SMAS ----------------------------------------------------------
 impute_var_ls = c("SMAS_1","SMAS_2",
@@ -101,7 +101,7 @@ SMAS_T234 %>% MVA.Report.CaseMiss.By.Wave(verbose = F) %>%
   print_table(digits = 2,row.names = F,
               file = fullfile(ResultsOutputDir,'MVA_CaseReport_ALL_SMA_SMAS_T234_Imp.doc'))
 
-SMA = Bind.imp.By.Wave('SMA',SMAS_T234)
+SMA = Bind.imp.By.Wave(SMA,SMAS_T234)
 
 
 # 6. Impute VGAS ----------------------------------------------------------
@@ -124,7 +124,7 @@ VGAS_T234 %>% MVA.Report.CaseMiss.By.Wave(verbose = F) %>%
   print_table(digits = 2,row.names = F,
               file = fullfile(ResultsOutputDir,'MVA_CaseReport_ALL_SMA_VGAS_T234_Imp.doc'))
 
-SMA = Bind.imp.By.Wave('SMA',VGAS_T234)
+SMA = Bind.imp.By.Wave(SMA,VGAS_T234)
 
 # 7. Impute SUAB ----------------------------------------------------------
 impute_var_ls = c("SUAB_1","SUAB_2",
@@ -146,7 +146,7 @@ SUAB_T23 %>% MVA.Report.CaseMiss.By.Wave(verbose = F) %>%
   print_table(digits = 2,row.names = F,
               file = fullfile(ResultsOutputDir,'MVA_CaseReport_ALL_SMA_SUAB_T23_Imp.doc'))
 
-SMA = Bind.imp.By.Wave('SMA',SUAB_T23)
+SMA = Bind.imp.By.Wave(SMA,SUAB_T23)
 
 
 # 8. Save the imputed SMA data --------------------------------------------

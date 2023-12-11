@@ -498,7 +498,6 @@ select(NEW_NonNIHTB,-c(src_subject_id,eventname)) %>%
                     mat = T,digits =2) %>%
   print_table(file = fullfile(ResultsOutputDir,'VSO_ALL_NC_Non-NIHTB.doc'),
               row.names = T,
-              digits = 1,
               digits = 2)
 # End of Script -----------------------------------------------------------
 
