@@ -19,8 +19,8 @@ Prefix = 'ABCD5.1'
 # 2 SDPP Batch Argument Settings -----------------------------------------------
 # 2.1 (Important!) Specify the SDPP steps to be execute -------------------
 SDPP_Step_SpecVec = c(
-  "SDPP.Run.Step1" =  T,
-  "SDPP.Run.Step2" =  T,
+  "SDPP.Run.Step1" =  F,
+  "SDPP.Run.Step2" =  F,
   "SDPP.Run.Step3" =  T,
   "SDPP.Run.Step4" =  T,
   "SDPP.Run.Step5" =  T,

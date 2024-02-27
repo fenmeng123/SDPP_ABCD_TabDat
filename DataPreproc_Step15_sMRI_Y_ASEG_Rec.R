@@ -26,7 +26,7 @@ SDPP.Run.Step15 <- function(Prefix,
                            ...){
 # 1. ASEG Settings -------------------------------------------------------
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_15.txt'
-DK_FileNames = c(
+ASEG_FileNames = c(
   "mri_y_smr_vol_aseg.csv",
   "mri_y_smr_t1_aseg.csv",
   "mri_y_smr_t2_aseg.csv"
@@ -35,13 +35,14 @@ DK_FileNames = c(
 SubfolderName = "imaging"
 AtlasName = "ASEG"
 
-# s_sink(fullfile(AutoLogFolder,AutoLogFileName))
-# library(naniar)
+library(naniar)
+library(ggseg)
+s_sink(fullfile(AutoLogFolder,AutoLogFileName))
 
 # 2. Export labels of ASEG & ASEG Extra Atlas from ggsegExtra ------------
 
 if (requireNamespace("ggsegDefaultExtra", quietly = T)) {
-  ggsegDefaultExtra::hcpa_3d$ggseg_3d[,c('region','label','roi')] %>%
+  ggsegDefaultExtra::hcpa_3d$ggseg_3d[[1]][,c('region','label','roi')] %>%
     as.data.frame() %>%
     na.omit() %>%
     select(
@@ -67,6 +68,14 @@ if (requireNamespace("ggseg", quietly = T)) {
   fprintf("ggseg has not been installed! Using the default ggseg_AtlasLUT file from SDPP instead.\n")
 }
 
+# 3. Load ASEG data -------------------------------------------------------
+
+ASEG_TableName <- ASEG_FileNames %>%
+  str_remove_all('\\.csv')
+
+sMRI_ASEG_VarList <- SDPP.filter.data.dict(filter_col = 'table_name',
+                                          filter_key = ASEG_TableName,
+                                          search_col = c('var_name','var_label'))
 
 # End of Script -----------------------------------------------------------
 

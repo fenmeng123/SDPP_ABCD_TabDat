@@ -294,7 +294,7 @@ Demographics_Imputed$ParentsMarital_X_Employ[
 Demographics_Imputed$ParentsMarital_X_Employ[
   Demographics_Imputed$ParentsMarital_2L=='Married or living with partner' & 
     Demographics_Imputed$ParentEmploy=='Working' & 
-    Demographics_Imputed$PartnerEmploy=='Non-Working']='Married, 1 in LF'
+    Demographics_Imputed$PartnerEmploy=='Non-working']='Married, 1 in LF'
 Demographics_Imputed$ParentsMarital_X_Employ[ 
   Demographics_Imputed$ParentsMarital_2L=='Married or living with partner' & 
     Demographics_Imputed$ParentEmploy=='Non-working' & 

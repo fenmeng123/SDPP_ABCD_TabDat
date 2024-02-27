@@ -49,26 +49,26 @@ fprintf("|SDPP ParaSet| finished! Finish Time:%s\n",Sys.time())
 sink()
 
 if (Flag_RunBatch){
-SDPP.RunBatch(SDPP_Step_SpecVec = SDPP_Step_SpecVec,
-              TabulatedDataDirectory = TabulatedDataDirectory,
-              ProjectDirectory = ProjectDirectory,
-              AutoLogFolder = AutoLogFolder,
-              ResultsOutputDir = ResultsOutputDir,
-              IntermediateDataDir = IntermediateDataDir,
-              Prefix = Prefix,
-              n.imp,
-              n.iter)
+  SDPP.RunBatch(SDPP_Step_SpecVec = SDPP_Step_SpecVec,
+                TabulatedDataDirectory = TabulatedDataDirectory,
+                ProjectDirectory = ProjectDirectory,
+                AutoLogFolder = AutoLogFolder,
+                ResultsOutputDir = ResultsOutputDir,
+                IntermediateDataDir = IntermediateDataDir,
+                Prefix = Prefix,
+                n.imp,
+                n.iter)
 }
 
 if (Flag_RunConcat){
-SDPP.RunConcat(FileLabelList = FileLabelList,
-               OutputFileName = OutputFileName,
-               FileType = FileType,
-               BOCF_VarList = BOCF_VarList,
-               TabulatedDataDirectory = TabulatedDataDirectory,
-               ProjectDirectory = ProjectDirectory,
-               AutoLogFolder = AutoLogFolder,
-               ResultsOutputDir = ResultsOutputDir,
-               IntermediateDataDir = IntermediateDataDir,
-               Prefix = Prefix)
+  SDPP.RunConcat(FileLabelList = FileLabelList,
+                 OutputFileName = OutputFileName,
+                 FileType = FileType,
+                 BOCF_VarList = BOCF_VarList,
+                 TabulatedDataDirectory = TabulatedDataDirectory,
+                 ProjectDirectory = ProjectDirectory,
+                 AutoLogFolder = AutoLogFolder,
+                 ResultsOutputDir = ResultsOutputDir,
+                 IntermediateDataDir = IntermediateDataDir,
+                 Prefix = Prefix)
 }
