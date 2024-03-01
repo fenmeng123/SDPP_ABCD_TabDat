@@ -11,7 +11,7 @@
 
 <meta name="author" content="Kunru Song" />
 
-<meta name="date" content="2023-12-07" />
+<meta name="date" content="2024-03-01" />
 
 <title>SDPP-ABCD-TabDat User Manual</title>
 
@@ -1511,7 +1511,7 @@ font-size: 0.95em;
 
 <h1 class="title toc-ignore">SDPP-ABCD-TabDat User Manual</h1>
 <h4 class="author">Kunru Song</h4>
-<h4 class="date">2023-12-07</h4>
+<h4 class="date">2024-03-01</h4>
 
 </div>
 
@@ -1528,29 +1528,74 @@ flex-direction: row-reverse;
 </style>
 <div id="citation" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Citation</h1>
-<p>If you would like to use any codes from this SDPP, please kindly cite
-our published article (below is a APA-format Citation):</p>
-<blockquote>
-<p>Song K, Zhang JL, Zhou N, Fu Y, Zou B, Xu LX, Wang Z, Li X, Zhao
-Y,Potenza M, Fang X, Zhang JT. Youth Screen Media Activity Patterns and
-Associations With Behavioral Developmental Measures and Resting-state
-Brain Functional Connectivity. J Am Acad Child Adolesc Psychiatry.2023
-Mar 20:S0890-8567(23)00132-6.doi: 10.1016/j.jaac.2023.02.014.Epub ahead
-of print. PMID: 36963562.</p>
-</blockquote>
+<p>If you would like to use this open-source tool or any relevant
+scripts or code snippets in this repository, please kindly cite our
+published article (below is a APA-format Citation):</p>
+<pre><code>&gt;    Song K, Zhang JL, Zhou N, Fu Y, Zou B, Xu LX, Wang Z, Li X, Zhao Y, Potenza M, Fang X, Zhang JT. Youth Screen Media Activity Patterns and Associations With Behavioral Developmental Measures and Resting-state Brain Functional Connectivity. J Am Acad Child Adolesc Psychiatry. 2023 Sep;62(9):1051-1063. doi: 10.1016/j.jaac.2023.02.014. Epub 2023 Mar 22. PMID: 36963562; PMCID: PMC10509312.</code></pre>
+<p>This open-source tool follows the GPL-3.0 license.</p>
 </div>
-<div id="common-usage-notes" class="section level1 tabset" number="2">
-<h1 class="tabset"><span class="header-section-number">2</span> Common
-Usage Notes</h1>
+<div id="tutorial-how-to-use-sdpp_batch.r-for-batch-like-data-preprocessing" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Tutorial: How to use
+SDPP_Batch.R for batch-like data preprocessing?</h1>
+<div id="data-preprocessing-script-customization" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Data Preprocessing
+Script Customization</h2>
+<p>To tailor the data preprocessing to your specific needs, only a
+single R script requires modification:
+<code>SDPP_UserDefined_Input.R</code>.</p>
+<div id="customizing-sdpp_userdefined_input.r" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Customizing
+<code>SDPP_UserDefined_Input.R</code></h3>
+<p>The steps for modifying this script are outlined below:</p>
 <ol style="list-style-type: decimal">
-<li><p>Please set all necessary parameters in SDPP_ParaSet.R before
-running any codes in this pipeline and then source it.</p></li>
-<li><p>Coding Scheme for ABCD Demographic variable data could be found
-in Step 1 and Step 2, as well as ABCD-DAIRC github repository:<a href="https://github.com/ABCD-STUDY/analysis-nda">analysis-NDA</a>. A
-coding scheme table was also provided by this pipeline.</p></li>
+<li><strong>Parameter Specification</strong>: Identify the parameters
+relevant to your dataset within the script.</li>
+<li><strong>Data Path Configuration</strong>: Adjust the file paths to
+point to your data locations.</li>
+<li><strong>Variable Definition</strong>: Define or alter any variables
+specific to your preprocessing requirements.</li>
 </ol>
-<div id="table-1.-abbreviation" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Table 1.
+<p>Ensure that these modifications align with the data structure and
+preprocessing needs of your project.</p>
+</div>
+<div id="initiating-the-pipeline" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Initiating the
+Pipeline</h3>
+<p>Upon configuring <code>SDPP_UserDefined_Input.R</code>, proceed by
+sourcing the <code>SDPP_ParaSet.R</code> script:</p>
+<pre class="r"><code>source(&quot;SDPP_ParaSet.R&quot;)</code></pre>
+<p>This action activates the automated data preprocessing pipeline,
+streamlining the subsequent steps of your analysis.</p>
+</div>
+<div id="further-information" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Further
+Information</h3>
+<ul>
+<li><strong>Pipeline Details</strong>: Comprehensive information
+regarding the pipeline’s operation and the coding scheme employed can be
+found within this manual.</li>
+<li><strong>Source Code Insights</strong>: For additional details and
+clarifications, refer to the comments and documentation within the
+source code files.</li>
+</ul>
+<p>By adhering to these guidelines, you ensure a smooth and efficient
+data preprocessing phase, setting a solid foundation for your analytical
+tasks.</p>
+</div>
+</div>
+<div id="user-defined-input-settings" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> User-defined Input
+Settings</h2>
+</div>
+</div>
+<div id="common-usage-notes" class="section level1 tabset" number="3">
+<h1 class="tabset"><span class="header-section-number">3</span> Common
+Usage Notes</h1>
+<p>Coding Scheme for ABCD Demographic variable data could be found in
+Step 1 and Step 2, as well as ABCD-DAIRC github repository:<a href="https://github.com/ABCD-STUDY/analysis-nda">analysis-NDA</a>. A
+coding scheme table was also provided by this pipeline.</p>
+<div id="table-1.-abbreviation" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Table 1.
 Abbreviation</h2>
 <table>
 <caption>Abbr Table 1.1 (SDPP-Derivates, ABCD MRI-related Common
@@ -2243,8 +2288,8 @@ classification</td>
 </tbody>
 </table>
 </div>
-<div id="table-2.-coding-scheme" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Table 2. Coding
+<div id="table-2.-coding-scheme" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Table 2. Coding
 Scheme</h2>
 <table>
 <caption>Coding Scheme Table 2.1: Participants’ Demographic
@@ -2798,8 +2843,8 @@ Bachelor; Post Graduate Degree;</td>
 </tbody>
 </table>
 </div>
-<div id="table-3.-included-abcd-variables" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Table 3. Included
+<div id="table-3.-included-abcd-variables" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Table 3. Included
 ABCD Variables</h2>
 <pre><code>## ABCD Data Dictionary used: [2023-06-29 02_03_42.714153 - ABCD Data Dictionary.xlsx]</code></pre>
 <table>
@@ -2819,6 +2864,66 @@ ABCD Variables</h2>
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td align="center">mri_y_smr_area_dst</td>
+<td align="center">151</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">mri_y_smr_sulc_dst</td>
+<td align="center">151</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">mri_y_smr_t1_contr_dst</td>
+<td align="center">151</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">mri_y_smr_t1_gray_dst</td>
+<td align="center">151</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">mri_y_smr_t1_white_dst</td>
+<td align="center">151</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">mri_y_smr_t2_contr_dst</td>
+<td align="center">151</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">mri_y_smr_t2_gray_dst</td>
+<td align="center">151</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">mri_y_smr_t2_white_dst</td>
+<td align="center">151</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">mri_y_smr_thk_dst</td>
+<td align="center">151</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">mri_y_smr_vol_dst</td>
+<td align="center">151</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
 <tr class="odd">
 <td align="center">nt_y_st</td>
 <td align="center">135</td>
@@ -3238,193 +3343,219 @@ ABCD Variables</h2>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
-<div id="in-build-missing-values-analysis" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> In-build Missing Values
+<div id="in-build-missing-values-analysis" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> In-build Missing Values
 Analysis</h1>
-<div id="missing-value-analysis-report" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Missing Value
-Analysis Report</h2>
+<p>To enhance the academic rigor and clarity of your documentation on
+Missing Values Analysis (MVA) and Imputation, consider the following
+revised sections:</p>
+<div id="missing-value-analysis-report-generation" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Missing Value
+Analysis Report Generation</h2>
+<p>The pipeline automatically generates Missing Value Analysis (MVA)
+Reports, which are saved in the <code>_Res_Preproc_</code> folder within
+your project directory. This directory is specified by a user-defined
+parameter in <code>SDPP_ParaSet.R</code>.</p>
+<div id="report-naming-convention" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Report Naming
+Convention</h3>
+<p>The naming format for MVA reports is as follows:</p>
 <ul>
-<li><p>The auto-generated Missing Value Analysis (MVA) Reports by this
-pipeline will be saved into <em>Res_Preproc</em> folder under your
-project directory (A user-defined parameter in
-<em><em>SDPP_ParaSet.R</em></em>).</p></li>
-<li><p>File naming format for MVA report reads as follows:</p>
+<li><code>MVA_Type_AssessmentWave_VariableName_VariableWave_Postfix.doc</code></li>
+</ul>
+<p>Where:</p>
 <ul>
-<li><p>MVA_<em>Type</em>_<em>AssessmentWave</em>_<em>VariableName</em>_<em>VariableWave</em>_<em>Postfix</em>_.doc</p></li>
-<li><p><em>Type</em>: Report-Variable Missing Summary; CaseReport-Case
-Missing Summary;</p></li>
-<li><p><em>AssessmentWave</em>: ALL-all avaiable waves in ABCD data; T0;
-T1; T2; T3; T4;</p></li>
-<li><p><em>VariableName</em>: abbr in above table, please refer to
-<em>domain</em> abbrs (e.g. Novel Technology);</p></li>
-<li><p><em>Postfix</em>: abbr in above table, please refer to
-<em>common</em> abbrs;</p></li>
-</ul></li>
+<li><code>Type</code>: Distinguishes between a <code>Report</code> for
+variable missing summary and a <code>CaseReport</code> for case missing
+summary.</li>
+<li><code>AssessmentWave</code>: Indicates the assessment wave (e.g.,
+<code>ALL</code> for all available waves, <code>T0</code>,
+<code>T1</code>, etc.).</li>
+<li><code>VariableName</code>: Denotes the abbreviated variable name, as
+referenced in the domain abbreviations (e.g., Novel Technology).</li>
+<li><code>Postfix</code>: Utilizes common abbreviations for additional
+context.</li>
 </ul>
 </div>
-<div id="missing-value-imputation" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Missing Value
-Imputation</h2>
+</div>
+<div id="missing-value-imputation-strategies" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Missing Value
+Imputation Strategies</h2>
+<div id="demographic-variables-imputation" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Demographic
+Variables Imputation</h3>
 <ol style="list-style-type: decimal">
-<li>In Step 3, missing values (NAs) in some key demographic variable
-will be processed by R package mice, which reads as follows:
-<em>src_subject_id</em>, <em>interview_age</em>, <em>SexAssigned</em>,
-<em>BMI</em>, <em>BirthCountry</em>, <em>YouthNativeLang</em>,
-<em>Religon_2L</em>, <em>Race_PrntRep</em>, <em>Ethnicity_PrntRep</em>,
-<em>ParentsHighEdu_5L</em>, <em>ParentsMarital_6L</em>,
-<em>ParentEmploy</em>, <em>FamilyIncome</em>,
-<em>HouseholdStructure</em>, <em>HouseholdSize</em>,
-<em>Relationship_3L</em>. Variables with missing values would be imputed
-using chained equations model. The final imputed dataset will be
-generated by combining all imputed datasets using their mode and median,
-for categorical and contiunous variable respectively. The number of
-imputed datasets could be changed in SDPP_ParaSet (default is 100 with
-25 iterations). At the same time, a mice.mids object will also be saved
-into a RDS file in your SDPP project folder (at
-/“Project”/Res_2_Results/Res_Preproc/, “Project” is the folder name that
-you set as a SDPP Project Directory). A more practical way to use
-multiple-imputed data is calling funcitons in mice package (i.e. with
-and pool) to build your statistical models on each imputed dataset and
-then poolling their estimates together. This is a more conventional
-method when using multiple imputation to handle missing values. In
-addition, you can change these ‘Key Demographic Variables’ processed by
-multiple imputation in
-<strong>DataPreproc_Step3_DemographicImpute.R</strong> (Code Chunk 6,
-Line 122 - 130). Similar combining method is also implemented in the R
-packge <em>sjmisc</em>.
+<li><p><strong>Step 3</strong>: Key demographic variables with missing
+values are imputed using the <code>mice</code> package in R. This
+includes variables such as <code>src_subject_id</code>,
+<code>interview_age</code>, and others listed. Imputation is performed
+using a chained equations model, and the final dataset is derived by
+combining imputations using mode and median for categorical and
+continuous variables, respectively. The default setting imputes 100
+datasets with 25 iterations, which can be adjusted in
+<code>SDPP_ParaSet</code>. The resulting <code>mice.mids</code> object
+is saved in a RDS file within the project directory. For practical
+application, the <code>mice</code> package functions <code>with</code>
+and <code>pool</code> facilitate model building on each imputed dataset
+and pooling of estimates. This method aligns with conventional practices
+in multiple imputation for handling missing data. The variables
+subjected to multiple imputation can be modified in
+<code>DataPreproc_Step3_DemographicImpute.R</code>.</p>
 <ul>
-<li>Notes:
+<li><strong>Notes</strong>:
 <ul>
-<li>Rationale: This merging method provides a straightforward way to
-create a single, complete dataset from multiple imputations. It’s
-particularly useful in contexts where a singular dataset is needed for
-analysis or reporting, and where the complexity of standard pooling
-methods (like Rubin’s Rules) is not required.</li>
-<li>Potential Underestimation of Variability and Uncertainty: While this
-approach provides a practical solution, it’s important to be cautious
-about potential underestimation of variability. This method does not
-account for between-imputation variability, which is a crucial component
-in understanding the uncertainty due to missing data. The use of mean or
-mode for pooling can lead to an underestimation of the variability and
-standard errors.</li>
-<li>Appropriate Use: The method is noted to be used in certain fields
-like social sciences. Its suitability may vary depending on the nature
-of the research question, the type of data, and the patterns of
-missingness.</li>
+<li>The method employed for merging multiple imputations into a single
+dataset is straightforward and useful for analyses requiring a complete
+dataset. However, it may underestimate variability by not accounting for
+between-imputation variance, a critical factor in assessing uncertainty
+due to missing data.</li>
+<li>This approach is particularly applicable in social sciences, though
+its suitability varies by research context, data type, and missingness
+patterns.</li>
 </ul></li>
-<li>Reference:</li>
-</ul>
-<blockquote>
-<p>Burns RA, Butterworth P, Kiely KM, Bielak AAM, Luszcz MA, Mitchell P,
-et al. 2011. Multiple imputation was an efficient method for harmonizing
-the Mini-Mental State Examination with missing item-level data. Journal
-of Clinical Epidemiology;64:787-93 doi:
-10.1016/j.jclinepi.2010.10.011</p>
-</blockquote></li>
-<li>In Step 5, missing values (NAs) in youth-reported screen use time,
-MPIQ, SMAS, VGAS, SUAB will be processed by KNN imputation, which is
-implemented by a MATLAB offical function <em>knnimpute</em> (requires
-MATLAB offical toolbox: <em>Bioinformatics Toolbox</em>). In detail, the
-Step 5 script will use R.matlab package to create a local MATLAB server
-and then call the MATLAB function in R environment. Please make sure you
-have correctly installed the required R package and relevant MATLAB
-version.</li>
+<li><strong>Reference</strong>: &gt; Burns RA, Butterworth P, et
+al. (2011). Multiple imputation was an efficient method for harmonizing
+the Mini-Mental State Examination with missing item-level data.
+<em>Journal of Clinical Epidemiology</em>, 64(7), 787-793. DOI:
+10.1016/j.jclinepi.2010.10.011.</li>
+</ul></li>
+</ol>
+</div>
+<div id="youth-reported-variables-imputation" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Youth-Reported
+Variables Imputation</h3>
+<ol style="list-style-type: decimal">
+<li>In <strong>Step 5</strong> (DataPreproc_Step5_NT_Y_SMA_Imp.R),
+missing values in youth-reported variables (e.g., screen use time, MPIQ)
+are addressed using KNN imputation via the MATLAB function
+<code>knnimpute</code>, necessitating the MATLAB Bioinformatics Toolbox.
+The <em>R.matlab</em> package facilitates communication between R and
+MATLAB, allowing MATLAB functions to be executed within the R
+environment. Ensure the appropriate installation of both the required R
+package and MATLAB.</li>
 </ol>
 </div>
 </div>
-<div id="data-coding-notes---demographics" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Data Coding Notes -
+</div>
+<div id="data-coding-notes---demographics" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Data Coding Notes -
 Demographics</h1>
-<div id="demographic-variables" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Demographic
-Variables</h2>
+<div id="coding-scheme-and-apa-guidelines-compliance" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Coding Scheme and APA
+Guidelines Compliance</h2>
+<div id="abcd-study-demographic-variables-coding" class="section level3" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> ABCD Study
+Demographic Variables Coding</h3>
 <ol style="list-style-type: decimal">
-<li>Coding scheme for ABCD demographic variable are referred to the
-ABCD-DAIRC codes. <a href="https://github.com/ABCD-STUDY/analysis-nda">Find here</a>.</li>
-<li>A detailed coding scheme table can be found in
-/.github/SDPP_CodingScheme.xlsx, which follows the format of
-<strong>Table S2</strong> in the supplemental materials of our published
-JAACAP article. <a href="https://www.sciencedirect.com/science/article/pii/S0890856723001326">Article
-Link</a></li>
-<li>In the latest version of this pipeline, I also carefully check the
-corresponding APA Guideline as recommended by Eales and its colleagues,
-where they gave some valuable and insightful comments on our published
-paper, which is really appreciated. Now, SDPP-ABCD-TabDat provides a
-more thoughtful coding scheme on demographic variables. See more details
-on:</li>
+<li><p><strong>ABCD-DAIRC Codes</strong>: The coding scheme for
+demographic variables in the ABCD study adheres to the ABCD-DAIRC codes.
+Comprehensive details can be accessed via the <a href="https://github.com/ABCD-STUDY/analysis-nda">ABCD Study Analysis
+NDA GitHub repository</a>.</p></li>
+<li><p><strong>Detailed Coding Scheme Documentation</strong>: An
+extensive coding scheme, aligned with <strong>Table S2</strong> from the
+supplemental materials of our publication in JAACAP, is available at
+<code>/.github/SDPP_CodingScheme.xlsx</code>. For further reading, refer
+to our <a href="https://www.sciencedirect.com/science/article/pii/S0890856723001326">published
+article</a>.</p></li>
 </ol>
-<blockquote>
-<ol style="list-style-type: decimal">
-<li>Eales L, Wiglesworth A, Klimes-Dougan B, Cullen KR. Editorial:
-Benign Versus Problematic Media Use Profiles in Youth: Correlates,
-Concerns, and Future Directions. J Am Acad Child Adolesc Psychiatry.
-2023 Sep;62(9):970-972. doi: 10.1016/j.jaac.2023.05.009. Epub 2023 May
-17. PMID: 37207890.</li>
-<li>American Psychological Association, APA Task Force on Race and
-Ethnicity Guidelines in Psychology. Race and Ethnicity Guidelines in
-Psychology: Promoting Responsiveness and Equity. 2019. Accessed March
-24, 2023. <a href="https://www.apa.org/about/policy/guidelines-race-ethnicity.pdf" class="uri">https://www.apa.org/about/policy/guidelines-race-ethnicity.pdf</a>.</li>
+</div>
+<div id="incorporation-of-apa-guidelines" class="section level3" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Incorporation of
+APA Guidelines</h3>
+<ol start="3" style="list-style-type: decimal">
+<li><p><strong>APA Guidelines Consideration</strong>: In the most recent
+update of this pipeline, we have meticulously reviewed the corresponding
+APA guidelines, as highlighted by Eales et al. in their insightful
+commentary on our work. Their feedback has significantly informed the
+enhancement of our coding scheme for demographic variables, ensuring it
+adheres more closely to best practices and ethical standards in
+psychological research.</p>
+<ul>
+<li><strong>Relevant Literature and Guidelines</strong>:
+<ul>
+<li>Eales L, Wiglesworth A, et al. (2023). Editorial: Benign Versus
+Problematic Media Use Profiles in Youth - Correlates, Concerns, and
+Future Directions. <em>Journal of the American Academy of Child &amp;
+Adolescent Psychiatry</em>, 62(9), 970-972. DOI: <a href="https://doi.org/10.1016/j.jaac.2023.05.009">10.1016/j.jaac.2023.05.009</a>.</li>
+<li>American Psychological Association (2019). Race and Ethnicity
+Guidelines in Psychology: Promoting Responsiveness and Equity. <a href="https://www.apa.org/about/policy/guidelines-race-ethnicity.pdf">APA
+Task Force on Race and Ethnicity Guidelines in Psychology</a>.</li>
+</ul></li>
+</ul></li>
 </ol>
-</blockquote>
+<p>The diligent incorporation of these guidelines and the structured
+approach to coding demographic variables underscore our commitment to
+ethical research practices and the reproducibility of our findings. This
+adherence not only enriches the quality of our work but also aligns with
+the broader objectives of fostering inclusivity and equity in
+psychological research.</p>
 </div>
 </div>
-<div id="data-coding-notes---screen-related-measures" class="section level1 tabset" number="5">
-<h1 class="tabset"><span class="header-section-number">5</span> Data
-Coding Notes - Screen-related Measures</h1>
-<div id="abcd-screen-time-questionnaire" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> ABCD Screen Time
-Questionnaire</h2>
-<ul>
-<li><p>Changes in ABCD 5.0</p>
+</div>
+<div id="data-coding-notes---new-technology-measures" class="section level1 tabset" number="6">
+<h1 class="tabset"><span class="header-section-number">6</span> Data
+Coding Notes - New Technology Measures</h1>
+<div id="abcd-screen-time-questionnaire-stq" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> ABCD Screen Time
+Questionnaire (STQ)</h2>
+<div id="updates-in-version-5.0-5.1" class="section level3" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Updates in Version
+5.0 &amp; 5.1</h3>
+<p>The ABCD 5.1 update introduced significant changes to the screen time
+questionnaire, as detailed by Bagot et al. (2022) in <em>Developmental
+Cognitive Neuroscience</em>. These adjustments were made to better
+reflect evolving digital media consumption patterns:</p>
 <ol style="list-style-type: decimal">
-<li>In Step 4, some coding details should be noted as follows (Bagot et
-al., 2022, Dev Cog Neurosci):</li>
-</ol>
+<li><strong>Item Modifications</strong>:
 <ul>
-<li><p>1.1 Item Choice Changed</p>
-<ul>
-<li>Beginning in Year 2, the activities listed were changed slightly to
-reflect the increase in video streaming: watching TV shows or movies
-changed to “watching or streaming TV shows or movies”; watching videos
-(such as YouTube) changed to “watching or streaming videos or live
-streaming (such as YouTube, Twitch)”</li>
+<li>The description of activities was updated to include streaming
+services, changing “watching TV shows or movies” to “watching or
+streaming TV shows or movies” and “watching videos” to “watching or
+streaming videos or live streaming (e.g., YouTube, Twitch).”</li>
 </ul></li>
-<li><p>1.2 New Items Added</p>
+<li><strong>Addition of New Items</strong>:
 <ul>
-<li>Time spent playing videogames was broken down into “time spent on
-single player”and “multiplayer gaming”.</li>
-<li>Editing photos or videos to post on social media was added;</li>
-<li>“searching or browsing the internet that is not”for school” was
-added.</li>
-<li>Total time spent on all non-school related screen usage activities
-was added.</li>
-<li>Importantly, the response format in Year 2 was changed from
-categories to open format, where individuals input the hours and
-minutes, they estimated spending on each screen usage activity.</li>
+<li>Breakdown of videogame playtime into “single player” and
+“multiplayer gaming.”</li>
+<li>Introduction of items for “editing photos or videos for social
+media” and “non-school-related internet browsing.”</li>
+<li>Inclusion of an item for total non-school-related screen usage.</li>
 </ul></li>
-<li><p>1.3 Coding Method Changed</p>
+<li><strong>Response Format Revision</strong>:
 <ul>
-<li>Bagot et al. have reported their harmonizing method to capture such
-changes beginning in two-year follow-up wave (Page 5, Section 2.2.10
-Self-reported screen usage). SDPP-ABCD-TabDat, here, followed the work
-done by Bagot et al.</li>
+<li>Year 2 introduced an open-ended response format for estimating hours
+and minutes spent on each activity, replacing the categorical options
+used in previous years.</li>
+</ul></li>
+<li><strong>Harmonization of Coding Method</strong>:
+<ul>
+<li>Following Bagot et al.’s methodology, Year 2 open-ended responses
+were recoded into categories consistent with earlier assessments for
+harmonization purposes. Activities such as “editing photos and videos”
+and “internet browsing” were excluded from previous waves, and gaming
+time was aggregated under a single “video games” category.</li>
 </ul>
 <blockquote>
-<p>“To harmonize screen usage data across Baseline, Year 1, and Year 2
-for analyses here, it was necessary to transform Year 2 open responses
-to categories consistent with Baseline and Year 1. This was done by
-summing hours and minutes for each activity in Year 2 and recoding it to
-the categories (with anything above 4 h recoded as ‘4 + hours’),
-according to a 6-point scale: 0 h, &lt; 1 h, 1–2 h, 2–3 h, 3–4 h, and
-&gt; 4 h. For analyses, these were coded as 0–5, respectively.
-Furthermore, ‘editing photos and videos’ and ‘searching or browsing the
-internet’ were omitted as these items were not queried at previous
-assessments. Time spent on single player and multiplayer gaming was
-collapsed into a single category of “video games” (by summing them) to
-be consistent with previous assessments.”</p>
+<p>Bagot KS, et al. (2022). Youth screen use in the ABCD® study.
+<em>Developmental Cognitive Neuroscience</em>, 57, 101150. DOI:
+10.1016/j.dcn.2022.101150.</p>
 </blockquote></li>
-<li><p>In SDPP-ABCD-TabDat, however, Step 4 will do a slightly different
+</ol>
+<p>In the SDPP-ABCD-TabDat pipeline, a nuanced 7-level ordinal coding is
+applied to adapt these changes, enhancing the granularity of screen use
+time data for more detailed cluster analysis. &gt; “To harmonize screen
+usage data across Baseline, Year 1, and Year 2 for analyses here, it was
+necessary to transform Year 2 open responses to categories consistent
+with Baseline and Year 1. This was done by summing hours and minutes for
+each activity in Year 2 and recoding it to the categories (with anything
+above 4 h recoded as ‘4 + hours’), according to a 6-point scale: 0 h,
+&lt; 1 h, 1–2 h, 2–3 h, 3–4 h, and &gt; 4 h. For analyses, these were
+coded as 0–5, respectively. Furthermore, ‘editing photos and videos’ and
+‘searching or browsing the internet’ were omitted as these items were
+not queried at previous assessments. Time spent on single player and
+multiplayer gaming was collapsed into a single category of “video games”
+(by summing them) to be consistent with previous assessments.”</p>
+<p>In SDPP-ABCD-TabDat, however, Step 4 will do a slightly different
 coding for screen use time, where a 7-level ordinal coding will be
 applied to 12 items in the ABCD STQ. This was done by the following
 formula: <span class="math inline">\(Screen\,Use\,Time = hours +
@@ -3436,19 +3567,10 @@ previous close-answered items in STQ, which reads as “1½ hours would be
 coded as 1 hour, rather than 2 hours”, Step 4 will collapse 0.75, 1,
 1.25 and 1.5 into 1 hour; 1.75, 2, 2.25, 2.5 into 2 hours; 2.75, 3,
 3.25, 3.5 into 3 hours; 3.75, 4 and above into 4+ hours.</p>
-<blockquote>
-<p><em>Bagot KS, Tomko RL, Marshall AT, Hermann J, Cummins K, Ksinan A,
-Kakalis M, Breslin F, Lisdahl KM, Mason M, Redhead JN, Squeglia LM,
-Thompson WK, Wade T, Tapert SF, Fuemmeler BF, Baker FC. Youth screen use
-in the ABCD® study. Dev Cogn Neurosci. 2022 Sep 1;57:101150. doi:
-10.1016/j.dcn.2022.101150. Epub ahead of print. PMID: 36084446; PMCID:
-PMC9465320.</em></p>
-</blockquote></li>
-</ul></li>
-</ul>
 </div>
-<div id="mobile-phone-involvment-questionnaire-mpiq" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Mobile Phone
+</div>
+<div id="mobile-phone-involvment-questionnaire-mpiq" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Mobile Phone
 Involvment Questionnaire (MPIQ)</h2>
 <ul>
 <li><p>Mobile Phone-related Items in the ABCD STQ</p></li>
@@ -3484,8 +3606,8 @@ makes me feel distressed</li>
 </ul></li>
 </ul>
 </div>
-<div id="the-bergan-social-media-addiction-scale-smas-and-vgas" class="section level2" number="5.3">
-<h2><span class="header-section-number">5.3</span> The Bergan Social
+<div id="the-bergan-social-media-addiction-scale-smas-and-vgas" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> The Bergan Social
 Media Addiction Scale (SMAS) and VGAS</h2>
 <ul>
 <li>SMAS and VGAS
@@ -3516,8 +3638,8 @@ has had a bad effect on my schoolwork or job;</li>
 </ul></li>
 </ul>
 </div>
-<div id="screen-usage-around-bedtime-questionnaire-suab" class="section level2" number="5.4">
-<h2><span class="header-section-number">5.4</span> Screen Usage Around
+<div id="screen-usage-around-bedtime-questionnaire-suab" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Screen Usage Around
 Bedtime questionnaire (SUAB)</h2>
 <ul>
 <li>A 9-item measure was administered to youth to assess engagement in
@@ -3572,14 +3694,14 @@ nights; 3=3-4 nights; 4=5-7 nights; 777=Refused to answer</li>
 </ul>
 </div>
 </div>
-<div id="data-coding-notes---mental-health" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> Data Coding Notes -
+<div id="data-coding-notes---mental-health" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Data Coding Notes -
 Mental Health</h1>
-<div id="abcd-youth-mental-health-summary" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> ABCD Youth Mental
+<div id="abcd-youth-mental-health-summary" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> ABCD Youth Mental
 Health Summary</h2>
 <ol style="list-style-type: decimal">
-<li>Processing about nm and nt</li>
+<li>Processing about <em>nm</em> and <em>nt</em></li>
 </ol>
 <ul>
 <li><p>To get a compact data frame, Step 6 will auto-read ABCD Data
@@ -3605,10 +3727,10 @@ proved that is not appropriate for children. Therefore, there is no need
 to include the raw BIS/BAS subscales sum scores.</li>
 </ul>
 </div>
-<div id="aseba-measures" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> ASEBA Measures</h2>
-<div id="child-behavior-checklist-cbcl" class="section level3" number="6.2.1">
-<h3><span class="header-section-number">6.2.1</span> Child Behavior
+<div id="aseba-measures" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> ASEBA Measures</h2>
+<div id="child-behavior-checklist-cbcl" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Child Behavior
 Checklist (CBCL)</h3>
 <ul>
 <li><strong>Step 7 will only retain the CBCL t-scores</strong> from all
@@ -3687,11 +3809,11 @@ research to be good measures of clinical constructs such as:
 </div>
 </div>
 </div>
-<div id="data-coding-notes---neurocognition" class="section level1" number="7">
-<h1><span class="header-section-number">7</span> Data Coding Notes -
+<div id="data-coding-notes---neurocognition" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Data Coding Notes -
 Neurocognition</h1>
-<div id="the-nih-cognition-toolbox" class="section level2 tabset" number="7.1">
-<h2 class="tabset"><span class="header-section-number">7.1</span> The
+<div id="the-nih-cognition-toolbox" class="section level2 tabset" number="8.1">
+<h2 class="tabset"><span class="header-section-number">8.1</span> The
 NIH Cognition Toolbox</h2>
 <ul>
 <li>The NIH Cognition Toolbox comprises seven tasks administered via
@@ -3744,8 +3866,8 @@ ABCD 5.0 Release Note</a></li>
 Release Notes, <strong>Step 8 will only retain the uncorrected standard
 Score</strong> for all NIHTB-related variables.</li>
 </ul>
-<div id="picture-vocabulary-test-pvt" class="section level3" number="7.1.1">
-<h3><span class="header-section-number">7.1.1</span> Picture Vocabulary
+<div id="picture-vocabulary-test-pvt" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Picture Vocabulary
 Test (PVT)</h3>
 <ul>
 <li>The NIH Toolbox Picture Vocabulary Test, a measure of receptive
@@ -3760,8 +3882,8 @@ takes approximately four minutes to administer and is recommended for
 ages 3-85.</li>
 </ul>
 </div>
-<div id="flanker-inhibitory-control-attention-task-ficat" class="section level3" number="7.1.2">
-<h3><span class="header-section-number">7.1.2</span> Flanker Inhibitory
+<div id="flanker-inhibitory-control-attention-task-ficat" class="section level3" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> Flanker Inhibitory
 Control &amp; Attention Task (FICAT)</h3>
 <ul>
 <li>The NIH Toolbox Flanker Inhibitory Control and Attention Test
@@ -3777,8 +3899,8 @@ approximately three minutes to administer. This test is recommended for
 ages 3-85.</li>
 </ul>
 </div>
-<div id="picture-sequence-memory-task-psmt" class="section level3" number="7.1.3">
-<h3><span class="header-section-number">7.1.3</span> Picture Sequence
+<div id="picture-sequence-memory-task-psmt" class="section level3" number="8.1.3">
+<h3><span class="header-section-number">8.1.3</span> Picture Sequence
 Memory Task (PSMT)</h3>
 <ul>
 <li>The NIH Toolbox Picture Sequence Memory Test (PSMT) was developed to
@@ -3799,8 +3921,8 @@ seven minutes to administer. This test is recommended for ages
 3-85.</li>
 </ul>
 </div>
-<div id="dimensional-change-card-sort-task-dccst" class="section level3" number="7.1.4">
-<h3><span class="header-section-number">7.1.4</span> Dimensional Change
+<div id="dimensional-change-card-sort-task-dccst" class="section level3" number="8.1.4">
+<h3><span class="header-section-number">8.1.4</span> Dimensional Change
 Card Sort Task (DCCST)</h3>
 <ul>
 <li>The NIH Toolbox Dimensional Change Card Sort Test (DCCS) is a
@@ -3818,8 +3940,8 @@ correct stimulus. This test takes approximately four minutes to
 administer and is recommended for ages 3-85.</li>
 </ul>
 </div>
-<div id="pattern-comparison-processing-speed-task-pcst" class="section level3" number="7.1.5">
-<h3><span class="header-section-number">7.1.5</span> Pattern Comparison
+<div id="pattern-comparison-processing-speed-task-pcst" class="section level3" number="8.1.5">
+<h3><span class="header-section-number">8.1.5</span> Pattern Comparison
 processing Speed Task (PCST)</h3>
 <ul>
 <li>The NIH Toolbox Pattern Comparison Processing Speed Test (Pattern
@@ -3833,8 +3955,8 @@ approximately three minutes to administer. This test is recommended for
 ages 7-85, but is available for use as young as age 3, if desired.</li>
 </ul>
 </div>
-<div id="oral-reading-recognition-task-orrt" class="section level3" number="7.1.6">
-<h3><span class="header-section-number">7.1.6</span> Oral Reading
+<div id="oral-reading-recognition-task-orrt" class="section level3" number="8.1.6">
+<h3><span class="header-section-number">8.1.6</span> Oral Reading
 Recognition Task (ORRT)</h3>
 <ul>
 <li>In the NIH Toolbox Oral Reading Recognition Test (Reading), the
@@ -3849,8 +3971,8 @@ if desired. Separatebut parallel reading tests have been developed in
 English and in Spanish.</li>
 </ul>
 </div>
-<div id="list-sorting-working-memory-task-lswmt" class="section level3" number="7.1.7">
-<h3><span class="header-section-number">7.1.7</span> List Sorting
+<div id="list-sorting-working-memory-task-lswmt" class="section level3" number="8.1.7">
+<h3><span class="header-section-number">8.1.7</span> List Sorting
 Working Memory Task (LSWMT)</h3>
 <ul>
 <li>The NIH Toolbox List Sorting Working Memory Test (List Sorting)
@@ -3865,8 +3987,8 @@ ages 7V85, though it is available for use as young as age 3.</li>
 </ul>
 </div>
 </div>
-<div id="non-nihtb-neurocognitive-tasks" class="section level2 tabset" number="7.2">
-<h2 class="tabset"><span class="header-section-number">7.2</span>
+<div id="non-nihtb-neurocognitive-tasks" class="section level2 tabset" number="8.2">
+<h2 class="tabset"><span class="header-section-number">8.2</span>
 Non-NIHTB Neurocognitive Tasks</h2>
 <ul>
 <li>Here, non-NIH toolbox neurocognitive tasks indicate all behavioral
@@ -3924,8 +4046,8 @@ EFC, 2-digit and 6-digit will be preserved respectively. All RT, Score
 and ACC variables will be re-formated into double data. All Counts
 variables will be re-formated into integer data.</li>
 </ul>
-<div id="snellen-visual-screener-svs" class="section level3" number="7.2.1">
-<h3><span class="header-section-number">7.2.1</span> Snellen Visual
+<div id="snellen-visual-screener-svs" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Snellen Visual
 Screener (SVS)</h3>
 <ul>
 <li>This is a vision screening measure. The vision score is the last
@@ -3949,8 +4071,8 @@ chart.</li>
 re-named as <strong>SVS_Score</strong> in SDPP-ABCD-TabDat.</li>
 </ul>
 </div>
-<div id="cash-choice-task-cct" class="section level3" number="7.2.2">
-<h3><span class="header-section-number">7.2.2</span> Cash Choice Task
+<div id="cash-choice-task-cct" class="section level3" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Cash Choice Task
 (CCT)</h3>
 <ul>
 <li>The Cash Choice is a single-item proxy for the delay discounting
@@ -3963,8 +4085,8 @@ re-named as <strong>CCT_Score</strong> to represent CCT perfomance score
 (3-level categorical variable).</li>
 </ul>
 </div>
-<div id="little-man-task-lmt" class="section level3" number="7.2.3">
-<h3><span class="header-section-number">7.2.3</span> Little Man Task
+<div id="little-man-task-lmt" class="section level3" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> Little Man Task
 (LMT)</h3>
 <ul>
 <li>The Little Man Task evaluates visuospatial processing flexibility
@@ -3980,8 +4102,8 @@ system from Millisecond.</li>
 <li><strong>LMT-related variables</strong>: ACC, RT, EFC</li>
 </ul>
 </div>
-<div id="the-pearson-rey-auditory-verbal-learning-test-ravlt" class="section level3" number="7.2.4">
-<h3><span class="header-section-number">7.2.4</span> The Pearson Rey
+<div id="the-pearson-rey-auditory-verbal-learning-test-ravlt" class="section level3" number="8.2.4">
+<h3><span class="header-section-number">8.2.4</span> The Pearson Rey
 Auditory Verbal Learning Test (RAVLT)</h3>
 <ul>
 <li><p>The Rey Auditory Verbal Learning Test (RAVLT) assesses verbal
@@ -4013,8 +4135,8 @@ Clin. 2016;13:415-427. Published 2016 Dec 18. <a href="doi:10.1016/j.nicl.2016.1
 </blockquote></li>
 </ul>
 </div>
-<div id="wechsler-intelligence-scale-for-children-wisc" class="section level3" number="7.2.5">
-<h3><span class="header-section-number">7.2.5</span> Wechsler
+<div id="wechsler-intelligence-scale-for-children-wisc" class="section level3" number="8.2.5">
+<h3><span class="header-section-number">8.2.5</span> Wechsler
 Intelligence Scale for Children (WISC)</h3>
 <ul>
 <li>WISC-V Matrix Reasoning Test were administered using the Pearson
@@ -4030,8 +4152,8 @@ WISC-V</li>
 </ul></li>
 </ul>
 </div>
-<div id="delay-discount-task-ddt" class="section level3" number="7.2.6">
-<h3><span class="header-section-number">7.2.6</span> Delay Discount Task
+<div id="delay-discount-task-ddt" class="section level3" number="8.2.6">
+<h3><span class="header-section-number">8.2.6</span> Delay Discount Task
 (DDT)</h3>
 <ul>
 <li><p>The participant makes several choices between a hypothetical
@@ -4115,8 +4237,8 @@ choices</li>
 </ul></li>
 </ul>
 </div>
-<div id="emotional-stroop-task-est" class="section level3" number="7.2.7">
-<h3><span class="header-section-number">7.2.7</span> Emotional Stroop
+<div id="emotional-stroop-task-est" class="section level3" number="8.2.7">
+<h3><span class="header-section-number">8.2.7</span> Emotional Stroop
 Task (EST)</h3>
 <ul>
 <li>The emotional Stroop task (Stroop, 1935) measures cognitive control
@@ -4163,8 +4285,8 @@ trials (across test blocks)</li>
 </ul></li>
 </ul>
 </div>
-<div id="game-of-dice-task-gdt" class="section level3" number="7.2.8">
-<h3><span class="header-section-number">7.2.8</span> Game of Dice Task
+<div id="game-of-dice-task-gdt" class="section level3" number="8.2.8">
+<h3><span class="header-section-number">8.2.8</span> Game of Dice Task
 (GDT)</h3>
 <ul>
 <li>The Game of Dice Task (GDT; Brand et al., 2005) assesses
@@ -4208,8 +4330,8 @@ safe bets minus number of risky bets.</li>
 </ul></li>
 </ul>
 </div>
-<div id="social-influence-task-sit" class="section level3" number="7.2.9">
-<h3><span class="header-section-number">7.2.9</span> Social Influence
+<div id="social-influence-task-sit" class="section level3" number="8.2.9">
+<h3><span class="header-section-number">8.2.9</span> Social Influence
 Task (SIT)</h3>
 <ul>
 <li>The Social Influence Task (SIT) assesses risk perception and
@@ -4274,8 +4396,8 @@ response’ for final rating trials</li>
 </ul></li>
 </ul>
 </div>
-<div id="stanford-mental-arithmetic-response-time-evaluation-smarte" class="section level3" number="7.2.10">
-<h3><span class="header-section-number">7.2.10</span> Stanford Mental
+<div id="stanford-mental-arithmetic-response-time-evaluation-smarte" class="section level3" number="8.2.10">
+<h3><span class="header-section-number">8.2.10</span> Stanford Mental
 Arithmetic Response Time Evaluation (SMARTE)</h3>
 <ul>
 <li>The Stanford Mental Arithmetic Response Time Evaluation (SMARTE) is
@@ -4301,8 +4423,8 @@ SMARTE_Score divided by sum of total averaged reaction time.</li>
 </ul></li>
 </ul>
 </div>
-<div id="behavioral-indicator-of-resiliency-to-distress-task-bird" class="section level3" number="7.2.11">
-<h3><span class="header-section-number">7.2.11</span> Behavioral
+<div id="behavioral-indicator-of-resiliency-to-distress-task-bird" class="section level3" number="8.2.11">
+<h3><span class="header-section-number">8.2.11</span> Behavioral
 Indicator of Resiliency to Distress Task (BIRD)</h3>
 <ul>
 <li><p>The Behavioral Indicator of Resiliency to Distress (BIRD) task
@@ -4353,8 +4475,8 @@ Youth with Emotional Disorders. J Psychopathol Behav Assess 42, 787–798
 </blockquote></li>
 </ul>
 </div>
-<div id="millisecond-flanker-task-flkr" class="section level3" number="7.2.12">
-<h3><span class="header-section-number">7.2.12</span> Millisecond
+<div id="millisecond-flanker-task-flkr" class="section level3" number="8.2.12">
+<h3><span class="header-section-number">8.2.12</span> Millisecond
 Flanker Task (FLKR)</h3>
 <ul>
 <li><p>This task measures attention, cognitive control, executive
@@ -4379,8 +4501,8 @@ following the formula: <span class="math inline">\(ACC_{Incongrument}-ACC_{Congr
 </ul></li>
 </ul>
 </div>
-<div id="barkley-deficits-in-executive-functioning-scale-bdefs" class="section level3" number="7.2.13">
-<h3><span class="header-section-number">7.2.13</span> Barkley Deficits
+<div id="barkley-deficits-in-executive-functioning-scale-bdefs" class="section level3" number="8.2.13">
+<h3><span class="header-section-number">8.2.13</span> Barkley Deficits
 in Executive Functioning Scale (BDEFS)</h3>
 <ul>
 <li>This measure is the short form of the Barkley Deficits in Executive
@@ -4402,8 +4524,8 @@ missing item response (i.e. refuse to answer code “777”).</li>
 </ul>
 </div>
 </div>
-<div id="task-fmri-behavioral-performance-and-post-scan-questionnaire" class="section level2 tabset" number="7.3">
-<h2 class="tabset"><span class="header-section-number">7.3</span> Task
+<div id="task-fmri-behavioral-performance-and-post-scan-questionnaire" class="section level2 tabset" number="8.3">
+<h2 class="tabset"><span class="header-section-number">8.3</span> Task
 fMRI Behavioral Performance and Post-scan Questionnaire</h2>
 <ul>
 <li>The naming of Non-NIHTB task-related variables follows: <strong>Task
@@ -4450,8 +4572,8 @@ yes or no)</li>
 flag, yes or no)</li>
 </ul></li>
 </ul>
-<div id="monetary-incentive-delay-task-mid" class="section level3" number="7.3.1">
-<h3><span class="header-section-number">7.3.1</span> Monetary Incentive
+<div id="monetary-incentive-delay-task-mid" class="section level3" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Monetary Incentive
 Delay Task (MID)</h3>
 <ul>
 <li>The fMRI Monetary Incentive Delay (MID) task measures domains of
@@ -4531,8 +4653,8 @@ Condition</strong> combination.</li>
 </ul></li>
 </ul>
 </div>
-<div id="monetary-incentive-delay---post-scan-questionnaire-midpq" class="section level3" number="7.3.2">
-<h3><span class="header-section-number">7.3.2</span> Monetary Incentive
+<div id="monetary-incentive-delay---post-scan-questionnaire-midpq" class="section level3" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Monetary Incentive
 Delay - Post scan Questionnaire (MIDPQ)</h3>
 <ul>
 <li>After completion of the in-scanner task, participants are asked to
@@ -4599,8 +4721,8 @@ during the game? (Yes or No, [0 = No; 1 = Yes])</li>
 </ul></li>
 </ul>
 </div>
-<div id="stop-signal-task-sst" class="section level3" number="7.3.3">
-<h3><span class="header-section-number">7.3.3</span> Stop Signal Task
+<div id="stop-signal-task-sst" class="section level3" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> Stop Signal Task
 (SST)</h3>
 <ul>
 <li><p>The fMRI Stop Signal Task (SST) measures impulse control and
@@ -4663,8 +4785,8 @@ integration estimation</li>
 </ul></li>
 </ul>
 </div>
-<div id="emotional-n-back-task-enb" class="section level3" number="7.3.4">
-<h3><span class="header-section-number">7.3.4</span> Emotional N-back
+<div id="emotional-n-back-task-enb" class="section level3" number="8.3.4">
+<h3><span class="header-section-number">8.3.4</span> Emotional N-back
 Task (ENB)</h3>
 <ul>
 <li>The fMRI Emotional nBack task (ENB) assesses memory, emotion and
@@ -4716,8 +4838,8 @@ stimuli during run 1 and run 2</li>
 </ul></li>
 </ul>
 </div>
-<div id="n-back-recognition-memory-recmem-task" class="section level3" number="7.3.5">
-<h3><span class="header-section-number">7.3.5</span> N-Back Recognition
+<div id="n-back-recognition-memory-recmem-task" class="section level3" number="8.3.5">
+<h3><span class="header-section-number">8.3.5</span> N-Back Recognition
 Memory (RECMEM) Task</h3>
 <ul>
 <li>The Emotional nBack Recognition Memory (RECMEM) task engages
@@ -4761,14 +4883,14 @@ Discriminability Index): computed as <span class="math inline">\(f^{-1}_{normal}
 </div>
 </div>
 </div>
-<div id="data-coding-notes---culture-environment-measures" class="section level1" number="8">
-<h1><span class="header-section-number">8</span> Data Coding Notes -
+<div id="data-coding-notes---culture-environment-measures" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> Data Coding Notes -
 Culture &amp; Environment Measures</h1>
-<div id="youth-reported-culture-related-measures" class="section level2 tabset" number="8.1">
-<h2 class="tabset"><span class="header-section-number">8.1</span>
+<div id="youth-reported-culture-related-measures" class="section level2 tabset" number="9.1">
+<h2 class="tabset"><span class="header-section-number">9.1</span>
 Youth-reported Culture-related Measures</h2>
-<div id="acculturation-survey-phenx-accult" class="section level3" number="8.1.1">
-<h3><span class="header-section-number">8.1.1</span> Acculturation
+<div id="acculturation-survey-phenx-accult" class="section level3" number="9.1.1">
+<h3><span class="header-section-number">9.1.1</span> Acculturation
 Survey (PhenX) (ACCULT)</h3>
 <ul>
 <li>The Acculturation survey is a subset of questions from the PhenX
@@ -4800,8 +4922,8 @@ dialect? 1 = Poor; 2 = Fair; 3 = Good; 4 = Excellent</li>
 </ul></li>
 </ul>
 </div>
-<div id="mexican-american-cultural-values-scale-macv" class="section level3" number="8.1.2">
-<h3><span class="header-section-number">8.1.2</span> Mexican American
+<div id="mexican-american-cultural-values-scale-macv" class="section level3" number="9.1.2">
+<h3><span class="header-section-number">9.1.2</span> Mexican American
 Cultural Values Scale (MACV)</h3>
 <ul>
 <li>This scale uses a subset of items derived from the Mexican American
@@ -4834,8 +4956,8 @@ answered</li>
 </ul></li>
 </ul>
 </div>
-<div id="multigroup-ethnic-identity-revised-survey-meim" class="section level3" number="8.1.3">
-<h3><span class="header-section-number">8.1.3</span> Multigroup Ethnic
+<div id="multigroup-ethnic-identity-revised-survey-meim" class="section level3" number="9.1.3">
+<h3><span class="header-section-number">9.1.3</span> Multigroup Ethnic
 Identity-Revised Survey (MEIM)</h3>
 <ul>
 <li>The Multiethnic Identity Measure - Revised (MEIM-R) is a 6-item
@@ -4864,8 +4986,8 @@ minimum of 5 items answered</li>
 </ul></li>
 </ul>
 </div>
-<div id="vancouver-index-of-acculturation" class="section level3" number="8.1.4">
-<h3><span class="header-section-number">8.1.4</span> Vancouver Index of
+<div id="vancouver-index-of-acculturation" class="section level3" number="9.1.4">
+<h3><span class="header-section-number">9.1.4</span> Vancouver Index of
 Acculturation</h3>
 <ul>
 <li>The Vancouver Index of Acculturation (VIA) is a 20-item
@@ -4927,11 +5049,11 @@ Validation: All items must be answered</li>
 </ul>
 </div>
 </div>
-<div id="youth-reported-community-related-measures" class="section level2 tabset" number="8.2">
-<h2 class="tabset"><span class="header-section-number">8.2</span>
+<div id="youth-reported-community-related-measures" class="section level2 tabset" number="9.2">
+<h2 class="tabset"><span class="header-section-number">9.2</span>
 Youth-reported Community-related Measures</h2>
-<div id="neighborhood-safetycrime-survey-phenx-nsc" class="section level3" number="8.2.1">
-<h3><span class="header-section-number">8.2.1</span> Neighborhood
+<div id="neighborhood-safetycrime-survey-phenx-nsc" class="section level3" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> Neighborhood
 Safety/Crime Survey (PhenX) (NSC)</h3>
 <ul>
 <li>The youth item is derived from the PhenX Neighborhood Safety
@@ -4948,8 +5070,8 @@ Agree; 5 = Strongly Agree</li>
 </ul></li>
 </ul>
 </div>
-<div id="discrimination-scale" class="section level3" number="8.2.2">
-<h3><span class="header-section-number">8.2.2</span> Discrimination
+<div id="discrimination-scale" class="section level3" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> Discrimination
 Scale</h3>
 <ul>
 <li>The first four items are from the 2006 Boston Youth Survey and query
@@ -4973,11 +5095,11 @@ answered</li>
 </ul>
 </div>
 </div>
-<div id="youth-report-family-or-parenting-related-measures" class="section level2 tabset" number="8.3">
-<h2 class="tabset"><span class="header-section-number">8.3</span>
+<div id="youth-report-family-or-parenting-related-measures" class="section level2 tabset" number="9.3">
+<h2 class="tabset"><span class="header-section-number">9.3</span>
 Youth-report Family or parenting-related Measures</h2>
-<div id="childrens-report-of-parental-behavioral-inventory-pbi" class="section level3" number="8.3.1">
-<h3><span class="header-section-number">8.3.1</span> Children’s Report
+<div id="childrens-report-of-parental-behavioral-inventory-pbi" class="section level3" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Children’s Report
 of Parental Behavioral Inventory (PBI)</h3>
 <ul>
 <li>The Acceptance Scale is a subscale of the Child Report of Behavior
@@ -5016,8 +5138,8 @@ crpbi_caregiver16_y)/5; Validation: Minimum of four items answered</li>
 </ul></li>
 </ul>
 </div>
-<div id="multidimensional-neglectful-behavior-scale-mnbs" class="section level3" number="8.3.2">
-<h3><span class="header-section-number">8.3.2</span> Multidimensional
+<div id="multidimensional-neglectful-behavior-scale-mnbs" class="section level3" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> Multidimensional
 Neglectful Behavior Scale (MNBS)</h3>
 <ul>
 <li>This 8-item scale was adapted from the “LONGSCAN About My Parents”
@@ -5039,8 +5161,8 @@ Behavioral Scale (Dubowitz, et. al, 2011).</li>
 </ul></li>
 </ul>
 </div>
-<div id="parental-monitoring-pm" class="section level3" number="8.3.3">
-<h3><span class="header-section-number">8.3.3</span> Parental Monitoring
+<div id="parental-monitoring-pm" class="section level3" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> Parental Monitoring
 (PM)</h3>
 <ul>
 <li>The Parental Monitoring Survey is a subset of questions that assess
@@ -5057,8 +5179,8 @@ parent_monitor_q5_y)/5; Validation: no minimum number of answers</li>
 </ul></li>
 </ul>
 </div>
-<div id="family-environment-scale-phenx-fes" class="section level3" number="8.3.4">
-<h3><span class="header-section-number">8.3.4</span> Family Environment
+<div id="family-environment-scale-phenx-fes" class="section level3" number="9.3.4">
+<h3><span class="header-section-number">9.3.4</span> Family Environment
 Scale (PhenX) (FES)</h3>
 <ul>
 <li>The youth respond to 2 subscales, Family Conflict and Family
@@ -5081,8 +5203,8 @@ items answered): [fes_y_ss_fc]*[fes_y_ss_fc_nt] /[fes_y_ss_fc_na]</li>
 </ul></li>
 </ul>
 </div>
-<div id="pet-ownership-pet" class="section level3" number="8.3.5">
-<h3><span class="header-section-number">8.3.5</span> Pet Ownership
+<div id="pet-ownership-pet" class="section level3" number="9.3.5">
+<h3><span class="header-section-number">9.3.5</span> Pet Ownership
 (PET)</h3>
 <ul>
 <li>This single-item question was added to learn about current pet
@@ -5106,11 +5228,11 @@ above pet_identify</strong>_1~6 == 1), Do not have pets (PET_OS ==
 </ul>
 </div>
 </div>
-<div id="youth-report-peers-or-school-related-measures" class="section level2 tabset" number="8.4">
-<h2 class="tabset"><span class="header-section-number">8.4</span>
+<div id="youth-report-peers-or-school-related-measures" class="section level2 tabset" number="9.4">
+<h2 class="tabset"><span class="header-section-number">9.4</span>
 Youth-report Peers or school-related Measures</h2>
-<div id="peer-behavior-profile-pbp" class="section level3" number="8.4.1">
-<h3><span class="header-section-number">8.4.1</span> Peer Behavior
+<div id="peer-behavior-profile-pbp" class="section level3" number="9.4.1">
+<h3><span class="header-section-number">9.4.1</span> Peer Behavior
 Profile (PBP)</h3>
 <ul>
 <li>The Peer Behavior Profile consists of the Prosocial Peer Involvement
@@ -5130,8 +5252,8 @@ of two items must be answered</li>
 </ul></li>
 </ul>
 </div>
-<div id="peer-network-health-protective-scale-pnh" class="section level3" number="8.4.2">
-<h3><span class="header-section-number">8.4.2</span> Peer Network
+<div id="peer-network-health-protective-scale-pnh" class="section level3" number="9.4.2">
+<h3><span class="header-section-number">9.4.2</span> Peer Network
 Health: Protective Scale (PNH)</h3>
 <ul>
 <li>Youth report on three of their close friends’ protective behaviors
@@ -5146,8 +5268,8 @@ answered</li>
 </ul></li>
 </ul>
 </div>
-<div id="resistance-to-peer-influence-rpi" class="section level3" number="8.4.3">
-<h3><span class="header-section-number">8.4.3</span> Resistance to Peer
+<div id="resistance-to-peer-influence-rpi" class="section level3" number="9.4.3">
+<h3><span class="header-section-number">9.4.3</span> Resistance to Peer
 Influence (RPI)</h3>
 <ul>
 <li>A 10 item survey assessing how independent or persuadable the youth
@@ -5159,8 +5281,8 @@ Validation: minimum of 7 items answered</li>
 </ul></li>
 </ul>
 </div>
-<div id="school-attendance-and-grades-sag" class="section level3" number="8.4.4">
-<h3><span class="header-section-number">8.4.4</span> School Attendance
+<div id="school-attendance-and-grades-sag" class="section level3" number="9.4.4">
+<h3><span class="header-section-number">9.4.4</span> School Attendance
 and Grades (SAG)</h3>
 <ul>
 <li>Questions on School Attendance and Grades (SAG) obtain information
@@ -5193,8 +5315,8 @@ Days; 1=1 day; 2=2 days; 3=3 days; 4=4-5 days; 5=6-10 days; 6=11+ days;
 </ul></li>
 </ul>
 </div>
-<div id="school-risk-and-protective-factors-phenx-srpf" class="section level3" number="8.4.5">
-<h3><span class="header-section-number">8.4.5</span> School Risk and
+<div id="school-risk-and-protective-factors-phenx-srpf" class="section level3" number="9.4.5">
+<h3><span class="header-section-number">9.4.5</span> School Risk and
 Protective Factors (PhenX) (SRPF)</h3>
 <ul>
 <li>The School Risk and Protective Factors (SRPF) Survey is derived from
@@ -5221,11 +5343,11 @@ school_15_y + school_17_y; Validation: All items must be answered</li>
 </ul>
 </div>
 </div>
-<div id="youth-report-other-ce-related-measures" class="section level2 tabset" number="8.5">
-<h2 class="tabset"><span class="header-section-number">8.5</span>
+<div id="youth-report-other-ce-related-measures" class="section level2 tabset" number="9.5">
+<h2 class="tabset"><span class="header-section-number">9.5</span>
 Youth-report other CE-related Measures</h2>
-<div id="prosocial-behavior-phenx-psb" class="section level3" number="8.5.1">
-<h3><span class="header-section-number">8.5.1</span> Prosocial Behavior
+<div id="prosocial-behavior-phenx-psb" class="section level3" number="9.5.1">
+<h3><span class="header-section-number">9.5.1</span> Prosocial Behavior
 (PhenX) (PSB)</h3>
 <ul>
 <li>The Prosocial Behaviors questionnaire is a subscale from the
@@ -5242,8 +5364,8 @@ of two items answered</li>
 </ul></li>
 </ul>
 </div>
-<div id="wills-problem-solving-scale-wps" class="section level3" number="8.5.2">
-<h3><span class="header-section-number">8.5.2</span> Wills Problem
+<div id="wills-problem-solving-scale-wps" class="section level3" number="9.5.2">
+<h3><span class="header-section-number">9.5.2</span> Wills Problem
 Solving Scale (WPS)</h3>
 <ul>
 <li>This scale was derived from earlier coping measures (Wills, Health
@@ -5266,11 +5388,11 @@ other than not applicable = 0)</li>
 </div>
 </div>
 </div>
-<div id="data-coding-notes---brain-imaging" class="section level1" number="9">
-<h1><span class="header-section-number">9</span> Data Coding Notes -
+<div id="data-coding-notes---brain-imaging" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> Data Coding Notes -
 Brain Imaging</h1>
-<div id="brain-imaging-overview" class="section level2" number="9.1">
-<h2><span class="header-section-number">9.1</span> Brain Imaging
+<div id="brain-imaging-overview" class="section level2" number="10.1">
+<h2><span class="header-section-number">10.1</span> Brain Imaging
 Overview</h2>
 <ul>
 <li>Scanner effects
@@ -5440,8 +5562,8 @@ FD &lt; 0.2 and at least 5 contiguous, supra-threshold frames</li>
 </ul></li>
 </ul>
 </div>
-<div id="abcd-official-nomenclature-for-mri-related-variables" class="section level2" number="9.2">
-<h2><span class="header-section-number">9.2</span> ABCD Official
+<div id="abcd-official-nomenclature-for-mri-related-variables" class="section level2" number="10.2">
+<h2><span class="header-section-number">10.2</span> ABCD Official
 Nomenclature for MRI-related variables</h2>
 <ul>
 <li>Subdomain
@@ -5533,14 +5655,14 @@ Nomenclature for MRI-related variables</h2>
 </ul></li>
 </ul>
 </div>
-<div id="structural-mri-smri-t1w-t2w" class="section level2" number="9.3">
-<h2><span class="header-section-number">9.3</span> Structural MRI (sMRI;
-T1w, T2w)</h2>
-<div id="smri-sdpp-look-up-table" class="section level3 tabset" number="9.3.1">
-<h3 class="tabset"><span class="header-section-number">9.3.1</span> sMRI
-SDPP Look-Up Table</h3>
-<div id="desikan-atlas" class="section level4" number="9.3.1.1">
-<h4><span class="header-section-number">9.3.1.1</span> Desikan
+<div id="structural-mri-smri-t1w-t2w" class="section level2" number="10.3">
+<h2><span class="header-section-number">10.3</span> Structural MRI
+(sMRI; T1w, T2w)</h2>
+<div id="smri-sdpp-look-up-table" class="section level3 tabset" number="10.3.1">
+<h3 class="tabset"><span class="header-section-number">10.3.1</span>
+sMRI SDPP Look-Up Table</h3>
+<div id="desikan-atlas" class="section level4" number="10.3.1.1">
+<h4><span class="header-section-number">10.3.1.1</span> Desikan
 Atlas</h4>
 <table>
 <caption>sMRI Look-up Table 1. Desikan Parcellation (aparc)</caption>
@@ -5730,19 +5852,19 @@ hemisphere)</td>
 <td align="left">lingual (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
+<td align="left">mean</td>
 <td align="left">NA</td>
 <td align="left">cortdesikan_mean</td>
 <td align="left">mean (bilateral)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
+<td align="left">meanlh</td>
 <td align="left">NA</td>
 <td align="left">cortdesikan_mean.lh</td>
 <td align="left">mean (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
+<td align="left">meanrh</td>
 <td align="left">NA</td>
 <td align="left">cortdesikan_mean.rh</td>
 <td align="left">mean (right hemisphere)</td>
@@ -5976,19 +6098,19 @@ hemisphere)</td>
 <td align="left">temporal pole (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
+<td align="left">total</td>
 <td align="left">NA</td>
 <td align="left">cortdesikan_total</td>
 <td align="left">total (bilateral - area and volume)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
+<td align="left">totallh</td>
 <td align="left">NA</td>
 <td align="left">cortdesikan_total.lh</td>
 <td align="left">total (left hemisphere - area and volume)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
+<td align="left">totalrh</td>
 <td align="left">NA</td>
 <td align="left">cortdesikan_total.rh</td>
 <td align="left">total (right hemisphere - area and volume)</td>
@@ -6008,16 +6130,16 @@ hemisphere)</td>
 </tbody>
 </table>
 </div>
-<div id="destrieux-atlas" class="section level4" number="9.3.1.2">
-<h4><span class="header-section-number">9.3.1.2</span> Destrieux
+<div id="destrieux-atlas" class="section level4" number="10.3.1.2">
+<h4><span class="header-section-number">10.3.1.2</span> Destrieux
 Atlas</h4>
 <table>
 <caption>sMRI Look-up Table 2. Destrieux Parcellation (aparc2)</caption>
 <colgroup>
-<col width="9%" />
-<col width="7%" />
-<col width="28%" />
-<col width="53%" />
+<col width="15%" />
+<col width="15%" />
+<col width="23%" />
+<col width="44%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -6029,987 +6151,987 @@ Atlas</h4>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_frontomargin_lh</td>
+<td align="left">lh_G_and_S_frontomargin</td>
 <td align="left">cort.destrieux_g.and.s.frontomargin.lh</td>
 <td align="left">fronto-marginal gyrus and sulcus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_occipital_inf_lh</td>
+<td align="left">lh_G_and_S_occipital_inf</td>
 <td align="left">cort.destrieux_g.and.s.occipital.inf.lh</td>
 <td align="left">inferior occipital gyrus and sulcus (left
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_paracentral_lh</td>
+<td align="left">lh_G_and_S_paracentral</td>
 <td align="left">cort.destrieux_g.and.s.paracentral.lh</td>
 <td align="left">paracentral lobule and sulcus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_subcentral_lh</td>
+<td align="left">lh_G_and_S_subcentral</td>
 <td align="left">cort.destrieux_g.and.s.subcentral.lh</td>
 <td align="left">subcentral gyrus and sulci (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_transv_frontopol_lh</td>
+<td align="left">lh_G_and_S_transv_frontopol</td>
 <td align="left">cort.destrieux_g.and.s.transv.frontopol.lh</td>
 <td align="left">transverse frontopolar gyri and sulci (left
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_cingul_ant_lh</td>
+<td align="left">lh_G_and_S_cingul-Ant</td>
 <td align="left">cort.destrieux_g.and.s.cingul.ant.lh</td>
 <td align="left">anterior part of the cingulate gyrus and sulcus (left
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_cingul_mid_ant_lh</td>
+<td align="left">lh_G_and_S_cingul-Mid-Ant</td>
 <td align="left">cort.destrieux_g.and.s.cingul.mid.ant.lh</td>
 <td align="left">middle-anterior part of the cingulate gyrus and sulcus
 (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_cingul_mid_post_lh</td>
+<td align="left">lh_G_and_S_cingul-Mid-Post</td>
 <td align="left">cort.destrieux_g.and.s.cingul.mid.post.lh</td>
 <td align="left">middle-posterior part of the cingulate gyrus and sulcus
 (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_cingul_post_dorsal_lh</td>
+<td align="left">lh_G_cingul-Post-dorsal</td>
 <td align="left">cort.destrieux_g.cingul.post.dorsal.lh</td>
 <td align="left">posterior-dorsal part of the cingulate gyrus (left
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_cingul_post_ventral_lh</td>
+<td align="left">lh_G_cingul-Post-ventral</td>
 <td align="left">cort.destrieux_g.cingul.post.ventral.lh</td>
 <td align="left">posterior-ventral part of the cingulate gyrus (left
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_cuneus_lh</td>
+<td align="left">lh_G_cuneus</td>
 <td align="left">cort.destrieux_g.cuneus.lh</td>
 <td align="left">cuneus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_front_inf_opercular_lh</td>
+<td align="left">lh_G_front_inf-Opercular</td>
 <td align="left">cort.destrieux_g.front.inf.opercular.lh</td>
 <td align="left">opercular part of the inferior frontal gyrus (left
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_front_inf_orbital_lh</td>
+<td align="left">lh_G_front_inf-Orbital</td>
 <td align="left">cort.destrieux_g.front.inf.orbital.lh</td>
 <td align="left">orbital part of the inferior frontal gyrus (left
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_front_inf_triangul_lh</td>
+<td align="left">lh_G_front_inf-Triangul</td>
 <td align="left">cort.destrieux_g.front.inf.triangul.lh</td>
 <td align="left">triangular part of the inferior frontal gyrus (left
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_front_middle_lh</td>
+<td align="left">lh_G_front_middle</td>
 <td align="left">cort.destrieux_g.front.middle.lh</td>
 <td align="left">middle frontal gyrus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_front_sup_lh</td>
+<td align="left">lh_G_front_sup</td>
 <td align="left">cort.destrieux_g.front.sup.lh</td>
 <td align="left">superior frontal gyrus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_ins_lg_and_s_cent_ins_lh</td>
+<td align="left">lh_G_Ins_lg_and_S_cent_ins</td>
 <td align="left">cort.destrieux_g.ins.lg.and.s.cent.ins.lh</td>
 <td align="left">long insular gyrus and central sulcus of the insula
 (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_insular_short_lh</td>
+<td align="left">lh_G_insular_short</td>
 <td align="left">cort.destrieux_g.insular.short.lh</td>
 <td align="left">short insular gyri (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_occipital_middle_lh</td>
+<td align="left">lh_G_occipital_middle</td>
 <td align="left">cort.destrieux_g.occipital.middle.lh</td>
 <td align="left">middle occipital gyrus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_occipital_sup_lh</td>
+<td align="left">lh_G_occipital_sup</td>
 <td align="left">cort.destrieux_g.occipital.sup.lh</td>
 <td align="left">superior occipital gyrus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_oc_temp_lat_fusifor_lh</td>
+<td align="left">lh_G_oc-temp_lat-fusifor</td>
 <td align="left">cort.destrieux_g.oc.temp.lat.fusifor.lh</td>
 <td align="left">lateral occipito-temporal gyrus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_oc_temp_med_lingual_lh</td>
+<td align="left">lh_G_oc-temp_med-Lingual</td>
 <td align="left">cort.destrieux_g.oc.temp.med.lingual.lh</td>
 <td align="left">lingual gyrus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_oc_temp_med_parahip_lh</td>
+<td align="left">lh_G_oc-temp_med-Parahip</td>
 <td align="left">cort.destrieux_g.oc.temp.med.parahip.lh</td>
 <td align="left">parahippocampal gyrus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_orbital_lh</td>
+<td align="left">lh_G_orbital</td>
 <td align="left">cort.destrieux_g.orbital.lh</td>
 <td align="left">orbital gyri (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_pariet_inf_angular_lh</td>
+<td align="left">lh_G_pariet_inf-Angular</td>
 <td align="left">cort.destrieux_g.pariet.inf.angular.lh</td>
 <td align="left">angular gyrus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_pariet_inf_supramar_lh</td>
+<td align="left">lh_G_pariet_inf-Supramar</td>
 <td align="left">cort.destrieux_g.pariet.inf.supramar.lh</td>
 <td align="left">supramarginal gyrus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_parietal_sup_lh</td>
+<td align="left">lh_G_parietal_sup</td>
 <td align="left">cort.destrieux_g.parietal.sup.lh</td>
 <td align="left">superior parietal lobule (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_postcentral_lh</td>
+<td align="left">lh_G_postcentral</td>
 <td align="left">cort.destrieux_g.postcentral.lh</td>
 <td align="left">postcentral gyrus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_precentral_lh</td>
+<td align="left">lh_G_precentral</td>
 <td align="left">cort.destrieux_g.precentral.lh</td>
 <td align="left">precentral gyrus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_precuneus_lh</td>
+<td align="left">lh_G_precuneus</td>
 <td align="left">cort.destrieux_g.precuneus.lh</td>
 <td align="left">precuneus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_rectus_lh</td>
+<td align="left">lh_G_rectus</td>
 <td align="left">cort.destrieux_g.rectus.lh</td>
 <td align="left">gyrus rectus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_subcallosal_lh</td>
+<td align="left">lh_G_subcallosal</td>
 <td align="left">cort.destrieux_g.subcallosal.lh</td>
 <td align="left">subcallosal gyrus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_temp_sup_g_t_transv_lh</td>
+<td align="left">lh_G_temp_sup-G_T_transv</td>
 <td align="left">cort.destrieux_g.temp.sup.g.t.transv.lh</td>
 <td align="left">anterior transverse temporal gyrus (left
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_temp_sup_lateral_lh</td>
+<td align="left">lh_G_temp_sup-Lateral</td>
 <td align="left">cort.destrieux_g.temp.sup.lateral.lh</td>
 <td align="left">lateral aspect of the superior temporal gyrus (left
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_temp_sup_plan_polar_lh</td>
+<td align="left">lh_G_temp_sup-Plan_polar</td>
 <td align="left">cort.destrieux_g.temp.sup.plan.polar.lh</td>
 <td align="left">planum polare of the superior temporal gyrus (left
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_temp_sup_plan_tempo_lh</td>
+<td align="left">lh_G_temp_sup-Plan_tempo</td>
 <td align="left">cort.destrieux_g.temp.sup.plan.tempo.lh</td>
 <td align="left">planum temporale (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_temporal_inf_lh</td>
+<td align="left">lh_G_temporal_inf</td>
 <td align="left">cort.destrieux_g.temporal.inf.lh</td>
 <td align="left">inferior temporal gyrus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_temporal_middle_lh</td>
+<td align="left">lh_G_temporal_middle</td>
 <td align="left">cort.destrieux_g.temporal.middle.lh</td>
 <td align="left">middle temporal gyrus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">lat_fis_ant_horizont_lh</td>
+<td align="left">lh_Lat_Fis-ant-Horizont</td>
 <td align="left">cort.destrieux_lat.fis.ant.horizont.lh</td>
 <td align="left">horizontal ramus of the anterior segment of the lateral
 sulcus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">lat_fis_ant_vertical_lh</td>
+<td align="left">lh_Lat_Fis-ant-Vertical</td>
 <td align="left">cort.destrieux_lat.fis.ant.vertical.lh</td>
 <td align="left">vertical ramus of the anterior segment of the lateral
 sulcus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">lat_fis_post_lh</td>
+<td align="left">lh_Lat_Fis-post</td>
 <td align="left">cort.destrieux_lat.fis.post.lh</td>
 <td align="left">posterior ramus of the lateral sulcus (left
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">pole_occipital_lh</td>
+<td align="left">lh_Pole_occipital</td>
 <td align="left">cort.destrieux_pole.occipital.lh</td>
 <td align="left">occipital pole (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">pole_temporal_lh</td>
+<td align="left">lh_Pole_temporal</td>
 <td align="left">cort.destrieux_pole.temporal.lh</td>
 <td align="left">temporal pole (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_calcarine_lh</td>
+<td align="left">lh_S_calcarine</td>
 <td align="left">cort.destrieux_s.calcarine.lh</td>
 <td align="left">calcarine sulcus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_central_lh</td>
+<td align="left">lh_S_central</td>
 <td align="left">cort.destrieux_s.central.lh</td>
 <td align="left">central sulcus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_cingul_marginalis_lh</td>
+<td align="left">lh_S_cingul-Marginalis</td>
 <td align="left">cort.destrieux_s.cingul.marginalis.lh</td>
 <td align="left">marginal branch of the cingulate sulcus (left
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_circular_insula_ant_lh</td>
+<td align="left">lh_S_circular_insula_ant</td>
 <td align="left">cort.destrieux_s.circular.insula.ant.lh</td>
 <td align="left">anterior segment of the circular sulcus of the insula
 (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_circular_insula_inf_lh</td>
+<td align="left">lh_S_circular_insula_inf</td>
 <td align="left">cort.destrieux_s.circular.insula.inf.lh</td>
 <td align="left">inferior segment of the circular sulcus of the insula
 (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_circular_insula_sup_lh</td>
+<td align="left">lh_S_circular_insula_sup</td>
 <td align="left">cort.destrieux_s.circular.insula.sup.lh</td>
 <td align="left">superior segment of the circular sulcus of the insula
 (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_collat_transv_ant_lh</td>
+<td align="left">lh_S_collat_transv_ant</td>
 <td align="left">cort.destrieux_s.collat.transv.ant.lh</td>
 <td align="left">anterior transverse collateral sulcus (left
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_collat_transv_post_lh</td>
+<td align="left">lh_S_collat_transv_post</td>
 <td align="left">cort.destrieux_s.collat.transv.post.lh</td>
 <td align="left">posterior transverse collateral sulcus (left
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_front_inf_lh</td>
+<td align="left">lh_S_front_inf</td>
 <td align="left">cort.destrieux_s.front.inf.lh</td>
 <td align="left">inferior frontal sulcus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_front_middle_lh</td>
+<td align="left">lh_S_front_middle</td>
 <td align="left">cort.destrieux_s.front.middle.lh</td>
 <td align="left">middle frontal sulcus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_front_sup_lh</td>
+<td align="left">lh_S_front_sup</td>
 <td align="left">cort.destrieux_s.front.sup.lh</td>
 <td align="left">superior frontal sulcus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_interm_prim_jensen_lh</td>
+<td align="left">lh_S_interm_prim-Jensen</td>
 <td align="left">cort.destrieux_s.interm.prim.jensen.lh</td>
 <td align="left">sulcus intermedius primus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_intrapariet_and_p_trans_lh</td>
+<td align="left">lh_S_intrapariet_and_P_trans</td>
 <td align="left">cort.destrieux_s.intrapariet.and.p.trans.lh</td>
 <td align="left">intraparietal sulcus and transverse parietal sulci
 (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_oc_middle_and_lunatus_lh</td>
+<td align="left">lh_S_oc_middle_and_Lunatus</td>
 <td align="left">cort.destrieux_s.oc.middle.and.lunatus.lh</td>
 <td align="left">middle occipital sulcus and lunatus sulcus (left
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_oc_sup_and_transversal_lh</td>
+<td align="left">lh_S_oc_sup_and_transversal</td>
 <td align="left">cort.destrieux_s.oc.sup.and.transversal.lh</td>
 <td align="left">superior occipital sulcus and transverse occipital
 sulcus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_occipital_ant_lh</td>
+<td align="left">lh_S_occipital_ant</td>
 <td align="left">cort.destrieux_s.occipital.ant.lh</td>
 <td align="left">anterior occipital sulcus and preoccipital notch (left
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_oc_temp_lat_lh</td>
+<td align="left">lh_S_oc-temp_lat</td>
 <td align="left">cort.destrieux_s.oc.temp.lat.lh</td>
 <td align="left">lateral occipito-temporal sulcus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_oc_temp_med_and_lingual_lh</td>
+<td align="left">lh_S_oc-temp_med_and_Lingual</td>
 <td align="left">cort.destrieux_s.oc.temp.med.and.lingual.lh</td>
 <td align="left">medial occipito-temporal sulcus and lingual sulcus
 (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_orbital_lateral_lh</td>
+<td align="left">lh_S_orbital_lateral</td>
 <td align="left">cort.destrieux_s.orbital.lateral.lh</td>
 <td align="left">lateral orbital sulcus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_orbital_med_olfact_lh</td>
+<td align="left">lh_S_orbital_med-olfact</td>
 <td align="left">cort.destrieux_s.orbital.med.olfact.lh</td>
 <td align="left">medial orbital sulcus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_orbital_h_shaped_lh</td>
+<td align="left">lh_S_orbital-H_Shaped</td>
 <td align="left">cort.destrieux_s.orbital.h.shaped.lh</td>
 <td align="left">orbital sulci (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_parieto_occipital_lh</td>
+<td align="left">lh_S_parieto_occipital</td>
 <td align="left">cort.destrieux_s.parieto.occipital.lh</td>
 <td align="left">parieto-occipital sulcus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_pericallosal_lh</td>
+<td align="left">lh_S_pericallosal</td>
 <td align="left">cort.destrieux_s.pericallosal.lh</td>
-<td align="left">s.pericallosal (left hemisphere)</td>
+<td align="left">pericallosal sulcus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_postcentral_lh</td>
+<td align="left">lh_S_postcentral</td>
 <td align="left">cort.destrieux_s.postcentral.lh</td>
 <td align="left">postcentral sulcus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_precentral_inf_part_lh</td>
+<td align="left">lh_S_precentral-inf-part</td>
 <td align="left">cort.destrieux_s.precentral.inf.part.lh</td>
 <td align="left">inferior part of the precentral sulcus (left
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_precentral_sup_part_lh</td>
+<td align="left">lh_S_precentral-sup-part</td>
 <td align="left">cort.destrieux_s.precentral.sup.part.lh</td>
 <td align="left">superior part of the precentral sulcus (left
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_suborbital_lh</td>
+<td align="left">lh_S_suborbital</td>
 <td align="left">cort.destrieux_s.suborbital.lh</td>
 <td align="left">suborbital sulcus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_subparietal_lh</td>
+<td align="left">lh_S_subparietal</td>
 <td align="left">cort.destrieux_s.subparietal.lh</td>
 <td align="left">subparietal sulcus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_temporal_inf_lh</td>
+<td align="left">lh_S_temporal_inf</td>
 <td align="left">cort.destrieux_s.temporal.inf.lh</td>
 <td align="left">inferior temporal sulcus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_temporal_sup_lh</td>
+<td align="left">lh_S_temporal_sup</td>
 <td align="left">cort.destrieux_s.temporal.sup.lh</td>
 <td align="left">superior temporal sulcus (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_temporal_transverse_lh</td>
+<td align="left">lh_S_temporal_transverse</td>
 <td align="left">cort.destrieux_s.temporal.transverse.lh</td>
 <td align="left">transverse temporal sulcus (left hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_frontomargin_rh</td>
+<td align="left">rh_G_and_S_frontomargin</td>
 <td align="left">cort.destrieux_g.and.s.frontomargin.rh</td>
 <td align="left">fronto-marginal gyrus and sulcus (right
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_occipital_inf_rh</td>
+<td align="left">rh_G_and_S_occipital_inf</td>
 <td align="left">cort.destrieux_g.and.s.occipital.inf.rh</td>
 <td align="left">inferior occipital gyrus and sulcus (right
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_paracentral_rh</td>
+<td align="left">rh_G_and_S_paracentral</td>
 <td align="left">cort.destrieux_g.and.s.paracentral.rh</td>
 <td align="left">paracentral lobule and sulcus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_subcentral_rh</td>
+<td align="left">rh_G_and_S_subcentral</td>
 <td align="left">cort.destrieux_g.and.s.subcentral.rh</td>
 <td align="left">subcentral gyrus and sulci (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_transv_frontopol_rh</td>
+<td align="left">rh_G_and_S_transv_frontopol</td>
 <td align="left">cort.destrieux_g.and.s.transv.frontopol.rh</td>
 <td align="left">transverse frontopolar gyri and sulci (right
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_cingul_ant_rh</td>
+<td align="left">rh_G_and_S_cingul-Ant</td>
 <td align="left">cort.destrieux_g.and.s.cingul.ant.rh</td>
 <td align="left">anterior part of the cingulate gyrus and sulcus (right
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_cingul_mid_ant_rh</td>
+<td align="left">rh_G_and_S_cingul-Mid-Ant</td>
 <td align="left">cort.destrieux_g.and.s.cingul.mid.ant.rh</td>
 <td align="left">middle-anterior part of the cingulate gyrus and sulcus
 (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_and_s_cingul_mid_post_rh</td>
+<td align="left">rh_G_and_S_cingul-Mid-Post</td>
 <td align="left">cort.destrieux_g.and.s.cingul.mid.post.rh</td>
 <td align="left">middle-posterior part of the cingulate gyrus and sulcus
 (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_cingul_post_dorsal_rh</td>
+<td align="left">rh_G_cingul-Post-dorsal</td>
 <td align="left">cort.destrieux_g.cingul.post.dorsal.rh</td>
 <td align="left">posterior-dorsal part of the cingulate gyrus (right
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_cingul_post_ventral_rh</td>
+<td align="left">rh_G_cingul-Post-ventral</td>
 <td align="left">cort.destrieux_g.cingul.post.ventral.rh</td>
 <td align="left">posterior-ventral part of the cingulate gyrus (right
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_cuneus_rh</td>
+<td align="left">rh_G_cuneus</td>
 <td align="left">cort.destrieux_g.cuneus.rh</td>
 <td align="left">cuneus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_front_inf_opercular_rh</td>
+<td align="left">rh_G_front_inf-Opercular</td>
 <td align="left">cort.destrieux_g.front.inf.opercular.rh</td>
 <td align="left">opercular part of the inferior frontal gyrus (right
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_front_inf_orbital_rh</td>
+<td align="left">rh_G_front_inf-Orbital</td>
 <td align="left">cort.destrieux_g.front.inf.orbital.rh</td>
 <td align="left">orbital part of the inferior frontal gyrus (right
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_front_inf_triangul_rh</td>
+<td align="left">rh_G_front_inf-Triangul</td>
 <td align="left">cort.destrieux_g.front.inf.triangul.rh</td>
 <td align="left">triangular part of the inferior frontal gyrus (right
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_front_middle_rh</td>
+<td align="left">rh_G_front_middle</td>
 <td align="left">cort.destrieux_g.front.middle.rh</td>
 <td align="left">middle frontal gyrus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_front_sup_rh</td>
+<td align="left">rh_G_front_sup</td>
 <td align="left">cort.destrieux_g.front.sup.rh</td>
 <td align="left">superior frontal gyrus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_ins_lg_and_s_cent_ins_rh</td>
+<td align="left">rh_G_Ins_lg_and_S_cent_ins</td>
 <td align="left">cort.destrieux_g.ins.lg.and.s.cent.ins.rh</td>
 <td align="left">long insular gyrus and central sulcus of the insula
 (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_insular_short_rh</td>
+<td align="left">rh_G_insular_short</td>
 <td align="left">cort.destrieux_g.insular.short.rh</td>
 <td align="left">short insular gyri (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_occipital_middle_rh</td>
+<td align="left">rh_G_occipital_middle</td>
 <td align="left">cort.destrieux_g.occipital.middle.rh</td>
 <td align="left">middle occipital gyrus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_occipital_sup_rh</td>
+<td align="left">rh_G_occipital_sup</td>
 <td align="left">cort.destrieux_g.occipital.sup.rh</td>
 <td align="left">superior occipital gyrus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_oc_temp_lat_fusifor_rh</td>
+<td align="left">rh_G_oc-temp_lat-fusifor</td>
 <td align="left">cort.destrieux_g.oc.temp.lat.fusifor.rh</td>
 <td align="left">lateral occipito-temporal gyrus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_oc_temp_med_lingual_rh</td>
+<td align="left">rh_G_oc-temp_med-Lingual</td>
 <td align="left">cort.destrieux_g.oc.temp.med.lingual.rh</td>
 <td align="left">lingual gyrus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_oc_temp_med_parahip_rh</td>
+<td align="left">rh_G_oc-temp_med-Parahip</td>
 <td align="left">cort.destrieux_g.oc.temp.med.parahip.rh</td>
 <td align="left">parahippocampal gyrus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_orbital_rh</td>
+<td align="left">rh_G_orbital</td>
 <td align="left">cort.destrieux_g.orbital.rh</td>
 <td align="left">orbital gyri (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_pariet_inf_angular_rh</td>
+<td align="left">rh_G_pariet_inf-Angular</td>
 <td align="left">cort.destrieux_g.pariet.inf.angular.rh</td>
 <td align="left">angular gyrus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_pariet_inf_supramar_rh</td>
+<td align="left">rh_G_pariet_inf-Supramar</td>
 <td align="left">cort.destrieux_g.pariet.inf.supramar.rh</td>
 <td align="left">supramarginal gyrus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_parietal_sup_rh</td>
+<td align="left">rh_G_parietal_sup</td>
 <td align="left">cort.destrieux_g.parietal.sup.rh</td>
 <td align="left">superior parietal lobule (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_postcentral_rh</td>
+<td align="left">rh_G_postcentral</td>
 <td align="left">cort.destrieux_g.postcentral.rh</td>
 <td align="left">postcentral gyrus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_precentral_rh</td>
+<td align="left">rh_G_precentral</td>
 <td align="left">cort.destrieux_g.precentral.rh</td>
 <td align="left">precentral gyrus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_precuneus_rh</td>
+<td align="left">rh_G_precuneus</td>
 <td align="left">cort.destrieux_g.precuneus.rh</td>
 <td align="left">precuneus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_rectus_rh</td>
+<td align="left">rh_G_rectus</td>
 <td align="left">cort.destrieux_g.rectus.rh</td>
 <td align="left">gyrus rectus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_subcallosal_rh</td>
+<td align="left">rh_G_subcallosal</td>
 <td align="left">cort.destrieux_g.subcallosal.rh</td>
 <td align="left">subcallosal gyrus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_temp_sup_g_t_transv_rh</td>
+<td align="left">rh_G_temp_sup-G_T_transv</td>
 <td align="left">cort.destrieux_g.temp.sup.g.t.transv.rh</td>
 <td align="left">anterior transverse temporal gyrus (right
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_temp_sup_lateral_rh</td>
+<td align="left">rh_G_temp_sup-Lateral</td>
 <td align="left">cort.destrieux_g.temp.sup.lateral.rh</td>
 <td align="left">lateral aspect of the superior temporal gyrus (right
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_temp_sup_plan_polar_rh</td>
+<td align="left">rh_G_temp_sup-Plan_polar</td>
 <td align="left">cort.destrieux_g.temp.sup.plan.polar.rh</td>
 <td align="left">planum polare of the superior temporal gyrus (right
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_temp_sup_plan_tempo_rh</td>
+<td align="left">rh_G_temp_sup-Plan_tempo</td>
 <td align="left">cort.destrieux_g.temp.sup.plan.tempo.rh</td>
 <td align="left">planum temporale (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_temporal_inf_rh</td>
+<td align="left">rh_G_temporal_inf</td>
 <td align="left">cort.destrieux_g.temporal.inf.rh</td>
 <td align="left">inferior temporal gyrus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">g_temporal_middle_rh</td>
+<td align="left">rh_G_temporal_middle</td>
 <td align="left">cort.destrieux_g.temporal.middle.rh</td>
 <td align="left">middle temporal gyrus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">lat_fis_ant_horizont_rh</td>
+<td align="left">rh_Lat_Fis-ant-Horizont</td>
 <td align="left">cort.destrieux_lat.fis.ant.horizont.rh</td>
 <td align="left">horizontal ramus of the anterior segment of the lateral
 sulcus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">lat_fis_ant_vertical_rh</td>
+<td align="left">rh_Lat_Fis-ant-Vertical</td>
 <td align="left">cort.destrieux_lat.fis.ant.vertical.rh</td>
 <td align="left">vertical ramus of the anterior segment of the lateral
 sulcus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">lat_fis_post_rh</td>
+<td align="left">rh_Lat_Fis-post</td>
 <td align="left">cort.destrieux_lat.fis.post.rh</td>
 <td align="left">posterior ramus of the lateral sulcus (right
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">pole_occipital_rh</td>
+<td align="left">rh_Pole_occipital</td>
 <td align="left">cort.destrieux_pole.occipital.rh</td>
 <td align="left">occipital pole (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">pole_temporal_rh</td>
+<td align="left">rh_Pole_temporal</td>
 <td align="left">cort.destrieux_pole.temporal.rh</td>
 <td align="left">temporal pole (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_calcarine_rh</td>
+<td align="left">rh_S_calcarine</td>
 <td align="left">cort.destrieux_s.calcarine.rh</td>
 <td align="left">calcarine sulcus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_central_rh</td>
+<td align="left">rh_S_central</td>
 <td align="left">cort.destrieux_s.central.rh</td>
 <td align="left">central sulcus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_cingul_marginalis_rh</td>
+<td align="left">rh_S_cingul-Marginalis</td>
 <td align="left">cort.destrieux_s.cingul.marginalis.rh</td>
 <td align="left">marginal branch of the cingulate sulcus (right
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_circular_insula_ant_rh</td>
+<td align="left">rh_S_circular_insula_ant</td>
 <td align="left">cort.destrieux_s.circular.insula.ant.rh</td>
 <td align="left">anterior segment of the circular sulcus of the insula
 (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_circular_insula_inf_rh</td>
+<td align="left">rh_S_circular_insula_inf</td>
 <td align="left">cort.destrieux_s.circular.insula.inf.rh</td>
 <td align="left">inferior segment of the circular sulcus of the insula
 (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_circular_insula_sup_rh</td>
+<td align="left">rh_S_circular_insula_sup</td>
 <td align="left">cort.destrieux_s.circular.insula.sup.rh</td>
 <td align="left">superior segment of the circular sulcus of the insula
 (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_collat_transv_ant_rh</td>
+<td align="left">rh_S_collat_transv_ant</td>
 <td align="left">cort.destrieux_s.collat.transv.ant.rh</td>
 <td align="left">anterior transverse collateral sulcus (right
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_collat_transv_post_rh</td>
+<td align="left">rh_S_collat_transv_post</td>
 <td align="left">cort.destrieux_s.collat.transv.post.rh</td>
 <td align="left">posterior transverse collateral sulcus (right
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_front_inf_rh</td>
+<td align="left">rh_S_front_inf</td>
 <td align="left">cort.destrieux_s.front.inf.rh</td>
 <td align="left">inferior frontal sulcus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_front_middle_rh</td>
+<td align="left">rh_S_front_middle</td>
 <td align="left">cort.destrieux_s.front.middle.rh</td>
 <td align="left">middle frontal sulcus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_front_sup_rh</td>
+<td align="left">rh_S_front_sup</td>
 <td align="left">cort.destrieux_s.front.sup.rh</td>
 <td align="left">superior frontal sulcus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_interm_prim_jensen_rh</td>
+<td align="left">rh_S_interm_prim-Jensen</td>
 <td align="left">cort.destrieux_s.interm.prim.jensen.rh</td>
 <td align="left">sulcus intermedius primus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_intrapariet_and_p_trans_rh</td>
+<td align="left">rh_S_intrapariet_and_P_trans</td>
 <td align="left">cort.destrieux_s.intrapariet.and.p.trans.rh</td>
 <td align="left">intraparietal sulcus and transverse parietal sulci
 (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_oc_middle_and_lunatus_rh</td>
+<td align="left">rh_S_oc_middle_and_Lunatus</td>
 <td align="left">cort.destrieux_s.oc.middle.and.lunatus.rh</td>
 <td align="left">middle occipital sulcus and lunatus sulcus (right
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_oc_sup_and_transversal_rh</td>
+<td align="left">rh_S_oc_sup_and_transversal</td>
 <td align="left">cort.destrieux_s.oc.sup.and.transversal.rh</td>
 <td align="left">superior occipital sulcus and transverse occipital
 sulcus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_occipital_ant_rh</td>
+<td align="left">rh_S_occipital_ant</td>
 <td align="left">cort.destrieux_s.occipital.ant.rh</td>
 <td align="left">anterior occipital sulcus and preoccipital notch (right
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_oc_temp_lat_rh</td>
+<td align="left">rh_S_oc-temp_lat</td>
 <td align="left">cort.destrieux_s.oc.temp.lat.rh</td>
 <td align="left">lateral occipito-temporal sulcus (right
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_oc_temp_med_and_lingual_rh</td>
+<td align="left">rh_S_oc-temp_med_and_Lingual</td>
 <td align="left">cort.destrieux_s.oc.temp.med.and.lingual.rh</td>
 <td align="left">medial occipito-temporal sulcus and lingual sulcus
 (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_orbital_lateral_rh</td>
+<td align="left">rh_S_orbital_lateral</td>
 <td align="left">cort.destrieux_s.orbital.lateral.rh</td>
 <td align="left">lateral orbital sulcus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_orbital_med_olfact_rh</td>
+<td align="left">rh_S_orbital_med-olfact</td>
 <td align="left">cort.destrieux_s.orbital.med.olfact.rh</td>
 <td align="left">medial orbital sulcus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_orbital_h_shaped_rh</td>
+<td align="left">rh_S_orbital-H_Shaped</td>
 <td align="left">cort.destrieux_s.orbital.h.shaped.rh</td>
 <td align="left">orbital sulci (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_parieto_occipital_rh</td>
+<td align="left">rh_S_parieto_occipital</td>
 <td align="left">cort.destrieux_s.parieto.occipital.rh</td>
 <td align="left">parieto-occipital sulcus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_pericallosal_rh</td>
+<td align="left">rh_S_pericallosal</td>
 <td align="left">cort.destrieux_s.pericallosal.rh</td>
-<td align="left">s.pericallosal (right hemisphere)</td>
+<td align="left">pericallosal sulcus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_postcentral_rh</td>
+<td align="left">rh_S_postcentral</td>
 <td align="left">cort.destrieux_s.postcentral.rh</td>
 <td align="left">postcentral sulcus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_precentral_inf_part_rh</td>
+<td align="left">rh_S_precentral-inf-part</td>
 <td align="left">cort.destrieux_s.precentral.inf.part.rh</td>
 <td align="left">inferior part of the precentral sulcus (right
 hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_precentral_sup_part_rh</td>
+<td align="left">rh_S_precentral-sup-part</td>
 <td align="left">cort.destrieux_s.precentral.sup.part.rh</td>
 <td align="left">superior part of the precentral sulcus (right
 hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_suborbital_rh</td>
+<td align="left">rh_S_suborbital</td>
 <td align="left">cort.destrieux_s.suborbital.rh</td>
 <td align="left">suborbital sulcus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_subparietal_rh</td>
+<td align="left">rh_S_subparietal</td>
 <td align="left">cort.destrieux_s.subparietal.rh</td>
 <td align="left">subparietal sulcus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_temporal_inf_rh</td>
+<td align="left">rh_S_temporal_inf</td>
 <td align="left">cort.destrieux_s.temporal.inf.rh</td>
 <td align="left">inferior temporal sulcus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_temporal_sup_rh</td>
+<td align="left">rh_S_temporal_sup</td>
 <td align="left">cort.destrieux_s.temporal.sup.rh</td>
 <td align="left">superior temporal sulcus (right hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left">s_temporal_transverse_rh</td>
+<td align="left">rh_S_temporal_transverse</td>
 <td align="left">cort.destrieux_s.temporal.transverse.rh</td>
 <td align="left">transverse temporal sulcus (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
+<td align="left">meanlh</td>
 <td align="left">NA</td>
 <td align="left">cort.destrieux_mean.lh</td>
 <td align="left">mean (left hemisphere)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
+<td align="left">meanrh</td>
 <td align="left">NA</td>
 <td align="left">cort.destrieux_mean.rh</td>
 <td align="left">mean (right hemisphere)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
+<td align="left">mean</td>
 <td align="left">NA</td>
 <td align="left">cort.destrieux_mean</td>
 <td align="left">mean (bilateral)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
+<td align="left">totallh</td>
 <td align="left">NA</td>
 <td align="left">cort.destrieux_total.lh</td>
 <td align="left">total (left hemisphere - area and volume)</td>
 </tr>
 <tr class="odd">
-<td align="left">NA</td>
+<td align="left">totalrh</td>
 <td align="left">NA</td>
 <td align="left">cort.destrieux_total.rh</td>
 <td align="left">total (right hemisphere - area and volume)</td>
 </tr>
 <tr class="even">
-<td align="left">NA</td>
+<td align="left">total</td>
 <td align="left">NA</td>
 <td align="left">cort.destrieux_total</td>
 <td align="left">total (bilateral - area and volume)</td>
@@ -7017,21 +7139,23 @@ hemisphere)</td>
 </tbody>
 </table>
 </div>
-<div id="subcortical-segmentation" class="section level4" number="9.3.1.3">
-<h4><span class="header-section-number">9.3.1.3</span> Subcortical
+<div id="subcortical-segmentation" class="section level4" number="10.3.1.3">
+<h4><span class="header-section-number">10.3.1.3</span> Subcortical
 Segmentation</h4>
 <table>
 <caption>sMRI Look-up Table 3. Subcortical Segmentation (aseg)</caption>
 <colgroup>
+<col width="8%" />
+<col width="19%" />
+<col width="19%" />
 <col width="11%" />
-<col width="9%" />
-<col width="28%" />
-<col width="51%" />
+<col width="41%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">SDPP ROI abbr</th>
-<th align="left">ggseg Label</th>
+<th align="left">ggseg Label_ASEG</th>
+<th align="left">ggseg Label_ASEG_Extra</th>
 <th align="left">ABCD ROI name</th>
 <th align="left">Description</th>
 </tr>
@@ -7039,321 +7163,371 @@ Segmentation</h4>
 <tbody>
 <tr class="odd">
 <td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_cerebralwhitematterlh</td>
-<td align="left">cerebral white matter (left hemisphere)</td>
+<td align="left">x3rd-ventricle</td>
+<td align="left">3rd-Ventricle</td>
+<td align="left">scs_3rdventricle</td>
+<td align="left">3rd ventricle</td>
 </tr>
 <tr class="even">
 <td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_cerebralcortexlh</td>
-<td align="left">cerebral cortex (left hemisphere)</td>
+<td align="left">x4th-ventricle</td>
+<td align="left">4th-Ventricle</td>
+<td align="left">scs_4thventricle</td>
+<td align="left">4th ventricle</td>
 </tr>
 <tr class="odd">
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">subcortaseg_lateralventriclelh</td>
-<td align="left">lateral ventricle (left hemisphere)</td>
+<td align="left">Left-Accumbens-area</td>
+<td align="left">scs_aal</td>
+<td align="left">accumbens area (left hemisphere)</td>
 </tr>
 <tr class="even">
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">subcortaseg_inflatventlh</td>
-<td align="left">inferior lateral ventricle (left hemisphere)</td>
+<td align="left">Right-Accumbens-area</td>
+<td align="left">scs_aar</td>
+<td align="left">accumbens area (right hemisphere)</td>
 </tr>
 <tr class="odd">
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">subcortaseg_cerebellumwhitematterlh</td>
-<td align="left">cerebellum white matter (left hemisphere)</td>
+<td align="left">NA</td>
+<td align="left">scs_allventricles</td>
+<td align="left">all ventricles</td>
 </tr>
 <tr class="even">
 <td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_cerebellumcortexlh</td>
-<td align="left">cerebellum cortex (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_thalamusproperlh</td>
-<td align="left">thalamus proper (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_caudatelh</td>
-<td align="left">caudate (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_putamenlh</td>
-<td align="left">putamen (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_pallidumlh</td>
-<td align="left">pallidum (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_hippocampuslh</td>
-<td align="left">hippocampus (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_amygdalalh</td>
+<td align="left">Left-Amygdala</td>
+<td align="left">Left-Amygdala</td>
+<td align="left">scs_amygdalalh</td>
 <td align="left">amygdala (left hemisphere)</td>
 </tr>
 <tr class="odd">
 <td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_lesionlh</td>
-<td align="left">lesions (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_accumbensarealh</td>
-<td align="left">accumbens area (left hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_ventraldclh</td>
-<td align="left">ventral DC (left hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_cerebralwhitematterrh</td>
-<td align="left">cerebral white matter (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_cerebralcortexrh</td>
-<td align="left">cerebral cortex (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_lateralventriclerh</td>
-<td align="left">lateral ventricle (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_inflatventrh</td>
-<td align="left">inferior lateral ventricle (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_cerebellumwhitematterrh</td>
-<td align="left">cerebellum white matter (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_cerebellumcortexrh</td>
-<td align="left">cerebellum cortex (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_thalamusproperrh</td>
-<td align="left">thalamus proper (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_caudaterh</td>
-<td align="left">caudate (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_putamenrh</td>
-<td align="left">putamen (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_pallidumrh</td>
-<td align="left">pallidum (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_hippocampusrh</td>
-<td align="left">hippocampus (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_amygdalarh</td>
+<td align="left">Right-Amygdala</td>
+<td align="left">Right-Amygdala</td>
+<td align="left">scs_amygdalarh</td>
 <td align="left">amygdala (right hemisphere)</td>
 </tr>
 <tr class="even">
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">subcortaseg_lesionrh</td>
-<td align="left">lesions (right hemisphere)</td>
-</tr>
-<tr class="odd">
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">subcortaseg_accumbensarearh</td>
-<td align="left">accumbens area (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_ventraldcrh</td>
-<td align="left">ventral DC (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_wmhypointensities</td>
-<td align="left">wm hypointensities</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_wmhypointensitieslh</td>
-<td align="left">wm hypointensities (right hemisphere)</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_wmhypointensitiesrh</td>
-<td align="left">wm hypointensities (right hemisphere)</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_ccposterior</td>
-<td align="left">CC Posterior</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_ccmidposterior</td>
-<td align="left">CC Mid_Posterior</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_cccentral</td>
-<td align="left">CC Central</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_ccmidanterior</td>
-<td align="left">CC Mid_Anterior</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_ccanterior</td>
-<td align="left">CC Anterior</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_latventricles</td>
-<td align="left">lateral ventricles</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_3rdventricle</td>
-<td align="left">3rd ventricle</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_4thventricle</td>
-<td align="left">4th ventricle</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_allventricles</td>
-<td align="left">all ventricles</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_csf</td>
-<td align="left">csf</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_brainstem</td>
-<td align="left">brain stem</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_wholebrain</td>
-<td align="left">whole brain</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_brainmaskvolume</td>
 <td align="left">brain mask volume</td>
 </tr>
 <tr class="odd">
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">subcortaseg_brainsegmentationvolume</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
 <td align="left">brain segmentation volume *</td>
 </tr>
 <tr class="even">
 <td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">subcortaseg_intracranialvolume</td>
-<td align="left">intracranial volume (i.e. estimated total intracranial
-volume) *</td>
+<td align="left">Brain-Stem</td>
+<td align="left">Brain-Stem</td>
+<td align="left">scs_bstem</td>
+<td align="left">brain stem</td>
 </tr>
 <tr class="odd">
 <td align="left">NA</td>
+<td align="left">Left-Caudate</td>
+<td align="left">Left-Caudate</td>
+<td align="left">scs_caudatelh</td>
+<td align="left">caudate (left hemisphere)</td>
+</tr>
+<tr class="even">
 <td align="left">NA</td>
-<td align="left">subcortaseg_supratentorialvolume</td>
-<td align="left">supratentorial volume *</td>
+<td align="left">Right-Caudate</td>
+<td align="left">Right-Caudate</td>
+<td align="left">scs_caudaterh</td>
+<td align="left">caudate (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">CC_Anterior</td>
+<td align="left">CC_Anterior</td>
+<td align="left">scs_ccat</td>
+<td align="left">CC Anterior</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">CC_Central</td>
+<td align="left">CC_Central</td>
+<td align="left">scs_ccct</td>
+<td align="left">CC Central</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">CC_Mid_Anterior</td>
+<td align="left">CC_Mid_Anterior</td>
+<td align="left">scs_ccmidat</td>
+<td align="left">CC Mid_Anterior</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">CC_Mid_Posterior</td>
+<td align="left">CC_Mid_Posterior</td>
+<td align="left">scs_ccmidps</td>
+<td align="left">CC Mid_Posterior</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">CC_Posterior</td>
+<td align="left">CC_Posterior</td>
+<td align="left">scs_ccps</td>
+<td align="left">CC Posterior</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">Left-Cerebellum-Cortex</td>
+<td align="left">Left-Cerebellum-Cortex</td>
+<td align="left">scs_crbcortexlh</td>
+<td align="left">cerebellum cortex (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">Right-Cerebellum-Cortex</td>
+<td align="left">Right-Cerebellum-Cortex</td>
+<td align="left">scs_crbcortexrh</td>
+<td align="left">cerebellum cortex (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">Left-Cerebellum-White-Matter</td>
+<td align="left">Left-Cerebellum-White-Matter</td>
+<td align="left">scs_crbwmatterlh</td>
+<td align="left">cerebellum white matter (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">Right-Cerebellum-White-Matter</td>
+<td align="left">Right-Cerebellum-White-Matter</td>
+<td align="left">scs_crbwmatterrh</td>
+<td align="left">cerebellum white matter (right hemisphere)</td>
 </tr>
 <tr class="even">
 <td align="left">NA</td>
 <td align="left">NA</td>
-<td align="left">subcortaseg_subcorticalgrayvolume</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">cerebral cortex (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">cerebral cortex (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_cbwmatterlh</td>
+<td align="left">cerebral white matter (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_cbwmatterrh</td>
+<td align="left">cerebral white matter (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_csf</td>
+<td align="left">csf</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">Left-Hippocampus</td>
+<td align="left">NA</td>
+<td align="left">scs_hpuslh</td>
+<td align="left">hippocampus (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">Right-Hippocampus</td>
+<td align="left">NA</td>
+<td align="left">scs_hpusrh</td>
+<td align="left">hippocampus (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">Left-Inf-Lat-Vent</td>
+<td align="left">scs_inflatventlh</td>
+<td align="left">inferior lateral ventricle (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">Right-Inf-Lat-Vent</td>
+<td align="left">scs_inflatventrh</td>
+<td align="left">inferior lateral ventricle (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_intracranialv</td>
+<td align="left">intracranial volume (i.e. estimated total intracranial
+volume) *</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">Left-Lateral-Ventricle</td>
+<td align="left">Left-Lateral-Ventricle</td>
+<td align="left">scs_ltventriclelh</td>
+<td align="left">lateral ventricle (left hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">Right-Lateral-Ventricle</td>
+<td align="left">Right-Lateral-Ventricle</td>
+<td align="left">scs_ltventriclerh</td>
+<td align="left">lateral ventricle (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_latventricles</td>
+<td align="left">lateral ventricles</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_lesionlh</td>
+<td align="left">lesions (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_lesionrh</td>
+<td align="left">lesions (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">Left-Pallidum</td>
+<td align="left">Left-Pallidum</td>
+<td align="left">scs_pallidumlh</td>
+<td align="left">pallidum (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">Right-Pallidum</td>
+<td align="left">Right-Pallidum</td>
+<td align="left">scs_pallidumrh</td>
+<td align="left">pallidum (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">Left-Putamen</td>
+<td align="left">Left-Putamen</td>
+<td align="left">scs_putamenlh</td>
+<td align="left">putamen (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">Right-Putamen</td>
+<td align="left">Right-Putamen</td>
+<td align="left">scs_putamenrh</td>
+<td align="left">putamen (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_subcorticalgv</td>
 <td align="left">subcortical gray volume *</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_suprateialv</td>
+<td align="left">supratentorial volume *</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">Left-Thalamus-Proper</td>
+<td align="left">scs_tplh</td>
+<td align="left">thalamus proper (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">Right-Thalamus-Proper</td>
+<td align="left">scs_tprh</td>
+<td align="left">thalamus proper (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">Left-VentralDC</td>
+<td align="left">Left-VentralDC</td>
+<td align="left">scs_vedclh</td>
+<td align="left">ventral DC (left hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">Right-VentralDC</td>
+<td align="left">Right-VentralDC</td>
+<td align="left">scs_vedcrh</td>
+<td align="left">ventral DC (right hemisphere)</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_wholeb</td>
+<td align="left">whole brain</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_wmhint</td>
+<td align="left">wm hypointensities</td>
+</tr>
+<tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_wmhintlh</td>
+<td align="left">wm hypointensities (right hemisphere)</td>
+</tr>
+<tr class="even">
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">scs_wmhintrh</td>
+<td align="left">wm hypointensities (right hemisphere)</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
-<div id="diffusion-mri-dmri-dti-rsi" class="section level2" number="9.4">
-<h2><span class="header-section-number">9.4</span> Diffusion MRI (dMRI;
+<div id="diffusion-mri-dmri-dti-rsi" class="section level2" number="10.4">
+<h2><span class="header-section-number">10.4</span> Diffusion MRI (dMRI;
 DTI, RSI)</h2>
 </div>
-<div id="resting-state-functional-mri-rsfmri" class="section level2" number="9.5">
-<h2><span class="header-section-number">9.5</span> Resting-state
+<div id="resting-state-functional-mri-rsfmri" class="section level2" number="10.5">
+<h2><span class="header-section-number">10.5</span> Resting-state
 functional MRI (rsfMRI)</h2>
 </div>
-<div id="task-based-functional-mri-tfmri" class="section level2" number="9.6">
-<h2><span class="header-section-number">9.6</span> task-based functional
-MRI (tfMRI)</h2>
+<div id="task-based-functional-mri-tfmri" class="section level2" number="10.6">
+<h2><span class="header-section-number">10.6</span> task-based
+functional MRI (tfMRI)</h2>
 </div>
 </div>
 
