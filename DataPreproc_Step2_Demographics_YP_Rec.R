@@ -42,7 +42,7 @@ RawDemographicFileDir <- common::file.find(
 if (is.null(RawDemographicFileDir)){
   stop("|SDPP Step 2| Can not find the raw demographic data file! Have you run Step 1 before?")
 }
-Demographic <- import(RawDemographicFileDir,verbose = T)
+Demographic <- bruceR::import(RawDemographicFileDir,verbose = T)
 fprintf("Columns' data type in raw demographic data files: \n")
 sapply(Demographic, typeof) %>%
   print()

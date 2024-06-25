@@ -145,7 +145,7 @@ SDPP.check.package <- function(package_name = c("readxl",
     res$path[i] = package_path
   }
   if (any(res$status %in% "Not Installed!")){
-    fpirntf("|SDPP ParaSet| Some required R packageds have not been installed! Please see the table below:\n")
+    fprintf("|SDPP ParaSet| Some required R packageds have not been installed! Please see the table below:\n")
     print(res)
     fprintf("|SDPP ParaSet| SDPP-ABCD-TabDat rely on these packages, please make sure you have installed all required R packages!\n")
     stop("|SDPP ParaSet| SDPP-ABCD-TabDat Check Required Packages: Failed! See above information.")
