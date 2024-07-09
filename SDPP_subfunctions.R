@@ -6,7 +6,7 @@
 # 
 # 
 # 1. Basic File I/O Functions ---------------------------------------------
-addprefix <- function(prefix,filename,postfix=NA){
+addprefix <- function(prefix="",filename,postfix=NA){
   if (!is.na(prefix)){
     filename = paste(prefix,
                      filename,

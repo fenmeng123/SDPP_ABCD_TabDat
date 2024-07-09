@@ -1,4 +1,4 @@
-# 1. SDPP ParaSet Argument Settings --------------------------------------------
+# 1. SDPP_ParaSet Argument Settings --------------------------------------------
 # 1.1 Specify the directory of downloaded ABCD tabulated data files
 TabulatedDataDirectory = '../../ABCD_V5.1/core/'
 # Please replace it with your own directory, where you store all ABCD tabulated
@@ -7,7 +7,6 @@ TabulatedDataDirectory = '../../ABCD_V5.1/core/'
 #        2. Must follow the raw folder structure from the NDA platform.
 
 # 1.2 Specify the directory of secondary data analysis project
-# ProjectDirectory = '../DataAnalysis/Tmp_Trajectory' # only for example
 ProjectDirectory = '../DataAnalysis/SMA_Trajectory'
 # Please replace the above string for your own data analysis project directory.
 # Notes: 1. If it doesn't exist, a data analysis project template will be
@@ -16,7 +15,7 @@ ProjectDirectory = '../DataAnalysis/SMA_Trajectory'
 # 1.3 Specify the prefix of output intermediate data files
 Prefix = 'ABCD5.1'
 
-# 2 SDPP Batch Argument Settings -----------------------------------------------
+# 2 SDPP_Batch Argument Settings -----------------------------------------------
 # 2.1 (Important!) Specify the SDPP steps to be execute -------------------
 SDPP_Step_SpecVec = c(
   "SDPP.Run.Step1" =  F,
@@ -49,8 +48,11 @@ n.iter <- 25 # maximum number of iterations
 
 # 4.1 Intermediate data files to be concatenated --------------------------
 FileLabelList = c("Demographics_Imp",
-                  "MH_P_CBCL_Rec","MH_S_Rec",
-                  "NC_NIHTB","NC_Non-NIHTB","NC_tfMRI_behav",
+                  "MH_P_CBCL_Rec",
+                  "MH_S_Rec",
+                  "NC_NIHTB",
+                  "NC_Non-NIHTB",
+                  "NC_tfMRI_behav",
                   "CE_Y_Rec",
                   "SMA_Rec_Imp")
 
@@ -58,7 +60,7 @@ FileLabelList = c("Demographics_Imp",
 FileType = "rds"
 OutputFileName = "Merge_Demo_NC_MH_CE_SMA"
 
-# 4.3 Variable names in Baseline Observation Carry Forward ----------------
+# 4.3 Variable names in Baseline Observation Carry Forward (BOCF) ---------
 BOCF_VarList = c("SexAssigned",
                  "GroupID",
                  "Race_6L","Ethnicity_PrntRep",
@@ -92,5 +94,5 @@ BOCF_VarList = c("SexAssigned",
                  "HouseholdSize","HouseholdStructure",
                  "BirthCountry","ParentsHighEdu_5L")
 
-# 4.4 ser-controlled logical flag for running SDPP_Concat or not ----------
+# 4.4 User-controlled logical flag for running SDPP_Concat or not ----------
 Flag_RunConcat <- T

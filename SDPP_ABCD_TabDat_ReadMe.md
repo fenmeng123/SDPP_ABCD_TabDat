@@ -1,7 +1,7 @@
 Standard Data Preprocessing Pipeline for ABCD Tabulated Data
 ================
 Kunru Song
-2023-12-10
+2024-07-09
 
 - [Introduction](#introduction)
 - [Citation and Suggestions](#citation-and-suggestions)
@@ -16,7 +16,7 @@ aiming to provide an user-friendly data preprocessing pipeline for
 tabulated data from the ABCD study. This tool mainly depends on R. I
 hope this open-source tool could improve the accuracy of the secondary
 data analysis with the ABCD study and also provide an easy way to
-reproduce results and findings related to the ABCD study data.
+reproduce results and findings related to the ABCD data.
 
 **Author:** Kunru Song, PhD Candidate at BNU, supervised by Dr.Jin-tao
 Zhang.
@@ -32,14 +32,14 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
 
 **First Created Date:** 2022.06
 
-**Data Version:** ABCD 5.0 Data Release (tabulated data)
+**Data Version:** ABCD 5.1 Data Release (tabulated data)
 
 **ABCD Links**
 
-- [ABCD 5.0 Tabulated Release
+- [ABCD 5.1 Tabulated Release
   Data](https://nda.nih.gov/study.html?id=2147)
-- [ABCD 5.0 Data Dictionary](https://data-dict.abcdstudy.org/)
-- [ABCD 5.0 Release Notes & Update
+- [ABCD 5.1 Data Dictionary](https://data-dict.abcdstudy.org/)
+- [ABCD 5.1 Release Notes & Update
   Logs](https://wiki.abcdstudy.org/release-notes/start-page.html)
 
 # Citation and Suggestions
@@ -49,12 +49,13 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
     in GNU GPL v3 or later and cite our published article used this tool
     (below is a APA-format Citation):
 
-    > *Song K, Zhang JL, Zhou N, Fu Y, Zou B, Xu LX, Wang Z, Li X, Zhao
-    > Y,Potenza M, Fang X, Zhang JT. Youth Screen Media Activity
-    > Patterns and Associations With Behavioral Developmental Measures
-    > and Resting-state Brain Functional Connectivity. J Am Acad Child
-    > Adolesc Psychiatry.2023 Mar 20:S0890-8567(23)00132-6.doi:
-    > 10.1016/j.jaac.2023.02.014.Epub ahead of print. PMID: 36963562.*
+    Song, K., Zhang, J. L., Zhou, N., Fu, Y., Zou, B., Xu, L. X., Wang,
+    Z., Li, X., Zhao, Y., Potenza, M., Fang, X., & Zhang, J. T. (2023).
+    Youth Screen Media Activity Patterns and Associations With
+    Behavioral Developmental Measures and Resting-state Brain Functional
+    Connectivity. Journal of the American Academy of Child and
+    Adolescent Psychiatry, 62(9), 1051–1063.
+    <https://doi.org/10.1016/j.jaac.2023.02.014>
 
 2.  Please refer to SDPP-ABCD-TabDat **User Manual** when you have any
     questions about using this pipeline. **User Manual** was wrote by R
@@ -76,6 +77,12 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
     repository](https://github.com/fenmeng123/SDPP_ABCD_TabDat/pulls)
 
 # Change Logs
+
+- 2024.07.09
+
+  - Update README and User Manual.
+  - Create a new User Tutorial, named as SDPP_UserTutorial_Example.Rmd
+    in root directory.
 
 - 2023.12.10
 
