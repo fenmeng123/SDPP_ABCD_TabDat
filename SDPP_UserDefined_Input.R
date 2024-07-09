@@ -7,7 +7,7 @@ TabulatedDataDirectory = '../../ABCD_V5.1/core/'
 #        2. Must follow the raw folder structure from the NDA platform.
 
 # 1.2 Specify the directory of secondary data analysis project
-ProjectDirectory = '../DataAnalysis/SMA_Trajectory'
+ProjectDirectory = 'D:/PhDThesis_DataAnalysis_KunruSong/RP1_ContiuousSpecturm/Res_3_IntermediateData/ABCD5.1_TabulatedData'
 # Please replace the above string for your own data analysis project directory.
 # Notes: 1. If it doesn't exist, a data analysis project template will be
 # created automatically.
@@ -18,8 +18,8 @@ Prefix = 'ABCD5.1'
 # 2 SDPP_Batch Argument Settings -----------------------------------------------
 # 2.1 (Important!) Specify the SDPP steps to be execute -------------------
 SDPP_Step_SpecVec = c(
-  "SDPP.Run.Step1" =  F,
-  "SDPP.Run.Step2" =  F,
+  "SDPP.Run.Step1" =  T,
+  "SDPP.Run.Step2" =  T,
   "SDPP.Run.Step3" =  T,
   "SDPP.Run.Step4" =  T,
   "SDPP.Run.Step5" =  T,

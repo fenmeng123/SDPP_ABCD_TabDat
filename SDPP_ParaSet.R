@@ -1,9 +1,27 @@
+# SDPP-ABCD-TabDat
+# 
+# The core script for executing preprocessing pipeline
+# 
+# Author: Kunru Song 2024.0
+# 
+# After appropirately set all variables in the "SDPP_UserDefine_Input.R", you
+# can simply run "source('SDPP_ParaSet.R')". Then, all specified preprocessing
+# steps will be automatically executed. The pre-processed tabulated data will
+# be output to the folder "Res_3_IntermediateData" in your specified "ProjectDirectory"
+# 
+# When debugging is required, run the following code in R console:
+# "source('SDPP_DebugTool.R')", all dependices and environment variables will
+# be set appropriately in R Environment.
+
+#==============================DO NOT CHANGE!==================================#
+# 0. Clean and re-start the R session ----------------------------------------
 rm(list = ls())
 gc()
 pacman::p_unload(pacman::p_loaded(), character.only = TRUE)
-bruceR::set.wd()
-#==============================DO NOT CHANGE!==================================#
-# Prepare Environment -----------------------------------------------------
+rstudioapi::restartSession(command = "bruceR::set.wd()",
+                           clean = TRUE)
+
+# 1. Prepare Environment -----------------------------------------------------
 library(bruceR)
 source('SDPP_subfunctions.R')
 source('SDPP_Batch.R')
@@ -13,21 +31,30 @@ source('SDPP_UserDefined_Input.R')
 AutoLogFileName = 'Log_SDPP-ABCD-TabDat_0.txt'
 AutoLogFolder <- SDPP.ABCD.TabDat.PrepareProject(ProjectDirectory,verbose = F)
 s_sink(fullfile(AutoLogFolder,AutoLogFileName))
+rm(AutoLogFileName) # remove this variable to prevent global variable settings
 
-# Initialize SDPP ---------------------------------------------------------
+# 2. Initialize SDPP ---------------------------------------------------------
+# Step 1: Create the data analysis project directory
 OutputDirectory <- SDPP.Initialize(ProjectDirectory,TabulatedDataDirectory,Prefix)
+# Step 2: Get the directory for saving intermediate data (i.e., the output for SDPP-ABCD-TabDat)
 IntermediateDataDir <- OutputDirectory$IntermediateDataDir
+# Step 3: Get the directory for outputting results of preprocessing
+# which contains Missing Value Report (MVA) and Variable Summary Overview (VSO)
 ResultsOutputDir <- OutputDirectory$ResultsOutputDir
+# Step 4: Get the directory for automatic logging
 AutoLogFolder <- OutputDirectory$AutoLogFolder
+# Step 5: Remove the redundant `OutputDirectory`, all elements have been extracted.
 rm(OutputDirectory)
-fprintf("-----------------------------SDPP-ABCD-TabDat Step-specific Parameters---------------------------------\n")
+
+# 3. Print the step-specific parameter settings ---------------------------
+fprintf("---------------------SDPP-ABCD-TabDat Step-specific Parameters---------------------\n")
 fprintf("|SDPP ParaSet| Step 3 Parameter Settings\n")
 fprintf('\t Number of Multiple Imputation Replicates: %d\n',n.imp)
 fprintf('\t Number of Maximum Iterations in Multiple Imputation: %d\n',n.iter)
 fprintf("\n")
-# End of Script -----------------------------------------------------------
-rm(AutoLogFileName)
 
+# 4. SDPP_ParaSet-related execution -----------------------------------------
+fprintf("-----------------------------SDPP Batch Infomation---------------------------------\n")
 if (Flag_RunBatch){
   fprintf("|SDPP ParaSet| SDPP Batch will start soon......\n")
   if (Flag_RunConcat)
@@ -46,7 +73,8 @@ if (Flag_RunBatch){
 }
 
 fprintf("|SDPP ParaSet| finished! Finish Time:%s\n",Sys.time())
-sink()
+sink() # Stop the SDPP_Paraset logging, because each SDPP step will log itself in an independent text file.
+# 5. SDPP_Batch-related execution -----------------------------------------
 
 if (Flag_RunBatch){
   SDPP.RunBatch(SDPP_Step_SpecVec = SDPP_Step_SpecVec,
@@ -60,6 +88,8 @@ if (Flag_RunBatch){
                 n.iter)
 }
 
+# 6. SDPP_Concat-related execution -----------------------------------------
+
 if (Flag_RunConcat){
   SDPP.RunConcat(FileLabelList = FileLabelList,
                  OutputFileName = OutputFileName,
@@ -72,3 +102,4 @@ if (Flag_RunConcat){
                  IntermediateDataDir = IntermediateDataDir,
                  Prefix = Prefix)
 }
+# End of Script -----------------------------------------------------------

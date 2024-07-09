@@ -9,16 +9,15 @@
 # ", all dependices and environment variables will be set appropriately in R Environment.
 # 
 
-
-
-# DO NOT CHANGE  ----------------------------------------------------------
-
+#==============================DO NOT CHANGE!==================================#
 
 TabulatedDataDirectory = '../../ABCD_V5.1/core/'
-ProjectDirectory = '../DataAnalysis/SMA_Trajectory'
+ProjectDirectory = '../DataAnalysis/SDPP_DeBugTest'
+ResultsOutputDir = '../DataAnalysis/SDPP_DeBugTest/Res_2_Results/Res_Preproc'
+IntermediateDataDir = '../DataAnalysis/SDPP_DeBugTest/Res_3_IntermediateData'
 Prefix = 'ABCD5.1'
-n.imp <- 500 # Number of multiple imputed datasets
-n.iter <- 25 # maximum number of iterations 
+n.imp <- 10 # Only for Debug Test
+n.iter <- 5 # Only for Debug Test
 rm(list = ls())
 gc()
 pacman::p_unload(pacman::p_loaded(), character.only = TRUE)
@@ -28,3 +27,5 @@ source('SDPP_subfunctions.R')
 source('SDPP_Batch.R')
 source('SDPP_Concat.R')
 source('SDPP_UserDefined_Input.R')
+SDPP.Initialize(ProjectDirectory,TabulatedDataDirectory,Prefix)
+

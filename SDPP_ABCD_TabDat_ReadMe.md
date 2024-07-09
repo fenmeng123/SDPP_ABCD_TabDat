@@ -83,6 +83,8 @@ Profile](https://scholar.google.com/citations?hl=zh-CN&user=P6j5frUAAAAJ)
   - Update README and User Manual.
   - Create a new User Tutorial, named as SDPP_UserTutorial_Example.Rmd
     in root directory.
+  - Completed Step 15, further test are needed.
+  - Add more code annotations to SDPP_ParaSet.R and SDPP_DebugTool.R
 
 - 2023.12.10
 
