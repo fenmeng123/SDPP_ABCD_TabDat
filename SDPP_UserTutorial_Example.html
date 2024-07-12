@@ -11,7 +11,7 @@
 
 <meta name="author" content="Kunru Song" />
 
-<meta name="date" content="2024-07-09" />
+<meta name="date" content="2024-07-12" />
 
 <title>SDPP Tutorial With an Example</title>
 
@@ -376,7 +376,7 @@ display: none;
 
 <h1 class="title toc-ignore">SDPP Tutorial With an Example</h1>
 <h4 class="author">Kunru Song</h4>
-<h4 class="date">2024-07-09</h4>
+<h4 class="date">2024-07-12</h4>
 
 </div>
 
@@ -423,18 +423,15 @@ was applied.</p></li>
 <li><p><strong>Batch Configuration</strong>: Specify the SDPP steps to
 be execute. Code Chunk 2: <em>SDPP_Batch Argument Settings</em> Only a
 named vector <em>SDPP_Step_SpecVec</em> should be defined within this
-chunk, which reads as following:
-<code>SDPP_Step_SpecVec = c(&quot;SDPP.Run.Step1&quot; =  T,&quot;SDPP.Run.Step2&quot; =  T,&quot;SDPP.Run.Step3&quot; =  T,&quot;SDPP.Run.Step4&quot; =  T,&quot;SDPP.Run.Step5&quot; =  T,&quot;SDPP.Run.Step6&quot; =  T,&quot;SDPP.Run.Step7&quot; =  T,&quot;SDPP.Run.Step8&quot; =  T,&quot;SDPP.Run.Step9&quot; =  T,&quot;SDPP.Run.Step10&quot; = T,&quot;SDPP.Run.Step11&quot; = T,&quot;SDPP.Run.Step12&quot; = T,&quot;SDPP.Run.Step13&quot; = T,&quot;SDPP.Run.Step14&quot; = T,&quot;SDPP.Run.Step15&quot; = T)</code>
-This indicates all first 15 steps in the SDPP-ABCD-TabDat will be
-executed. Names for each element in this vector should be formated as
-<em>SDPP.Run.Step[No.]</em>, where <em>[No.]</em> depends on the
-developing stage of SDPP-ABCD-TabDat. All elements value should be
-logical (T or F, TRUE of FALSE in <em>R</em>). T indicates this step
-will be performed in SDPP_RunBatch. If you do not want to run any step
-in SDPP-ABCD-TabDat (<em>dry-run</em> just for test), just configure the
-<code>Flag_RunBatch</code> as <code>F</code>. Otherwize, setting it as
-<code>T</code>. For example, <code>Flag_RunBatch &lt;- T</code> Notes
-#4: See details in <em>SDPP_Batch.R</em></p></li>
+chunk, which reads as following:</p></li>
+</ol>
+<pre class="r"><code>SDPP_Step_SpecVec = c(&quot;SDPP.Run.Step1&quot; =  T,&quot;SDPP.Run.Step2&quot; =  T,&quot;SDPP.Run.Step3&quot; =  T,&quot;SDPP.Run.Step4&quot; =  T,&quot;SDPP.Run.Step5&quot; =  T,&quot;SDPP.Run.Step6&quot; =  T,&quot;SDPP.Run.Step7&quot; =  T,&quot;SDPP.Run.Step8&quot; =  T,&quot;SDPP.Run.Step9&quot; =  T,&quot;SDPP.Run.Step10&quot; = T,&quot;SDPP.Run.Step11&quot; = T,&quot;SDPP.Run.Step12&quot; = T,&quot;SDPP.Run.Step13&quot; = T,&quot;SDPP.Run.Step14&quot; = T,&quot;SDPP.Run.Step15&quot; = T)</code></pre>
+<pre><code>This indicates all first 15 steps in the SDPP-ABCD-TabDat will be executed. 
+Names for each element in this vector should be formated as *SDPP.Run.Step[No.]*, where *[No.]* depends on the developing stage of SDPP-ABCD-TabDat. All elements value should be logical (T or F, TRUE of FALSE in *R*). T indicates this step will be performed in SDPP_RunBatch.
+If you do not want to run any step in SDPP-ABCD-TabDat (*dry-run* just for test), just configure the `Flag_RunBatch` as `F`. Otherwize, setting it as `T`. For example,
+`Flag_RunBatch &lt;- T`
+Notes #4: See details in *SDPP_Batch.R*</code></pre>
+<ol start="3" style="list-style-type: decimal">
 <li><p><strong>Step-specific Configuration</strong>: Define some
 parameters for a specific step. Now, only the step 3 support two
 additional parameters to be set, as follows:
@@ -444,23 +441,112 @@ imputation, where <code>n.imp</code> is the number of multiple imputed
 datasets, <code>n.iter</code> is the maximum number of
 iterations.</p></li>
 <li><p><strong>Data Concatenating Configuration</strong>: Define the
-parameters for concatenating mutiple dataframes SDPP-ABCD-TabDat also
+parameters for concatenating multiple dataframes SDPP-ABCD-TabDat also
 support a flexible configuration for concatenating multiple dataframes.
 Firstly, define the type of files that will be outputed by
 <em>SDPP_Concat.R</em>. <code>FileType = &quot;rds&quot;</code> SDPP-ABCD-TabDat
 automatically save the pre-processed result as a <em>.rds</em> file in
-each step. Then, define the output filename for the concatenated, for
-example, <code>OutputFileName = &quot;Merge_Demo_NC_MH_CE_SMA&quot;</code>
-Thirdly, because the ABCD study is a longitudinal cohort, we need to set
-some demographic variables for Baseline Observation Carry Forward
+each step. Then, define the output file name for concatenation, for
+example, <code>OutputFileName = &quot;Merge_Demo_NC_MH_CE_SMA&quot;</code> An
+exhausitve table for all default output file names of each SDPP steps
+are shown in below:</p></li>
+</ol>
+<table>
+<caption>SDPP Step Output File Name Look-Up Table</caption>
+<thead>
+<tr class="header">
+<th align="center">SDPP Step No.</th>
+<th align="center">Step Name</th>
+<th align="center">output file name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">Demographcis_YP_Reorg</td>
+<td align="center">Demographics_Raw</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">Demographcis_YP_Rec</td>
+<td align="center">Demographics_Rec</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">Demographcis_YP_Imp</td>
+<td align="center">Demographics_Imp</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">NT_Y_SMA_Rec</td>
+<td align="center">SMA_Rec</td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center">NT_Y_SMA_Imp</td>
+<td align="center">SMA_Rec_Imp</td>
+</tr>
+<tr class="even">
+<td align="center">6</td>
+<td align="center">MH_Y_S_Rec</td>
+<td align="center">MH_S_Rec</td>
+</tr>
+<tr class="odd">
+<td align="center">7</td>
+<td align="center">MH_P_CBCL_Rec</td>
+<td align="center">MH_P_CBCL_Rec</td>
+</tr>
+<tr class="even">
+<td align="center">8</td>
+<td align="center">NC_Y_NIHTB_Rec</td>
+<td align="center">NC_NIHTB</td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center">NC_YP_Non-NIHTB_Rec</td>
+<td align="center">NC_Non-NIHTB</td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">NC_Y_tfMRI_Rec</td>
+<td align="center">NC_tfMRI_behav</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">CE_Y_Rec</td>
+<td align="center">CE_Y_Rec</td>
+</tr>
+<tr class="even">
+<td align="center">12</td>
+<td align="center">MRI_Y_Info_Rec</td>
+<td align="center">MRI_InfoQC</td>
+</tr>
+<tr class="odd">
+<td align="center">13</td>
+<td align="center">sMRI_Y_Desikan_Rec</td>
+<td align="center">sMRI_Desikan</td>
+</tr>
+<tr class="even">
+<td align="center">14</td>
+<td align="center">sMRI_Y_Destrieus_Rec</td>
+<td align="center">sMRI_Destrieux</td>
+</tr>
+<tr class="odd">
+<td align="center">15</td>
+<td align="center">sMRI_Y_ASEG_Rec</td>
+<td align="center">sMRI_ASEG</td>
+</tr>
+</tbody>
+</table>
+<p>Thirdly, because the ABCD study is a longitudinal cohort, we need to
+set some demographic variables for Baseline Observation Carry Forward
 (BOCF). BOCF will copy some baseline demographic variables to the
 follow-up assessment waves for each participant. These variables could
-be set in the <code>BOCF_VarList</code> unamed vector. For example,
-<code>BOCF_VarList = c(&quot;SexAssigned&quot;,&quot;GroupID&quot;,&quot;Race_6L&quot;,&quot;Ethnicity_PrntRep&quot;,&quot;Handedness&quot;,&quot;ParentsMarital_2L&quot;,&quot;ParentsHighEdu_2L&quot;,&quot;ParentsMarital_X_Employ&quot;,&quot;Relationship_3L&quot;,&quot;AdoptionChild&quot;,&quot;GenderIdentity_PrntRep&quot;,&quot;RaceEthnicity&quot;,&quot;Relationship&quot;,&quot;Religon_PrntRep&quot;,&quot;AdoptionAge&quot;,&quot;USALiveYears&quot;,&quot;GenderIdentity_PrntSelf&quot;,&quot;Race_PrntSelf&quot;,&quot;ParentHighEdu&quot;,&quot;PartnerHighEdu&quot;,&quot;ParentEmploy&quot;,&quot;PartnerEmploy&quot;,&quot;FamilyNumInLF&quot;,&quot;SameSexTwin&quot;,&quot;GI_PairedSubID_Sub_1&quot;,&quot;GI_PairProb_Sub_1&quot;,&quot;GI_Zygosity_Sub_1&quot;,&quot;GI_PairedSubID_Sub_2&quot;,&quot;GI_PairProb_Sub_2&quot;,&quot;GI_Zygosity_Sub_2&quot;,&quot;GI_PairedSubID_Sub_3&quot;,&quot;GI_PairProb_Sub_3&quot;,&quot;GI_Zygosity_Sub_3&quot;,&quot;GI_PairedSubID_Sub_4&quot;,&quot;GI_PairProb_Sub_4&quot;,&quot;GI_Zygosity_Sub_4&quot;,&quot;GI_AncestryPC_1&quot;,&quot;GI_AncestryPC_2&quot;,&quot;GI_AncestryPC_3&quot;,&quot;GI_AncestryPC_4&quot;,&quot;GI_AncestryPC_5&quot;,&quot;BirthID&quot;,&quot;Education_R&quot;,&quot;Race_PrntRep&quot;,&quot;ParentsMarital_6L&quot;,&quot;Race_4L&quot;,&quot;Religon_8L&quot;,&quot;FamilyIncome&quot;,&quot;YouthNativeLang&quot;,&quot;Religon_2L&quot;,&quot;HouseholdSize&quot;,&quot;HouseholdStructure&quot;,&quot;BirthCountry&quot;,&quot;ParentsHighEdu_5L&quot;)</code>
-Finally, if you just want to dry-run the <em>SDPP_Concat.R</em>, just
-set <code>Flag_RunConcat &lt;- F</code>. Otherwise, set is as
-<code>Flag_RunConcat &lt;- T</code></p></li>
-</ol>
+be set in the <code>BOCF_VarList</code> unamed vector. For example,</p>
+<pre class="r"><code>BOCF_VarList = c(&quot;SexAssigned&quot;,&quot;GroupID&quot;,&quot;Race_6L&quot;,&quot;Ethnicity_PrntRep&quot;,&quot;Handedness&quot;,&quot;ParentsMarital_2L&quot;,&quot;ParentsHighEdu_2L&quot;,&quot;ParentsMarital_X_Employ&quot;,&quot;Relationship_3L&quot;,&quot;AdoptionChild&quot;,&quot;GenderIdentity_PrntRep&quot;,&quot;RaceEthnicity&quot;,&quot;Relationship&quot;,&quot;Religon_PrntRep&quot;,&quot;AdoptionAge&quot;,&quot;USALiveYears&quot;,&quot;GenderIdentity_PrntSelf&quot;,&quot;Race_PrntSelf&quot;,&quot;ParentHighEdu&quot;,&quot;PartnerHighEdu&quot;,&quot;ParentEmploy&quot;,&quot;PartnerEmploy&quot;,&quot;FamilyNumInLF&quot;,&quot;SameSexTwin&quot;,&quot;GI_PairedSubID_Sub_1&quot;,&quot;GI_PairProb_Sub_1&quot;,&quot;GI_Zygosity_Sub_1&quot;,&quot;GI_PairedSubID_Sub_2&quot;,&quot;GI_PairProb_Sub_2&quot;,&quot;GI_Zygosity_Sub_2&quot;,&quot;GI_PairedSubID_Sub_3&quot;,&quot;GI_PairProb_Sub_3&quot;,&quot;GI_Zygosity_Sub_3&quot;,&quot;GI_PairedSubID_Sub_4&quot;,&quot;GI_PairProb_Sub_4&quot;,&quot;GI_Zygosity_Sub_4&quot;,&quot;GI_AncestryPC_1&quot;,&quot;GI_AncestryPC_2&quot;,&quot;GI_AncestryPC_3&quot;,&quot;GI_AncestryPC_4&quot;,&quot;GI_AncestryPC_5&quot;,&quot;BirthID&quot;,&quot;Education_R&quot;,&quot;Race_PrntRep&quot;,&quot;ParentsMarital_6L&quot;,&quot;Race_4L&quot;,&quot;Religon_8L&quot;,&quot;FamilyIncome&quot;,&quot;YouthNativeLang&quot;,&quot;Religon_2L&quot;,&quot;HouseholdSize&quot;,&quot;HouseholdStructure&quot;,&quot;BirthCountry&quot;,&quot;ParentsHighEdu_5L&quot;)</code></pre>
+<p>Finally, if you just want to dry-run the <em>SDPP_Concat.R</em>, just
+set <code>Flag_RunConcat &lt;- F</code>. Otherwise, set it as
+<code>Flag_RunConcat &lt;- T</code></p>
 </div>
 <div id="step-2---initializing-and-executing-the-sdpp-abcd-tabdat" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Step 2 - Initializing

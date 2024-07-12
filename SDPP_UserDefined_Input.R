@@ -7,7 +7,7 @@ TabulatedDataDirectory = '../../ABCD_V5.1/core/'
 #        2. Must follow the raw folder structure from the NDA platform.
 
 # 1.2 Specify the directory of secondary data analysis project
-ProjectDirectory = 'D:/PhDThesis_DataAnalysis_KunruSong/RP1_ContiuousSpecturm/Res_3_IntermediateData/ABCD5.1_TabulatedData'
+ProjectDirectory = 'D:/PhDThesis_DataAnalysis_KunruSong/RP1/Res_3_IntermediateData/ABCD5.1_TabulatedData'
 # Please replace the above string for your own data analysis project directory.
 # Notes: 1. If it doesn't exist, a data analysis project template will be
 # created automatically.
@@ -18,20 +18,20 @@ Prefix = 'ABCD5.1'
 # 2 SDPP_Batch Argument Settings -----------------------------------------------
 # 2.1 (Important!) Specify the SDPP steps to be execute -------------------
 SDPP_Step_SpecVec = c(
-  "SDPP.Run.Step1" =  T,
-  "SDPP.Run.Step2" =  T,
-  "SDPP.Run.Step3" =  T,
-  "SDPP.Run.Step4" =  T,
-  "SDPP.Run.Step5" =  T,
-  "SDPP.Run.Step6" =  T,
-  "SDPP.Run.Step7" =  T,
-  "SDPP.Run.Step8" =  T,
-  "SDPP.Run.Step9" =  T,
-  "SDPP.Run.Step10" = T,
-  "SDPP.Run.Step11" = T,
-  "SDPP.Run.Step12" = T,
-  "SDPP.Run.Step13" = T,
-  "SDPP.Run.Step14" = T,
+  "SDPP.Run.Step1" =  F,
+  "SDPP.Run.Step2" =  F,
+  "SDPP.Run.Step3" =  F,
+  "SDPP.Run.Step4" =  F,
+  "SDPP.Run.Step5" =  F,
+  "SDPP.Run.Step6" =  F,
+  "SDPP.Run.Step7" =  F,
+  "SDPP.Run.Step8" =  F,
+  "SDPP.Run.Step9" =  F,
+  "SDPP.Run.Step10" = F,
+  "SDPP.Run.Step11" = F,
+  "SDPP.Run.Step12" = F,
+  "SDPP.Run.Step13" = F,
+  "SDPP.Run.Step14" = F,
   "SDPP.Run.Step15" = F
 )
 
@@ -48,17 +48,22 @@ n.iter <- 25 # maximum number of iterations
 
 # 4.1 Intermediate data files to be concatenated --------------------------
 FileLabelList = c("Demographics_Imp",
+                  "SMA_Rec_Imp",
                   "MH_P_CBCL_Rec",
                   "MH_S_Rec",
                   "NC_NIHTB",
                   "NC_Non-NIHTB",
                   "NC_tfMRI_behav",
                   "CE_Y_Rec",
-                  "SMA_Rec_Imp")
+                  "MRI_InfoQC",
+                  "sMRI_Desikan",
+                  "sMRI_Destrieux",
+                  "sMRI_ASEG"
+                  )
 
 # 4.2 File type of all intermediate data files ----------------------------
 FileType = "rds"
-OutputFileName = "Merge_Demo_NC_MH_CE_SMA"
+OutputFileName = "Merge_Demo_SMA_NC_MH_CE_sMRI"
 
 # 4.3 Variable names in Baseline Observation Carry Forward (BOCF) ---------
 BOCF_VarList = c("SexAssigned",

@@ -18,8 +18,8 @@
 rm(list = ls())
 gc()
 pacman::p_unload(pacman::p_loaded(), character.only = TRUE)
-rstudioapi::restartSession(command = "bruceR::set.wd()",
-                           clean = TRUE)
+# rstudioapi::restartSession(command = "bruceR::set.wd()",
+#                            clean = TRUE)
 
 # 1. Prepare Environment -----------------------------------------------------
 library(bruceR)
